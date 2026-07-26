@@ -1066,7 +1066,7 @@ summary(modelo)$sigma = 5.48</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>En nuestro ejemplo (IMC vs.&nbsp;% graso):</strong> - <span class="math inline">\(r = 0.610\)</span> → correlación <strong>fuerte</strong> - <span class="math inline">\(R^2 = 0.373\)</span> → el IMC explica el <strong>37.3%</strong> de la variabilidad del % graso</p>
+<p><strong>En nuestro ejemplo (IMC vs.&nbsp;% graso):</strong> - <span class="math inline">\(r = 0.610\)</span> → correlación <strong>moderada</strong> - <span class="math inline">\(R^2 = 0.373\)</span> → el IMC explica el <strong>37.3%</strong> de la variabilidad del % graso</p>
 </section>
 <section id="contraste-de-hipótesis-para-el-coeficiente-de-correlación" class="slide level2 center">
 <h2>Contraste de hipótesis para el coeficiente de correlación</h2>
@@ -1086,9 +1086,9 @@ summary(modelo)$sigma = 5.48</code></pre>
 <p><strong>Hipótesis:</strong> <span class="math display">\[H_0: \rho = 0 \quad \text{(no hay correlación lineal en la población)}\]</span> <span class="math display">\[H_1: \rho \neq 0 \quad \text{(existe correlación lineal)}\]</span></p>
 <p><strong>Estadístico de contraste:</strong> <span class="math display">\[t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2} \quad \text{bajo } H_0\]</span></p>
 <div class="framed">
-<p>Para nuestro ejemplo (<span class="math inline">\(r = 0.610\)</span>, <span class="math inline">\(n = 12\)</span>): <span class="math display">\[t = \frac{0.610 \sqrt{10}}{\sqrt{1 - 0.610^2}} = \frac{1.930}{0.792} = 2.437\]</span> <span class="math display">\[P = 2 \times P(T_{10} &gt; 4.514) = 0.0011\]</span></p>
+<p>Para nuestro ejemplo (<span class="math inline">\(r = 0.610\)</span>, <span class="math inline">\(n = 12\)</span>): <span class="math display">\[t = \frac{0.610 \sqrt{10}}{\sqrt{1 - 0.610^2}} = \frac{1.930}{0.792} = 2.437\]</span> <span class="math display">\[P = 2 \times P(T_{10} &gt; 2.437) = 2 \times 0.0175 = 0.035\]</span></p>
 </div>
-<p><strong>Conclusión:</strong> <span class="math inline">\(P = 0.0011 &lt; 0.05\)</span> → <strong>rechazamos</strong> <span class="math inline">\(H_0\)</span>. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de masa grasa es estadísticamente significativa en la población de adolescentes.</p>
+<p><strong>Conclusión:</strong> <span class="math inline">\(P = 0.035 &lt; 0.05\)</span> → <strong>rechazamos</strong> <span class="math inline">\(H_0\)</span>. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa.</p>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
