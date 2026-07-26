@@ -1355,8 +1355,25 @@ Curtosis    = -1.295</code></pre>
 
 Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 </div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización completa</span></span>
+<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">border=</span><span class="st">"white"</span>, <span class="at">breaks=</span><span class="dv">6</span>, <span class="at">freq=</span><span class="cn">FALSE</span>,</span>
+<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"ROM (n="</span>, <span class="fu">length</span>(x), <span class="st">")"</span>), <span class="at">xlab=</span><span class="st">"Grados"</span>)</span>
+<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="fu">mean</span>(x), <span class="fu">sd</span>(x)), <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, <span class="at">col=</span><span class="st">"seagreen"</span>, <span class="at">horizontal=</span><span class="cn">TRUE</span>, <span class="at">main=</span><span class="st">"Boxplot"</span>, <span class="at">xlab=</span><span class="st">"Grados"</span>)</span>
+<span id="cb53-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(x, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">main=</span><span class="st">"Q-Q Plot"</span>); <span class="fu">qqline</span>(x, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb53-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x), <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">lwd=</span><span class="fl">2.5</span>, <span class="at">main=</span><span class="st">"Densidad"</span>, <span class="at">xlab=</span><span class="st">"Grados"</span>)</span>
+<span id="cb53-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">density</span>(x), <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.15</span>), <span class="at">border=</span><span class="st">"steelblue"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
-<p><strong>Interpretación de la salida:</strong> <span class="math inline">\(n=8\)</span>, <span class="math inline">\(\bar{x}=129.5°\)</span>, <span class="math inline">\(s=3.2°\)</span>, <span class="math inline">\(Me=129.5°\)</span>, <span class="math inline">\(CV=2.5\%\)</span> (muy homogéneo), <span class="math inline">\(RIQ=4.5°\)</span>, asimetría <span class="math inline">\(\approx 0\)</span> (simétrica), Shapiro-Wilk <span class="math inline">\(P &gt; 0.05\)</span> (compatible con normalidad).</p>
+<img data-src="T01_II_Descriptiva_files/figure-revealjs/unnamed-chunk-13-1.png" width="864" class="r-stretch"><p><strong>Interpretación de la salida:</strong> <span class="math inline">\(n=8\)</span>, <span class="math inline">\(\bar{x}=129.5°\)</span>, <span class="math inline">\(s=3.2°\)</span>, <span class="math inline">\(Me=129.5°\)</span>, <span class="math inline">\(CV=2.5\%\)</span> (muy homogéneo), <span class="math inline">\(RIQ=4.5°\)</span>, asimetría <span class="math inline">\(\approx 0\)</span> (simétrica), Shapiro-Wilk <span class="math inline">\(P &gt; 0.05\)</span> (compatible con normalidad).</p>
 </section>
 <section id="r-base-vs-bioestatr-resumen-de-funciones" class="slide level2 center">
 <h2>R base vs BioEstatR — Resumen de funciones</h2>
@@ -1409,21 +1426,21 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── BioEstatR (atajos) ──</span></span>
-<span id="cb53-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
-<span id="cb53-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(BioEstatR)</span>
-<span id="cb53-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x)               <span class="co"># todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk</span></span>
-<span id="cb53-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x, <span class="at">cuts=</span><span class="dv">5</span>)       <span class="co"># igual pero agrupando en 5 intervalos</span></span>
-<span id="cb53-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># table(x)            # tabla de frecuencias con porcentajes (función BioEstatR)</span></span>
-<span id="cb53-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">grps</span>(y <span class="sc">~</span> grupo)       <span class="co"># boxplots + resumen por grupo</span></span>
-<span id="cb53-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">normal</span>(x)             <span class="co"># Shapiro-Wilk + histograma + Q-Q plot</span></span>
-<span id="cb53-9"><a aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb53-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb53-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── R base (equivalente completo) ──</span></span>
-<span id="cb53-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x); <span class="fu">sd</span>(x); <span class="fu">median</span>(x); <span class="fu">IQR</span>(x); <span class="fu">quantile</span>(x, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span>
-<span id="cb53-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span>
-<span id="cb53-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grupo)</span>
-<span id="cb53-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">freq=</span><span class="cn">FALSE</span>); <span class="fu">lines</span>(<span class="fu">density</span>(x), <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── BioEstatR (atajos) ──</span></span>
+<span id="cb55-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
+<span id="cb55-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(BioEstatR)</span>
+<span id="cb55-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x)               <span class="co"># todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk</span></span>
+<span id="cb55-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x, <span class="at">cuts=</span><span class="dv">5</span>)       <span class="co"># igual pero agrupando en 5 intervalos</span></span>
+<span id="cb55-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># table(x)            # tabla de frecuencias con porcentajes (función BioEstatR)</span></span>
+<span id="cb55-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">grps</span>(y <span class="sc">~</span> grupo)       <span class="co"># boxplots + resumen por grupo</span></span>
+<span id="cb55-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">normal</span>(x)             <span class="co"># Shapiro-Wilk + histograma + Q-Q plot</span></span>
+<span id="cb55-9"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb55-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── R base (equivalente completo) ──</span></span>
+<span id="cb55-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x); <span class="fu">sd</span>(x); <span class="fu">median</span>(x); <span class="fu">IQR</span>(x); <span class="fu">quantile</span>(x, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span>
+<span id="cb55-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span>
+<span id="cb55-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grupo)</span>
+<span id="cb55-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">freq=</span><span class="cn">FALSE</span>); <span class="fu">lines</span>(<span class="fu">density</span>(x), <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -1432,30 +1449,30 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
-<span id="cb54-2"><a aria-hidden="true" tabindex="-1"></a>rom_ejemplo <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">mean =</span> <span class="dv">108</span>, <span class="at">sd =</span> <span class="dv">14</span>), <span class="dv">1</span>)</span>
-<span id="cb54-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-4"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
-<span id="cb54-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si BioEstatR está disponible, usar sus funciones</span></span>
-<span id="cb54-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"=== Usando BioEstatR ===</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb54-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(rom_ejemplo)</span>
-<span id="cb54-8"><a aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb54-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fallback completo con R base</span></span>
-<span id="cb54-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"=== R Base (BioEstatR no disponible) ===</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb54-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"n ="</span>, <span class="fu">length</span>(rom_ejemplo),</span>
-<span id="cb54-12"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Media ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(rom_ejemplo), <span class="dv">1</span>),</span>
-<span id="cb54-13"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| DT ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom_ejemplo), <span class="dv">1</span>),</span>
-<span id="cb54-14"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">Mediana ="</span>, <span class="fu">round</span>(<span class="fu">median</span>(rom_ejemplo), <span class="dv">1</span>),</span>
-<span id="cb54-15"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Q1 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom_ejemplo, <span class="fl">0.25</span>), <span class="dv">1</span>),</span>
-<span id="cb54-16"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Q3 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom_ejemplo, <span class="fl">0.75</span>), <span class="dv">1</span>),</span>
-<span id="cb54-17"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">RIQ ="</span>, <span class="fu">round</span>(<span class="fu">IQR</span>(rom_ejemplo), <span class="dv">1</span>),</span>
-<span id="cb54-18"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| CV ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom_ejemplo)<span class="sc">/</span><span class="fu">mean</span>(rom_ejemplo)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>,</span>
-<span id="cb54-19"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">Mín ="</span>, <span class="fu">min</span>(rom_ejemplo),</span>
-<span id="cb54-20"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Máx ="</span>, <span class="fu">max</span>(rom_ejemplo))</span>
-<span id="cb54-21"><a aria-hidden="true" tabindex="-1"></a>  sw <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(rom_ejemplo)</span>
-<span id="cb54-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Shapiro-Wilk: W ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>statistic, <span class="dv">3</span>),</span>
-<span id="cb54-23"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">" P ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>p.value, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb54-24"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>rom_ejemplo <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">mean =</span> <span class="dv">108</span>, <span class="at">sd =</span> <span class="dv">14</span>), <span class="dv">1</span>)</span>
+<span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-4"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
+<span id="cb56-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si BioEstatR está disponible, usar sus funciones</span></span>
+<span id="cb56-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"=== Usando BioEstatR ===</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb56-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(rom_ejemplo)</span>
+<span id="cb56-8"><a aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb56-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Fallback completo con R base</span></span>
+<span id="cb56-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"=== R Base (BioEstatR no disponible) ===</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb56-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"n ="</span>, <span class="fu">length</span>(rom_ejemplo),</span>
+<span id="cb56-12"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Media ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(rom_ejemplo), <span class="dv">1</span>),</span>
+<span id="cb56-13"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| DT ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom_ejemplo), <span class="dv">1</span>),</span>
+<span id="cb56-14"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">Mediana ="</span>, <span class="fu">round</span>(<span class="fu">median</span>(rom_ejemplo), <span class="dv">1</span>),</span>
+<span id="cb56-15"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Q1 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom_ejemplo, <span class="fl">0.25</span>), <span class="dv">1</span>),</span>
+<span id="cb56-16"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Q3 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom_ejemplo, <span class="fl">0.75</span>), <span class="dv">1</span>),</span>
+<span id="cb56-17"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">RIQ ="</span>, <span class="fu">round</span>(<span class="fu">IQR</span>(rom_ejemplo), <span class="dv">1</span>),</span>
+<span id="cb56-18"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| CV ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom_ejemplo)<span class="sc">/</span><span class="fu">mean</span>(rom_ejemplo)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>,</span>
+<span id="cb56-19"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"</span><span class="sc">\n</span><span class="st">Mín ="</span>, <span class="fu">min</span>(rom_ejemplo),</span>
+<span id="cb56-20"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"| Máx ="</span>, <span class="fu">max</span>(rom_ejemplo))</span>
+<span id="cb56-21"><a aria-hidden="true" tabindex="-1"></a>  sw <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(rom_ejemplo)</span>
+<span id="cb56-22"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Shapiro-Wilk: W ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>statistic, <span class="dv">3</span>),</span>
+<span id="cb56-23"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">" P ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>p.value, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb56-24"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>=== Usando BioEstatR ===
@@ -1482,9 +1499,9 @@ n = 40
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
-<span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>rom_rodilla <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">mean =</span> <span class="dv">108</span>, <span class="at">sd =</span> <span class="dv">14</span>), <span class="dv">1</span>)</span>
-<span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a>rom_rodilla</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
+<span id="cb58-2"><a aria-hidden="true" tabindex="-1"></a>rom_rodilla <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">mean =</span> <span class="dv">108</span>, <span class="at">sd =</span> <span class="dv">14</span>), <span class="dv">1</span>)</span>
+<span id="cb58-3"><a aria-hidden="true" tabindex="-1"></a>rom_rodilla</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1]  89.2 116.7 119.2  88.6  98.0 103.5 117.7 111.5 122.1 116.0  95.2 126.4
@@ -1507,17 +1524,17 @@ n = 40
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a aria-hidden="true" tabindex="-1"></a>rom <span class="ot">&lt;-</span> rom_rodilla</span>
-<span id="cb58-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Tabla de frecuencias agrupada</span></span>
-<span id="cb58-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"=== FRECUENCIAS (5 intervalos) ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a aria-hidden="true" tabindex="-1"></a>rom <span class="ot">&lt;-</span> rom_rodilla</span>
+<span id="cb60-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Tabla de frecuencias agrupada</span></span>
+<span id="cb60-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"=== FRECUENCIAS (5 intervalos) ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>=== FRECUENCIAS (5 intervalos) ===</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">table</span>(<span class="fu">cut</span>(rom, <span class="at">breaks=</span><span class="dv">5</span>)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">table</span>(<span class="fu">cut</span>(rom, <span class="at">breaks=</span><span class="dv">5</span>)))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1526,8 +1543,8 @@ n = 40
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Estadísticos descriptivos</span></span>
-<span id="cb62-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== ESTADÍSTICOS ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Estadísticos descriptivos</span></span>
+<span id="cb64-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== ESTADÍSTICOS ===</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -1535,11 +1552,11 @@ n = 40
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n ="</span>, <span class="fu">length</span>(rom), <span class="st">"  |  Media ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(rom),<span class="dv">1</span>), <span class="st">"°  |  Mediana ="</span>, <span class="fu">round</span>(<span class="fu">median</span>(rom),<span class="dv">1</span>),</span>
-<span id="cb64-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"°</span><span class="sc">\n</span><span class="st">DT ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom),<span class="dv">1</span>), <span class="st">"°  |  CV ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom)<span class="sc">/</span><span class="fu">mean</span>(rom)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>),</span>
-<span id="cb64-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"%  |  RIQ ="</span>, <span class="fu">round</span>(<span class="fu">IQR</span>(rom),<span class="dv">1</span>), <span class="st">"°</span><span class="sc">\n</span><span class="st">Q1 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom,<span class="fl">0.25</span>),<span class="dv">1</span>),</span>
-<span id="cb64-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"°  |  Q3 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom,<span class="fl">0.75</span>),<span class="dv">1</span>), <span class="st">"°  |  Mín ="</span>, <span class="fu">min</span>(rom),</span>
-<span id="cb64-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"°  |  Máx ="</span>, <span class="fu">max</span>(rom), <span class="st">"°</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"n ="</span>, <span class="fu">length</span>(rom), <span class="st">"  |  Media ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(rom),<span class="dv">1</span>), <span class="st">"°  |  Mediana ="</span>, <span class="fu">round</span>(<span class="fu">median</span>(rom),<span class="dv">1</span>),</span>
+<span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"°</span><span class="sc">\n</span><span class="st">DT ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom),<span class="dv">1</span>), <span class="st">"°  |  CV ="</span>, <span class="fu">round</span>(<span class="fu">sd</span>(rom)<span class="sc">/</span><span class="fu">mean</span>(rom)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>),</span>
+<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"%  |  RIQ ="</span>, <span class="fu">round</span>(<span class="fu">IQR</span>(rom),<span class="dv">1</span>), <span class="st">"°</span><span class="sc">\n</span><span class="st">Q1 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom,<span class="fl">0.25</span>),<span class="dv">1</span>),</span>
+<span id="cb66-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"°  |  Q3 ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(rom,<span class="fl">0.75</span>),<span class="dv">1</span>), <span class="st">"°  |  Mín ="</span>, <span class="fu">min</span>(rom),</span>
+<span id="cb66-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"°  |  Máx ="</span>, <span class="fu">max</span>(rom), <span class="st">"°</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>n = 40   |  Media = 109.7 °  |  Mediana = 109 °
@@ -1548,24 +1565,24 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Asimetría y curtosis con fallback</span></span>
-<span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_e1071) {</span>
-<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Asimetría ="</span>, <span class="fu">round</span>(e1071<span class="sc">::</span><span class="fu">skewness</span>(rom),<span class="dv">2</span>),</span>
-<span id="cb66-4"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"  |  Curtosis ="</span>, <span class="fu">round</span>(e1071<span class="sc">::</span><span class="fu">kurtosis</span>(rom),<span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb66-5"><a aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb66-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Asimetría ="</span>, <span class="fu">round</span>(<span class="fu">skewness</span>(rom),<span class="dv">2</span>),</span>
-<span id="cb66-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"  |  Curtosis ="</span>, <span class="fu">round</span>(<span class="fu">kurtosis</span>(rom),<span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb66-8"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Asimetría y curtosis con fallback</span></span>
+<span id="cb68-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_e1071) {</span>
+<span id="cb68-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Asimetría ="</span>, <span class="fu">round</span>(e1071<span class="sc">::</span><span class="fu">skewness</span>(rom),<span class="dv">2</span>),</span>
+<span id="cb68-4"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"  |  Curtosis ="</span>, <span class="fu">round</span>(e1071<span class="sc">::</span><span class="fu">kurtosis</span>(rom),<span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb68-5"><a aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb68-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"Asimetría ="</span>, <span class="fu">round</span>(<span class="fu">skewness</span>(rom),<span class="dv">2</span>),</span>
+<span id="cb68-7"><a aria-hidden="true" tabindex="-1"></a>      <span class="st">"  |  Curtosis ="</span>, <span class="fu">round</span>(<span class="fu">kurtosis</span>(rom),<span class="dv">2</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb68-8"><a aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Asimetría = 0.07   |  Curtosis = -1 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(rom)</span>
-<span id="cb68-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Shapiro-Wilk: W ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>statistic,<span class="dv">3</span>),</span>
-<span id="cb68-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"  P ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>p.value,<span class="dv">4</span>),</span>
-<span id="cb68-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(sw<span class="sc">$</span>p.value<span class="sc">&gt;</span><span class="fl">0.05</span>) <span class="st">"  → Normalidad compatible</span><span class="sc">\n</span><span class="st">"</span> <span class="cf">else</span> <span class="st">"  → NO normal</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a aria-hidden="true" tabindex="-1"></a>sw <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(rom)</span>
+<span id="cb70-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Shapiro-Wilk: W ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>statistic,<span class="dv">3</span>),</span>
+<span id="cb70-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"  P ="</span>, <span class="fu">round</span>(sw<span class="sc">$</span>p.value,<span class="dv">4</span>),</span>
+<span id="cb70-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(sw<span class="sc">$</span>p.value<span class="sc">&gt;</span><span class="fl">0.05</span>) <span class="st">"  → Normalidad compatible</span><span class="sc">\n</span><span class="st">"</span> <span class="cf">else</span> <span class="st">"  → NO normal</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Shapiro-Wilk: W = 0.977   P = 0.5888   → Normalidad compatible</code></pre>
@@ -1577,22 +1594,22 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a aria-hidden="true" tabindex="-1"></a>rom <span class="ot">&lt;-</span> rom_rodilla</span>
-<span id="cb70-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
-<span id="cb70-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(rom, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">border=</span><span class="st">"white"</span>, <span class="at">breaks=</span><span class="dv">8</span>,</span>
-<span id="cb70-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"ROM de Rodilla (n=40)"</span>, <span class="at">xlab=</span><span class="st">"Grados"</span>, <span class="at">ylab=</span><span class="st">"Frecuencia"</span>)</span>
-<span id="cb70-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">mean</span>(rom), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
-<span id="cb70-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">median</span>(rom), <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
-<span id="cb70-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="fu">c</span>(<span class="fu">paste</span>(<span class="st">"Media ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(rom),<span class="dv">1</span>)),</span>
-<span id="cb70-8"><a aria-hidden="true" tabindex="-1"></a>       <span class="fu">paste</span>(<span class="st">"Mediana ="</span>, <span class="fu">round</span>(<span class="fu">median</span>(rom),<span class="dv">1</span>))),</span>
-<span id="cb70-9"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"darkgreen"</span>,<span class="st">"steelblue"</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">bty=</span><span class="st">"n"</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span>
-<span id="cb70-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rom, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">main=</span><span class="st">"Boxplot — ROM de Rodilla"</span>,</span>
-<span id="cb70-11"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Grados"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">70</span>,<span class="dv">140</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a aria-hidden="true" tabindex="-1"></a>rom <span class="ot">&lt;-</span> rom_rodilla</span>
+<span id="cb72-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb72-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(rom, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">border=</span><span class="st">"white"</span>, <span class="at">breaks=</span><span class="dv">8</span>,</span>
+<span id="cb72-4"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"ROM de Rodilla (n=40)"</span>, <span class="at">xlab=</span><span class="st">"Grados"</span>, <span class="at">ylab=</span><span class="st">"Frecuencia"</span>)</span>
+<span id="cb72-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">mean</span>(rom), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb72-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">median</span>(rom), <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb72-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="fu">c</span>(<span class="fu">paste</span>(<span class="st">"Media ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(rom),<span class="dv">1</span>)),</span>
+<span id="cb72-8"><a aria-hidden="true" tabindex="-1"></a>       <span class="fu">paste</span>(<span class="st">"Mediana ="</span>, <span class="fu">round</span>(<span class="fu">median</span>(rom),<span class="dv">1</span>))),</span>
+<span id="cb72-9"><a aria-hidden="true" tabindex="-1"></a>       <span class="at">col=</span><span class="fu">c</span>(<span class="st">"darkgreen"</span>,<span class="st">"steelblue"</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">lwd=</span><span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">bty=</span><span class="st">"n"</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb72-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rom, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">main=</span><span class="st">"Boxplot — ROM de Rodilla"</span>,</span>
+<span id="cb72-11"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Grados"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">70</span>,<span class="dv">140</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <img data-src="T01_II_Descriptiva_files/figure-revealjs/unnamed-chunk-18-1.png" width="864" class="r-stretch"></section>
@@ -1822,29 +1839,29 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">112</span>, <span class="dv">118</span>, <span class="dv">125</span>, <span class="dv">122</span>, <span class="dv">130</span>, <span class="dv">128</span>, <span class="dv">119</span>, <span class="dv">126</span>)</span>
-<span id="cb72-2"><a aria-hidden="true" tabindex="-1"></a>x_out <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="dv">155</span>)</span>
-<span id="cb72-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
-<span id="cb72-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Sin outlier</span></span>
-<span id="cb72-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, <span class="at">main=</span><span class="st">"Sin outlier (n=8)"</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">ylab=</span><span class="st">"Grados"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">110</span>,<span class="dv">160</span>))</span>
-<span id="cb72-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
-<span id="cb72-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(x), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
-<span id="cb72-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">median</span>(x), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
-<span id="cb72-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">mean</span>(x)<span class="sc">+</span><span class="dv">2</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb72-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">median</span>(x)<span class="sc">-</span><span class="dv">3</span>, <span class="fu">paste0</span>(<span class="st">"Me="</span>, <span class="fu">median</span>(x)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb72-13"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Con outlier</span></span>
-<span id="cb72-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x_out, <span class="at">main=</span><span class="st">"Con outlier 155° (n=9)"</span>, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">110</span>,<span class="dv">160</span>))</span>
-<span id="cb72-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x_out, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
-<span id="cb72-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(x_out), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
-<span id="cb72-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">median</span>(x_out), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
-<span id="cb72-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">mean</span>(x_out)<span class="sc">+</span><span class="dv">2</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x_out),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb72-20"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">median</span>(x_out)<span class="sc">-</span><span class="dv">3</span>, <span class="fu">paste0</span>(<span class="st">"Me="</span>, <span class="fu">median</span>(x_out)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
-<span id="cb72-21"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-22"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"La mediana resiste outliers; la media NO"</span>, <span class="at">side=</span><span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="fl">1.5</span>, </span>
-<span id="cb72-23"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">outer=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">0.9</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">112</span>, <span class="dv">118</span>, <span class="dv">125</span>, <span class="dv">122</span>, <span class="dv">130</span>, <span class="dv">128</span>, <span class="dv">119</span>, <span class="dv">126</span>)</span>
+<span id="cb74-2"><a aria-hidden="true" tabindex="-1"></a>x_out <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="dv">155</span>)</span>
+<span id="cb74-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb74-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Sin outlier</span></span>
+<span id="cb74-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, <span class="at">main=</span><span class="st">"Sin outlier (n=8)"</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">ylab=</span><span class="st">"Grados"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">110</span>,<span class="dv">160</span>))</span>
+<span id="cb74-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb74-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(x), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb74-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">median</span>(x), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb74-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">mean</span>(x)<span class="sc">+</span><span class="dv">2</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb74-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">median</span>(x)<span class="sc">-</span><span class="dv">3</span>, <span class="fu">paste0</span>(<span class="st">"Me="</span>, <span class="fu">median</span>(x)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb74-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Con outlier</span></span>
+<span id="cb74-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x_out, <span class="at">main=</span><span class="st">"Con outlier 155° (n=9)"</span>, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">110</span>,<span class="dv">160</span>))</span>
+<span id="cb74-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x_out, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb74-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(x_out), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb74-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">median</span>(x_out), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb74-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">mean</span>(x_out)<span class="sc">+</span><span class="dv">2</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x_out),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb74-20"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">median</span>(x_out)<span class="sc">-</span><span class="dv">3</span>, <span class="fu">paste0</span>(<span class="st">"Me="</span>, <span class="fu">median</span>(x_out)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb74-21"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-22"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"La mediana resiste outliers; la media NO"</span>, <span class="at">side=</span><span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="fl">1.5</span>, </span>
+<span id="cb74-23"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">outer=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">0.9</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1855,7 +1872,7 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p><strong>Clasificación de la variable:</strong> - Tipo: <strong>Cuantitativa</strong> (numérica) - Naturaleza: <strong>Continua</strong> (cualquier valor en un rango) - Escala: <strong>Razón</strong> (el 0° es absoluto, permite cocientes — 130° es el doble de 65°)</p>

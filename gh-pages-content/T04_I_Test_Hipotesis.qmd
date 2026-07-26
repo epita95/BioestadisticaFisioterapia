@@ -546,6 +546,26 @@ $$t = \frac{\bar{x} - \mu_0}{s/\sqrt{n}} \sim t_{n-1}$$
 x <- c(125,132,128,135,130,126)
 t.test(x, mu = 130)
 # BioEstatR: testt(m = mean(x), s = sd(x), n = length(x), m0 = 130)
+
+
+# Visualización
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Histograma con IC
+hist(x, col="steelblue", border="white", main="Flexión rodilla (n=6)", 
+     xlab="Grados", freq=FALSE)
+abline(v=130, col="darkgreen", lwd=2, lty=2)
+abline(v=mean(x), col="coral", lwd=2)
+curve(dnorm(x, mean(x), sd(x)), add=TRUE, col="seagreen", lwd=2)
+legend("topright", c("H0: μ=130","x̄","Normal"), col=c("darkgreen","coral","seagreen"),
+       lty=c(2,1,1), lwd=2, bty="n", cex=0.75)
+# Distribución t con estadístico
+curve(dt(x, 5), -4, 4, lwd=3, col="steelblue",
+      main=paste0("t(5): P=", round(t.test(x,mu=130)$p.value,3)),
+      xlab="t", ylab="Densidad")
+abline(v=c(-qt(0.975,5), qt(0.975,5)), col="grey", lty=3)
+abline(v=t.test(x,mu=130)$statistic, col="darkgreen", lwd=2.5)
+par(mfrow=c(1,1))
+
 ```
 
 **Salida:** $t=-0.43$, gl=5, $P=0.683$ → No significativo. IC 95%: (126.4°, 132.9°).

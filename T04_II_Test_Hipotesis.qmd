@@ -54,6 +54,28 @@ gl por Satterthwaite. **Usar por defecto.**
 g1<-c(125,132,128,135,130,126); g2<-c(140,148,142,155,138,150,145)
 t.test(g1, g2)                     # Welch (recomendado — por defecto en R)
 t.test(g1, g2, var.equal = TRUE)   # Student (solo si σ₁² = σ₂²)
+
+
+# Visualización comparativa
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Datos originales con medias
+datos <- list(Grupo1=g1, Grupo2=g2)
+boxplot(datos, col=c("steelblue","seagreen"), ylab="ROM (°)",
+        main="Comparación de grupos", ylim=range(c(g1,g2)))
+stripchart(datos, method="jitter", pch=19, col="grey30", add=TRUE, cex=0.8)
+# Panel 2: IC 95% de la diferencia
+tt_w <- t.test(g1, g2)
+diff_mean <- tt_w$estimate[1] - tt_w$estimate[2]
+plot(1, diff_mean, pch=19, col="darkgreen", cex=2, ylim=range(c(g1,g2))*c(-0.2,0.2),
+     xlim=c(0.5,1.5), xaxt="n",
+     main=paste0("IC 95% diferencia: [", round(tt_w$conf.int[1],1), 
+                 ", ", round(tt_w$conf.int[2],1), "]"),
+     ylab="Diferencia (°)", xlab="")
+arrows(1, tt_w$conf.int[1], 1, tt_w$conf.int[2], 
+       col="darkgreen", lwd=3, code=3, angle=90, length=0.15)
+abline(h=0, col="grey", lty=2)
+par(mfrow=c(1,1))
+
 ```
 
 **IC 95% para la diferencia:** $\bar{x}_1 - \bar{x}_2 \pm t_{\alpha/2} \cdot SE$. Si contiene 0 → no significativo.
@@ -448,6 +470,26 @@ cat(sprintf("R_A=%.0f | R_B=%.0f | U_A=%.0f | U_B=%.0f | U=%.0f", R_A,R_B,U_A,U_
     "\n--- Verificación con wilcox.test ---")
 wt_mw <- wilcox.test(grupoA, grupoB, exact = FALSE)
 cat(sprintf("W = %.0f | P = %.4f", wt_mw$statistic, wt_mw$p.value))
+
+
+# Visualización: rangos
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Datos ordenados con rangos
+todos_val <- c(grupoA, grupoB)
+todos_grp <- factor(c(rep("A",5), rep("B",6)))
+rangos <- rank(todos_val)
+plot(rangos, todos_val, pch=19, col=ifelse(todos_grp=="A","steelblue","coral"), cex=1.5,
+     main=paste0("Mann-Whitney: U=", round(min(U_A,U_B)), " P=", round(P_U,4)),
+     xlab="Rango", ylab="ROM (°)")
+legend("topleft", c("Grupo A","Grupo B"), col=c("steelblue","coral"), pch=19, bty="n")
+# Panel 2: Distribución emprírica
+plot(ecdf(grupoA), col="steelblue", lwd=3, main="ECDF por grupo",
+     xlab="ROM (°)", ylab="F(x)", verticals=TRUE)
+plot(ecdf(grupoB), col="coral", lwd=3, add=TRUE, verticals=TRUE)
+legend("bottomright", c("A (Ejercicio)","B (P.Seca)"), 
+       col=c("steelblue","coral"), lwd=3, bty="n")
+par(mfrow=c(1,1))
+
 ```
 
 ::: {.callout-tip}
@@ -619,6 +661,26 @@ omega2 <- (t_val^2 - 1) / (t_val^2 + n1 + n2 - 1)
 cat("s_p =", round(sp,1), "\nd de Cohen =", round(dc,2),
     "→", ifelse(abs(dc)>=0.8,"GRANDE",ifelse(abs(dc)>=0.5,"MEDIANO","PEQUEÑO")),
     "\nOmega² =", round(omega2,3), "→", round(omega2*100,1), "% varianza explicada")
+
+
+# Visualización del tamaño del efecto
+par(mfrow=c(1,1), mar=c(4,4,3,1))
+x_seq <- seq(250, 500, length=300)
+y1 <- dnorm(x_seq, 450, sp); y2 <- dnorm(x_seq, 380, sp)
+plot(x_seq, y1, type="l", lwd=3, col="steelblue", ylim=c(0, max(y1,y2)*1.1),
+     main=paste0("d de Cohen = ", round(dc,2), " (", 
+                 ifelse(abs(dc)>=0.8,"GRANDE",ifelse(abs(dc)>=0.5,"MEDIANO","PEQUEÑO")), ")"),
+     xlab="α-Klotho (pg/mL)", ylab="Densidad")
+lines(x_seq, y2, lwd=3, col="seagreen")
+abline(v=c(450,380), lty=2, col=c("steelblue","seagreen"))
+# Sombrear solapamiento
+x_overlap <- seq(max(250,380-3*sp), min(500,450+3*sp), length=100)
+polygon(c(x_overlap, rev(x_overlap)), 
+        c(pmin(dnorm(x_overlap,450,sp), dnorm(x_overlap,380,sp)), rep(0,100)),
+        col=rgb(0.5,0.5,0.5,0.15), border=NA)
+legend("topright", c("Jóvenes","Ancianos"), col=c("steelblue","seagreen"), 
+       lwd=3, bty="n")
+
 ```
 
 ::: {.callout-tip}

@@ -691,6 +691,24 @@ n<-length(x); xbar<-mean(x); s<-sd(x); t_crit<-qt(0.975,n-1)
 IC_lo<-xbar-t_crit*s/sqrt(n); IC_hi<-xbar+t_crit*s/sqrt(n)
 cat("IC 95%: (", round(IC_lo,1), ",", round(IC_hi,1), ")°",
     "\nPrecision d =", round(t_crit*s/sqrt(n),2), "°")
+# Visualización
+SE <- s / sqrt(n)
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+curve(dnorm(x, xbar, SE), xbar-5*SE, xbar+5*SE, lwd=3, col="steelblue",
+      main=paste0("IC 95%: [", round(IC_lo,1), ", ", round(IC_hi,1), "]°"),
+      xlab="Ángulo (°)", ylab="Densidad")
+abline(v=c(IC_lo, IC_hi), col="darkgreen", lwd=2, lty=2)
+abline(v=xbar, col="darkgreen", lwd=3)
+xr <- seq(IC_lo, IC_hi, 0.05)
+polygon(c(xr, rev(xr)), c(dnorm(xr,xbar,SE), rep(0,length(xr))),
+        col=rgb(0,0.5,0.3,0.2), border=NA)
+# Error bar simple
+plot(1, xbar, pch=19, col="darkgreen", cex=2, ylim=c(xbar-8,xbar+8),
+     xlim=c(0.5,1.5), xaxt="n", xlab="", ylab="Grados",
+     main=paste0("Precisión d=", round(d,2), "°"))
+arrows(1, IC_lo, 1, IC_hi, col="darkgreen", lwd=3, code=3, angle=90, length=0.15)
+par(mfrow=c(1,1))
+
 ```
 
 **Interpretación clínica:** Con 95% de confianza, la flexión media de hombro post-rehabilitación está entre 164.9° y 171.6°. La precisión de ±3.4° es clínicamente aceptable para goniometría.

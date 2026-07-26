@@ -395,6 +395,21 @@ $$\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{
 ```{r}
 modelo <- lm(graso ~ imc)
 summary(modelo)
+
+
+# Visualización
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Scatter + recta
+plot(imc, graso, pch=19, col="steelblue", cex=1.2,
+     main=paste0("R²=", round(summary(modelo)$r.squared,3)), 
+     xlab="IMC (kg/m²)", ylab="% Grasa corporal")
+abline(modelo, col="darkgreen", lwd=2.5)
+# Residuals vs fitted
+plot(fitted(modelo), residuals(modelo), pch=19, col="steelblue",
+     main="Residuos vs Ajustados", xlab="Ajustados", ylab="Residuos")
+abline(h=0, col="grey", lty=2)
+par(mfrow=c(1,1))
+
 ```
 
 **Resultados:**
