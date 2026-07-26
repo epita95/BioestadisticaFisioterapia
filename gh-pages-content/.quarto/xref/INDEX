@@ -37,5 +37,11 @@
   },
   "T06_RegresionCorr.qmd": {
     "T06_RegresionCorr.html": "af66be73"
+  },
+  "T01_II_Descriptiva.qmd T02_I_Probabilidad.qmd T02_II_Probabilidad.qmd T03_Estimacion_IC.qmd T04_I_Test_Hipotesis.qmd T04_II_Test_Hipotesis.qmd T05_ChiCuadrado.qmd T06_RegresionCorr.qmd": {
+    "T01_II_Descriptiva.qmd T02_I_Probabilidad.qmd T02_II_Probabilidad.qmd T03_Estimacion_IC.qmd T04_I_Test_Hipotesis.qmd T04_II_Test_Hipotesis.qmd T05_ChiCuadrado.qmd T06_RegresionCorr.html": "e7141721"
+  },
+  "T03_clean.qmd": {
+    "T03_clean.html": "961e2323"
   }
 }

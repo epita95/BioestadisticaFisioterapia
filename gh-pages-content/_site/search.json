@@ -3617,5 +3617,327 @@
     "title": "Regresión y Correlación",
     "section": "Ejercicio Clínico — Tema VI",
     "text": "Ejercicio Clínico — Tema VI\nContexto: Relación edad-flexión lumbar en 10 pacientes. \\(\\hat{Y} = 85 - 0.6X\\), \\(R^2 = 0.64\\).\n\nInterpreta la pendiente (\\(-0.6\\)) en términos clínicos\nPredicción para 50 años\nSignificado de \\(R^2\\)\n\n\n\n\n\n\n\nTip\n\n\nSolución\n\nPor cada año más de edad, la flexión disminuye 0.6° en promedio\n\\(\\hat{Y}(50) = 85 - 0.6 \\times 50 = 85 - 30 = 55°\\)\nEl 64% de la variabilidad en flexión se explica por la edad; el 36% por otros factores\n\n\n\nMostrar código R\nset.seed(123)\nedad &lt;- seq(25, 70, length.out=10)\nflexion &lt;- 85 - 0.6*edad + rnorm(10, 0, 3)\nmodelo &lt;- lm(flexion ~ edad)\npred_50 &lt;- predict(modelo, data.frame(edad=50))\n\nplot(edad, flexion, pch=19, col=\"steelblue\", cex=1.5,\n     main=paste0(\"R²=\", round(summary(modelo)$r.squared,2),\n                 \"  Y=\", round(coef(modelo)[1],1), \"+\", round(coef(modelo)[2],2),\"X\"),\n     xlab=\"Edad (años)\", ylab=\"Flexión lumbar (°)\")\nabline(modelo, col=\"darkgreen\", lwd=2.5)\n# Banda de confianza\nnewx &lt;- seq(25, 70, length=50)\npreds &lt;- predict(modelo, data.frame(edad=newx), interval=\"confidence\")\npolygon(c(newx, rev(newx)), c(preds[,2], rev(preds[,3])),\n        col=rgb(0,0.5,0.3,0.08), border=NA)\n# Predicción destacada\npoints(50, pred_50, pch=19, col=\"coral\", cex=2.5)\ntext(50, pred_50+0.5, paste0(round(pred_50,1),\"°\"), col=\"coral\", font=2, pos=3)\n\n\n\n\n\n\n\n\n\nMostrar código R\ncat(\"R² =\", round(summary(modelo)$r.squared,3),\n    \"\\nPredicción 50 años:\", round(pred_50,1), \"°\")\n\n\nR² = 0.927 \nPredicción 50 años: 55.1 °\n\n\n\n\n\n\n\n\n\nAnscombe, F. J. (1973). Graphs in Statistical Analysis. The American Statistician, 27(1), 17-21.\n\n\nDraper, N. R., & Smith, H. (1998). Applied Regression Analysis (3rd ed.). Wiley.\n\n\nFemia, P., & Luque-Fernández, M. A. (2026). BioEstatR: Biostatistics Routines in R. https://migariane.github.io/BioEstatR\n\n\nGauss, C. F. (1809). Theoria Motus Corporum Coelestium. Friedrich Perthes und I.H. Besser.\n\n\nHarrell, F. E. (2015). Regression Modeling Strategies: With Applications to Linear Models, Logistic and Ordinal Regression, and Survival Analysis (2nd ed.). Springer.\n\n\nLegendre, A.-M. (1805). Nouvelles méthodes pour la détermination des orbites des comètes. Firmin Didot.\n\n\nLuque-Fernández, M. A. (2026). Matemáticas para la Estadística Médica con R. Universidad de Granada. https://migariane.github.io/MatematicaEstadisticaMedicinaR\n\n\nPearson, K. (1895). Note on Regression and Inheritance in the Case of Two Parents. Proceedings of the Royal Society of London, 58, 240-242.\n\n\nSpearman, C. (1904). The Proof and Measurement of Association Between Two Things. American Journal of Psychology, 15(1), 72-101."
+  },
+  {
+    "objectID": "T03_clean.html#objetivos-de-aprendizaje-tema-3",
+    "href": "T03_clean.html#objetivos-de-aprendizaje-tema-3",
+    "title": "Teoría de la Estimación",
+    "section": "Objetivos de aprendizaje — Tema 3",
+    "text": "Objetivos de aprendizaje — Tema 3\n\n\n\n\n\n\nTip\n\n\nAl finalizar este tema sabrás:\n\n\n\n\nDistinguir entre población y muestra, parámetro y estimador\nEntender qué es un estadístico muestral, su distribución y el TCL\nDeducir matemáticamente el tamaño muestral a partir de la precisión deseada\nConstruir e interpretar intervalos de confianza para una media y una proporción\nCalcular el tamaño muestral necesario para una precisión deseada\nConectar la estimación por IC con el contraste de hipotesis (test \\(t\\))"
+  },
+  {
+    "objectID": "T03_clean.html#recordemos-población-y-muestra",
+    "href": "T03_clean.html#recordemos-población-y-muestra",
+    "title": "Teoría de la Estimación",
+    "section": "Recordemos: Población y muestra",
+    "text": "Recordemos: Población y muestra\n\n\nPoblación (\\(N \\to \\infty\\)) - Conjunto completo de individuos/objetos que queremos estudiar - Es inaccesible en su totalidad - Se caracteriza mediante parámetros poblacionales: \\(\\mu\\), \\(\\sigma\\), \\(p\\)\n\nMuestra (\\(n\\)) - Subconjunto accesible de la población - Debe ser representativa (selección aleatoria) - Proporciona estadísticos muestrales: \\(\\bar{x}\\), \\(s\\), \\(\\hat{p}\\)\n\n\n\n\n\n\n\nImportante\n\n\nInferencia Estadística: conjunto de técnicas que permiten extender las conclusiones de la muestra a toda la población. Dos ramas: - Teoría de la Estimación → determinar el valor de los parámetros poblacionales - Teoría de Contrastes de Hipótesis → decidir entre hipótesis sobre los parámetros"
+  },
+  {
+    "objectID": "T03_clean.html#el-problema-de-la-estimación-puntual",
+    "href": "T03_clean.html#el-problema-de-la-estimación-puntual",
+    "title": "Teoría de la Estimación",
+    "section": "El problema de la estimación puntual",
+    "text": "El problema de la estimación puntual\n\n\n\n\n\n\nAdvertencia\n\n\nLos estimadores puntuales solo dan una idea de cuánto puede valer el parámetro, pero no informan de cómo de buena es la aproximación. Reducen toda la información muestral a un solo valor.\n\n\n\n\n\nEjemplo — Peso medio de estudiantes UGR:\nDos muestras aleatorias de 20 estudiantes:\n\nMuestra 1: \\(\\bar{x}_1 = 71\\) kg\nMuestra 2: \\(\\bar{x}_2 = 67\\) kg\n\n\n¿Coinciden?\n¿Cuál es mejor?\n¿Qué error cometemos al asumir una de ellas como \\(\\mu\\)?\n\n\nSolución → Estimación por intervalos\nEn lugar de un único valor, damos un conjunto de valores probables para el parámetro, con una probabilidad (confianza) asociada."
+  },
+  {
+    "objectID": "T03_clean.html#estimación-puntual",
+    "href": "T03_clean.html#estimación-puntual",
+    "title": "Teoría de la Estimación",
+    "section": "Estimación puntual",
+    "text": "Estimación puntual\n\n\n\n\n\n\nNota\n\n\nLa estimación puntual asigna al parámetro poblacional un único valor aproximado que depende de la muestra.\n\n\n\nEstimador → Estimación\n\n\n\n\n\n\n\n\nConcepto\nDefinición\nEjemplo\n\n\n\n\nEstimador\nFunción de las observaciones muestrales (regla/estadístico)\n\\(\\hat{\\mu} = \\bar{X} = \\frac{1}{n}\\sum X_i\\)\n\n\nEstimación\nValor numérico concreto que toma el estimador en una muestra\n\\(\\bar{x} = 169.4\\) mg/dL\n\n\n\n\n\n\n\n\n\nTip\n\n\nNotación: el acento circunflejo (ˆ) sobre el símbolo del parámetro indica su estimador: \\(\\hat{\\mu}\\) es el estimador puntual de \\(\\mu\\).\n\n\n\nMétodo analógico (el más habitual):\n\n\n\nParámetro poblacional\nEstimador puntual\n\n\n\n\nMedia \\(\\mu\\)\n\\(\\hat{\\mu} = \\bar{x}\\)\n\n\nDesviación tipica \\(\\sigma\\)\n\\(\\hat{\\sigma} = s\\)\n\n\nProporción \\(p\\)\n\\(\\hat{p} = x/n\\)"
+  },
+  {
+    "objectID": "T03_clean.html#comprueba-tu-comprensión-parámetro-vs-estimador",
+    "href": "T03_clean.html#comprueba-tu-comprensión-parámetro-vs-estimador",
+    "title": "Teoría de la Estimación",
+    "section": "Comprueba tu comprensión — Parámetro vs estimador",
+    "text": "Comprueba tu comprensión — Parámetro vs estimador\n\n\n\n\n\n\nTip\n\n\nPregunta rápida: Tu compañero dice: “La media de glucemia en mi muestra de 5 pacientes es 105 mg/dL, por lo tanto la media poblacional es 105.” ¿Qué le responderías? Señala al menos dos problemas con esta afirmación."
+  },
+  {
+    "objectID": "T03_clean.html#estadístico-muestral",
+    "href": "T03_clean.html#estadístico-muestral",
+    "title": "Teoría de la Estimación",
+    "section": "Estadístico muestral",
+    "text": "Estadístico muestral\n\n\n\n\n\n\nImportante\n\n\nUn estadístico muestral es cualquier función de las observaciones de la muestra:\n\\[T = f(X_1, X_2, \\ldots, X_n)\\]\nEjemplos: \\(\\bar{X}\\), \\(s^2\\), \\(\\hat{p}\\), mediana, mínimo, máximo…\n\n\n\nPropiedades clave:\n\nEs una variable aleatoria — su valor cambia de muestra a muestra\nTiene una distribución — la distribución muestral del estadístico\nLa distribución muestral describe cómo varía el estadístico si repitiéramos el muestreo infinitas veces\n\n\n\nParámetro \\(\\neq\\) Estadístico\n\n\n\nParámetro\nEstadístico\n\n\n\n\nPoblación\nMuestra\n\n\nFijo (desconocido)\nVariable aleatoria\n\n\n\\(\\mu, \\sigma, p\\)\n\\(\\bar{x}, s, \\hat{p}\\)\n\n\n\n\nDistribución muestral de \\(\\bar{X}\\):\n\n\\(E[\\bar{X}] = \\mu\\) (insesgado)\n\\(Var(\\bar{X}) = \\frac{\\sigma^2}{n}\\)\nSi \\(X \\sim N(\\mu, \\sigma^2) \\Rightarrow \\bar{X} \\sim N(\\mu, \\frac{\\sigma^2}{n})\\)"
+  },
+  {
+    "objectID": "T03_clean.html#de-dónde-sale-la-corrección-n-1",
+    "href": "T03_clean.html#de-dónde-sale-la-corrección-n-1",
+    "title": "Teoría de la Estimación",
+    "section": "¿De Dónde Sale la Corrección \\(n-1\\)?",
+    "text": "¿De Dónde Sale la Corrección \\(n-1\\)?\n\n\n\n\n\n\nTip\n\n\nMaterial complementario (opcional): Esta derivación matemática es para quien quiera profundizar. Si solo recuerdas una idea, quédate con esto: dividir por \\(n-1\\) en lugar de \\(n\\) corrige el sesgo porque la media muestral \\(\\bar{x}\\) está más cerca de los datos que la media poblacional \\(\\mu\\) — las distancias son sistemáticamente más pequeñas y necesitamos compensar inflando la estimación.\n\n\n\n\n\n\n\n\n\nNota\n\n\nLa pregunta: ¿Por qué dividimos por \\(n-1\\) al calcular la varianza muestral en lugar de por \\(n\\), que parecería lo natural?\n\\[S^2 = \\frac{1}{n-1}\\sum_{i=1}^n (X_i - \\bar{X})^2 \\quad \\text{(con corrección)} \\qquad \\text{vs.} \\qquad S'^2 = \\frac{1}{n}\\sum_{i=1}^n (X_i - \\bar{X})^2 \\quad \\text{(sin corrección)}\\]\n\n\n\nLa intuición en una frase: \\(\\bar{X}\\) está más cerca de los datos que \\(\\mu\\), así que las distancias a \\(\\bar{X}\\) son sistemáticamente más pequeñas que las distancias a \\(\\mu\\). Para compensar, inflamos la estimación dividiendo por un número menor (\\(n-1\\))."
+  },
+  {
+    "objectID": "T03_clean.html#simulación-veamos-el-sesgo-con-nuestros-propios-ojos",
+    "href": "T03_clean.html#simulación-veamos-el-sesgo-con-nuestros-propios-ojos",
+    "title": "Teoría de la Estimación",
+    "section": "Simulación — Veamos el sesgo con nuestros propios ojos",
+    "text": "Simulación — Veamos el sesgo con nuestros propios ojos\nExperimento: Extraemos 10,000 muestras de una población Normal(\\(\\mu=150\\), \\(\\sigma^2=400\\)). Para cada muestra, calculamos \\(S'^2\\) (dividiendo por \\(n\\)) y \\(S^2\\) (dividiendo por \\(n-1\\)). Comparamos sus promedios con \\(\\sigma^2=400\\).\n\n\nMostrar código R\nset.seed(42)\nn &lt;- 5; sigma2 &lt;- 400; Nsim &lt;- 10000\nS2_prime &lt;- replicate(Nsim, {x &lt;- rnorm(n, 150, sqrt(sigma2)); sum((x-mean(x))^2)/n})\nS2_correct &lt;- S2_prime * n/(n-1)  # S² = S'² × n/(n-1)\n\npar(mfrow=c(1,2), mar=c(4,4,3,1))\nhist(S2_prime, col=rgb(0.9,0.3,0.2,0.4), border=\"white\", breaks=40,\n     main=\"Sin correccion: S'2 = Suma/n\",\n     xlab=\"Varianza estimada\", xlim=c(0,1500))\nabline(v=sigma2, col=\"darkgreen\", lwd=3); abline(v=mean(S2_prime), col=\"#e74c3c\", lwd=3, lty=2)\ntext(800, 0.003, paste0(\"Media = \",round(mean(S2_prime),0),\"\\nSesgo = -\",round(100*(1-mean(S2_prime)/sigma2),1),\"%\"),\n     col=\"#e74c3c\", font=2, cex=0.8)\n\nhist(S2_correct, col=rgb(0.2,0.6,0.4,0.4), border=\"white\", breaks=40,\n     main=\"Con correccion: S2 = Suma/(n-1)\",\n     xlab=\"Varianza estimada\", xlim=c(0,1500))\nabline(v=sigma2, col=\"darkgreen\", lwd=3); abline(v=mean(S2_correct), col=\"#27ae60\", lwd=3, lty=2)\ntext(800, 0.003, paste0(\"Media = \",round(mean(S2_correct),0),\"\\nSesgo ~ 0%\"),\n     col=\"#27ae60\", font=2, cex=0.8)\n\n\n\nMostrar código R\npar(mfrow=c(1,1))\n\n\n\n\n\n\n\n\nTip\n\n\nLo que vemos: Sin corrección (rojo), la media de 10,000 estimaciones es ~320, muy por debajo de \\(\\sigma^2=400\\) → sesgo negativo del 20%. Con corrección (verde), la media es ~400 → insesgado. La corrección funciona."
+  },
+  {
+    "objectID": "T03_clean.html#respiro-clínico-la-corrección-n-1-en-la-práctica",
+    "href": "T03_clean.html#respiro-clínico-la-corrección-n-1-en-la-práctica",
+    "title": "Teoría de la Estimación",
+    "section": "Respiro clínico — La corrección n-1 en la práctica",
+    "text": "Respiro clínico — La corrección n-1 en la práctica\nAnalogía clínica: Mides la flexión de rodilla en 5 pacientes. Sabes que la media es 130°. Si te digo el valor de 4 pacientes, el 5º queda determinado (no es libre). Solo \\(5-1=4\\) pacientes aportan información independiente sobre la variabilidad.\n\n\n\n\n\n\nTip\n\n\nPara recordar: Con \\(n=5\\) pacientes (típico en estudios piloto de fisioterapia), dividir por \\(n\\) subestima la variabilidad en un 20%. Usa siempre \\(n-1\\)."
+  },
+  {
+    "objectID": "T03_clean.html#derivación-matemática-por-qué-exactamente-n-1",
+    "href": "T03_clean.html#derivación-matemática-por-qué-exactamente-n-1",
+    "title": "Teoría de la Estimación",
+    "section": "Derivación matemática — ¿por qué exactamente \\(n-1\\)?",
+    "text": "Derivación matemática — ¿por qué exactamente \\(n-1\\)?\nPaso 1 — Partimos de lo que quisiéramos estimar: La varianza poblacional usa distancias a \\(\\mu\\):\n\\[\\sigma^2 = E\\left[\\frac{1}{n}\\sum_{i=1}^n (X_i - \\mu)^2\\right]\\]\nPero como no conocemos \\(\\mu\\), usamos \\(\\bar{X}\\). Este es el origen del problema.\nPaso 2 — Sumamos y restamos \\(\\bar{X}\\) dentro del cuadrado:\n\\[(X_i - \\mu)^2 = (X_i - \\bar{X} + \\bar{X} - \\mu)^2 = \\underbrace{(X_i - \\bar{X})^2}_{\\text{lo que calculamos}} + (\\bar{X} - \\mu)^2 + 2(X_i - \\bar{X})(\\bar{X} - \\mu)\\]\nPaso 3 — Sumamos sobre \\(i\\) y aplicamos esperanzas:\n\\[E\\left[\\sum (X_i - \\mu)^2\\right] = E\\left[\\sum (X_i - \\bar{X})^2\\right] + n \\cdot E[(\\bar{X} - \\mu)^2] + \\underbrace{2E\\left[(\\bar{X} - \\mu)\\sum (X_i - \\bar{X})\\right]}_{=0 \\text{ porque } \\sum (X_i - \\bar{X}) = 0}\\]"
+  },
+  {
+    "objectID": "T03_clean.html#derivación-matemática-el-resultado",
+    "href": "T03_clean.html#derivación-matemática-el-resultado",
+    "title": "Teoría de la Estimación",
+    "section": "Derivación matemática — El resultado",
+    "text": "Derivación matemática — El resultado\nPaso 4 — Identificamos cada término:\n\n\n\n\n\n\n\n\nTérmino\nValor\nSignificado\n\n\n\n\n\\(E\\left[\\sum (X_i - \\mu)^2\\right]\\)\n\\(n\\sigma^2\\)\nVarianza poblacional total\n\n\n\\(E\\left[\\sum (X_i - \\bar{X})^2\\right]\\)\n\\((n-1)\\sigma^2\\)\nSuma de cuadrados muestral (¡lo que calculamos!)\n\n\n\\(n \\cdot E[(\\bar{X} - \\mu)^2]\\)\n\\(n \\cdot \\frac{\\sigma^2}{n} = \\sigma^2\\)\nVarianza de la media muestral × n\n\n\n\n\\[n\\sigma^2 = E\\left[\\sum (X_i - \\bar{X})^2\\right] + \\sigma^2 \\quad\\Rightarrow\\quad E\\left[\\sum (X_i - \\bar{X})^2\\right] = (n-1)\\sigma^2\\]\nPaso 5 — Despejamos el estimador insesgado:\n\\[E\\left[\\frac{\\sum (X_i - \\bar{X})^2}{n-1}\\right] = \\sigma^2 \\qquad\\Longrightarrow\\qquad S^2 = \\frac{1}{n-1}\\sum_{i=1}^n (X_i - \\bar{X})^2\\]\n\n\n\n\n\n\nImportante\n\n\nLa intuición algebraica: De la variabilidad total (\\(n\\sigma^2\\)), \\(\\sigma^2\\) se “gasta” en estimar \\(\\bar{X}\\) (la incertidumbre sobre la media). Solo quedan \\((n-1)\\sigma^2\\) para estimar la dispersión. Por eso dividimos por \\(n-1\\): es el número de piezas independientes de información sobre la variabilidad que quedan tras estimar la media."
+  },
+  {
+    "objectID": "T03_clean.html#grados-de-libertad-la-intuición",
+    "href": "T03_clean.html#grados-de-libertad-la-intuición",
+    "title": "Teoría de la Estimación",
+    "section": "Grados de libertad — La intuición",
+    "text": "Grados de libertad — La intuición\nLos grados de libertad (\\(gl = n-1\\)) son exactamente eso: el número de piezas de información independiente que quedan tras usar los datos para estimar un parámetro.\n\n\n\n\n\n\nTip\n\n\nAnalogía clínica: Mides la flexión de rodilla en 5 pacientes. Sabes que la media es 130°. Si te digo el valor de 4 pacientes, el 5º queda determinado (no es libre). Solo \\(5-1=4\\) pacientes aportan información independiente sobre la variabilidad.\n\n\n\n\\[\\sum_{i=1}^n (x_i - \\bar{x}) = 0 \\quad\\Rightarrow\\quad \\text{1 restricción} \\quad\\Rightarrow\\quad n-1 \\text{ grados de libertad}\\]"
+  },
+  {
+    "objectID": "T03_clean.html#impacto-práctico-en-fisioterapia",
+    "href": "T03_clean.html#impacto-práctico-en-fisioterapia",
+    "title": "Teoría de la Estimación",
+    "section": "Impacto práctico en fisioterapia",
+    "text": "Impacto práctico en fisioterapia\n\n\n\n\n\n\n\n\n\n\\(n\\)\nFactor \\((n-1)/n\\)\nSubestimación de \\(\\sigma^2\\)\nSubestimación de \\(\\sigma\\)\n\n\n\n\n3\n0.667\n33.3%\n~18%\n\n\n5\n0.800\n20.0%\n~11%\n\n\n10\n0.900\n10.0%\n~5%\n\n\n30\n0.967\n3.3%\n~1.7%\n\n\n60\n0.983\n1.7%\n~0.8%\n\n\n100\n0.990\n1.0%\n~0.5%\n\n\n\n\n\n\n\n\n\nAdvertencia\n\n\nConclusión clínica: Con \\(n=5\\) pacientes (típico en un estudio piloto), dividir por \\(n\\) subestima la variabilidad en un 20%. Esto produce IC demasiado estrechos y tests que encuentran significación donde no la hay. Con \\(n \\geq 60\\), la corrección es casi irrelevante (\\(&lt;2\\%\\)). Pero en fisioterapia, donde los estudios pequeños son frecuentes, usar siempre \\(n-1\\) es fundamental."
+  },
+  {
+    "objectID": "T03_clean.html#n-1-para-recordar",
+    "href": "T03_clean.html#n-1-para-recordar",
+    "title": "Teoría de la Estimación",
+    "section": "n-1 — Para Recordar",
+    "text": "n-1 — Para Recordar\n\n\n\n\n\n\nImportante\n\n\nSi solo recuerdas una cosa sobre \\(n-1\\): Dividir por \\(n-1\\) (en lugar de \\(n\\)) corrige un sesgo que subestima la variabilidad. Con muestras pequeñas (\\(n&lt;30\\), típicas en fisioterapia), la corrección es crucial. Con muestras grandes (\\(n&gt;60\\)), la diferencia es pequeña.\n\n\n\nTres formas de entenderlo: 1. Intuición: \\(\\bar{x}\\) está más cerca de los datos que \\(\\mu\\) → distancias más pequeñas → compensamos dividiendo por menos 2. Simulación: 10,000 muestras confirman que sin corrección subestimamos ~20% con \\(n=5\\) 3. Matemáticas: De la variabilidad total, una parte se gasta en estimar \\(\\bar{x}\\) → quedan \\(n-1\\) piezas independientes (grados de libertad)"
+  },
+  {
+    "objectID": "T03_clean.html#tcl-visualización",
+    "href": "T03_clean.html#tcl-visualización",
+    "title": "Teoría de la Estimación",
+    "section": "TCL — Visualización",
+    "text": "TCL — Visualización\nPara reflexionar: Si mido la flexión de hombro en solo 5 pacientes, ¿la media de esos 5 seguirá una distribución Normal?\n\n\nMostrar código R\npar(mfrow=c(2,3), mar=c(4,4,3,1)); set.seed(123)\nfor(n in c(5, 30, 100)){\n  medias &lt;- replicate(1000, mean(rexp(n, rate=1/10)))\n  hist(medias, col=\"steelblue\", border=\"white\", breaks=30, freq=FALSE,\n       main=paste0(\"Exponencial, n=\", n, if(n&gt;=30){\" → ≈Normal\"}else{\"\"}),\n       xlab=expression(bar(x)), xlim=c(4,16))\n  curve(dnorm(x, 10, 10/sqrt(n)), add=T, col=\"darkgreen\", lwd=2)\n}\nfor(n in c(5, 30, 100)){\n  medias &lt;- replicate(1000, mean(runif(n, 0, 20)))\n  hist(medias, col=\"seagreen\", border=\"white\", breaks=30, freq=FALSE,\n       main=paste0(\"Uniforme, n=\", n), xlab=expression(bar(x)), xlim=c(4,16))\n  curve(dnorm(x, 10, sqrt((20^2/12)/n)), add=T, col=\"darkgreen\", lwd=2)\n}\n\n\n\nMostrar código R\npar(mfrow=c(1,1))\n\n\nCon \\(n=30\\) ya se aprecia la campana. Con \\(n=100\\) es casi perfecta. App interactiva TCL"
+  },
+  {
+    "objectID": "T03_clean.html#teorema-central-del-límite-tcl",
+    "href": "T03_clean.html#teorema-central-del-límite-tcl",
+    "title": "Teoría de la Estimación",
+    "section": "Teorema central del límite (TCL)",
+    "text": "Teorema central del límite (TCL)\nSea \\(X_1, X_2, \\ldots, X_n\\) una muestra aleatoria de cualquier distribución con media \\(\\mu\\) y varianza \\(\\sigma^2\\). Cuando \\(n\\) es suficientemente grande:\n\\[\\bar{X} \\xrightarrow{\\text{approx}} N\\left(\\mu, \\frac{\\sigma^2}{n}\\right)\\]\nEquivalentemente:\n\\[\\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}} \\xrightarrow{d} N(0, 1)\\]"
+  },
+  {
+    "objectID": "T03_clean.html#tcl-implicaciones-prácticas",
+    "href": "T03_clean.html#tcl-implicaciones-prácticas",
+    "title": "Teoría de la Estimación",
+    "section": "TCL — Implicaciones prácticas",
+    "text": "TCL — Implicaciones prácticas\n\n\n\n\n\n\nImportante\n\n\nLo fundamental del TCL para la práctica clínica:\n\n\n\n\nNo importa la forma de la distribución original (puede ser exponencial, uniforme, binomial…)\nLa media de una muestra grande siempre tiende a distribuirse normalmente\n\\(n \\geq 30\\) es la regla práctica habitual para considerar “suficientemente grande”\nEste teorema es el pilar que permite construir intervalos de confianza y tests de hipótesis"
+  },
+  {
+    "objectID": "T03_clean.html#tcl-fundamento-matemático",
+    "href": "T03_clean.html#tcl-fundamento-matemático",
+    "title": "Teoría de la Estimación",
+    "section": "TCL — Fundamento matemático",
+    "text": "TCL — Fundamento matemático\n\n\n\n\n\n\nNota\n\n\n¿Por qué funciona el TCL? La clave está en la suma de variables independientes.\n\n\n\nSea \\(S_n = X_1 + X_2 + \\cdots + X_n = \\sum_{i=1}^n X_i\\), con \\(E[X_i]=\\mu\\), \\(Var(X_i)=\\sigma^2\\).\nPaso 1 — Esperanza y varianza de la suma: \\[E[S_n] = n\\mu \\qquad Var(S_n) = n\\sigma^2 \\qquad DE(S_n) = \\sigma\\sqrt{n}\\]\nPaso 2 — Tipificación (centrar y reducir): \\[Z_n = \\frac{S_n - E[S_n]}{DE(S_n)} = \\frac{\\sum X_i - n\\mu}{\\sigma\\sqrt{n}} = \\frac{\\bar{X} - \\mu}{\\sigma/\\sqrt{n}}\\]\nPaso 3 — El TCL afirma: \\(Z_n \\xrightarrow{d} N(0, 1)\\) cuando \\(n \\to \\infty\\)\nEl papel de \\(\\sqrt{n}\\): La variabilidad de la suma crece con \\(\\sqrt{n}\\) (no con \\(n\\)). Por eso la media muestral se concentra alrededor de \\(\\mu\\) al aumentar \\(n\\): \\[Var(\\bar{X}) = \\frac{\\sigma^2}{n} \\quad \\Rightarrow \\quad DE(\\bar{X}) = \\frac{\\sigma}{\\sqrt{n}}\\]"
+  },
+  {
+    "objectID": "T03_clean.html#tcl-ejemplo-numérico-paso-a-paso",
+    "href": "T03_clean.html#tcl-ejemplo-numérico-paso-a-paso",
+    "title": "Teoría de la Estimación",
+    "section": "TCL — Ejemplo numérico paso a paso",
+    "text": "TCL — Ejemplo numérico paso a paso\nPoblación: Tiempo de recuperación (días) tras tratamiento de fisioterapia. Distribución exponencial con media \\(\\mu = 10\\) días (\\(\\sigma = 10\\)).\n\n\nPara \\(n=5\\) (muestra pequeña): \\[E[\\bar{X}] = 10 \\quad DE(\\bar{X}) = \\frac{10}{\\sqrt{5}} = 4.47\\] La media muestral varía mucho — NO es normal aún.\n\nPara \\(n=100\\) (muestra grande): \\[E[\\bar{X}] = 10 \\quad DE(\\bar{X}) = \\frac{10}{\\sqrt{100}} = 1.0\\] La media muestral se concentra — ≈ normal (TCL).\n\nComparación numérica de la precisión según \\(n\\):\n\n\n\n\\(n\\)\n\\(DE(\\bar{X})\\)\nIC 95% aproximado para \\(\\bar{X}\\)\nAmplitud\n\n\n\n\n5\n\\(10/\\sqrt{5} = 4.47\\)\n\\(10 \\pm 1.96 \\cdot 4.47\\)\n\\(\\pm 8.76\\)\n\n\n30\n\\(10/\\sqrt{30} = 1.83\\)\n\\(10 \\pm 1.96 \\cdot 1.83\\)\n\\(\\pm 3.58\\)\n\n\n100\n\\(10/\\sqrt{100} = 1.00\\)\n\\(10 \\pm 1.96 \\cdot 1.00\\)\n\\(\\pm 1.96\\)\n\n\n\n\n\n\n\n\n\nImportante\n\n\nLey de rendimientos decrecientes: Para reducir el error a la mitad, necesitas cuadruplicar \\(n\\) (porque \\(DE \\propto 1/\\sqrt{n}\\))."
+  },
+  {
+    "objectID": "T03_clean.html#estimación-por-intervalo-de-confianza",
+    "href": "T03_clean.html#estimación-por-intervalo-de-confianza",
+    "title": "Teoría de la Estimación",
+    "section": "Estimación por intervalo de confianza",
+    "text": "Estimación por intervalo de confianza\n\n\n\n\n\n\nImportante\n\n\nUn intervalo de confianza \\(1-\\alpha\\) para \\(\\theta\\) es \\([L, U]\\) tal que:\n\\[P(L \\leq \\theta \\leq U) = 1 - \\alpha\\]\nSignificado frecuentista: de 100 estudios independientes, ≈ \\((1-\\alpha)\\times 100\\) IC contendrán \\(\\theta\\).\n\n\n\n\n\nMostrar código R\nset.seed(123); mu&lt;-120; sigma&lt;-20; n&lt;-5; t_crit&lt;-qt(0.975,n-1)\npar(mar=c(4,6,4,1)); plot(NA, xlim=c(60,180), ylim=c(0.5,5.5), yaxt=\"n\",\n     xlab=\"Glucemia (mg/dL)\", ylab=\"\", main=\"5 IC al 95% para μ=120\")\naxis(2, at=1:5, labels=paste(\"M\",1:5), las=2); abline(v=120, col=\"darkgreen\", lwd=2, lty=2)\ncontiene&lt;-0\nfor(i in 1:5){m&lt;-rnorm(n,mu,sigma); ic&lt;-mean(m)+c(-1,1)*t_crit*sd(m)/sqrt(n)\n  col&lt;-if(ic[1]&lt;=120&ic[2]&gt;=120){contiene&lt;-contiene+1;\"steelblue\"}else{\"coral\"}\n  lines(ic, c(i,i), col=col, lwd=3); points(mean(m), i, pch=19, col=col)}\nlegend(\"topright\", paste(contiene,\"/5 contienen μ\"), bty=\"n\", cex=1.2)\n\n\n\n\n\n\n\n\n\nAdvertencia\n\n\nEl parámetro no “cae” en el intervalo. Es el intervalo el que intenta contenerlo."
+  },
+  {
+    "objectID": "T03_clean.html#derivación-del-ic-para-mu-desde-el-tcl-hasta-la-fórmula",
+    "href": "T03_clean.html#derivación-del-ic-para-mu-desde-el-tcl-hasta-la-fórmula",
+    "title": "Teoría de la Estimación",
+    "section": "Derivación del IC para \\(\\mu\\) — Desde el TCL hasta la fórmula",
+    "text": "Derivación del IC para \\(\\mu\\) — Desde el TCL hasta la fórmula\nLa fórmula del intervalo de confianza para la media no es arbitraria. Se obtiene de tres resultados encadenados que hemos construido a lo largo de los Temas 2 y 3:\n\n\n\n\n\n\nNota\n\n\nPaso 1 — Distribución de la media muestral (TCL, Tema 3): \\[\\bar{X} \\sim N\\left(\\mu, \\frac{\\sigma}{\\sqrt{n}}\\right) \\quad \\Rightarrow \\quad Z = \\frac{\\bar{X} - \\mu}{\\sigma / \\sqrt{n}} \\sim N(0,1)\\]\nPaso 2 — Sustitución de \\(\\sigma\\) por \\(s\\) (Tema 3, corrección \\(n-1\\)): \\[T = \\frac{\\bar{X} - \\mu}{s / \\sqrt{n}} \\sim t_{n-1}\\] La distribución \\(t\\) de Student (Tema 2) corrige la incertidumbre adicional por estimar \\(\\sigma\\).\n(El despeje y la fórmula final se desarrollan en la siguiente diapositiva.)"
+  },
+  {
+    "objectID": "T03_clean.html#derivación-del-ic-de-la-probabilidad-a-la-fórmula",
+    "href": "T03_clean.html#derivación-del-ic-de-la-probabilidad-a-la-fórmula",
+    "title": "Teoría de la Estimación",
+    "section": "Derivación del IC — De la probabilidad a la fórmula",
+    "text": "Derivación del IC — De la probabilidad a la fórmula\n\n\n\n\n\n\nNota\n\n\nPaso 3 — Intervalo de probabilidad y despeje de \\(\\mu\\): \\[P\\left(-t_{\\alpha/2;\\, n-1} \\leq \\frac{\\bar{X} - \\mu}{s / \\sqrt{n}} \\leq t_{\\alpha/2;\\, n-1}\\right) = 1 - \\alpha\\]\nDespejando \\(\\mu\\) de la desigualdad central: \\[P\\left(\\bar{X} - t_{\\alpha/2;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}} \\leq \\mu \\leq \\bar{X} + t_{\\alpha/2;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}}\\right) = 1 - \\alpha\\]\n\n\n\n\nIntervalo de Confianza para \\(\\mu\\) con \\(\\sigma\\) desconocida: \\[IC_{1-\\alpha}(\\mu) = \\bar{x} \\pm t_{\\alpha/2;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}}\\]\n\nInterpretación: el IC no es un intervalo para \\(\\bar{x}\\) (que ya conocemos), sino para \\(\\mu\\) (el parámetro poblacional desconocido). La amplitud \\(t_{\\alpha/2;\\, n-1} \\cdot s / \\sqrt{n}\\) es lo que llamamos precisión (\\(d\\)).\n\n\n\n\n\n\nTip\n\n\nPara reflexionar: Si el IC 95% es (164.9, 171.6), y el valor de referencia clínico es 170°, ¿qué conclusión preliminar puedes extraer antes de hacer el test de hipótesis?"
+  },
+  {
+    "objectID": "T03_clean.html#fiabilidad-y-precisión-del-ic",
+    "href": "T03_clean.html#fiabilidad-y-precisión-del-ic",
+    "title": "Teoría de la Estimación",
+    "section": "Fiabilidad y precisión del IC",
+    "text": "Fiabilidad y precisión del IC\n\n\nFiabilidad (\\(1-\\alpha\\)): probabilidad de contener \\(\\theta\\). La fija el investigador (95%, 99%). No depende de \\(n\\).\n\nPrecisión (\\(d\\)): mitad de la anchura. \\(d = t_{\\alpha/2} \\cdot s/\\sqrt{n}\\). Sí depende de \\(n\\), \\(s\\), \\(\\alpha\\).\n\nConflicto: aumentar \\(1-\\alpha\\) → \\(t_{\\alpha/2} \\uparrow\\) → \\(d \\uparrow\\) → menos precisión. Solución: aumentar \\(n\\).\nRegla nemotécnica para IC: “A más confianza, más ancho. A más muestra, más estrecho.” Si quieres un IC más preciso (estrecho), aumenta \\(n\\). Duplicar la precisión requiere cuadruplicar \\(n\\)."
+  },
+  {
+    "objectID": "T03_clean.html#actividad-en-pareja-qué-ic-es-más-preciso",
+    "href": "T03_clean.html#actividad-en-pareja-qué-ic-es-más-preciso",
+    "title": "Teoría de la Estimación",
+    "section": "Actividad en pareja — ¿Qué IC es más preciso?",
+    "text": "Actividad en pareja — ¿Qué IC es más preciso?\n\n\n\n\n\n\nTip\n\n\nDiscute con tu compañero (2 min): Un estudio reporta IC 95% = (62, 78) con n=50. Otro reporta IC 95% = (67, 73) con n=200.\n\n¿Cuál de los dos estudios tiene mayor precisión? ¿Por qué?\nSi quisieras reducir la anchura del primer IC a la mitad, ¿aproximadamente cuántos pacientes necesitarías?"
+  },
+  {
+    "objectID": "T03_clean.html#de-qué-depende-la-precisión",
+    "href": "T03_clean.html#de-qué-depende-la-precisión",
+    "title": "Teoría de la Estimación",
+    "section": "De qué depende la precisión",
+    "text": "De qué depende la precisión\n\\[d = t_{\\alpha/2;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}}\\]\n\n\n\nFactor\nEfecto sobre \\(d\\)\nControlable\n\n\n\n\n\\(n \\uparrow\\)\n\\(d \\downarrow\\) (más preciso)\n✓ Sí\n\n\n\\(\\alpha \\uparrow\\)\n\\(d \\downarrow\\)\n✓ Sí (a costa de confianza)\n\n\n\\(s \\uparrow\\)\n\\(d \\uparrow\\) (menos preciso)\n✗ No"
+  },
+  {
+    "objectID": "T03_clean.html#ic-para-mu-ejemplo-paso-a-paso",
+    "href": "T03_clean.html#ic-para-mu-ejemplo-paso-a-paso",
+    "title": "Teoría de la Estimación",
+    "section": "IC para \\(\\mu\\) — Ejemplo paso a paso",
+    "text": "IC para \\(\\mu\\) — Ejemplo paso a paso\nColesterol (mg/dL) en 10 estudiantes: 162, 176, 169, 165, 171, 169, 172, 168, 167, 175\n\n\nMostrar código R\nx&lt;-c(162,176,169,165,171,169,172,168,167,175)\nn&lt;-length(x); xbar&lt;-mean(x); s&lt;-sd(x); t_crit&lt;-qt(0.975,n-1)\nd&lt;-t_crit*s/sqrt(n)\ncat(\"n =\", n, \"xbar =\", round(xbar,2), \"s =\", round(s,2),\n    \"\\nt(0.025, 9) =\", round(t_crit,3),\n    \"\\nIC 95%: (\", round(xbar-d,2), \",\", round(xbar+d,2), \") mg/dL\",\n    \"\\nPrecisión d =\", round(d,2), \"mg/dL\")\n\n\nn = 10 xbar = 169.4 s = 4.3 \nt(0.025, 9) = 2.262 \nIC 95%: ( 166.32 , 172.48 ) mg/dL \nPrecisión d = 3.08 mg/dL\n\n\nInterpretación: \\(\\mu \\in (166.3,\\; 172.5)\\) mg/dL con 95% de confianza. \\(d = \\pm 3.08\\) mg/dL.\n\n\nMostrar código R\n# BioEstatR: icm(x = x, nivel = 0.95)"
+  },
+  {
+    "objectID": "T03_clean.html#ic-para-la-media-qué-afecta-a-su-anchura",
+    "href": "T03_clean.html#ic-para-la-media-qué-afecta-a-su-anchura",
+    "title": "Teoría de la Estimación",
+    "section": "IC para la media — ¿qué afecta a su anchura?",
+    "text": "IC para la media — ¿qué afecta a su anchura?\n\n\nMostrar código R\npar(mfrow=c(1,2), mar=c(4,4,3,1))\n# Efecto de n (misma s, misma confianza)\ns&lt;-12; conf&lt;-0.95\nns&lt;-c(5,10,20,40,80,160)\nwidths&lt;-sapply(ns,function(n){2*qt((1+conf)/2,n-1)*s/sqrt(n)})\nplot(ns, widths, type=\"b\", pch=19, col=\"steelblue\", lwd=3, cex=1.5,\n     main=\"Efecto de n en la anchura del IC 95%\",\n     xlab=\"Tamaño muestral (n)\", ylab=\"Anchura del IC\", ylim=c(0,25))\nabline(h=5, lty=2, col=\"darkgreen\", lwd=2)\ntext(100, 5.5, \"Precisión deseada\", col=\"darkgreen\", cex=0.9)\n\n# Efecto de la confianza (mismo n, misma s)\nn&lt;-30; confs&lt;-seq(0.80,0.99,0.01)\nwidths2&lt;-sapply(confs,function(c){2*qt((1+c)/2,n-1)*s/sqrt(n)})\nplot(confs*100, widths2, type=\"l\", lwd=3, col=\"seagreen\",\n     main=\"Efecto de la confianza (n=30, s=12)\",\n     xlab=\"Nivel de confianza (%)\", ylab=\"Anchura del IC\")\nabline(v=95, lty=2, col=\"grey40\")\ntext(95, 7.5, \"95%\", col=\"grey40\")\n\n\n\nMostrar código R\npar(mfrow=c(1,1))\n\n\nPara recordar: Más \\(n\\) → IC más estrecho. Más confianza → IC más ancho. El precio de estar más seguro es perder precisión."
+  },
+  {
+    "objectID": "T03_clean.html#visualización-del-ic-sobre-la-distribución-t-de-student",
+    "href": "T03_clean.html#visualización-del-ic-sobre-la-distribución-t-de-student",
+    "title": "Teoría de la Estimación",
+    "section": "Visualización del IC sobre la distribución \\(t\\) de Student",
+    "text": "Visualización del IC sobre la distribución \\(t\\) de Student\n\n\nMostrar código R\nx &lt;- c(162,176,169,165,171,169,172,168,167,175)\nn &lt;- length(x); xbar &lt;- mean(x); s &lt;- sd(x)\nt_crit &lt;- qt(0.975, n-1)\n\ncurve(dt(x, n-1), -4.5, 4.5, lwd = 3, col = \"steelblue\",\n      main = \"IC 95% para μ — Distribución t(9)\",\n      xlab = expression(t == (bar(x)-mu)/(s/sqrt(n))), ylab = \"Densidad\",\n      ylim = c(0, 0.45))\n# Región central 95%\nxc &lt;- seq(-t_crit, t_crit, 0.01)\nyc &lt;- dt(xc, n-1)\npolygon(c(xc, rev(xc)), c(yc, rep(0, length(yc))),\n        col = rgb(0.2, 0.6, 0.4, 0.25), border = NA)\n# Líneas críticas\nabline(v = c(-t_crit, t_crit), col = \"darkgreen\", lwd = 2.5, lty = 2)\n# Anotaciones\ntext(0, 0.42, \"95%\", col = \"darkgreen\", font = 2, cex = 1.3)\ntext(-t_crit - 0.8, 0.15, expression(-t[0.025] == -2.262), col = \"darkgreen\")\ntext(t_crit + 0.8, 0.15, expression(+t[0.025] == +2.262), col = \"darkgreen\")\narrows(-3.8, 0.06, -t_crit - 0.1, 0.01, col = \"#e74c3c\", lwd = 2, length = 0.1)\narrows(3.8, 0.06, t_crit + 0.1, 0.01, col = \"#e74c3c\", lwd = 2, length = 0.1)\ntext(-3.8, 0.09, expression(alpha/2 == 2.5*\"%\"), col = \"#e74c3c\", cex = 0.8)\ntext(3.8, 0.09, expression(alpha/2 == 2.5*\"%\"), col = \"#e74c3c\", cex = 0.8)\n\n\n\n\n\n\n\n\n\nNota\n\n\nEl área verde central cubre el 95% de la distribución. Los valores de \\(t\\) que caen en esta región producen IC que contienen a \\(\\mu\\). Las colas rojas (\\(\\alpha/2 = 2.5\\%\\) cada una) corresponden a los IC que no contienen a \\(\\mu\\). De 100 IC construidos, ~95 contendrán el verdadero valor de \\(\\mu\\)."
+  },
+  {
+    "objectID": "T03_clean.html#interpretación-correcta-del-ic",
+    "href": "T03_clean.html#interpretación-correcta-del-ic",
+    "title": "Teoría de la Estimación",
+    "section": "Interpretación correcta del IC",
+    "text": "Interpretación correcta del IC\nPara reflexionar: Acabamos de calcular IC 95% = (166.3, 172.5). ¿Significa esto que hay un 95% de probabilidad de que μ esté entre 166.3 y 172.5? (La respuesta está en esta misma diapositiva.)\n\n\n\n\n\n\nAdvertencia\n\n\nErrores frecuentes de interpretación:\n\n❌ “Hay 95% de probabilidad de que \\(\\mu\\) esté en el IC” ✅ “El 95% de los IC así construidos contendrán \\(\\mu\\)”\n❌ “El 95% de los pacientes están en ese rango” ✅ “El IC estima la media poblacional, no la dispersión de individuos”\n❌ “Un IC más ancho = datos de peor calidad” ✅ “Depende de \\(n\\), \\(s\\) y \\((1-\\alpha)\\). Con \\(n\\) pequeño, el IC es naturalmente ancho”\n\n\n\n\nApp interactiva: Intervalos de Confianza"
+  },
+  {
+    "objectID": "T03_clean.html#derivación-del-tamaño-muestral-para-mu",
+    "href": "T03_clean.html#derivación-del-tamaño-muestral-para-mu",
+    "title": "Teoría de la Estimación",
+    "section": "Derivación del tamaño muestral para \\(\\mu\\)",
+    "text": "Derivación del tamaño muestral para \\(\\mu\\)\nPunto de partida — la precisión del IC: \\[d = t_{\\alpha/2;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}}\\]\nPaso 1 — Despejar \\(n\\): \\[d = t_{\\alpha/2;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}} \\;\\Rightarrow\\; \\sqrt{n} = \\frac{t_{\\alpha/2;\\, n-1} \\cdot s}{d} \\;\\Rightarrow\\; n = \\left(\\frac{t_{\\alpha/2;\\, n-1} \\cdot s}{d}\\right)^2\\]\n(La solución iterativa y la fórmula con z se desarrollan en la siguiente diapositiva.)"
+  },
+  {
+    "objectID": "T03_clean.html#tamaño-muestral-el-problema-de-circularidad",
+    "href": "T03_clean.html#tamaño-muestral-el-problema-de-circularidad",
+    "title": "Teoría de la Estimación",
+    "section": "Tamaño muestral — El problema de circularidad",
+    "text": "Tamaño muestral — El problema de circularidad\nPaso 2 — El problema de circularidad: \\(t_{\\alpha/2;\\, n-1}\\) depende de \\(n\\) (grados de libertad). Solución práctica: 1. Usar \\(z_{\\alpha/2}\\) (normal) como aproximación inicial 2. Calcular \\(n_0\\) provisional 3. Ajustar con la \\(t\\) correspondiente a \\(n_0-1\\) gl 4. Iterar si es necesario (normalmente 1-2 pasos bastan)\nPaso 3 — Fórmula con \\(z\\) (aproximación para muestra grande): \\[n \\geq \\left(\\frac{z_{\\alpha/2} \\cdot s}{d}\\right)^2\\]"
+  },
+  {
+    "objectID": "T03_clean.html#tamaño-muestral-ejemplo-numérico-completo",
+    "href": "T03_clean.html#tamaño-muestral-ejemplo-numérico-completo",
+    "title": "Teoría de la Estimación",
+    "section": "Tamaño muestral — Ejemplo numérico completo",
+    "text": "Tamaño muestral — Ejemplo numérico completo\nContexto clínico: Queremos estimar la media de flexión de hombro con precisión \\(d = 3°\\) y 95% de confianza. Un estudio piloto con 8 pacientes dio \\(s = 4.06°\\).\nIteración 1 (con \\(z\\)): \\[n_0 = \\left(\\frac{1.96 \\times 4.06}{3}\\right)^2 = \\left(\\frac{7.9576}{3}\\right)^2 = (2.653)^2 = 7.04 \\rightarrow 8\\]\nIteración 2 (con \\(t_{0.025; 7}\\)): \\[n_1 = \\left(\\frac{2.365 \\times 4.06}{3}\\right)^2 = \\left(\\frac{9.602}{3}\\right)^2 = (3.201)^2 = 10.24 \\rightarrow 11\\]\nComprobación (con \\(t_{0.025; 10} = 2.228\\)): \\[n_2 = \\left(\\frac{2.228 \\times 4.06}{3}\\right)^2 = (3.015)^2 = 9.09 \\rightarrow 10\\]\n\n\n\n\n\n\nTip\n\n\nConvergencia: \\(8 \\to 11 \\to 10\\). Necesitamos \\(n=10\\) (2 pacientes más que el piloto). La diferencia \\(z\\) vs \\(t\\) importa con muestras pequeñas.\n\n\n\n\n\nMostrar código R\ns_piloto &lt;- 4.06; d_deseada &lt;- 3; alpha &lt;- 0.05\n# Iteración\nn0 &lt;- ceiling((qnorm(1-alpha/2) * s_piloto / d_deseada)^2)\nn1 &lt;- ceiling((qt(1-alpha/2, n0-1) * s_piloto / d_deseada)^2)\nn2 &lt;- ceiling((qt(1-alpha/2, n1-1) * s_piloto / d_deseada)^2)\ncat(\"n0 (z) =\", n0, \"→ n1 (t,\", n0-1, \"gl) =\", n1, \"→ n2 (t,\", n1-1, \"gl) =\", n2)\n\n\nn0 (z) = 8 → n1 (t, 7 gl) = 11 → n2 (t, 10 gl) = 10"
+  },
+  {
+    "objectID": "T03_clean.html#ic-para-la-media-ejemplo-con-datos-reales-de-fisioterapia",
+    "href": "T03_clean.html#ic-para-la-media-ejemplo-con-datos-reales-de-fisioterapia",
+    "title": "Teoría de la Estimación",
+    "section": "IC para la media — Ejemplo con datos reales de fisioterapia",
+    "text": "IC para la media — Ejemplo con datos reales de fisioterapia\nContexto clínico: Goniometría de flexión de hombro en 8 pacientes post-rehabilitación:\n168°, 174°, 162°, 170°, 166°, 172°, 164°, 170°\nPaso 1 — Estadísticos muestrales: \\(n=8\\), \\(\\bar{x} = \\frac{168+174+162+170+166+172+164+170}{8} = \\frac{1346}{8} = 168.25°\\)\n\\(s = \\sqrt{\\frac{\\sum(x_i-\\bar{x})^2}{7}} = \\sqrt{\\frac{(-0.25)^2+5.75^2+(-6.25)^2+1.75^2+(-2.25)^2+3.75^2+(-4.25)^2+1.75^2}{7}}\\)\n\\(s = \\sqrt{\\frac{0.06+33.06+39.06+3.06+5.06+14.06+18.06+3.06}{7}} = \\sqrt{\\frac{115.5}{7}} = 4.06°\\)\nPaso 2 — Valor crítico: \\(t_{0.025;7} = 2.365\\)\nPaso 3 — IC 95%: \\(168.25 \\pm 2.365 \\cdot \\frac{4.06}{\\sqrt{8}} = 168.25 \\pm 3.39 = (164.9°, 171.6°)\\)\n\n\nMostrar código R\nx &lt;- c(168,174,162,170,166,172,164,170)\nn&lt;-length(x); xbar&lt;-mean(x); s&lt;-sd(x); t_crit&lt;-qt(0.975,n-1)\nIC_lo&lt;-xbar-t_crit*s/sqrt(n); IC_hi&lt;-xbar+t_crit*s/sqrt(n)\ncat(\"IC 95%: (\", round(IC_lo,1), \",\", round(IC_hi,1), \")°\",\n    \"\\nPrecision d =\", round(t_crit*s/sqrt(n),2), \"°\")\n\n\nIC 95%: ( 164.9 , 171.6 )° \nPrecision d = 3.4 °\n\n\nInterpretación clinica: Con 95% de confianza, la flexión media de hombro post-rehabilitación está entre 164.9° y 171.6°. La precisión de ±3.4° es clínicamente aceptable para goniometría."
+  },
+  {
+    "objectID": "T03_clean.html#ic-para-una-proporción-poblacional",
+    "href": "T03_clean.html#ic-para-una-proporción-poblacional",
+    "title": "Teoría de la Estimación",
+    "section": "IC para una proporción poblacional",
+    "text": "IC para una proporción poblacional\nEstimador puntual: \\(\\hat{p} = x/n\\)\nMétodo de Wilson (recomendado, condición: \\(x&gt;5\\), \\(n-x&gt;5\\)):\n\\[p \\in \\frac{x + \\frac{z_{\\alpha/2}^2}{2}}{n + z_{\\alpha/2}^2} \\pm \\frac{z_{\\alpha/2}}{n + z_{\\alpha/2}^2}\\sqrt{\\frac{x(n-x)}{n} + \\frac{z_{\\alpha/2}^2}{4}}\\]\nWald (evitar): \\(\\hat{p} \\pm z_{\\alpha/2} \\sqrt{\\hat{p}(1-\\hat{p})/n}\\) (requiere \\(x&gt;20\\), \\(n-x&gt;20\\), puede exceder \\([0,1]\\))\nWald ajustado: \\(\\frac{x+2}{n+4} \\pm z_{\\alpha/2} \\sqrt{\\frac{(x+2)(n-x+2)}{(n+4)^3}}\\) (siempre válido)\nSiempre preferir Wilson. Es el que mejor cobertura tiene y respeta \\([0,1]\\)."
+  },
+  {
+    "objectID": "T03_clean.html#ic-para-proporción-ejemplo-en-fisioterapia",
+    "href": "T03_clean.html#ic-para-proporción-ejemplo-en-fisioterapia",
+    "title": "Teoría de la Estimación",
+    "section": "IC para proporción — Ejemplo en fisioterapia",
+    "text": "IC para proporción — Ejemplo en fisioterapia\n18 de 40 pacientes con cervicalgia mejoran con ejercicio terapéutico.\n\\(n=40\\), \\(x=18\\), \\(\\hat{p}=0.45\\), \\(z_{0.025}=1.96\\)\n\n\nMostrar código R\nx&lt;-18; n&lt;-40; z&lt;-qnorm(0.975)\n# Wilson\nden&lt;-n+z^2; cent&lt;-(x+z^2/2)/den; marg&lt;-z/den*sqrt(x*(n-x)/n+z^2/4)\ncat(\"IC 95% Wilson: (\", round(cent-marg,3), \",\", round(cent+marg,3), \")\",\n    \"\\n→ Entre\", round(100*(cent-marg),1), \"% y\", round(100*(cent+marg),1), \"%\",\n    \"\\nPrecisión: ±\", round(marg*100,1), \"pp\")\n\n\nIC 95% Wilson: ( 0.307 , 0.602 ) \n→ Entre 30.7 % y 60.2 % \nPrecisión: ± 14.7 pp\n\n\nInterpretación: Con 95% de confianza, entre 30.7% y 60.1% de pacientes mejoran."
+  },
+  {
+    "objectID": "T03_clean.html#comparación-de-métodos",
+    "href": "T03_clean.html#comparación-de-métodos",
+    "title": "Teoría de la Estimación",
+    "section": "Comparación de métodos",
+    "text": "Comparación de métodos\nEjemplo (\\(x=18\\), \\(n=40\\)):\n\n\n\nMétodo\nIC 95%\n\n\n\n\nWilson\n(0.307, 0.601)\n\n\nWald ajustado\n(0.308, 0.600)\n\n\nWald\n(0.296, 0.604)\n\n\n\nCuantiles Z más usados:\n\n\nMostrar código R\ncat(\"IC 90%: z =\", round(qnorm(0.95),3),\n    \"\\nIC 95%: z =\", round(qnorm(0.975),3),\n    \"\\nIC 99%: z =\", round(qnorm(0.995),3))\n\n\nIC 90%: z = 1.645 \nIC 95%: z = 1.96 \nIC 99%: z = 2.576"
+  },
+  {
+    "objectID": "T03_clean.html#tamaño-muestral",
+    "href": "T03_clean.html#tamaño-muestral",
+    "title": "Teoría de la Estimación",
+    "section": "Tamaño muestral",
+    "text": "Tamaño muestral\nPara la media (\\(d\\) = precisión deseada):\n\\[n = \\left(\\frac{z_{\\alpha/2} \\cdot s}{d}\\right)^2\\]\nPara la proporción (con \\(\\tilde{p}\\) piloto):\n\\[n = \\left(\\frac{z_{\\alpha/2}}{d}\\right)^2 \\cdot \\tilde{p}(1-\\tilde{p})\\]\nPeor caso (\\(\\tilde{p}=0.5\\)): \\(n_{\\max} = 0.25 \\cdot z_{\\alpha/2}^2 / d^2\\)\nEjemplo: \\(d=5\\%\\), \\(\\tilde{p}=0.45\\), 95% confianza:\n\n\nMostrar código R\nn&lt;-ceiling((qnorm(0.975)/0.05)^2 * 0.45 * 0.55)\ncat(\"n necesario =\", n, \"pacientes\")\n\n\nn necesario = 381 pacientes"
+  },
+  {
+    "objectID": "T03_clean.html#ic-exacto-de-clopper-pearson",
+    "href": "T03_clean.html#ic-exacto-de-clopper-pearson",
+    "title": "Teoría de la Estimación",
+    "section": "IC exacto de Clopper-Pearson",
+    "text": "IC exacto de Clopper-Pearson\n\n\n\n\n\n\nNota\n\n\nEl IC exacto de Clopper-Pearson se basa directamente en la distribución binomial, sin aproximaciones normales. Es el método más conservador y se recomienda cuando las aproximaciones fallan.\n\n\n\n¿Cuándo usar Clopper-Pearson?\n\nMuestras pequeñas (\\(n &lt; 30\\)) donde Wilson puede ser impreciso\nProporciones extremas (\\(\\hat{p} \\approx 0\\) o \\(\\hat{p} \\approx 1\\))\nCuando se necesita cobertura garantizada \\(\\geq 1-\\alpha\\) (IC conservador)\n\nConcepto: Se buscan los valores \\(p_L\\) y \\(p_U\\) tales que: \\[P(X \\geq x \\mid p_L) = \\alpha/2 \\qquad P(X \\leq x \\mid p_U) = \\alpha/2\\]\ndonde \\(X \\sim \\text{Binomial}(n, p)\\).\n\n\nMostrar código R\n# IC exacto de Clopper-Pearson en R\nx &lt;- 18; n &lt;- 40\nic_exacto &lt;- binom.test(x, n, conf.level = 0.95)$conf.int\ncat(\"IC 95% exacto (Clopper-Pearson): (\", round(ic_exacto[1], 3), \",\", round(ic_exacto[2], 3), \")\")\n\n\nIC 95% exacto (Clopper-Pearson): ( 0.293 , 0.615 )\n\n\nMostrar código R\n# Comparación con Wilson\nz &lt;- qnorm(0.975); den &lt;- n + z^2\ncent &lt;- (x + z^2/2)/den; marg &lt;- z/den * sqrt(x*(n-x)/n + z^2/4)\ncat(\"\\nIC 95% Wilson:                    (\", round(cent - marg, 3), \",\", round(cent + marg, 3), \")\")\n\n\n\nIC 95% Wilson:                    ( 0.307 , 0.602 )\n\n\nMostrar código R\ncat(\"\\n\\nClopper-Pearson es más ancho (conservador) pero garantiza cobertura ≥ 95%.\")\n\n\n\n\nClopper-Pearson es más ancho (conservador) pero garantiza cobertura ≥ 95%.\n\n\nRegla práctica: Usa Wilson como método estándar. Recurre a Clopper-Pearson con muestras pequeñas (\\(n &lt; 20\\)) o cuando \\(x = 0\\) o \\(x = n\\) (donde Wilson falla)."
+  },
+  {
+    "objectID": "T03_clean.html#ic-para-proporción-visualización-de-los-4-métodos",
+    "href": "T03_clean.html#ic-para-proporción-visualización-de-los-4-métodos",
+    "title": "Teoría de la Estimación",
+    "section": "IC para proporción — Visualización de los 4 métodos",
+    "text": "IC para proporción — Visualización de los 4 métodos\n18/40 pacientes mejoran (45%). Comparación de IC 95%:\n\n\nMostrar código R\nx&lt;-18; n&lt;-40; alpha&lt;-0.05; z&lt;-qnorm(1-alpha/2); p_hat&lt;-x/n\nden&lt;-n+z^2; w_cent&lt;-(x+z^2/2)/den; w_marg&lt;-z/den*sqrt(x*(n-x)/n+z^2/4)\nwilson&lt;-c(w_cent-w_marg, w_cent+w_marg)\np_tilde&lt;-(x+2)/(n+4); wa_marg&lt;-z*sqrt(p_tilde*(1-p_tilde)/(n+4))\nwald_adj&lt;-c(p_tilde-wa_marg, p_tilde+wa_marg)\nwald&lt;-c(p_hat-z*sqrt(p_hat*(1-p_hat)/n), p_hat+z*sqrt(p_hat*(1-p_hat)/n))\nexacto&lt;-binom.test(x,n,conf.level=0.95)$conf.int\nics&lt;-rbind(Wilson=wilson, Wald_aj=wald_adj, Wald=wald, Exacto=exacto)\npar(mar=c(5,8,4,1))\nplot(NA, xlim=c(0.2,0.7), ylim=c(0.5,4.5), yaxt=\"n\", ylab=\"\",\n     xlab=\"Proporcion de mejoria\", main=\"IC 95% — 4 Metodos\")\naxis(2, at=1:4, labels=rownames(ics), las=2)\nfor(i in 1:4){lines(ics[i,], c(i,i), lwd=4, col=c(\"steelblue\",\"darkgreen\",\"coral\",\"purple\")[i])\n  points(p_hat, i, pch=19, cex=1.5)}\n\n\n\nWilson (azul) es el recomendado. Los 4 convergen con \\(n\\) grande.\n\n\n\n\n\n\nTip\n\n\n📎 Apéndice — Método de los Momentos (MoM): Técnica de estimación que iguala momentos muestrales a poblacionales. Para la Normal, coincide con los estimadores que ya usamos (\\(\\hat{\\mu}=\\bar{x}\\), \\(\\hat{\\sigma}^2=s^2\\)). Es simple pero menos eficiente que Máxima Verosimilitud en algunos casos. No es necesario para el resto del curso."
+  },
+  {
+    "objectID": "T03_clean.html#del-ic-al-contraste-de-hipótesis-el-estadístico-t",
+    "href": "T03_clean.html#del-ic-al-contraste-de-hipótesis-el-estadístico-t",
+    "title": "Teoría de la Estimación",
+    "section": "Del IC al contraste de hipótesis: El estadístico \\(t\\)",
+    "text": "Del IC al contraste de hipótesis: El estadístico \\(t\\)\n\n\n\n\n\n\nImportante\n\n\nEl puente entre estimación y contraste es el estadístico \\(t\\): \\[t = \\frac{\\bar{x} - \\mu_0}{s / \\sqrt{n}}\\]\n\n\n\nDos caras de la misma moneda — la distribución \\(t\\) de Student:\n\n\n\n\n\n\n\n\nPerspectiva\nUso\nPregunta\n\n\n\n\nEstimación (IC)\n\\(\\bar{x} \\pm t_{\\alpha/2;\\,n-1} \\cdot \\frac{s}{\\sqrt{n}}\\)\n¿Entre qué valores está \\(\\mu\\)?\n\n\nContraste (test)\n\\(t = \\frac{\\bar{x} - \\mu_0}{s / \\sqrt{n}}\\)\n¿Es \\(\\mu = \\mu_0\\) compatible con los datos?\n\n\n\nOrigen de la distribución \\(t\\): Cuando sustituimos \\(\\sigma\\) (desconocida) por \\(s\\) (estimada), el cociente ya no es normal. La incertidumbre adicional al estimar \\(\\sigma\\) ensancha las colas: nace la \\(t\\) de Student (Gosset, 1908). Con \\(n\\) grande, \\(t \\to N(0,1)\\)."
+  },
+  {
+    "objectID": "T03_clean.html#dualidad-ic-contraste-de-hipótesis",
+    "href": "T03_clean.html#dualidad-ic-contraste-de-hipótesis",
+    "title": "Teoría de la Estimación",
+    "section": "Dualidad IC — Contraste de hipótesis",
+    "text": "Dualidad IC — Contraste de hipótesis\nPara reflexionar: Si μ₀ = 170 está dentro del IC 95%, ¿qué crees que pasará con el test de hipótesis H₀: μ = 170?\n\n\n\n\n\n\nImportante\n\n\nPrincipio de dualidad: Un IC al \\((1-\\alpha)\\%\\) contiene exactamente los valores del parámetro que no serían rechazados en un contraste bilateral a nivel \\(\\alpha\\).\n\n\n\nEjemplo numérico (colesterol, \\(n=10\\), datos anteriores):\nIC 95%: \\(\\mu \\in (166.3, 172.5)\\) mg/dL\n\n\n\n\n\n\n\n\n\nHipótesis nula\nEstadístico \\(t\\)\n¿Se rechaza \\(H_0\\)?\n\\(\\mu_0 \\in\\) IC?\n\n\n\n\n\\(H_0: \\mu = 170\\)\n\\(t = \\frac{169.4-170}{4.30/\\sqrt{10}} = -0.441\\)\nNo (\\(\\|t\\| &lt; 2.262\\))\n✓ Sí\n\n\n\\(H_0: \\mu = 175\\)\n\\(t = \\frac{169.4-175}{1.36} = -4.118\\)\nSí (\\(\\|t\\| &gt; 2.262\\))\n✗ No\n\n\n\\(H_0: \\mu = 165\\)\n\\(t = \\frac{169.4-165}{1.36} = 3.235\\)\nSí (\\(\\|t\\| &gt; 2.262\\))\n✗ No\n\n\n\n\n\nMostrar código R\nxbar&lt;-169.4; s&lt;-4.30; n&lt;-10; SE&lt;-s/sqrt(n); tc&lt;-qt(0.975,9)\nfor(mu0 in c(170, 175, 165)){\n  t_stat&lt;-(xbar-mu0)/SE; en_IC&lt;-mu0&gt;=xbar-tc*SE & mu0&lt;=xbar+tc*SE\n  cat(\"mu0 =\", mu0, \"| t =\", round(t_stat,3), \"| Rechaza:\", abs(t_stat)&gt;tc, \"| En IC:\", en_IC, \"\\n\")\n}\n\n\nmu0 = 170 | t = -0.441 | Rechaza: FALSE | En IC: TRUE \nmu0 = 175 | t = -4.118 | Rechaza: TRUE | En IC: FALSE \nmu0 = 165 | t = 3.236 | Rechaza: TRUE | En IC: FALSE"
+  },
+  {
+    "objectID": "T03_clean.html#del-ic-al-contraste-ejemplo-clínico-en-fisioterapia",
+    "href": "T03_clean.html#del-ic-al-contraste-ejemplo-clínico-en-fisioterapia",
+    "title": "Teoría de la Estimación",
+    "section": "Del IC al contraste: Ejemplo clínico en fisioterapia",
+    "text": "Del IC al contraste: Ejemplo clínico en fisioterapia\nContexto: Goniometría de flexión de hombro en 8 pacientes post-rehabilitación. Valor de referencia clínico: \\(170°\\).\nPaso 1 — Estimación (IC 95%): \\[168.25 \\pm 2.365 \\cdot \\frac{4.06}{\\sqrt{8}} = (164.9°, 171.6°)\\]\nPaso 2 — Contraste (\\(H_0: \\mu = 170°\\)): \\[t = \\frac{168.25 - 170}{4.06/\\sqrt{8}} = \\frac{-1.75}{1.435} = -1.22\\]\nPaso 3 — Decisión: - \\(|t| = 1.22 &lt; t_{0.025; 7} = 2.365\\) → No se rechaza \\(H_0\\) - \\(170° \\in (164.9°, 171.6°)\\) ✓ → El IC ya contenía el valor de referencia\n\n\n\n\n\n\nImportante\n\n\nRegla general — dualidad IC/test: \\[\\mu_0 \\in \\text{IC}_{1-\\alpha} \\;\\Longleftrightarrow\\; \\text{No se rechaza } H_0: \\mu = \\mu_0 \\text{ a nivel } \\alpha\\]\nEl IC es más informativo que el test: da todo el rango de valores compatibles con los datos, no solo una decisión binaria. El Tema 4 desarrolla en profundidad la teoría de contrastes de hipótesis."
+  },
+  {
+    "objectID": "T03_clean.html#resumen-visual-de-la-muestra-a-la-decisión-clínica",
+    "href": "T03_clean.html#resumen-visual-de-la-muestra-a-la-decisión-clínica",
+    "title": "Teoría de la Estimación",
+    "section": "Resumen visual: De la muestra a la decisión clínica",
+    "text": "Resumen visual: De la muestra a la decisión clínica\nEjemplo de fisioterapia (\\(n=8\\), \\(\\bar{x}=168.25°\\), \\(s=4.06°\\)):\n\n\nMostrar código R\npar(mar=c(4,6,2,1))\nplot(NA, xlim=c(162, 174), ylim=c(0.5, 3.5), yaxt=\"n\", ylab=\"\", bty=\"n\",\n     xlab=\"Grados de flexión de hombro\", main=\"IC 95% y valor de referencia clínico\")\nic_lo &lt;- 164.9; ic_hi &lt;- 171.6; xbar &lt;- 168.25; mu0 &lt;- 170\nlines(c(ic_lo, ic_hi), c(2,2), lwd=6, col=\"steelblue\")\npoints(xbar, 2, pch=19, cex=2, col=\"darkblue\")\ntext(xbar, 2.4, expression(bar(x) == 168.25), cex=1.1)\ntext(ic_lo, 1.7, \"164.9°\", cex=0.9); text(ic_hi, 1.7, \"171.6°\", cex=0.9)\nabline(v=mu0, col=\"darkgreen\", lwd=3, lty=2)\ntext(mu0, 2.8, expression(H[0]: mu == 170), col=\"darkgreen\", cex=1.1)\ntext(168, 3.3, expression(mu[0] * \" está en \" * IC[95 ~ \"%\"] * \"  →  No se rechaza \" * H[0]), cex=1.1, font=2)\ntext(162, 0.8, \"← Rechazaría H₀\", col=\"grey50\", cex=0.8)\ntext(173, 0.8, \"Rechazaría H₀ →\", col=\"grey50\", cex=0.8)"
+  },
+  {
+    "objectID": "T03_clean.html#bioestatr-ics-y-tamaño-muestral",
+    "href": "T03_clean.html#bioestatr-ics-y-tamaño-muestral",
+    "title": "Teoría de la Estimación",
+    "section": "BioEstatR — Ics y tamaño muestral",
+    "text": "BioEstatR — Ics y tamaño muestral\n\n\nMostrar código R\nlibrary(BioEstatR)\n\n# ICs\nicm(x = datos, nivel = 0.95)              # media\nicm(m = 145, s = 12, n = 40, nivel = 0.95)\nicp(x = 18, n = 40, nivel = 0.95)         # proporción (4 métodos)\n\n# Tamaño muestral\nnm(d = 3, s = 12, alfa = 0.05)            # para media\nnp(x = 18, n = 40, d = 0.05, conf = 0.95) # para proporción"
+  },
+  {
+    "objectID": "T03_clean.html#resumen-tema-3",
+    "href": "T03_clean.html#resumen-tema-3",
+    "title": "Teoría de la Estimación",
+    "section": "Resumen — Tema 3",
+    "text": "Resumen — Tema 3\n\nTeorema Central del Límite (TCL): \\(\\bar{X} \\approx N(\\mu, \\sigma/\\sqrt{n})\\) para \\(n\\) grande → fundamento de toda la inferencia\nError estándar: \\(SE = s/\\sqrt{n}\\) cuantifica la precisión de \\(\\bar{x}\\) como estimador de \\(\\mu\\)\nIC para la media: \\(\\bar{x} \\pm t_{n-1,\\alpha/2} \\cdot SE\\) — usamos \\(t\\) cuando estimamos \\(\\sigma\\)\nIC para proporción: método de Wilson (recomendado), Agresti-Coull, Clopper-Pearson (exacto)\nInterpretación correcta: “Si repitiéramos el estudio 100 veces, ~95 IC contendrían el verdadero parámetro”\nTamaño muestral: \\(n = (z_{\\alpha/2} \\cdot \\sigma / d)^2\\) — planificar antes de recoger datos\nDualidad IC/test: si el IC no contiene el valor nulo, el test rechaza \\(H_0\\) → puente al Tema 4"
+  },
+  {
+    "objectID": "T03_clean.html#references",
+    "href": "T03_clean.html#references",
+    "title": "Teoría de la Estimación",
+    "section": "",
+    "text": "Referencias complementarias del libro:\n\nReferencias\n\n(Casella & Berger, 2002) Casella, G. & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.\n(Cramér, 1946) Cramer, H. (1946). Mathematical Methods of Statistics. Princeton University Press.\n(Femia & Luque-Fernández, 2026) Femia, P. & Luque-Fernandez, M. A. (2026). BioEstatR: Biostatistics Routines in R. R package v1.0.0. Universidad de Granada. https://migariane.github.io/BioEstatR\n(Luque-Fernández, 2026) Luque-Fernandez, M. A. (2026). Matemáticas para la Estadística Médica con R. Universidad de Granada. https://migariane.github.io/MatematicaEstadisticaMedicinaR\n(Newcombe, 1998) Newcombe, R. G. (1998). Two-sided confidence intervals for the single proportion. Statistics in Medicine, 17(8), 857–872.\n(Wilson, 1927) Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. JASA, 22, 209–212.\n\n\n\n\n\n\nCasella, G., & Berger, R. L. (2002). Statistical Inference (2nd ed.). Duxbury.\n\n\nCramér, H. (1946). Mathematical Methods of Statistics. Princeton University Press.\n\n\nFemia, P., & Luque-Fernández, M. A. (2026). BioEstatR: Biostatistics Routines in R. https://migariane.github.io/BioEstatR\n\n\nLuque-Fernández, M. A. (2026). Matemáticas para la Estadística Médica con R. Universidad de Granada. https://migariane.github.io/MatematicaEstadisticaMedicinaR\n\n\nNewcombe, R. G. (1998). Two-Sided Confidence Intervals for the Single Proportion: Comparison of Seven Methods. Statistics in Medicine, 17(8), 857-872.\n\n\nWilson, E. B. (1927). Probable Inference, the Law of Succession, and Statistical Inference. Journal of the American Statistical Association, 22(158), 209-212."
   }
 ]
