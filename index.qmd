@@ -49,12 +49,15 @@ Cada tema incluye: fundamentos teóricos con desarrollo matemático, aplicacio
 
 | # | Tema | Contenido principal | Ref. libro | Enlace |
 |:--:|------|--------------------|:----------:|--------|
-| **01** | Estadística Descriptiva | Tipos de datos, tablas, gráficos, medidas de posición y dispersión | Sem. 1–2 | → [T01](T01_Descriptiva.qmd) |
-| **02** | Probabilidad y Variables Aleatorias | Kolmogorov, Bayes, Normal, Binomial, Poisson, t, χ², F | Sem. 3–5 | → [T02](T02_Probabilidad.qmd) |
-| **03** | Estimación e Intervalos de Confianza | TCL, IC para media y proporción, Wilson, tamaño muestral | Sem. 6–7 | → [T03](T03_Estimacion_IC.qmd) |
-| **04** | Contraste de Hipótesis | t-test, Welch, Wilcoxon, McNemar, potencia, efecto de Cohen | Sem. 8–9 | → [T04](T04_Test_Hipotesis.qmd) |
-| **05** | Datos Cualitativos — χ² | Tablas de contingencia, OR, RR, DR, NNT, Mantel-Haenszel, Fisher | Sem. 10–11 | → [T05](T05_ChiCuadrado.qmd) |
-| **06** | Regresión y Correlación | Pearson/Spearman, MCO, R², predicción, Anscombe, diagnóstico | Sem. 12 | → [T06](T06_RegresionCorr.qmd) |
+| **01** | Estadística Descriptiva (I) | Tipos de datos, tablas, organización, resumen, visualización | Sem. 1 | → [T01-I](T01_I_Descriptiva.html) |
+| **01** | Estadística Descriptiva (II) | Medidas de posición, dispersión, forma, aplicación práctica | Sem. 2 | → [T01-II](T01_II_Descriptiva.html) |
+| **02** | Probabilidad y VA (I) | Kolmogorov, Bayes, VPP/VPN, variables aleatorias discretas y continuas | Sem. 3 | → [T02-I](T02_I_Probabilidad.html) |
+| **02** | Probabilidad y VA (II) | Distribuciones Normal, Binomial, Poisson, t, χ², F, TCL, aproximaciones | Sem. 4–5 | → [T02-II](T02_II_Probabilidad.html) |
+| **03** | Estimación e Intervalos de Confianza | TCL, IC para media y proporción, Wilson, tamaño muestral | Sem. 6 | → [T03](T03_Estimacion_IC.html) |
+| **04** | Contraste de Hipótesis (I) | NHST, error tipo I/II, normalidad, tests para una muestra | Sem. 7 | → [T04-I](T04_I_Test_Hipotesis.html) |
+| **04** | Contraste de Hipótesis (II) | Tests dos muestras, no paramétricos, McNemar, potencia, d de Cohen | Sem. 8 | → [T04-II](T04_II_Test_Hipotesis.html) |
+| **05** | Datos Cualitativos — χ² | Tablas de contingencia, OR, RR, DR, NNT, Mantel-Haenszel, Fisher | Sem. 9–10 | → [T05](T05_ChiCuadrado.html) |
+| **06** | Regresión y Correlación | Pearson/Spearman, MCO, R², predicción, Anscombe, diagnóstico | Sem. 11–12 | → [T06](T06_RegresionCorr.html) |
 
 ---
 
@@ -118,7 +121,7 @@ packageVersion("BioEstatR")
 
 | Semana libro | Capítulo | Tema diapositivas |
 |:---:|---|:---:|
-| 1–2 | Análisis Exploratorio de Datos | T01 |
+| 1–2 | Análisis Exploratorio de Datos | T01 (Parte I y II) |
 | 3 | Fundamentos de Probabilidad | T02 (parte I) |
 | 4–5 | Variables Aleatorias y Distribuciones | T02 (parte II) |
 | 6 | Estimación Puntual e IC | T03 |
