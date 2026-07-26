@@ -1028,3 +1028,61 @@ cat("IC 95%: [", round(IC[1],2), ",", round(IC[2],2), "]",
     "\nn necesario:", n_needed)
 ```
 :::
+---
+
+# Código del Tema III — Resumen Organizado {.center}
+
+## Intervalo de confianza para la media
+
+```{r}
+#| eval: false
+# IC 95% para μ con σ desconocida
+x <- c(162, 165, 168, 170, 172, 175, 178, 180, 183, 185)
+n <- length(x)
+xbar <- mean(x)
+s <- sd(x)
+alpha <- 0.05
+t_crit <- qt(1 - alpha/2, n - 1)
+IC_lo <- xbar - t_crit * s / sqrt(n)
+IC_hi <- xbar + t_crit * s / sqrt(n)
+cat("IC 95%: [", round(IC_lo, 2), ",", round(IC_hi, 2), "]")
+
+# Con BioEstatR
+library(BioEstatR)
+icm(m = xbar, s = s, n = n, conf.level = 0.95)
+```
+
+## IC para proporción
+
+```{r}
+#| eval: false
+# IC 95% para una proporción (método de Wilson)
+x <- 20; n <- 50
+p_hat <- x / n
+z <- qnorm(0.975)
+centro <- (x + z^2/2) / (n + z^2)
+margen <- z * sqrt(n * p_hat * (1 - p_hat) + z^2/4) / (n + z^2)
+IC_lo <- centro - margen
+IC_hi <- centro + margen
+cat("IC 95% Wilson: [", round(IC_lo, 3), ",", round(IC_hi, 3), "]")
+
+# Con BioEstatR
+library(BioEstatR)
+icp(x = 20, n = 50)
+```
+
+## Tamaño muestral
+
+```{r}
+#| eval: false
+# Para estimar una media con precisión d
+d <- 5; s <- 12; alpha <- 0.05
+z <- qnorm(1 - alpha/2)
+n_needed <- ceiling((z * s / d)^2)
+cat("n necesario =", n_needed)
+
+# Para estimar una proporción
+d <- 0.05; p <- 0.5
+n_needed <- ceiling((z^2 * p * (1 - p)) / d^2)
+cat("n necesario =", n_needed)
+```

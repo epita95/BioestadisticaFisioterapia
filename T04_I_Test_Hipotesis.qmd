@@ -689,3 +689,58 @@ par(mfrow=c(1,1))
 cat("t =", round(tt$statistic,2), "gl =", tt$parameter, "P =", round(tt$p.value,4))
 ```
 :::
+---
+
+# Código del Tema IV (Parte I) — Resumen Organizado {.center}
+
+## Test para una media (t-Student)
+
+```{r}
+#| eval: false
+# Test t para una muestra
+x <- c(125, 132, 128, 135, 130, 126)
+t.test(x, mu = 130)                       # H₀: μ = 130
+
+# Con BioEstatR (datos resumidos)
+library(BioEstatR)
+testt(m = mean(x), s = sd(x), n = length(x), m0 = 130)
+```
+
+## Test para una proporción
+
+```{r}
+#| eval: false
+# Test z para una proporción
+x <- 48; n <- 287; p0 <- 0.22
+p_hat <- x / n
+z <- (p_hat - p0) / sqrt(p0 * (1 - p0) / n)
+P <- 2 * pnorm(-abs(z))
+cat("z =", round(z, 3), "P =", round(P, 4))
+
+# Con BioEstatR
+library(BioEstatR)
+testp(x = 47, n = 50, p0 = 0.95)
+```
+
+## Verificación de normalidad
+
+```{r}
+#| eval: false
+# Test de Shapiro-Wilk
+datos <- c(125, 132, 128, 135, 130, 126)
+shapiro.test(datos)                       # P > 0.05 → normalidad asumible
+
+# Con BioEstatR (test + gráficos)
+library(BioEstatR)
+testnormal(datos)
+```
+
+## Cálculo manual del P-valor
+
+```{r}
+#| eval: false
+# P-valor a partir de t observado
+t_exp <- 2.40; gl <- 10
+P <- 2 * pt(-abs(t_exp), gl)              # P bilateral = 0.037
+cat("P =", round(P, 4))
+```

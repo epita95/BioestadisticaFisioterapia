@@ -1293,3 +1293,75 @@ cat("R² =", round(summary(modelo)$r.squared,3),
     "\nPredicción 50 años:", round(pred_50,1), "°")
 ```
 :::
+---
+
+# Código del Tema VI — Resumen Organizado {.center}
+
+## Correlación
+
+```{r}
+#| eval: false
+# Datos
+imc <- c(22, 25, 28, 24, 30, 27, 26, 32, 29, 31)
+graso <- c(18, 22, 26, 20, 30, 24, 23, 33, 27, 31)
+
+# Correlación de Pearson
+cor(imc, graso)
+cor.test(imc, graso)                      # Test de significación
+
+# Correlación de Spearman (no paramétrica)
+cor(imc, graso, method = "spearman")
+cor.test(imc, graso, method = "spearman")
+
+# Matriz de correlación
+cor(cbind(imc, graso))
+```
+
+## Regresión lineal simple
+
+```{r}
+#| eval: false
+# Ajuste del modelo
+modelo <- lm(graso ~ imc)
+summary(modelo)                           # Coeficientes, R², test F
+
+# Elementos del modelo
+coef(modelo)                              # β₀ (intercepto), β₁ (pendiente)
+fitted(modelo)                            # Valores ajustados ŷ
+residuals(modelo)                         # Residuos e = y - ŷ
+confint(modelo)                           # IC 95% para coeficientes
+
+# Predicción
+nuevo <- data.frame(imc = c(26, 35))
+predict(modelo, newdata = nuevo)                               # Puntual
+predict(modelo, newdata = nuevo, interval = "confidence")      # IC media
+predict(modelo, newdata = nuevo, interval = "prediction")      # IP individual
+
+# R²
+summary(modelo)$r.squared                 # Proporción de varianza explicada
+```
+
+## Diagnóstico de residuos
+
+```{r}
+#| eval: false
+# Gráficos de diagnóstico
+par(mfrow = c(2, 2))
+plot(modelo)                              # 4 gráficos de diagnóstico
+par(mfrow = c(1, 1))
+
+# Test de normalidad de residuos
+shapiro.test(residuals(modelo))
+
+# Homocedasticidad (Breusch-Pagan)
+library(lmtest)
+bptest(modelo)
+```
+
+## Con BioEstatR
+
+```{r}
+#| eval: false
+library(BioEstatR)
+rls(y = graso, x = imc)                   # Regresión lineal completa
+```

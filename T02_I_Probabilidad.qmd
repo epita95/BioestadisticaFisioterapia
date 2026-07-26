@@ -994,3 +994,64 @@ par(mfrow=c(1,1))
 cat("VPP =", round(vpp*100,1), "%\nVPN =", round(vpn*100,1), "%")
 ```
 :::
+---
+
+# Código del Tema II (Parte I) — Resumen Organizado {.center}
+
+## Probabilidad básica
+
+```{r}
+#| eval: false
+# Regla de Laplace
+P_3 <- 1/6          # P(sacar un 3 en un dado)
+P_par <- 3/6        # P(sacar par)
+
+# Complemento
+P_HTA <- 0.30
+P_no_HTA <- 1 - P_HTA  # P(no HTA) = 0.70
+
+# Unión de eventos (inclusión-exclusión)
+P_A <- 40/100; P_B <- 30/100; P_AB <- 10/100
+P_A_union_B <- P_A + P_B - P_AB  # 0.60
+```
+
+## Probabilidad condicional y Bayes
+
+```{r}
+#| eval: false
+# Probabilidad condicional
+P_R_given_M <- 72/120     # P(Recuperado | Mujer) = 0.60
+P_R_given_H <- 32/80      # P(Recuperado | Hombre) = 0.40
+
+# Teorema de Bayes — Test diagnóstico
+prev <- 0.15              # Prevalencia
+sens <- 0.90              # Sensibilidad
+spec <- 0.85              # Especificidad
+
+vpp <- (sens * prev) / (sens * prev + (1 - spec) * (1 - prev))
+vpn <- (spec * (1 - prev)) / (spec * (1 - prev) + (1 - sens) * prev)
+cat("VPP =", round(vpp * 100, 1), "%")
+cat("VPN =", round(vpn * 100, 1), "%")
+```
+
+## Variables aleatorias
+
+```{r}
+#| eval: false
+# VA Discreta — Binomial
+x <- 0:3
+px <- dbinom(x, 3, 0.5)   # P(X = x)
+Ex <- sum(x * px)          # Esperanza
+Varx <- sum((x - Ex)^2 * px)  # Varianza
+
+# VA Continua — Normal
+mu <- 30; sigma <- 8; x_obs <- 22
+z <- (x_obs - mu) / sigma  # Z-score
+p_bajo <- pnorm(x_obs, mu, sigma)  # P(X ≤ 22)
+
+# Las 4 funciones de R para distribuciones
+dnorm(x, mu, sigma)    # Densidad f(x)
+pnorm(q, mu, sigma)    # Distribución F(q) = P(X ≤ q)
+qnorm(p, mu, sigma)    # Cuantil
+rnorm(n, mu, sigma)    # Generar n valores aleatorios
+```

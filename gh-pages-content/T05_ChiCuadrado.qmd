@@ -1091,7 +1091,7 @@ mtext("→ B mejor, pero solo 10 casos", side = 1, line = 2.5, cex = 0.8, col = 
 
 ## Interpretación de la salida de BioEstatR para $\chi^2$
 
-**Ejemplo: `t2x2(tabla)` para el estudio de fumar y bajo peso:**
+**Ejemplo: `tabla2x2(o=tabla)` para el estudio de fumar y bajo peso:**
 
 ```
 Test Chi-cuadrado para tabla 2x2
@@ -1229,3 +1229,70 @@ cat("OR =", round(OR,2), "χ² =", round(chi$statistic,2),
     "gl =", chi$parameter, "P =", round(chi$p.value,4))
 ```
 :::
+---
+
+# Código del Tema V — Resumen Organizado {.center}
+
+## Test χ² de independencia
+
+```{r}
+#| eval: false
+# Tabla de contingencia
+trat <- matrix(c(49, 28, 14, 6, 3, 1,
+                 42, 33, 21, 9, 6, 2,
+                 40, 35, 28, 12, 8, 4),
+               nrow = 3, byrow = TRUE,
+               dimnames = list(
+                 c("Fisioterapia Manual", "Ejercicio", "Combinado"),
+                 c("Muy mejor", "Mejor", "Igual", "Peor", "Muy peor", "Sin cambio")))
+
+# Test χ²
+chi <- chisq.test(trat)
+chi$expected                              # Frecuencias esperadas
+chi$stdres                                # Residuos estandarizados
+
+# Con corrección de continuidad (2×2)
+tabla_2x2 <- matrix(c(49, 42, 28, 33), nrow = 2)
+chisq.test(tabla_2x2, correct = TRUE)
+```
+
+## Medidas de asociación
+
+```{r}
+#| eval: false
+# OR, RR, DR desde tabla 2×2
+a <- 35; b <- 15; c <- 25; d <- 25
+OR <- (a * d) / (b * c)
+RR <- (a / (a + b)) / (c / (c + d))
+DR <- a/(a+b) - c/(c+d)
+
+# Con BioEstatR
+library(BioEstatR)
+tabla2x2(o = matrix(c(35, 15, 25, 25), nrow = 2))  # OR + IC
+
+# NNT
+NNT <- 1 / DR
+cat("OR =", round(OR, 2), "DR =", round(DR, 3), "NNT =", round(NNT, 1))
+```
+
+## Test exacto de Fisher
+
+```{r}
+#| eval: false
+# Para tablas con frecuencias esperadas < 5
+matriz <- matrix(c(2, 8, 6, 4), nrow = 2)
+fisher.test(matriz)
+```
+
+## Test de McNemar
+
+```{r}
+#| eval: false
+# Datos apareados (antes/después)
+# n11=ambos+, n12=solo antes+, n21=solo después+, n22=ambos-
+mcnemar.test(matrix(c(38, 15, 31, 82), nrow = 2))
+
+# Con BioEstatR
+library(BioEstatR)
+testmcnemar(n11 = 38, n12 = 15, n21 = 31, n22 = 82)
+```

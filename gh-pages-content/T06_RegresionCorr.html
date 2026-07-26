@@ -330,6 +330,14 @@
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
 
 <li><a href="#/ejercicio-clínico-tema-vi" id="/toc-ejercicio-clínico-tema-vi">Ejercicio Clínico — Tema VI</a></li>
+
+</ul></li>
+<li><a href="#/código-del-tema-vi-resumen-organizado" id="/toc-código-del-tema-vi-resumen-organizado">Código del Tema VI — Resumen Organizado</a>
+<ul>
+<li><a href="#/correlación-1" id="/toc-correlación-1">Correlación</a></li>
+<li><a href="#/regresión-lineal-simple" id="/toc-regresión-lineal-simple">Regresión lineal simple</a></li>
+<li><a href="#/diagnóstico-de-residuos" id="/toc-diagnóstico-de-residuos">Diagnóstico de residuos</a></li>
+<li><a href="#/con-bioestatr" id="/toc-con-bioestatr">Con BioEstatR</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1883,7 +1891,7 @@ P = 5e-04</code></pre>
 <img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-22-1.png" width="768" class="r-stretch"><p><strong>Qué buscar en cada gráfico:</strong> 1. <strong>Residuos vs Ajustados:</strong> Nube sin patrón → linealidad + homocedasticidad ✓ 2. <strong>Q-Q Normal:</strong> Puntos cerca de la diagonal → normalidad ✓ 3. <strong>Scale-Location:</strong> Línea horizontal → homocedasticidad ✓ 4. <strong>Leverage:</strong> Puntos alejados en <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> → outliers + influyentes 5. <strong>Cook’s D:</strong> Barras altas → observaciones que cambian sustancialmente el modelo</p>
 </section>
 <section id="cuarteto-de-anscombe-por-qué-los-gráficos-importan-anscombe1973" class="slide level2 center">
-<h2>Cuarteto de anscombe — Por qué los gráficos importan <span class="citation" data-cites="anscombe1973">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span></h2>
+<h2>Cuarteto de anscombe — Por qué los gráficos importan <span class="citation" data-cites="anscombe1973">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span></h2>
 <p>Los cuatro conjuntos de datos de Anscombe tienen <strong>estadísticas idénticas</strong> (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>, <span class="math inline">\(s_x\)</span>, <span class="math inline">\(s_y\)</span>, <span class="math inline">\(r\)</span>, recta de regresión) pero patrones <strong>completamente diferentes</strong>.</p>
 <div class="cell">
 <details class="code-fold">
@@ -2560,22 +2568,22 @@ max  8.592  1.619
 <h2>Referencias</h2>
 <div class="reference-box">
 <ul>
-<li><span class="citation" data-cites="bioestatr2026">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
-<li><span class="citation" data-cites="luque2026">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
-<li><span class="citation" data-cites="pearson1895">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Pearson, 1895</a>)</span> — Pearson, K. (1895). Note on regression and inheritance in the case of two parents. <em>Proc. R. Soc. Lond.</em>, 58, 240–242.</li>
-<li><span class="citation" data-cites="spearman1904">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Spearman, 1904</a>)</span> — Spearman, C. (1904). The proof and measurement of association between two things. <em>Am. J. Psychol.</em>, 15(1), 72101.</li>
-<li><span class="citation" data-cites="anscombe1973">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span> — Anscombe, F. J. (1973). Graphs in statistical analysis. <em>Am. Stat.</em>, 27(1), 17–21.</li>
-<li><span class="citation" data-cites="gauss1809">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Gauss, 1809</a>)</span> — Gauss, C. F. (1809). <em>Theoria motus corporum coelestium</em>. (Mínimos cuadrados).</li>
-<li><span class="citation" data-cites="legendre1805">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Legendre, 1805</a>)</span> — Legendre, A. M. (1805). <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>.</li>
-<li><span class="citation" data-cites="draper1998">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Draper &amp; Smith, 1998</a>)</span> — Draper, N. R. &amp; Smith, H. (1998). <em>Applied Regression Analysis</em> (3rd ed.). Wiley.</li>
-<li><span class="citation" data-cites="harrell2015">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Harrell, 2015</a>)</span> — Harrell, F. E. (2015). <em>Regression Modeling Strategies</em> (2nd ed.). Springer.</li>
+<li><span class="citation" data-cites="bioestatr2026">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
+<li><span class="citation" data-cites="luque2026">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
+<li><span class="citation" data-cites="pearson1895">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Pearson, 1895</a>)</span> — Pearson, K. (1895). Note on regression and inheritance in the case of two parents. <em>Proc. R. Soc. Lond.</em>, 58, 240–242.</li>
+<li><span class="citation" data-cites="spearman1904">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Spearman, 1904</a>)</span> — Spearman, C. (1904). The proof and measurement of association between two things. <em>Am. J. Psychol.</em>, 15(1), 72101.</li>
+<li><span class="citation" data-cites="anscombe1973">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span> — Anscombe, F. J. (1973). Graphs in statistical analysis. <em>Am. Stat.</em>, 27(1), 17–21.</li>
+<li><span class="citation" data-cites="gauss1809">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Gauss, 1809</a>)</span> — Gauss, C. F. (1809). <em>Theoria motus corporum coelestium</em>. (Mínimos cuadrados).</li>
+<li><span class="citation" data-cites="legendre1805">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Legendre, 1805</a>)</span> — Legendre, A. M. (1805). <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>.</li>
+<li><span class="citation" data-cites="draper1998">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Draper &amp; Smith, 1998</a>)</span> — Draper, N. R. &amp; Smith, H. (1998). <em>Applied Regression Analysis</em> (3rd ed.). Wiley.</li>
+<li><span class="citation" data-cites="harrell2015">(<a href="#/con-bioestatr" role="doc-biblioref" onclick="">Harrell, 2015</a>)</span> — Harrell, F. E. (2015). <em>Regression Modeling Strategies</em> (2nd ed.). Springer.</li>
 </ul>
 </div>
 </section>
 <section class="slide level2 center">
 
 </section>
-<section id="ejercicio-clínico-tema-vi" class="slide level2 smaller scrollable">
+<section id="ejercicio-clínico-tema-vi" class="slide level2 center">
 <h2>Ejercicio Clínico — Tema VI</h2>
 <p><strong>Contexto:</strong> Relación edad-flexión lumbar en 10 pacientes. <span class="math inline">\(\hat{Y} = 85 - 0.6X\)</span>, <span class="math inline">\(R^2 = 0.64\)</span>.</p>
 <ol type="1">
@@ -2640,6 +2648,91 @@ Predicción 50 años: 55.1 °</code></pre>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2 center">
+
+</section></section>
+<section>
+<section id="código-del-tema-vi-resumen-organizado" class="title-slide slide level1 center">
+<h1>Código del Tema VI — Resumen Organizado</h1>
+
+</section>
+<section id="correlación-1" class="slide level2 center">
+<h2>Correlación</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Datos</span></span>
+<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">27</span>, <span class="dv">26</span>, <span class="dv">32</span>, <span class="dv">29</span>, <span class="dv">31</span>)</span>
+<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a>graso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">26</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">33</span>, <span class="dv">27</span>, <span class="dv">31</span>)</span>
+<span id="cb89-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Pearson</span></span>
+<span id="cb89-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso)</span>
+<span id="cb89-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso)                      <span class="co"># Test de significación</span></span>
+<span id="cb89-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Spearman (no paramétrica)</span></span>
+<span id="cb89-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb89-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb89-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Matriz de correlación</span></span>
+<span id="cb89-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">cbind</span>(imc, graso))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="regresión-lineal-simple" class="slide level2 center">
+<h2>Regresión lineal simple</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste del modelo</span></span>
+<span id="cb90-2"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc)</span>
+<span id="cb90-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)                           <span class="co"># Coeficientes, R², test F</span></span>
+<span id="cb90-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Elementos del modelo</span></span>
+<span id="cb90-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)                              <span class="co"># β₀ (intercepto), β₁ (pendiente)</span></span>
+<span id="cb90-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(modelo)                            <span class="co"># Valores ajustados ŷ</span></span>
+<span id="cb90-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(modelo)                         <span class="co"># Residuos e = y - ŷ</span></span>
+<span id="cb90-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modelo)                           <span class="co"># IC 95% para coeficientes</span></span>
+<span id="cb90-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción</span></span>
+<span id="cb90-12"><a aria-hidden="true" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">imc =</span> <span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">35</span>))</span>
+<span id="cb90-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo)                               <span class="co"># Puntual</span></span>
+<span id="cb90-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo, <span class="at">interval =</span> <span class="st">"confidence"</span>)      <span class="co"># IC media</span></span>
+<span id="cb90-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo, <span class="at">interval =</span> <span class="st">"prediction"</span>)      <span class="co"># IP individual</span></span>
+<span id="cb90-16"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># R²</span></span>
+<span id="cb90-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared                 <span class="co"># Proporción de varianza explicada</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="diagnóstico-de-residuos" class="slide level2 center">
+<h2>Diagnóstico de residuos</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de diagnóstico</span></span>
+<span id="cb91-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb91-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)                              <span class="co"># 4 gráficos de diagnóstico</span></span>
+<span id="cb91-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb91-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test de normalidad de residuos</span></span>
+<span id="cb91-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(modelo))</span>
+<span id="cb91-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Homocedasticidad (Breusch-Pagan)</span></span>
+<span id="cb91-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb91-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="con-bioestatr" class="slide level2 smaller scrollable">
+<h2>Con BioEstatR</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb92-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rls</span>(<span class="at">y =</span> graso, <span class="at">x =</span> imc)                   <span class="co"># Regresión lineal completa</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 
 

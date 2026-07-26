@@ -1060,3 +1060,80 @@ cat("t =", round(t_stat,2), "gl ≈", round(gl_num/gl_den,1), "P =", round(p,4),
     "\nΔ =", round(m2-m1,1), "> DMI=2 → clínicamente relevante")
 ```
 :::
+---
+
+# Código del Tema IV (Parte II) — Resumen Organizado {.center}
+
+## Tests para dos muestras
+
+```{r}
+#| eval: false
+# Datos de ejemplo
+g1 <- c(125, 132, 128, 135, 130, 126)
+g2 <- c(140, 148, 142, 155, 138, 150, 145)
+
+# t de Welch (no asume varianzas iguales — recomendado)
+t.test(g1, g2)
+
+# t de Student (asume varianzas iguales)
+t.test(g1, g2, var.equal = TRUE)
+
+# Test F para igualdad de varianzas
+var.test(g1, g2)
+
+# Test pareado
+antes <- c(7, 8, 6, 9, 7, 8)
+despues <- c(4, 5, 3, 6, 5, 4)
+t.test(despues, antes, paired = TRUE)
+```
+
+## BioEstatR para dos muestras
+
+```{r}
+#| eval: false
+library(BioEstatR)
+
+# Medias (independientes y pareadas)
+testt(m1 = g1, m2 = g2, par = FALSE)           # Welch
+testt(m1 = despues, m2 = antes, par = TRUE)     # Pareado
+
+# Proporciones
+testp(x1 = 30, n1 = 50, x2 = 18, n2 = 50)      # Independientes
+testmcnemar(n11 = 38, n12 = 15, n21 = 31, n22 = 82)  # Pareadas (McNemar)
+```
+
+## Tests no paramétricos
+
+```{r}
+#| eval: false
+# Wilcoxon signed-rank (una muestra)
+x <- c(122, 135, 128, 141, 131, 126, 146, 139)
+wilcox.test(x, mu = 130)
+
+# Mann-Whitney U (dos muestras independientes)
+wilcox.test(g1, g2)
+
+# Wilcoxon pareado
+wilcox.test(despues, antes, paired = TRUE)
+
+# BioEstatR
+library(BioEstatR)
+testwx(m1 = g1, m2 = g2, par = FALSE)
+testwx(m1 = despues, m2 = antes, par = TRUE)
+```
+
+## Potencia y tamaño muestral
+
+```{r}
+#| eval: false
+# Cálculo manual
+delta <- 5; s <- 12; alpha <- 0.05; potencia <- 0.80
+z_alpha <- qnorm(1 - alpha/2)
+z_beta <- qnorm(potencia)
+n_por_grupo <- ceiling(2 * (z_alpha + z_beta)^2 * s^2 / delta^2)
+cat("n por grupo =", n_por_grupo)
+
+# Con BioEstatR
+nm(d = 5, s = 12, potencia = 0.80)       # Diferencia de medias
+np(x = c(30, 18), n = c(50, 50), d = 0.05)  # Diferencia de proporciones
+```

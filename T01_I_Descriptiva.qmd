@@ -607,5 +607,59 @@ for(i in seq_along(terminos)){
        cex=freqs[i]/5, col=cols[i], font=sample(1:2,1))
 }
 ```
+---
 
+# Código del Tema I (Parte I) — Resumen Organizado {.center}
 
+## Variables y estructura de datos
+
+```{r}
+#| eval: false
+# Tipos de variables en fisioterapia
+diagnostico <- c("Lumbalgia","Cervicalgia","Omalgia")  # Nominal
+eva_dolor   <- c(3, 5, 7, 2, 8, 5)                      # Ordinal (0-10)
+n_sesiones  <- c(5, 8, 3, 12, 6, 9)                     # Discreta
+rom_hombro  <- c(145, 152, 138, 160, 148, 155)          # Continua
+
+# Tabla de frecuencias
+grupo_sanguineo <- c(rep("A",150), rep("B",75), rep("AB",25), rep("O",250))
+tabla <- table(grupo_sanguineo)
+frec_rel <- prop.table(tabla)   # frecuencias relativas
+frec_rel
+```
+
+## Medidas de posición
+
+```{r}
+#| eval: false
+x <- c(125, 132, 128, 135, 130, 126, 131, 129)
+
+# Tendencia central
+mean(x)        # Media aritmética
+median(x)      # Mediana
+# Moda (manual)
+tabla_freq <- table(x)
+moda <- as.numeric(names(tabla_freq[tabla_freq == max(tabla_freq)]))
+
+# Posición
+quantile(x, probs = c(0.25, 0.50, 0.75))  # Q1, Q2, Q3
+summary(x)     # Min, Q1, Mediana, Media, Q3, Max
+```
+
+## Visualización
+
+```{r}
+#| eval: false
+# Histograma
+hist(x, col = "steelblue", border = "white", main = "Histograma", xlab = "Valor")
+
+# Diagrama de barras
+barplot(tabla, col = c("steelblue","coral","gold","seagreen"), main = "Barras")
+
+# Diagrama de sectores
+pie(tabla, col = c("steelblue","coral","gold","seagreen"), main = "Sectores")
+
+# Boxplot comparativo
+g1 <- rnorm(50, 170, 10); g2 <- rnorm(50, 180, 15)
+boxplot(g1, g2, names = c("Grupo 1","Grupo 2"), col = c("steelblue","coral"))
+```

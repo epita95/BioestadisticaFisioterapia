@@ -290,6 +290,13 @@
 <li><a href="#/recapitulación-tema-1" id="/toc-recapitulación-tema-1">Recapitulación — Tema 1</a></li>
 
 <li><a href="#/ejercicio-clínico-tema-i" id="/toc-ejercicio-clínico-tema-i">Ejercicio Clínico — Tema I</a></li>
+
+</ul></li>
+<li><a href="#/código-del-tema-i-parte-ii-resumen-organizado" id="/toc-código-del-tema-i-parte-ii-resumen-organizado">Código del Tema I (Parte II) — Resumen Organizado</a>
+<ul>
+<li><a href="#/medidas-de-posición-y-dispersión-con-r-base" id="/toc-medidas-de-posición-y-dispersión-con-r-base">Medidas de posición y dispersión con R base</a></li>
+<li><a href="#/con-bioestatr-una-línea" id="/toc-con-bioestatr-una-línea">Con BioEstatR (una línea)</a></li>
+<li><a href="#/visualización-de-forma" id="/toc-visualización-de-forma">Visualización de forma</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1937,6 +1944,74 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 <p><strong>Clasificación de la variable:</strong> - Tipo: <strong>Cuantitativa</strong> (numérica) - Naturaleza: <strong>Continua</strong> (cualquier valor en un rango) - Escala: <strong>Razón</strong> (el 0° es absoluto, permite cocientes — 130° es el doble de 65°)</p>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2 center">
+
+</section></section>
+<section>
+<section id="código-del-tema-i-parte-ii-resumen-organizado" class="title-slide slide level1 center">
+<h1>Código del Tema I (Parte II) — Resumen Organizado</h1>
+
+</section>
+<section id="medidas-de-posición-y-dispersión-con-r-base" class="slide level2 center">
+<h2>Medidas de posición y dispersión con R base</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a aria-hidden="true" tabindex="-1"></a>rom <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">108.2</span>, <span class="fl">107.5</span>, <span class="fl">115.1</span>, <span class="fl">112.3</span>, <span class="fl">110.8</span>, <span class="fl">109.5</span>, <span class="fl">111.7</span>, <span class="fl">113.4</span>,</span>
+<span id="cb78-2"><a aria-hidden="true" tabindex="-1"></a>         <span class="fl">114.2</span>, <span class="fl">106.9</span>, <span class="fl">112.8</span>, <span class="fl">113.1</span>, <span class="fl">109.8</span>, <span class="fl">111.2</span>, <span class="fl">107.9</span>, <span class="fl">108.5</span>,</span>
+<span id="cb78-3"><a aria-hidden="true" tabindex="-1"></a>         <span class="fl">114.8</span>, <span class="fl">110.2</span>, <span class="fl">112.5</span>, <span class="fl">113.9</span>, <span class="fl">109.1</span>, <span class="fl">111.4</span>, <span class="fl">108.7</span>, <span class="fl">110.5</span>,</span>
+<span id="cb78-4"><a aria-hidden="true" tabindex="-1"></a>         <span class="fl">113.2</span>, <span class="fl">112.1</span>, <span class="fl">109.4</span>, <span class="fl">110.9</span>, <span class="fl">114.5</span>, <span class="fl">111.8</span>, <span class="fl">108.3</span>, <span class="fl">113.7</span>,</span>
+<span id="cb78-5"><a aria-hidden="true" tabindex="-1"></a>         <span class="fl">109.6</span>, <span class="fl">112.7</span>, <span class="fl">110.1</span>, <span class="fl">113.5</span>, <span class="fl">111.3</span>, <span class="fl">114.1</span>, <span class="fl">109.9</span>, <span class="fl">112.4</span>)</span>
+<span id="cb78-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-7"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(rom)                    <span class="co"># Tamaño muestral</span></span>
+<span id="cb78-8"><a aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(rom)                  <span class="co"># Media aritmética</span></span>
+<span id="cb78-9"><a aria-hidden="true" tabindex="-1"></a>mediana <span class="ot">&lt;-</span> <span class="fu">median</span>(rom)              <span class="co"># Mediana</span></span>
+<span id="cb78-10"><a aria-hidden="true" tabindex="-1"></a>varianza <span class="ot">&lt;-</span> <span class="fu">var</span>(rom)                <span class="co"># Varianza muestral (insesgada)</span></span>
+<span id="cb78-11"><a aria-hidden="true" tabindex="-1"></a>dt <span class="ot">&lt;-</span> <span class="fu">sd</span>(rom)                       <span class="co"># Desviación típica</span></span>
+<span id="cb78-12"><a aria-hidden="true" tabindex="-1"></a>q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(rom, <span class="fl">0.25</span>)          <span class="co"># Primer cuartil</span></span>
+<span id="cb78-13"><a aria-hidden="true" tabindex="-1"></a>q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(rom, <span class="fl">0.75</span>)          <span class="co"># Tercer cuartil</span></span>
+<span id="cb78-14"><a aria-hidden="true" tabindex="-1"></a>riq <span class="ot">&lt;-</span> <span class="fu">IQR</span>(rom)                     <span class="co"># Rango intercuartílico</span></span>
+<span id="cb78-15"><a aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> dt <span class="sc">/</span> media <span class="sc">*</span> <span class="dv">100</span>              <span class="co"># Coeficiente de variación (%)</span></span>
+<span id="cb78-16"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb78-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Asimetría y curtosis (requiere e1071)</span></span>
+<span id="cb78-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(e1071)</span>
+<span id="cb78-19"><a aria-hidden="true" tabindex="-1"></a>asimetria <span class="ot">&lt;-</span> <span class="fu">skewness</span>(rom)          <span class="co"># g1 ≈ 0 → simétrica</span></span>
+<span id="cb78-20"><a aria-hidden="true" tabindex="-1"></a>curtosis <span class="ot">&lt;-</span> <span class="fu">kurtosis</span>(rom)           <span class="co"># g2 (exceso ≈ 0 → mesocúrtica)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="con-bioestatr-una-línea" class="slide level2 center">
+<h2>Con BioEstatR (una línea)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb79-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">freq</span>(rom)                           <span class="co"># Todos los estadísticos en una tabla</span></span>
+<span id="cb79-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">testnormal</span>(rom)                     <span class="co"># Test de Shapiro-Wilk + gráficos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="visualización-de-forma" class="slide level2 center">
+<h2>Visualización de forma</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma con curva normal</span></span>
+<span id="cb80-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(rom, <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">12</span>)</span>
+<span id="cb80-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="fu">mean</span>(rom), <span class="fu">sd</span>(rom)), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">lwd =</span> <span class="fl">2.5</span>)</span>
+<span id="cb80-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot</span></span>
+<span id="cb80-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(rom, <span class="at">col =</span> <span class="st">"seagreen"</span>, <span class="at">horizontal =</span> <span class="cn">TRUE</span>, <span class="at">main =</span> <span class="st">"Boxplot"</span>)</span>
+<span id="cb80-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Q-Q plot</span></span>
+<span id="cb80-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(rom, <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">pch =</span> <span class="dv">19</span>); <span class="fu">qqline</span>(rom, <span class="at">col =</span> <span class="st">"coral"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb80-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb80-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Densidad</span></span>
+<span id="cb80-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(rom), <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="fl">2.5</span>, <span class="at">main =</span> <span class="st">"Densidad Kernel"</span>)</span>
+<span id="cb80-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">density</span>(rom), <span class="at">col =</span> <span class="fu">rgb</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.15</span>), <span class="at">border =</span> <span class="st">"steelblue"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 
 

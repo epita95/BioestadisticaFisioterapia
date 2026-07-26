@@ -865,3 +865,62 @@ cat("Z =", round((22-30)/8,1), "\nP(X≤22) =", round(pnorm(22,30,8)*100,1), "%"
     "\nP(X=8) =", round(dbinom(8,10,0.7)*100,1), "%")
 ```
 :::
+---
+
+# Código del Tema II (Parte II) — Resumen Organizado {.center}
+
+## Distribución Normal y estandarización
+
+```{r}
+#| eval: false
+# Propiedades N(μ, σ²)
+mu <- 30; sigma <- 8
+pnorm(22, mu, sigma)                     # P(X < 22) = 15.9%
+pnorm(38, mu, sigma) - pnorm(22, mu, sigma)  # P(22 < X < 38) = 68.3%
+
+# Z-scores
+z <- (22 - 30) / 8                       # Z = -1.0
+pnorm(-1)                                 # P(Z < -1) = 15.9%
+
+# Percentiles clave
+qnorm(0.975)                              # Z = 1.96 (IC 95%)
+qnorm(0.995)                              # Z = 2.576 (IC 99%)
+
+# lower.tail = FALSE para cola derecha
+pnorm(1.96, lower.tail = FALSE)           # P(Z > 1.96) = 2.5%
+```
+
+## Distribuciones discretas
+
+```{r}
+#| eval: false
+# Binomial(n, p) — nº de éxitos en n ensayos
+n <- 10; p <- 0.7
+dbinom(8, n, p)                           # P(X = 8) exacto
+pbinom(7, n, p)                           # P(X ≤ 7)
+pbinom(7, n, p, lower.tail = FALSE)       # P(X > 7) = P(X ≥ 8)
+
+# Poisson(λ) — nº de eventos en intervalo
+lambda <- 4
+dpois(3, lambda)                          # P(X = 3)
+ppois(2, lambda)                          # P(X ≤ 2)
+
+# χ² y F — colas asimétricas
+pchisq(13.87, 6, lower.tail = FALSE)      # P(χ²₆ > 13.87)
+pf(3.5, 5, 20, lower.tail = FALSE)        # P(F₅,₂₀ > 3.5)
+```
+
+## Aproximaciones
+
+```{r}
+#| eval: false
+# Binomial → Normal: np > 5 y n(1-p) > 5
+n <- 50; p <- 0.3
+p_exacto <- pbinom(10, n, p)
+p_normal <- pnorm(10.5, n*p, sqrt(n*p*(1-p)))  # Con corrección +0.5
+
+# Poisson → Normal: λ > 10
+lambda <- 25
+p_pois <- ppois(20, lambda)
+p_norm <- pnorm(20.5, lambda, sqrt(lambda))    # Con corrección +0.5
+```
