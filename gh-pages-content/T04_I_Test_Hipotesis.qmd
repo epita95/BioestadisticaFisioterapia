@@ -147,9 +147,9 @@ text(5, 9.75, "¿Variable Normal?", cex=0.78, font=2, col="white")
 
 # Ramas principales con gradiente
 segments(5, 9.4, 3, 8.6, lwd=3, col="#27ae60")
-segments(5, 9.4, 7, 8.6, lwd=3, col="#c0392b")
+segments(5, 9.4, 7, 8.6, lwd=3, col="coral")
 text(3.9, 9.0, "SÍ", cex=0.75, font=2, col="#27ae60")
-text(6.1, 9.0, "NO", cex=0.75, font=2, col="#c0392b")
+text(6.1, 9.0, "NO", cex=0.75, font=2, col="coral")
 
 # ── Rama SÍ ──
 rect(2.2, 7.9, 3.8, 8.6, col="#d5f5e3", border="#27ae60", lwd=2.5)
@@ -167,34 +167,34 @@ text(1.8, 6.5, "t-Student\n(válido TCL)", cex=0.6, font=2, col="white")
 rect(3.5, 6.2, 4.9, 6.8, col="#fef9e7", border="#e67e22", lwd=2.5)
 text(4.2, 6.5, "Shapiro-Wilk\n¿P > 0.05?", cex=0.62, font=2, col="#e67e22")
 segments(4.2, 6.2, 3.5, 5.2, lwd=2, col="#27ae60")
-segments(4.2, 6.2, 4.9, 5.2, lwd=2, col="#c0392b")
+segments(4.2, 6.2, 4.9, 5.2, lwd=2, col="coral")
 text(3.8, 5.7, "SÍ", cex=0.6, font=2, col="#27ae60")
-text(4.5, 5.7, "NO", cex=0.6, font=2, col="#c0392b")
+text(4.5, 5.7, "NO", cex=0.6, font=2, col="coral")
 
 # Hojas Shapiro
 rect(2.8, 4.5, 4.0, 5.1, col="#27ae60", border=NA)
 text(3.4, 4.8, "t-Student", cex=0.6, font=2, col="white")
-rect(4.3, 4.5, 5.7, 5.1, col="#c0392b", border=NA)
+rect(4.3, 4.5, 5.7, 5.1, col="coral", border=NA)
 text(5.0, 4.8, "Wilcoxon /\nMann-Whitney", cex=0.55, font=2, col="white")
 
 # ── Rama NO ──
-rect(6.2, 7.9, 7.8, 8.6, col="#fadbd8", border="#c0392b", lwd=2.5)
-text(7, 8.25, "¿n ≥ 60? (TCL)", cex=0.68, font=2, col="#c0392b")
+rect(6.2, 7.9, 7.8, 8.6, col="#fadbd8", border="coral", lwd=2.5)
+text(7, 8.25, "¿n ≥ 60? (TCL)", cex=0.68, font=2, col="coral")
 segments(7, 7.9, 5.8, 6.9, lwd=2.5, col="#27ae60")
-segments(7, 7.9, 8.2, 6.9, lwd=2.5, col="#c0392b")
+segments(7, 7.9, 8.2, 6.9, lwd=2.5, col="coral")
 text(6.3, 7.4, "SÍ", cex=0.65, font=2, col="#27ae60")
-text(7.7, 7.4, "NO", cex=0.65, font=2, col="#c0392b")
+text(7.7, 7.4, "NO", cex=0.65, font=2, col="coral")
 
 # Hojas rama NO
 rect(5.0, 6.2, 6.6, 6.8, col="#27ae60", border=NA)
 text(5.8, 6.5, "t-Student\n(válido TCL)", cex=0.6, font=2, col="white")
-rect(7.4, 6.2, 9.0, 6.8, col="#c0392b", border=NA)
+rect(7.4, 6.2, 9.0, 6.8, col="coral", border=NA)
 text(8.2, 6.5, "Wilcoxon /\nMann-Whitney", cex=0.55, font=2, col="white")
 
 # ── Leyenda ──
 rect(0.3, 1.4, 1.5, 2.2, col="#27ae60", border=NA)
 text(1.7, 1.8, "Test paramétrico", cex=0.55, pos=4, font=2)
-rect(3.3, 1.4, 4.5, 2.2, col="#c0392b", border=NA)
+rect(3.3, 1.4, 4.5, 2.2, col="coral", border=NA)
 text(4.7, 1.8, "Test no paramétrico", cex=0.55, pos=4, font=2)
 rect(6.5, 1.4, 7.7, 2.2, col="#fef9e7", border="#e67e22", lwd=2)
 text(7.9, 1.8, "Verificar supuestos", cex=0.55, pos=4, font=2)
@@ -224,9 +224,9 @@ for(i in 1:length(ns)){
   medias <- replicate(5000, mean(rexp(n, rate=1)))  # exponencial (muy asimétrica)
   hist(medias, col="#d4e6f1", border="white", freq=FALSE, breaks=30,
        main=paste0("n = ", n), xlab=expression(bar(x)), cex.main=1.1)
-  curve(dnorm(x, mean=1, sd=1/sqrt(n)), add=T, col="#c0392b", lwd=2)
+  curve(dnorm(x, mean=1, sd=1/sqrt(n)), add=T, col="coral", lwd=2)
   if(i==1) legend("topright", c("Dist. muestral", "Normal teórica"),
-                  col=c("#d4e6f1","#c0392b"), lwd=c(NA,2), pch=c(15,NA), bty="n", cex=0.7)
+                  col=c("#d4e6f1","coral"), lwd=c(NA,2), pch=c(15,NA), bty="n", cex=0.7)
 }
 par(mfrow=c(1,1))
 ```
@@ -393,7 +393,7 @@ abline(v=t_crit, col="grey40", lty=2, lwd=2)
 # α — cola derecha bajo H0
 xf <- seq(t_crit, 8, 0.01); yf <- dnorm(xf, 0, 1)
 polygon(c(xf, rev(xf)), c(yf, rep(0,length(yf))), col=rgb(0,0,1,0.25), border=NA)
-text(3.2, 0.04, expression(alpha/2), col="blue", cex=1.3, font=2)
+text(3.2, 0.04, expression(alpha/2), col="steelblue", cex=1.3, font=2)
 # β — bajo H1 a la izquierda de t_crit
 xf <- seq(-4, t_crit, 0.01); yf <- dnorm(xf, 3, 1)
 polygon(c(xf, rev(xf)), c(yf, rep(0,length(yf))), col=rgb(0,0.5,0.3,0.2), border=NA)

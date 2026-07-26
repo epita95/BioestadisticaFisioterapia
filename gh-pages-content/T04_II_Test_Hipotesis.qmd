@@ -708,15 +708,15 @@ text(col_x[2]-1.3, 4.3, "Sí", cex = 0.6, col = "#27ae60", font = 2)
 rect(col_x[2]-2.3, 2.3, col_x[2]-0.9, 3.5, col = "#fef9e7", border = "#f39c12", lwd = 1.2)
 text(col_x[2]-1.6, 2.9, "¿σ² igual?", font = 2, cex = 0.55, col = "#e67e22")
 arrows(col_x[2]-2.2, 2.3, col_x[2]-2.8, 1, lwd = 1.2, col = "#27ae60", length = 0.08)
-arrows(col_x[2]-1, 2.3, col_x[2]-0.3, 1, lwd = 1.2, col = "#e74c3c", length = 0.08)
+arrows(col_x[2]-1, 2.3, col_x[2]-0.3, 1, lwd = 1.2, col = "coral", length = 0.08)
 rect(col_x[2]-3.5, 0, col_x[2]-2.2, 1, col = "#27ae60", border = NA)
 text(col_x[2]-2.85, 0.5, "Student", font = 2, cex = 0.55, col = "white")
 rect(col_x[2]-1.2, 0, col_x[2]+0.2, 1, col = "#2980b9", border = NA)
 text(col_x[2]-0.5, 0.5, "Welch", font = 2, cex = 0.55, col = "white")
 # No branch → Mann-Whitney
-arrows(col_x[2]+1, 5, col_x[2]+1, 3.5, lwd = 1.5, col = "#e74c3c", length = 0.1)
-text(col_x[2]+1.4, 4.3, "No", cex = 0.6, col = "#e74c3c", font = 2)
-rect(col_x[2]+0.1, 1.5, col_x[2]+2.7, 3.2, col = "#e74c3c", border = NA)
+arrows(col_x[2]+1, 5, col_x[2]+1, 3.5, lwd = 1.5, col = "coral", length = 0.1)
+text(col_x[2]+1.4, 4.3, "No", cex = 0.6, col = "coral", font = 2)
+rect(col_x[2]+0.1, 1.5, col_x[2]+2.7, 3.2, col = "coral", border = NA)
 text(col_x[2]+1.4, 2.35, "wilcox.test\n(x, y)", font = 2, cex = 0.7, col = "white")
 
 # Column 3: 2 muestras pareadas
@@ -883,7 +883,7 @@ text(6, 8.5, "PASO 3: ¿Se cumple Normalidad?\n(Shapiro-Wilk en cada grupo)", fo
 
 # Ramas desde Paso 3
 segments(4, 8.5, 1.5, 6, lwd = 2.2, col = "#1abc9c")
-segments(8, 8.5, 10.5, 6, lwd = 2.2, col = "#e74c3c")
+segments(8, 8.5, 10.5, 6, lwd = 2.2, col = "coral")
 
 # Rama SÍ: Normalidad
 rect(0.5, 5, 2.5, 6, col = "#d5f5e3", border = "#27ae60", lwd = 2)
@@ -897,24 +897,24 @@ rect(0.5, 2.2, 2.5, 3.2, col = "#fef9e7", border = "#f39c12", lwd = 2)
 text(1.5, 2.9, "¿σ² iguales?\nTest F", font = 2, cex = 0.7, col = "#e67e22")
 
 segments(0.5, 2.7, -0.2, 1.2, lwd = 1.8, col = "#27ae60")
-segments(2.5, 2.7, 3.2, 1.2, lwd = 1.8, col = "#e74c3c")
+segments(2.5, 2.7, 3.2, 1.2, lwd = 1.8, col = "coral")
 
 text(-0.3, 1.7, "SÍ", font = 2, cex = 0.65, col = "#27ae60")
 rect(-1.2, 0.2, 0.6, 1.2, col = "#27ae60", border = NA)
 text(-0.3, 0.7, "t-Student\n(var.equal=TRUE)", font = 2, cex = 0.65, col = "white")
 
-text(3.0, 1.7, "NO", font = 2, cex = 0.65, col = "#e74c3c")
+text(3.0, 1.7, "NO", font = 2, cex = 0.65, col = "coral")
 rect(2.4, 0.2, 4.2, 1.2, col = "#2980b9", border = NA)
 text(3.3, 0.7, "t-Welch\n(por defecto en R)", font = 2, cex = 0.65, col = "white")
 
 # Rama NO: No Normalidad
-rect(9.5, 5, 11.5, 6, col = "#fadbd8", border = "#e74c3c", lwd = 2)
-text(10.5, 5.7, "NO\n(Shapiro P ≤ 0.05)", font = 2, cex = 0.75, col = "#e74c3c")
+rect(9.5, 5, 11.5, 6, col = "#fadbd8", border = "coral", lwd = 2)
+text(10.5, 5.7, "NO\n(Shapiro P ≤ 0.05)", font = 2, cex = 0.75, col = "coral")
 text(10.5, 5.2, "Test no paramétrico", cex = 0.7)
 
-segments(10.5, 5, 10.5, 3.2, lwd = 2, col = "#e74c3c")
+segments(10.5, 5, 10.5, 3.2, lwd = 2, col = "coral")
 
-rect(9, 2.2, 12, 3.2, col = "#e74c3c", border = NA)
+rect(9, 2.2, 12, 3.2, col = "coral", border = NA)
 text(10.5, 2.7, "Mann-Whitney U\n(wilcox.test)", font = 2, cex = 0.75, col = "white")
 
 # ── Paso 4 ── Resultado

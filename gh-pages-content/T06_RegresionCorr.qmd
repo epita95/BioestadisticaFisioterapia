@@ -164,11 +164,11 @@ plot(x,y4,pch=19,col="grey50",main="Sin relación",xlab="x",ylab="y")
 
 # 5. Heterocedasticidad
 y5 <- x + rnorm(n,0,abs(x)*0.8)
-plot(x,y5,pch=19,col="purple",main="Heterocedasticidad",xlab="x",ylab="y")
+plot(x,y5,pch=19,col="seagreen",main="Heterocedasticidad",xlab="x",ylab="y")
 
 # 6. Valor atípico
 y6 <- 2*x + rnorm(n,0,0.5); y6[50] <- y6[50]+6
-plot(x,y6,pch=19,col=ifelse(1:n==50,"red","steelblue"),
+plot(x,y6,pch=19,col=ifelse(1:n==50,"coral","steelblue"),
      main="Con valor atípico",xlab="x",ylab="y")
 par(mfrow=c(1,1))
 ```
@@ -318,8 +318,8 @@ text(9, 6.5, paste0("Syy = ",round(sum((y-mean(y))^2),1)), col="darkgreen", font
 # Sxy
 plot(x, y, pch=19, col="grey60", cex=1.5, main=expression(S[xy]), xlab="x", ylab="y")
 abline(v=mean(x), col="steelblue", lwd=2, lty=2); abline(h=mean(y), col="darkgreen", lwd=2, lty=2)
-for(i in 1:5) rect(mean(x), mean(y), x[i], y[i], border="#e74c3c", lwd=1.5, lty=2)
-text(9, 6.5, paste0("Sxy = ",round(sum((x-mean(x))*(y-mean(y))),1)), col="#e74c3c", font=2)
+for(i in 1:5) rect(mean(x), mean(y), x[i], y[i], border="coral", lwd=1.5, lty=2)
+text(9, 6.5, paste0("Sxy = ",round(sum((x-mean(x))*(y-mean(y))),1)), col="coral", font=2)
 par(mfrow=c(1,1))
 ```
 
@@ -968,18 +968,18 @@ new_x <- seq(min(imc), max(imc), length=100)
 # Banda de confianza (para la MEDIA)
 pred_conf <- predict(modelo, newdata=data.frame(imc=new_x),
                      interval="confidence")
-lines(new_x, pred_conf[,2], col="blue", lty=2, lwd=2)
-lines(new_x, pred_conf[,3], col="blue", lty=2, lwd=2)
+lines(new_x, pred_conf[,2], col="steelblue", lty=2, lwd=2)
+lines(new_x, pred_conf[,3], col="steelblue", lty=2, lwd=2)
 
 # Banda de predicción (para una NUEVA observación)
 pred_pred <- predict(modelo, newdata=data.frame(imc=new_x),
                      interval="prediction")
-lines(new_x, pred_pred[,2], col="mediumseagreen", lty=3, lwd=2)
-lines(new_x, pred_pred[,3], col="mediumseagreen", lty=3, lwd=2)
+lines(new_x, pred_pred[,2], col="seagreen", lty=3, lwd=2)
+lines(new_x, pred_pred[,3], col="seagreen", lty=3, lwd=2)
 
 legend("topleft",
        c("Recta de regresión","IC 95% (media)","IP 95% (individuo)"),
-       col=c("darkgreen","blue","mediumseagreen"), lty=c(1,2,3), lwd=2, bty="n")
+       col=c("darkgreen","steelblue","seagreen"), lty=c(1,2,3), lwd=2, bty="n")
 ```
 
 ::: {.callout-important}

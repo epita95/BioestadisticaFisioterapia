@@ -270,9 +270,9 @@ for(i in 1:5){
 # Flechas de pérdida
 for(i in 1:4){
   xm <- 0.4 + i*1.85 - 0.12
-  arrows(xm, 2.8, xm, 2.2, lwd=1.5, col="#c0392b", length=0.08)
+  arrows(xm, 2.8, xm, 2.2, lwd=1.5, col="coral", length=0.08)
 }
-text(5, 3.1, "Pérdida de información", col="#c0392b", cex=0.7, font=3)
+text(5, 3.1, "Pérdida de información", col="coral", cex=0.7, font=3)
 
 # Nota al pie
 text(5, 0.3, "Cada flecha hacia la derecha destruye información original no recuperable", cex=0.7, col="grey40")

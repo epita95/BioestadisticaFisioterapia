@@ -16,7 +16,7 @@ format:
     code-copy: true
     code-overflow: wrap
     fig-align: center
-    fig-width: 8
+    fig-width: 9
     fig-height: 5.2
     lang: es
   pdf:
@@ -144,7 +144,7 @@ curve(dnorm(x, 0, 1), -4, 4, lwd=3, col="steelblue",
 x1<-seq(-1,1,0.01); polygon(c(x1,rev(x1)),c(dnorm(x1),rep(0,length(x1))),col=rgb(0,0,1,0.2),border=NA)
 # μ ± 2σ (95%)
 x2<-seq(-2,2,0.01); polygon(c(x2,rev(x2)),c(dnorm(x2),rep(0,length(x2))),col=rgb(0,0,1,0.1),border=NA)
-abline(v=c(-2,-1,0,1,2), lty=c(3,2,1,2,3), col=c("grey","grey","red","grey","grey"))
+abline(v=c(-2,-1,0,1,2), lty=c(3,2,1,2,3), col=c("grey","grey","coral","grey","grey"))
 text(0, 0.25, "68%", cex=1.2); text(0, 0.05, "95%", cex=1.2)
 ```
 
@@ -305,7 +305,7 @@ curve(dnorm(x, mu, sigma), mu-24, mu+24, col="steelblue", lwd=3,
       main="Fuerza de Prensión Manual — N(30, 8²) kg",
       xlab="Kilogramos", ylab="Densidad", cex.lab=1.2)
 abline(v=c(mu-2*sigma, mu-sigma, mu, mu+sigma, mu+2*sigma),
-       lty=c(3,3,2,3,3), lwd=c(1,1,2,1,1), col=c("grey","grey","red","grey","grey"))
+       lty=c(3,3,2,3,3), lwd=c(1,1,2,1,1), col=c("grey","grey","coral","grey","grey"))
 text(mu, 0.052, "μ=30", col="darkgreen", font=2)
 ```
 
@@ -390,7 +390,7 @@ donde $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ es el coeficiente binomial.
 ```{r}
 #| fig-height: 5
 n <- 10; p <- 0.7; k <- 0:n
-bp <- barplot(dbinom(k, n, p), names.arg=k, col="lightblue",
+bp <- barplot(dbinom(k, n, p), names.arg=k, col="steelblue",
         main="Binomial(10, 0.7): Nº de curaciones en 10 pacientes",
         xlab="Nº de pacientes curados", ylab="P(X=k)", ylim=c(0,0.3))
 text(bp, dbinom(k,n,p)+0.012, round(dbinom(k,n,p),3), cex=0.7, font=2)
@@ -472,7 +472,7 @@ $$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \ldots$$
 ```{r}
 #| fig-height: 5
 lambda <- 3; k <- 0:12
-bp <- barplot(dpois(k, lambda), names.arg=k, col="lightcoral",
+bp <- barplot(dpois(k, lambda), names.arg=k, col="coral",
         main="Poisson(3): Reacciones adversas por día",
         xlab="Nº de reacciones", ylab="P(X=k)")
 ```
@@ -498,9 +498,9 @@ plot(k, Fx, type="s", lwd=3, col="seagreen",
      xlab="Nº de reacciones adversas (k)", ylab="F(k)", ylim=c(0,1))
 abline(h=c(0,0.5,1), lty=3, col="grey"); points(k, Fx, pch=19, col="seagreen", cex=1.3)
 # Marcar F(2) y F(5)
-points(c(2,5), Fx[c(3,6)], pch=19, col=c("darkred","darkblue"), cex=1.8)
+points(c(2,5), Fx[c(3,6)], pch=19, col=c("darkred","steelblue"), cex=1.8)
 text(3, Fx[3]+0.05, paste0("F(2) = ", round(Fx[3],3)), col="darkgreen", font=2)
-text(6, Fx[6]+0.05, paste0("F(5) = ", round(Fx[6],3)), col="darkblue", font=2)
+text(6, Fx[6]+0.05, paste0("F(5) = ", round(Fx[6],3)), col="steelblue", font=2)
 ```
 
 $$P(X \leq 2) = \sum_{k=0}^{2} \frac{3^k e^{-3}}{k!} \quad P(2 < X \leq 5) = F(5) - F(2)$$
@@ -690,13 +690,13 @@ barplot(dbinom(x,n,p), names=x, col="seagreen", main=paste0("NO aprox: n=",n,", 
 
 # Caso 3: SÍ se cumple (n=50, p=0.3 → np=15, n(1-p)=35≥5)
 n<-50; p<-0.3; x<-0:n
-bp <- barplot(dbinom(x,n,p), names=ifelse(x%%5==0,x,""), col="lightblue",
+bp <- barplot(dbinom(x,n,p), names=ifelse(x%%5==0,x,""), col="steelblue",
         main=paste0("SÍ aprox: n=",n,", p=",p," (np=",n*p,"≥5, n(1-p)=",n*(1-p),"≥5)"))
 curve(dnorm(x,n*p,sqrt(n*p*(1-p)))*1, add=T, col="darkgreen", lwd=2, n=200)
 
 # Caso 4: SÍ se cumple (n=100, p=0.5 → ambos ≥5)
 n<-100; p<-0.5; x<-0:n
-bp <- barplot(dbinom(x,n,p), names=ifelse(x%%25==0,x,""), col="lightblue",
+bp <- barplot(dbinom(x,n,p), names=ifelse(x%%25==0,x,""), col="steelblue",
         main=paste0("SÍ aprox: n=",n,", p=",p," → forma campana perfecta"))
 curve(dnorm(x,n*p,sqrt(n*p*(1-p)))*1, add=T, col="darkgreen", lwd=2, n=200)
 
@@ -743,18 +743,18 @@ barplot(dpois(x,lambda), names=x, col="seagreen",
 
 # Caso 2: λ=5 → NO se cumple (todavía asimétrica)
 lambda<-5; x<-0:(lambda*3)
-barplot(dpois(x,lambda), names=x, col="mediumseagreen",
+barplot(dpois(x,lambda), names=x, col="seagreen",
         main=paste0("NO aprox: λ=",lambda," < 10"))
 
 # Caso 3: λ=10 → SÍ se cumple (empieza a ser simétrica)
 lambda<-10; x<-0:(lambda*2)
-bp <- barplot(dpois(x,lambda), names=ifelse(x%%5==0,x,""), col="lightblue",
+bp <- barplot(dpois(x,lambda), names=ifelse(x%%5==0,x,""), col="steelblue",
         main=paste0("SÍ aprox: λ=",lambda," ≥ 10"))
 curve(dnorm(x,lambda,sqrt(lambda))*1, add=T, col="darkgreen", lwd=2, n=200)
 
 # Caso 4: λ=25 → SÍ se cumple (claramente acampanada)
 lambda<-25; x<-0:(lambda*2)
-bp <- barplot(dpois(x,lambda), names=ifelse(x%%10==0,x,""), col="lightblue",
+bp <- barplot(dpois(x,lambda), names=ifelse(x%%10==0,x,""), col="steelblue",
         main=paste0("SÍ aprox: λ=",lambda," → forma campana clara"))
 curve(dnorm(x,lambda,sqrt(lambda))*1, add=T, col="darkgreen", lwd=2, n=200)
 
@@ -854,7 +854,7 @@ polygon(c(xr, rev(xr)), c(dnorm(xr,mu,sigma), rep(0,length(xr))),
 # Panel 2: Binomial
 p_binom <- dbinom(8, 10, 0.7)
 probs <- dbinom(0:10, 10, 0.7)
-highlight <- ifelse(0:10==8, "coral", "lightblue")
+highlight <- ifelse(0:10==8, "coral", "steelblue")
 barplot(probs, names=0:10, col=highlight, border="white",
         main=paste0("Bin(10,0.7): P(X=8)=", round(p_binom*100,1),"%"),
         xlab="Nº mejorías", ylab="Probabilidad")

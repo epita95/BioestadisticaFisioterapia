@@ -386,7 +386,7 @@ curve(dchisq(x, gl), 0, 22, lwd = 3, col = "steelblue",
       main = "Distribucion Chi-cuadrado con gl = 6",
       xlab = "Chi-cuadrado", ylab = "Densidad")
 abline(v = chi_crit, col = "darkgreen", lwd = 2.5, lty = 2)
-abline(v = chi_exp, col = "#e74c3c", lwd = 3)
+abline(v = chi_exp, col = "coral", lwd = 3)
 # Region de rechazo
 xr <- seq(chi_crit, 22, 0.01)
 yr <- dchisq(xr, gl)
@@ -396,12 +396,12 @@ polygon(c(xr, rev(xr)), c(yr, rep(0, length(yr))),
 text(chi_crit + 1.5, dchisq(chi_crit, gl) + 0.01,
      "Chi-crit = 12.59", col = "darkgreen", font = 2)
 text(chi_exp, dchisq(chi_exp, gl) + 0.015,
-     paste0("Chi2 = ", chi_exp, "\nP = ", p_val), col = "#e74c3c", font = 2)
+     paste0("Chi2 = ", chi_exp, "\nP = ", p_val), col = "coral", font = 2)
 legend("topright", c("Region de rechazo (alfa = 0.05)", "Valor critico", "Chi2 observado"),
        fill = c(rgb(0.9, 0.3, 0.2, 0.3), NA, NA),
-       border = c(NA, "darkgreen", "#e74c3c"),
+       border = c(NA, "darkgreen", "coral"),
        lty = c(NA, 2, 1), lwd = c(NA, 2.5, 3),
-       col = c(NA, "darkgreen", "#e74c3c"), bty = "n", cex = 0.8)
+       col = c(NA, "darkgreen", "coral"), bty = "n", cex = 0.8)
 ```
 
 ::: {.callout-tip}
@@ -652,7 +652,7 @@ estimador <- c(0.169, 3.08, 3.77)
 ic_inf <- c(0.067, 1.85, 1.95)
 ic_sup <- c(0.271, 5.13, 7.30)
 valor_nulo <- c(0, 1, 1)
-colores <- c("#2980b9", "#27ae60", "#e74c3c")
+colores <- c("#2980b9", "#27ae60", "coral")
 
 par(mar = c(5, 10, 3, 2))
 plot(estimador, 3:1, pch = 19, cex = 2, col = colores,
@@ -1019,16 +1019,16 @@ par(mfrow = c(1, 3), mar = c(4, 4, 3.5, 1))
 
 # Panel 1: Datos agregados
 bp1 <- barplot(c(80, 90), names = c("Fisio A", "Fisio B"),
-               col = c("#3498db", "#e74c3c"), ylim = c(0, 100),
+               col = c("#3498db", "coral"), ylim = c(0, 100),
                main = "Datos Agregados", ylab = "% Éxito",
                cex.main = 1.1, cex.axis = 0.9)
 text(bp1, c(80, 90) + 4, labels = c("160/200\n(80%)", "90/100\n(90%)"),
      cex = 0.85, font = 2)
-mtext("→ B parece mejor", side = 1, line = 2.5, cex = 0.8, col = "#e74c3c", font = 2)
+mtext("→ B parece mejor", side = 1, line = 2.5, cex = 0.8, col = "coral", font = 2)
 
 # Panel 2: Leves
 bp2 <- barplot(c(96.9, 94.4), names = c("Fisio A\n(n=160)", "Fisio B\n(n=90)"),
-               col = c("#3498db", "#e74c3c"), ylim = c(0, 100),
+               col = c("#3498db", "coral"), ylim = c(0, 100),
                main = "Casos LEVES", ylab = "% Éxito",
                cex.main = 1.1, cex.axis = 0.9)
 text(bp2, c(96.9, 94.4) + 4, labels = c("155/160\n(96.9%)", "85/90\n(94.4%)"),
@@ -1037,12 +1037,12 @@ mtext("→ A ligeramente mejor", side = 1, line = 2.5, cex = 0.8, col = "#3498db
 
 # Panel 3: Graves
 bp3 <- barplot(c(12.5, 50), names = c("Fisio A\n(n=40)", "Fisio B\n(n=10)"),
-               col = c("#3498db", "#e74c3c"), ylim = c(0, 100),
+               col = c("#3498db", "coral"), ylim = c(0, 100),
                main = "Casos GRAVES", ylab = "% Éxito",
                cex.main = 1.1, cex.axis = 0.9)
 text(bp3, c(12.5, 50) + 4, labels = c("5/40\n(12.5%)", "5/10\n(50.0%)"),
      cex = 0.85, font = 2)
-mtext("→ B mejor, pero solo 10 casos", side = 1, line = 2.5, cex = 0.8, col = "#e74c3c", font = 2)
+mtext("→ B mejor, pero solo 10 casos", side = 1, line = 2.5, cex = 0.8, col = "coral", font = 2)
 ```
 
 ::: {.callout-important}

@@ -285,10 +285,10 @@ x1 <- rnorm(30, 30, 5)
 hist(x1, col="steelblue", border="white", breaks=12, freq=FALSE,
      main="Sin outliers: media ~ mediana", xlab="Fuerza (kg)", xlim=c(15,65))
 abline(v=mean(x1), col="darkgreen", lwd=3)
-abline(v=median(x1), col="blue", lwd=3, lty=2)
+abline(v=median(x1), col="steelblue", lwd=3, lty=2)
 curve(dnorm(x,mean(x1),sd(x1)), add=T, col="grey40", lwd=1, lty=3)
 legend("topright", c(paste("Media =",round(mean(x1),1)),
-       paste("Mediana =",round(median(x1),1))), col=c("darkgreen","blue"),
+       paste("Mediana =",round(median(x1),1))), col=c("darkgreen","steelblue"),
        lty=c(1,2), lwd=3, bty="n", cex=0.9)
 
 # Con outlier
@@ -296,9 +296,9 @@ x2 <- c(x1, 65)  # paciente con fuerza excepcional
 hist(x2, col="seagreen", border="white", breaks=12, freq=FALSE,
      main="Con outlier: media se desplaza", xlab="Fuerza (kg)", xlim=c(15,65))
 abline(v=mean(x2), col="darkgreen", lwd=3)
-abline(v=median(x2), col="blue", lwd=3, lty=2)
+abline(v=median(x2), col="steelblue", lwd=3, lty=2)
 legend("topright", c(paste("Media =",round(mean(x2),1)),
-       paste("Mediana =",round(median(x2),1))), col=c("darkgreen","blue"),
+       paste("Mediana =",round(median(x2),1))), col=c("darkgreen","steelblue"),
        lty=c(1,2), lwd=3, bty="n", cex=0.9)
 par(mfrow=c(1,1))
 ```
@@ -571,7 +571,7 @@ donde $\mathbb{1}_{\{x_i \leq x\}}$ vale 1 si $x_i \leq x$ y 0 en caso contrario
 pas<-c(120,125,118,130,122,128,115,135,124,129)
 plot(ecdf(pas), main="ECDF: Presión Arterial Sistólica (n=10)",
      xlab="PAS (mmHg)", ylab="F(x) — Proporción acumulada",
-     col="darkblue", verticals=TRUE, pch=16, lwd=2.5, cex.main=1.1)
+     col="steelblue", verticals=TRUE, pch=16, lwd=2.5, cex.main=1.1)
 grid(col="grey80")
 # Añadir percentiles clave
 abline(h=c(0.25,0.5,0.75), col=c("darkgreen","coral","darkgreen"), lty=3, lwd=1.5)
@@ -740,10 +740,10 @@ par(mfrow=c(1,2), mar=c(4,4,3,1))
 hist(rom, col="steelblue", border="white", breaks=8,
      main="ROM de Rodilla (n=40)", xlab="Grados", ylab="Frecuencia")
 abline(v=mean(rom), col="darkgreen", lwd=3, lty=2)
-abline(v=median(rom), col="blue", lwd=2, lty=3)
+abline(v=median(rom), col="steelblue", lwd=2, lty=3)
 legend("topright", c(paste("Media =", round(mean(rom),1)),
        paste("Mediana =", round(median(rom),1))),
-       col=c("darkgreen","blue"), lty=c(2,3), lwd=c(3,2), bty="n", cex=0.8)
+       col=c("darkgreen","steelblue"), lty=c(2,3), lwd=c(3,2), bty="n", cex=0.8)
 boxplot(rom, col="steelblue", main="Boxplot — ROM de Rodilla",
         ylab="Grados", ylim=c(70,140))
 par(mfrow=c(1,1))
