@@ -63,7 +63,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 |-----|---------|---|-----|---------|
 | 20.36 | 17.36 | | 21.72 | 25.62 |
 | 20.34 | 12.72 | | 19.29 | 20.91 |
-| 20.05 | 11.65 | | 23.07 | 17.81 |
+| 19.55 | 11.65 | | 23.07 | 17.81 |
 | 23.94 | 19.34 | | 27.45 | 29.70 |
 | 22.17 | 24.19 | | 24.37 | 15.26 |
 | 22.18 | 28.41 | | 17.30 | 8.87 |
@@ -110,7 +110,7 @@ Antes de cualquier análisis numérico: **visualizar** la relación.
 :::
 
 ```{r}
-imc <- c(20.36,20.34,20.05,23.07,23.94,27.45,
+imc <- c(20.36,20.34,19.55,23.07,23.94,27.45,
          22.17,24.37,22.18,17.30,21.72,19.29)
 graso <- c(17.36,12.72,11.65,17.81,19.34,29.70,
            24.19,15.26,28.41,8.87,25.62,20.91)
@@ -413,10 +413,10 @@ par(mfrow=c(1,1))
 ```
 
 **Resultados:**
-- $\hat{\beta}_0 = -13.50$ (intercepto)
+- $\hat{\beta}_0 = -13.96$ (intercepto)
 - $\hat{\beta}_1 = 1.52$ (pendiente)
-- $\hat{\beta}_0 = -13.50$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
-- $R^2 = 0.671$ (67.1% de variabilidad explicada), Error estándar residual $s = 3.89$
+- $\hat{\beta}_0 = -13.96$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
+- $R^2 = 0.373$ (37.3% de variabilidad explicada), Error estándar residual $s = 3.89$
 - $P = 0.001$ (pendiente significativa)
 
 **Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.77 a 2.28).
@@ -523,13 +523,13 @@ $$r = \frac{S_{xy}}{\sqrt{S_{xx} \cdot S_{yy}}} = \frac{\sum(x_i-\bar{x})(y_i-\b
 | 0.90 – 1.00 | Muy fuerte |
 
 **En nuestro ejemplo (IMC vs. % graso):**
-- $r = 0.819$ → correlación **fuerte**
-- $R^2 = 0.671$ → el IMC explica el **67.1%** de la variabilidad del % graso
+- $r = 0.610$ → correlación **fuerte**
+- $R^2 = 0.373$ → el IMC explica el **37.3%** de la variabilidad del % graso
 
 ## Contraste de hipótesis para el coeficiente de correlación
 
 ::: {.callout-note}
-**¿Es significativa la correlación observada?** $r = 0.819$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
+**¿Es significativa la correlación observada?** $r = 0.610$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
 :::
 
 **Hipótesis:**
@@ -540,7 +540,7 @@ $$H_1: \rho \neq 0 \quad \text{(existe correlación lineal)}$$
 $$t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2} \quad \text{bajo } H_0$$
 
 ::: {.framed}
-Para nuestro ejemplo ($r = 0.819$, $n = 12$):
+Para nuestro ejemplo ($r = 0.610$, $n = 12$):
 $$t = \frac{0.819 \sqrt{10}}{\sqrt{1 - 0.819^2}} = \frac{2.590}{0.574} = 4.514$$
 $$P = 2 \times P(T_{10} > 4.514) = 0.0011$$
 :::
@@ -564,7 +564,7 @@ $$z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right), \quad IC_{1-\alpha}(z_\rho) = 
 :::
 
 ::: {.callout-tip}
-**Pregunta para reflexionar:** $r = 0.819$ se considera "fuerte" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
+**Pregunta para reflexionar:** $r = 0.610$ se considera "fuerte" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
 :::
 
 ## Visualización de diferentes fuerzas de correlación
@@ -592,7 +592,7 @@ par(mfrow=c(1,1))
 
 ```{r}
 # Correlación de Pearson (paramétrica, lineal)
-cor(imc, graso)                    # r = 0.819
+cor(imc, graso)                    # r = 0.610
 cor.test(imc, graso)               # Test H0: ρ = 0
 
 # Correlación de Spearman (no paramétrica, monótona)
@@ -691,7 +691,7 @@ predict(modelo, newdata = nuevo, interval = "prediction")
 - Para que una predicción sea aceptable debemos considerar la **variabilidad individual** (IP), no solo la media (IC), el valor que usamos para predecir tiene que estar en el rango de valores observados para esa variable en el modelo y el coeficiente de determinación tiene que ser aceptable ($\geq$ 0.7). 
 :::
 
-**Ejemplo clínico:** Para IMC=22, el % graso medio es 20.0% (IC 95%: 17.1% a 22.9%). Pero un paciente concreto con IMC=22 podría tener entre 10.0% y 30.0% de grasa (IP 95%).
+**Ejemplo clínico:** Para IMC=22, el % graso medio es 19.5% (IC 95%: 16.0% a 23.1%). Pero un paciente concreto con IMC=22 podría tener entre 6.7% y 32.4% de grasa (IP 95%).
 
 ::: {.callout-tip}
 **Pregunta para reflexionar:** Eres el fisioterapeuta de un paciente con IMC=28. ¿Usarías el IC de la media o el IP individual para comunicarle su % graso estimado? ¿Qué riesgos tiene usar el intervalo equivocado en la práctica clínica?
@@ -1015,7 +1015,7 @@ Cuando tenemos **más de dos variables**, la matriz de correlaciones resume toda
 #| fig-height: 5
 # Datos ampliados: a las variables originales (IMC, % graso) se añaden Edad, Fuerza prensil (kg) y EVA dolor (0-10)
 datos_clinicos <- data.frame(
-  IMC   = c(20.36, 20.34, 20.05, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
+  IMC   = c(20.36, 20.34, 19.55, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
   Graso = c(17.36, 12.72, 11.65, 19.34, 24.19, 25.62, 20.91, 17.81, 29.70, 25.43, 18.62, 23.15),
   Edad  = c(15, 16, 15, 18, 17, 16, 15, 17, 19, 18, 16, 17),
   Fuerza = c(28, 30, 25, 38, 35, 32, 22, 40, 45, 42, 31, 34),

@@ -404,7 +404,7 @@
 <td>20.91</td>
 </tr>
 <tr class="odd">
-<td>20.05</td>
+<td>19.55</td>
 <td>11.65</td>
 <td></td>
 <td>23.07</td>
@@ -481,7 +481,7 @@
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.36</span>,<span class="fl">20.34</span>,<span class="fl">20.05</span>,<span class="fl">23.07</span>,<span class="fl">23.94</span>,<span class="fl">27.45</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.36</span>,<span class="fl">20.34</span>,<span class="fl">19.55</span>,<span class="fl">23.07</span>,<span class="fl">23.94</span>,<span class="fl">27.45</span>,</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>         <span class="fl">22.17</span>,<span class="fl">24.37</span>,<span class="fl">22.18</span>,<span class="fl">17.30</span>,<span class="fl">21.72</span>,<span class="fl">19.29</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>graso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">17.36</span>,<span class="fl">12.72</span>,<span class="fl">11.65</span>,<span class="fl">17.81</span>,<span class="fl">19.34</span>,<span class="fl">29.70</span>,</span>
 <span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>           <span class="fl">24.19</span>,<span class="fl">15.26</span>,<span class="fl">28.41</span>,<span class="fl">8.87</span>,<span class="fl">25.62</span>,<span class="fl">20.91</span>)</span>
@@ -874,18 +874,18 @@ lm(formula = graso ~ imc)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--7.893 -3.710 -1.422  4.664  8.592 
+-7.980 -3.704 -1.488  4.604  8.526 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)  
-(Intercept) -13.9643    13.7508  -1.016    0.334  
-imc           1.5231     0.6249   2.437    0.035 *
+(Intercept)  -14.100     13.399  -1.052   0.3174  
+imc            1.532      0.610   2.512   0.0308 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.547 on 10 degrees of freedom
-Multiple R-squared:  0.3726,    Adjusted R-squared:  0.3099 
-F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
+Residual standard error: 5.484 on 10 degrees of freedom
+Multiple R-squared:  0.3868,    Adjusted R-squared:  0.3255 
+F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -907,7 +907,7 @@ F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"><p><strong>Resultados:</strong> - <span class="math inline">\(\hat{\beta}_0 = -13.50\)</span> (intercepto) - <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(\hat{\beta}_0 = -13.50\)</span> (intercepto), <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(R^2 = 0.671\)</span> (67.1% de variabilidad explicada), Error estándar residual <span class="math inline">\(s = 3.89\)</span> - <span class="math inline">\(P = 0.001\)</span> (pendiente significativa)</p>
+<img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"><p><strong>Resultados:</strong> - <span class="math inline">\(\hat{\beta}_0 = -13.96\)</span> (intercepto) - <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(\hat{\beta}_0 = -13.96\)</span> (intercepto), <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(R^2 = 0.373\)</span> (37.3% de variabilidad explicada), Error estándar residual <span class="math inline">\(s = 3.89\)</span> - <span class="math inline">\(P = 0.001\)</span> (pendiente significativa)</p>
 <p><strong>Interpretación:</strong> Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en <strong>1.52 puntos porcentuales</strong> (IC 95%: 0.77 a 2.28).</p>
 </section>
 <section id="varianza-residual-lo-que-el-modelo-no-explica" class="slide level2 center">
@@ -930,9 +930,9 @@ F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
 <span id="cb16-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">summary(modelo)$sigma ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>sigma, <span class="dv">2</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>SC_res = 307.73 | n-2 = 10 
-s2 = 30.77 | s = 5.55 
-summary(modelo)$sigma = 5.55</code></pre>
+<pre><code>SC_res = 300.75 | n-2 = 10 
+s2 = 30.08 | s = 5.48 
+summary(modelo)$sigma = 5.48</code></pre>
 </div>
 </div>
 </section>
@@ -1007,7 +1007,7 @@ summary(modelo)$sigma = 5.55</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
-19.54338 </code></pre>
+19.60857 </code></pre>
 </div>
 </div>
 <img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-10-1.png" width="864" class="r-stretch"></section>
@@ -1066,7 +1066,7 @@ summary(modelo)$sigma = 5.55</code></pre>
 </tr>
 </tbody>
 </table>
-<p><strong>En nuestro ejemplo (IMC vs.&nbsp;% graso):</strong> - <span class="math inline">\(r = 0.819\)</span> → correlación <strong>fuerte</strong> - <span class="math inline">\(R^2 = 0.671\)</span> → el IMC explica el <strong>67.1%</strong> de la variabilidad del % graso</p>
+<p><strong>En nuestro ejemplo (IMC vs.&nbsp;% graso):</strong> - <span class="math inline">\(r = 0.610\)</span> → correlación <strong>fuerte</strong> - <span class="math inline">\(R^2 = 0.373\)</span> → el IMC explica el <strong>37.3%</strong> de la variabilidad del % graso</p>
 </section>
 <section id="contraste-de-hipótesis-para-el-coeficiente-de-correlación" class="slide level2 center">
 <h2>Contraste de hipótesis para el coeficiente de correlación</h2>
@@ -1079,14 +1079,14 @@ summary(modelo)$sigma = 5.55</code></pre>
 <p><strong>Nota</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>¿Es significativa la correlación observada?</strong> <span class="math inline">\(r = 0.819\)</span> en 12 pacientes — ¿refleja una asociación real en la población (<span class="math inline">\(\rho \neq 0\)</span>) o podría ser fruto del azar?</p>
+<p><strong>¿Es significativa la correlación observada?</strong> <span class="math inline">\(r = 0.610\)</span> en 12 pacientes — ¿refleja una asociación real en la población (<span class="math inline">\(\rho \neq 0\)</span>) o podría ser fruto del azar?</p>
 </div>
 </div>
 </div>
 <p><strong>Hipótesis:</strong> <span class="math display">\[H_0: \rho = 0 \quad \text{(no hay correlación lineal en la población)}\]</span> <span class="math display">\[H_1: \rho \neq 0 \quad \text{(existe correlación lineal)}\]</span></p>
 <p><strong>Estadístico de contraste:</strong> <span class="math display">\[t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2} \quad \text{bajo } H_0\]</span></p>
 <div class="framed">
-<p>Para nuestro ejemplo (<span class="math inline">\(r = 0.819\)</span>, <span class="math inline">\(n = 12\)</span>): <span class="math display">\[t = \frac{0.819 \sqrt{10}}{\sqrt{1 - 0.819^2}} = \frac{2.590}{0.574} = 4.514\]</span> <span class="math display">\[P = 2 \times P(T_{10} &gt; 4.514) = 0.0011\]</span></p>
+<p>Para nuestro ejemplo (<span class="math inline">\(r = 0.610\)</span>, <span class="math inline">\(n = 12\)</span>): <span class="math display">\[t = \frac{0.819 \sqrt{10}}{\sqrt{1 - 0.819^2}} = \frac{2.590}{0.574} = 4.514\]</span> <span class="math display">\[P = 2 \times P(T_{10} &gt; 4.514) = 0.0011\]</span></p>
 </div>
 <p><strong>Conclusión:</strong> <span class="math inline">\(P = 0.0011 &lt; 0.05\)</span> → <strong>rechazamos</strong> <span class="math inline">\(H_0\)</span>. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de masa grasa es estadísticamente significativa en la población de adolescentes.</p>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1113,13 +1113,13 @@ summary(modelo)$sigma = 5.55</code></pre>
     Pearson's product-moment correlation
 
 data:  imc and graso
-t = 2.4371, df = 10, p-value = 0.03502
+t = 2.5118, df = 10, p-value = 0.03082
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.05623223 0.87707188
+ 0.07475154 0.88129428
 sample estimates:
       cor 
-0.6104341 </code></pre>
+0.6219706 </code></pre>
 </div>
 </div>
 <p><strong>Intervalo de confianza para <span class="math inline">\(\rho\)</span> (transformación <span class="math inline">\(z\)</span> de Fisher):</strong> <span class="math display">\[z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right), \quad IC_{1-\alpha}(z_\rho) = z \pm \frac{z_{1-\alpha/2}}{\sqrt{n-3}}\]</span></p>
@@ -1145,7 +1145,7 @@ sample estimates:
 <p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Pregunta para reflexionar:</strong> <span class="math inline">\(r = 0.819\)</span> se considera “fuerte” en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?</p>
+<p><strong>Pregunta para reflexionar:</strong> <span class="math inline">\(r = 0.610\)</span> se considera “fuerte” en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?</p>
 </div>
 </div>
 </div>
@@ -1184,10 +1184,10 @@ sample estimates:
 <details class="code-fold">
 <summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Pearson (paramétrica, lineal)</span></span>
-<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso)                    <span class="co"># r = 0.819</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso)                    <span class="co"># r = 0.610</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6104341</code></pre>
+<pre><code>[1] 0.6219706</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -1198,13 +1198,13 @@ sample estimates:
     Pearson's product-moment correlation
 
 data:  imc and graso
-t = 2.4371, df = 10, p-value = 0.03502
+t = 2.5118, df = 10, p-value = 0.03082
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.05623223 0.87707188
+ 0.07475154 0.88129428
 sample estimates:
       cor 
-0.6104341 </code></pre>
+0.6219706 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -1341,9 +1341,9 @@ sample estimates:
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit      lwr      upr
-1 19.54338 15.96946 23.11731
-2 24.11261 18.46194 29.76328
-3 28.68183 19.40882 37.95485</code></pre>
+1 19.60857 16.07187 23.14527
+2 24.20524 18.61755 29.79292
+3 28.80190 19.68110 37.92271</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -1352,9 +1352,9 @@ sample estimates:
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit       lwr      upr
-1 19.54338  6.676852 32.40992
-2 24.11261 10.521995 37.70322
-3 28.68183 13.229858 44.13381</code></pre>
+1 19.60857  6.887691 32.32945
+2 24.20524 10.768915 37.64156
+3 28.80190 13.553900 44.04991</code></pre>
 </div>
 </div>
 </section>
@@ -1414,7 +1414,7 @@ sample estimates:
 </div>
 </div>
 </div>
-<p><strong>Ejemplo clínico:</strong> Para IMC=22, el % graso medio es 20.0% (IC 95%: 17.1% a 22.9%). Pero un paciente concreto con IMC=22 podría tener entre 10.0% y 30.0% de grasa (IP 95%).</p>
+<p><strong>Ejemplo clínico:</strong> Para IMC=22, el % graso medio es 19.5% (IC 95%: 16.0% a 23.1%). Pero un paciente concreto con IMC=22 podría tener entre 6.7% y 32.4% de grasa (IP 95%).</p>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1668,8 +1668,8 @@ R: b0= -0.21  b1= 0.616</code></pre>
 
 Response: graso
           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-imc        1 182.78 182.777  5.9396 0.03502 *
-Residuals 10 307.73  30.773                  
+imc        1 189.75 189.750  6.3092 0.03082 *
+Residuals 10 300.75  30.075                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1679,8 +1679,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">R² ajustado ="</span>, <span class="fu">round</span>(s<span class="sc">$</span>adj.r.squared, <span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>R² = 0.3726 
-R² ajustado = 0.3099</code></pre>
+<pre><code>R² = 0.3868 
+R² ajustado = 0.3255</code></pre>
 </div>
 </div>
 </section>
@@ -1746,8 +1746,8 @@ R² ajustado = 0.3099</code></pre>
 
 Response: graso
           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-imc        1 182.78 182.777  5.9396 0.03502 *
-Residuals 10 307.73  30.773                  
+imc        1 189.75 189.750  6.3092 0.03082 *
+Residuals 10 300.75  30.075                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1759,9 +1759,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-R² = 0.3726 
-R² ajustado = 0.3099 
-Error estándar residual = 5.55</code></pre>
+R² = 0.3868 
+R² ajustado = 0.3255 
+Error estándar residual = 5.48</code></pre>
 </div>
 </div>
 <p><strong>Interpretación:</strong> <span class="math inline">\(F = 20.39\)</span>, <span class="math inline">\(P = 0.001\)</span> → La pendiente es significativamente distinta de cero. El IMC <strong>sí</strong> predice el % de masa grasa.</p>
@@ -2038,7 +2038,7 @@ P = 5e-04</code></pre>
 <summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Datos ampliados: a las variables originales (IMC, % graso) se añaden Edad, Fuerza prensil (kg) y EVA dolor (0-10)</span></span>
 <span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a>datos_clinicos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">IMC   =</span> <span class="fu">c</span>(<span class="fl">20.36</span>, <span class="fl">20.34</span>, <span class="fl">20.05</span>, <span class="fl">23.94</span>, <span class="fl">22.17</span>, <span class="fl">21.72</span>, <span class="fl">19.29</span>, <span class="fl">23.07</span>, <span class="fl">27.45</span>, <span class="fl">24.91</span>, <span class="fl">22.69</span>, <span class="fl">21.15</span>),</span>
+<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">IMC   =</span> <span class="fu">c</span>(<span class="fl">20.36</span>, <span class="fl">20.34</span>, <span class="fl">19.55</span>, <span class="fl">23.94</span>, <span class="fl">22.17</span>, <span class="fl">21.72</span>, <span class="fl">19.29</span>, <span class="fl">23.07</span>, <span class="fl">27.45</span>, <span class="fl">24.91</span>, <span class="fl">22.69</span>, <span class="fl">21.15</span>),</span>
 <span id="cb66-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Graso =</span> <span class="fu">c</span>(<span class="fl">17.36</span>, <span class="fl">12.72</span>, <span class="fl">11.65</span>, <span class="fl">19.34</span>, <span class="fl">24.19</span>, <span class="fl">25.62</span>, <span class="fl">20.91</span>, <span class="fl">17.81</span>, <span class="fl">29.70</span>, <span class="fl">25.43</span>, <span class="fl">18.62</span>, <span class="fl">23.15</span>),</span>
 <span id="cb66-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Edad  =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">17</span>),</span>
 <span id="cb66-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Fuerza =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">30</span>, <span class="dv">25</span>, <span class="dv">38</span>, <span class="dv">35</span>, <span class="dv">32</span>, <span class="dv">22</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">42</span>, <span class="dv">31</span>, <span class="dv">34</span>),</span>
@@ -2055,11 +2055,11 @@ P = 5e-04</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         IMC Graso  Edad Fuerza   EVA
-IMC    1.000 0.645 0.916  0.924 0.578
-Graso  0.645 1.000 0.647  0.598 0.939
-Edad   0.916 0.647 1.000  0.948 0.676
-Fuerza 0.924 0.598 0.948  1.000 0.592
-EVA    0.578 0.939 0.676  0.592 1.000</code></pre>
+IMC    1.000 0.664 0.921  0.929 0.599
+Graso  0.664 1.000 0.647  0.598 0.939
+Edad   0.921 0.647 1.000  0.948 0.676
+Fuerza 0.929 0.598 0.948  1.000 0.592
+EVA    0.599 0.939 0.676  0.592 1.000</code></pre>
 </div>
 </div>
 <table class="caption-top">
@@ -2201,9 +2201,9 @@ EVA    0.578 0.939 0.676  0.592 1.000</code></pre>
 <span id="cb71-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">(Diferencia:"</span>, <span class="fu">round</span>((R2<span class="sc">-</span>R2_adj)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>), <span class="st">"pp)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>R² = 0.3726 
-R² ajustado = 0.3099 
-(Diferencia: 6.27 pp)</code></pre>
+<pre><code>R² = 0.3868 
+R² ajustado = 0.3255 
+(Diferencia: 6.13 pp)</code></pre>
 </div>
 </div>
 <p><strong>Regla:</strong> Si la diferencia entre <span class="math inline">\(R^2\)</span> y <span class="math inline">\(R^2_{\text{adj}}\)</span> es grande, el modelo puede estar sobreajustado (demasiadas variables para los datos disponibles).</p>
@@ -2248,18 +2248,18 @@ lm(formula = graso ~ imc)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--7.893 -3.710 -1.422  4.664  8.592 
+-7.980 -3.704 -1.488  4.604  8.526 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)  
-(Intercept) -13.9643    13.7508  -1.016    0.334  
-imc           1.5231     0.6249   2.437    0.035 *
+(Intercept)  -14.100     13.399  -1.052   0.3174  
+imc            1.532      0.610   2.512   0.0308 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.547 on 10 degrees of freedom
-Multiple R-squared:  0.3726,    Adjusted R-squared:  0.3099 
-F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
+Residual standard error: 5.484 on 10 degrees of freedom
+Multiple R-squared:  0.3868,    Adjusted R-squared:  0.3255 
+F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -2267,8 +2267,8 @@ F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  2.5 %    97.5 %
-(Intercept) -44.6029087 16.674382
-imc           0.1306021  2.915548</code></pre>
+(Intercept) -43.9555317 15.754876
+imc           0.1730377  2.891407</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -2279,8 +2279,8 @@ imc           0.1306021  2.915548</code></pre>
 
 Response: graso
           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-imc        1 182.78 182.777  5.9396 0.03502 *
-Residuals 10 307.73  30.773                  
+imc        1 189.75 189.750  6.3092 0.03082 *
+Residuals 10 300.75  30.075                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -2289,7 +2289,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo)                <span class="co"># Criterio de información</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 78.98624</code></pre>
+<pre><code>[1] 78.71116</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -2297,7 +2297,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
-19.54338 </code></pre>
+19.60857 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -2352,37 +2352,37 @@ Regresión lineal simple
 
   variable  n  media    dt   Min   Max Rango
 1    graso 12 19.320 6.678  8.87 29.70 20.83
-2      imc 12 21.853 2.676 17.30 27.45 10.15
+2      imc 12 21.812 2.711 17.30 27.45 10.15
 
-  Cov(graso,imc) = 10.91
+  Cov(graso,imc) = 11.258
 
 # Correlación de Pearson --- 
 
-     r IC_inf IC_sup gl  texp     sig
-  0.61  0.056  0.877 10 2.437 = 0.035
+      r IC_inf IC_sup gl  texp     sig
+  0.622  0.075  0.881 10 2.512 = 0.031
 
 # Modelo lineal --- 
 
   Modelo:  graso ~ imc 
-  R² =  0.372 
-  S²residual =  30.773 
+  R² =  0.387 
+  S²residual =  30.075 
   :
 
          Coef   estim     se  ic_inf ic_sup  texp   sig
-1 (Constante) -13.964 13.751 -44.603 16.674 1.016 0.334
-2         imc   1.523  0.625   0.131  2.916 2.437 0.035
+1 (Constante) -14.100 13.399 -43.956 15.755 1.052 0.317
+2         imc   1.532  0.610   0.173  2.891 2.512 0.031
 
 # Distribución residual --- 
-  Error estándar residual: 5.547 
+  Error estándar residual: 5.484 
        res   zres
-min -7.893 -1.556
-Q1  -3.710 -0.793
-Q2  -1.422 -0.277
-Q3   4.664  0.891
-max  8.592  1.619
+min -7.980 -1.592
+Q1  -3.704 -0.801
+Q2  -1.488 -0.293
+Q3   4.604  0.889
+max  8.526  1.625
 
   Test de normalidad residual (Shapiro-Wilk): 
-  w =0.935, p= 0.438</code></pre>
+  w =0.93, p= 0.377</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
