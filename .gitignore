@@ -5,7 +5,6 @@ __pycache__/
 *.knit.md
 _site/
 videos/
-gh-pages-content/site_libs/
 notebooklm_txt/
 
 /.quarto/
