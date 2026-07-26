@@ -817,18 +817,18 @@ La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana 
 :::
 ---
 
-## Ejercicio Clínico Rápido — T01
+## Ejercicio Clínico — Tema I
 
-**Contexto:** Un fisioterapeuta mide la flexión de rodilla en 8 pacientes:
-112°, 118°, 125°, 122°, 130°, 128°, 119°, 126°
+**Contexto:** Un fisioterapeuta mide la flexión de rodilla en 8 pacientes (grados): 112, 118, 125, 122, 130, 128, 119, 126.
 
-**Preguntas:**
-1. Calcula la media ($\bar{x}$), mediana ($Me$) y rango intercuartílico ($RIQ$)
-2. ¿Qué medida de tendencia central es más adecuada si hay un outlier de 155°?
-3. ¿Cómo clasificarías esta variable (tipo, escala)?
+1. Calcula la media, mediana y rango intercuartílico
+2. ¿Qué medida es más robusta si aparece un outlier de 155°?
+3. ¿Cómo clasificarías esta variable (tipo, escala de medida)?
 
-**Soluciones:**
-1. $\bar{x}=122.5°$, $Me=123.5°$, $Q_1=118.5°$, $Q_3=127.5°$, $RIQ=9°$
+::: {.callout-tip collapse="true"}
+**Solución**
+
+1. Media = 122.5°, Mediana = 123.5°, Q₁ = 118.5°, Q₃ = 127.5°, RIQ = 9°
 2. La mediana — la media subiría a 126.6° arrastrada por el outlier
 3. Cuantitativa continua, escala de razón
 
@@ -838,4 +838,4 @@ cat("Media:", mean(x), "\nMediana:", median(x),
     "\nQ1:", quantile(x, 0.25), "Q3:", quantile(x, 0.75),
     "\nRIQ:", IQR(x))
 ```
-
+:::

@@ -297,7 +297,7 @@
 <li><a href="#/interpretacion-de-la-salida-de-testt-en-bioestatr" id="/toc-interpretacion-de-la-salida-de-testt-en-bioestatr">Interpretación de la salida de <code>testt()</code> en BioEstatR</a></li>
 <li><a href="#/bioestatr-testt-para-una-muestra" id="/toc-bioestatr-testt-para-una-muestra">BioEstatR — <code>testt</code> para una muestra</a></li>
 <li><a href="#/salida-de-testt-muestra-automaticamente-estadistico-gl-p-valor-ic-95-estimacion-del-efecto-bruto-y-test-de-normalidad-shapiro-wilk-para-medias." id="/toc-salida-de-testt-muestra-automaticamente-estadistico-gl-p-valor-ic-95-estimacion-del-efecto-bruto-y-test-de-normalidad-shapiro-wilk-para-medias."><strong>Salida de <code>testt</code>:</strong> Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.</a></li>
-<li><a href="#/ejercicio-clínico-rápido-t04" id="/toc-ejercicio-clínico-rápido-t04">Ejercicio Clínico Rápido — T04</a></li>
+<li><a href="#/ejercicio-clínico-tema-iv-parte-i" id="/toc-ejercicio-clínico-tema-iv-parte-i">Ejercicio Clínico — Tema IV (Parte I)</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -354,7 +354,7 @@
 <li>“El IC 95% fue (−0.5, 8.2)” → ¿es clínicamente relevante?</li>
 </ul>
 </div></div>
-<p><strong>“Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe.”</strong> — Ronald Fisher <span class="citation" data-cites="fisher1925">(<a href="#/ejercicio-clínico-rápido-t04" role="doc-biblioref" onclick="">Fisher, 1925</a>)</span></p>
+<p><strong>“Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe.”</strong> — Ronald Fisher <span class="citation" data-cites="fisher1925">(<a href="#/ejercicio-clínico-tema-iv-parte-i" role="doc-biblioref" onclick="">Fisher, 1925</a>)</span></p>
 </section></section>
 <section>
 <section id="marco-conceptual" class="title-slide slide level1 center">
@@ -1182,29 +1182,40 @@ Test de Shapiro-Wilk: W = 0.956, P = 0.789</code></pre>
 <section id="salida-de-testt-muestra-automaticamente-estadistico-gl-p-valor-ic-95-estimacion-del-efecto-bruto-y-test-de-normalidad-shapiro-wilk-para-medias." class="slide level2 center">
 <h2><strong>Salida de <code>testt</code>:</strong> Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.</h2>
 </section>
-<section id="ejercicio-clínico-rápido-t04" class="slide level2 smaller scrollable">
-<h2>Ejercicio Clínico Rápido — T04</h2>
-<p><strong>Contexto:</strong> Se mide la flexión de rodilla en 6 pacientes tras una intervención: 125°, 132°, 128°, 135°, 130°, 126°. El valor de referencia poblacional es 130°.</p>
-<p><strong>Preguntas:</strong> 1. Formula <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_1\)</span> para contrastar si la intervención cambia la flexión 2. Interpreta el resultado: <span class="math inline">\(t = -0.43\)</span>, gl = 5, <span class="math inline">\(P = 0.683\)</span>, IC 95%: [126.4°, 132.9°] 3. ¿Qué concluyes clínicamente?</p>
-<p><strong>Soluciones:</strong> 1. <span class="math inline">\(H_0: \mu = 130°\)</span> vs <span class="math inline">\(H_1: \mu \neq 130°\)</span> (bilateral) 2. <span class="math inline">\(P = 0.683 &gt; 0.05\)</span> → NO rechazamos <span class="math inline">\(H_0\)</span>. El IC 95% contiene el valor de referencia (130°) 3. No hay evidencia suficiente para afirmar que la intervención cambie la flexión — los datos son compatibles con que la media poblacional sea 130°</p>
+<section id="ejercicio-clínico-tema-iv-parte-i" class="slide level2 smaller scrollable">
+<h2>Ejercicio Clínico — Tema IV (Parte I)</h2>
+<p><strong>Contexto:</strong> Flexión rodilla en 6 pacientes: 125, 132, 128, 135, 130, 126°. Referencia: 130°.</p>
+<ol type="1">
+<li>Formula H₀ y H₁</li>
+<li>Interpreta: t = −0.43, gl = 5, P = 0.683, IC 95% [126.4°, 132.9°]</li>
+<li>¿Conclusión clínica?</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Solución</strong></p>
+<ol type="1">
+<li>H₀: μ = 130° vs H₁: μ ≠ 130°</li>
+<li>P &gt; 0.05 → NO rechazar H₀. IC contiene 130°</li>
+<li>Sin evidencia de cambio en la flexión media poblacional</li>
+</ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">132</span>,<span class="dv">128</span>,<span class="dv">135</span>,<span class="dv">130</span>,<span class="dv">126</span>)</span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">130</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">132</span>,<span class="dv">128</span>,<span class="dv">135</span>,<span class="dv">130</span>,<span class="dv">126</span>); tt<span class="ot">&lt;-</span><span class="fu">t.test</span>(x,<span class="at">mu=</span><span class="dv">130</span>)</span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"t="</span>,<span class="fu">round</span>(tt<span class="sc">$</span>stat,<span class="dv">2</span>),<span class="st">" P="</span>,<span class="fu">round</span>(tt<span class="sc">$</span>p.val,<span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    One Sample t-test
-
-data:  x
-t = -0.43234, df = 5, p-value = 0.6835
-alternative hypothesis: true mean is not equal to 130
-95 percent confidence interval:
- 125.3695 133.2972
-sample estimates:
-mean of x 
- 129.3333 </code></pre>
+<pre><code>t= -0.43  P= 0.6835</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 

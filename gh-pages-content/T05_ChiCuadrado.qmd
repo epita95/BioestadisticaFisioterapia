@@ -1053,39 +1053,6 @@ mtext("→ B mejor, pero solo 10 casos", side = 1, line = 2.5, cex = 0.8, col = 
 
 ---
 
-
----
-
-## Ejercicio Clínico Rápido — T05
-
-**Contexto:** Se estudia la asociación entre tipo de fisioterapia (manual vs ejercicio) y mejoría (sí/no) en 100 pacientes:
-
-| | Mejoría | No mejoría | Total |
-|---|:---:|:---:|:---:|
-| Manual | 35 | 15 | 50 |
-| Ejercicio | 25 | 25 | 50 |
-| Total | 60 | 40 | 100 |
-
-**Preguntas:**
-1. Calcula el OR de mejoría para terapia manual vs ejercicio
-2. Interpreta el OR en términos clínicos
-3. ¿Qué test usarías para contrastar la asociación?
-
-**Soluciones:**
-1. OR = (35×25)/(15×25) = 875/375 = **2.33**
-2. Los pacientes con terapia manual tienen 2.33 veces más odds de mejorar que con ejercicio
-3. Test χ² de Pearson (independencia) o test exacto de Fisher si frecuencias esperadas < 5
-
-```{r}
-tabla <- matrix(c(35, 25, 15, 25), nrow=2)
-OR <- (35*25)/(15*25)
-chi <- chisq.test(tabla, correct=FALSE)
-cat("OR =", round(OR, 2),
-    "\nχ² =", round(chi$statistic, 2),
-    "P =", round(chi$p.value, 4))
-```
-
-
 # Resumen {.center}
 
 ::: {.incremental}
@@ -1208,4 +1175,27 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 - [@woolf1955] — Woolf, B. (1955). On estimating the relation between blood group and disease. *Ann. Hum. Genet.*, 19(4), 251–253.
 - [@agresti2013] — Agresti, A. (2013). *Categorical Data Analysis* (3rd ed.). Wiley.
 - [@rothman2008] — Rothman, K. J., Greenland, S. & Lash, T. L. (2008). *Modern Epidemiology* (3rd ed.). LWW.
+:::
+---
+
+## Ejercicio Clínico — Tema V
+
+**Contexto:** Asociación tipo fisioterapia × mejoría (n=100): Manual 35/50 mejoran, Ejercicio 25/50.
+
+1. Calcula OR de mejoría (manual vs ejercicio)
+2. Interpreta
+3. ¿Qué test?
+
+::: {.callout-tip collapse="true"}
+**Solución**
+
+1. OR = 35×25/15×25 = 2.33
+2. Terapia manual tiene 2.33× más odds de mejorar. Significativo
+3. χ² de Pearson (frecuencias esperadas > 5)
+
+```{r}
+tabla<-matrix(c(35,25,15,25),2)
+chi<-chisq.test(tabla,correct=FALSE)
+cat("OR=",round(35*25/(15*25),2)," χ²=",round(chi$stat,2)," P=",round(chi$p.val,4))
+```
 :::

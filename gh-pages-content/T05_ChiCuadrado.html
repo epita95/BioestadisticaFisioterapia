@@ -318,7 +318,6 @@
 <li><a href="#/confusión-confounding-y-paradoja-de-simpson" id="/toc-confusión-confounding-y-paradoja-de-simpson">Confusión (Confounding) y paradoja de simpson</a></li>
 <li><a href="#/paradoja-de-simpson-ejemplo-visual-en-fisioterapia" id="/toc-paradoja-de-simpson-ejemplo-visual-en-fisioterapia">Paradoja de simpson — Ejemplo visual en fisioterapia</a></li>
 
-<li><a href="#/ejercicio-clínico-rápido-t05" id="/toc-ejercicio-clínico-rápido-t05">Ejercicio Clínico Rápido — T05</a></li>
 </ul></li>
 <li><a href="#/resumen" id="/toc-resumen">Resumen</a>
 <ul>
@@ -327,6 +326,7 @@
 <li><a href="#/puente-al-tema-6-de-la-asociación-a-la-predicción" id="/toc-puente-al-tema-6-de-la-asociación-a-la-predicción">Puente al tema 6 — De la asociación a la predicción</a></li>
 <li><a href="#/ejercicio-clínico-análisis-de-tablas-22" id="/toc-ejercicio-clínico-análisis-de-tablas-22">Ejercicio clínico — Análisis de tablas 2×2</a></li>
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
+<li><a href="#/ejercicio-clínico-tema-v" id="/toc-ejercicio-clínico-tema-v">Ejercicio Clínico — Tema V</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2029,7 +2029,7 @@ Odds Ratio      O = 3.769</code></pre>
 <p><strong>Advertencia</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Cuándo usar Fisher en vez de χ²:</strong> Si alguna frecuencia esperada es &lt; 5 (o &lt; 1), el test χ² no es válido. Usar el test exacto de Fisher <span class="citation" data-cites="fisher1922">(<a href="#/referencias" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span>.</p>
+<p><strong>Cuándo usar Fisher en vez de χ²:</strong> Si alguna frecuencia esperada es &lt; 5 (o &lt; 1), el test χ² no es válido. Usar el test exacto de Fisher <span class="citation" data-cites="fisher1922">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -2232,7 +2232,7 @@ NNT = 4.2
 <p><strong>Advertencia</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Paradoja de Simpson:</strong> la asociación en datos <strong>agregados</strong> puede <strong>invertirse</strong> al estratificar por una variable confundente <span class="citation" data-cites="simpson1951">(<a href="#/referencias" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span>.</p>
+<p><strong>Paradoja de Simpson:</strong> la asociación en datos <strong>agregados</strong> puede <strong>invertirse</strong> al estratificar por una variable confundente <span class="citation" data-cites="simpson1951">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -2300,57 +2300,6 @@ NNT = 4.2
 </section>
 <section class="slide level2 center">
 
-</section>
-<section id="ejercicio-clínico-rápido-t05" class="slide level2 center">
-<h2>Ejercicio Clínico Rápido — T05</h2>
-<p><strong>Contexto:</strong> Se estudia la asociación entre tipo de fisioterapia (manual vs ejercicio) y mejoría (sí/no) en 100 pacientes:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th></th>
-<th style="text-align: center;">Mejoría</th>
-<th style="text-align: center;">No mejoría</th>
-<th style="text-align: center;">Total</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Manual</td>
-<td style="text-align: center;">35</td>
-<td style="text-align: center;">15</td>
-<td style="text-align: center;">50</td>
-</tr>
-<tr class="even">
-<td>Ejercicio</td>
-<td style="text-align: center;">25</td>
-<td style="text-align: center;">25</td>
-<td style="text-align: center;">50</td>
-</tr>
-<tr class="odd">
-<td>Total</td>
-<td style="text-align: center;">60</td>
-<td style="text-align: center;">40</td>
-<td style="text-align: center;">100</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Preguntas:</strong> 1. Calcula el OR de mejoría para terapia manual vs ejercicio 2. Interpreta el OR en términos clínicos 3. ¿Qué test usarías para contrastar la asociación?</p>
-<p><strong>Soluciones:</strong> 1. OR = (35×25)/(15×25) = 875/375 = <strong>2.33</strong> 2. Los pacientes con terapia manual tienen 2.33 veces más odds de mejorar que con ejercicio 3. Test χ² de Pearson (independencia) o test exacto de Fisher si frecuencias esperadas &lt; 5</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">25</span>, <span class="dv">15</span>, <span class="dv">25</span>), <span class="at">nrow=</span><span class="dv">2</span>)</span>
-<span id="cb33-2"><a aria-hidden="true" tabindex="-1"></a>OR <span class="ot">&lt;-</span> (<span class="dv">35</span><span class="sc">*</span><span class="dv">25</span>)<span class="sc">/</span>(<span class="dv">15</span><span class="sc">*</span><span class="dv">25</span>)</span>
-<span id="cb33-3"><a aria-hidden="true" tabindex="-1"></a>chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla, <span class="at">correct=</span><span class="cn">FALSE</span>)</span>
-<span id="cb33-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OR ="</span>, <span class="fu">round</span>(OR, <span class="dv">2</span>),</span>
-<span id="cb33-5"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">χ² ="</span>, <span class="fu">round</span>(chi<span class="sc">$</span>statistic, <span class="dv">2</span>),</span>
-<span id="cb33-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"P ="</span>, <span class="fu">round</span>(chi<span class="sc">$</span>p.value, <span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>OR = 2.33 
-χ² = 4.17 P = 0.0412</code></pre>
-</div>
-</div>
 </section></section>
 <section>
 <section id="resumen" class="title-slide slide level1 center">
@@ -2521,23 +2470,61 @@ La odds de bajo peso es 3.77 veces mayor en madres fumadoras.</code></pre>
 <li>Realiza el test <span class="math inline">\(\chi^2\)</span>. ¿Es significativa la asociación? ¿Hay confusión por gravedad inicial?</li>
 </ol>
 </section>
-<section id="referencias" class="slide level2 smaller scrollable">
+<section id="referencias" class="slide level2 center">
 <h2>Referencias</h2>
 <div class="reference-box">
 <ul>
-<li><span class="citation" data-cites="bioestatr2026">(<a href="#/referencias" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
-<li><span class="citation" data-cites="luque2026">(<a href="#/referencias" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
-<li><span class="citation" data-cites="pearson1900">(<a href="#/referencias" role="doc-biblioref" onclick="">Pearson, 1900</a>)</span> — Pearson, K. (1900). On the criterion that a given system of deviations… <em>Phil. Mag.</em>, 50(302), 157–175.</li>
-<li><span class="citation" data-cites="fisher1922">(<a href="#/referencias" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span> — Fisher, R. A. (1922). On the interpretation of χ² from contingency tables. <em>J. R. Stat. Soc.</em>, 85(1), 87–94.</li>
-<li><span class="citation" data-cites="yates1934">(<a href="#/referencias" role="doc-biblioref" onclick="">Yates, 1934</a>)</span> — Yates, F. (1934). Contingency tables involving small numbers. <em>J. R. Stat. Soc.</em>, 1(2), 217–235.</li>
-<li><span class="citation" data-cites="mcnemar1947">(<a href="#/referencias" role="doc-biblioref" onclick="">McNemar, 1947</a>)</span> — McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions. <em>Psychometrika</em>, 12(2), 153–157.</li>
-<li><span class="citation" data-cites="mantel1959">(<a href="#/referencias" role="doc-biblioref" onclick="">Mantel &amp; Haenszel, 1959</a>)</span> — Mantel, N. &amp; Haenszel, W. (1959). Statistical aspects of the analysis of data from retrospective studies. <em>JNCI</em>, 22(4), 719–748.</li>
-<li><span class="citation" data-cites="cornfield1951">(<a href="#/referencias" role="doc-biblioref" onclick="">Cornfield, 1951</a>)</span> — Cornfield, J. (1951). A method of estimating comparative rates. <em>JNCI</em>, 11, 1269–1275.</li>
-<li><span class="citation" data-cites="simpson1951">(<a href="#/referencias" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span> — Simpson, E. H. (1951). The interpretation of interaction in contingency tables. <em>J. R. Stat. Soc. B</em>, 13(2), 238–241.</li>
-<li><span class="citation" data-cites="woolf1955">(<a href="#/referencias" role="doc-biblioref" onclick="">Woolf, 1955</a>)</span> — Woolf, B. (1955). On estimating the relation between blood group and disease. <em>Ann. Hum. Genet.</em>, 19(4), 251–253.</li>
-<li><span class="citation" data-cites="agresti2013">(<a href="#/referencias" role="doc-biblioref" onclick="">Agresti, 2013</a>)</span> — Agresti, A. (2013). <em>Categorical Data Analysis</em> (3rd ed.). Wiley.</li>
-<li><span class="citation" data-cites="rothman2008">(<a href="#/referencias" role="doc-biblioref" onclick="">Rothman et&nbsp;al., 2008</a>)</span> — Rothman, K. J., Greenland, S. &amp; Lash, T. L. (2008). <em>Modern Epidemiology</em> (3rd ed.). LWW.</li>
+<li><span class="citation" data-cites="bioestatr2026">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
+<li><span class="citation" data-cites="luque2026">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
+<li><span class="citation" data-cites="pearson1900">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Pearson, 1900</a>)</span> — Pearson, K. (1900). On the criterion that a given system of deviations… <em>Phil. Mag.</em>, 50(302), 157–175.</li>
+<li><span class="citation" data-cites="fisher1922">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span> — Fisher, R. A. (1922). On the interpretation of χ² from contingency tables. <em>J. R. Stat. Soc.</em>, 85(1), 87–94.</li>
+<li><span class="citation" data-cites="yates1934">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Yates, 1934</a>)</span> — Yates, F. (1934). Contingency tables involving small numbers. <em>J. R. Stat. Soc.</em>, 1(2), 217–235.</li>
+<li><span class="citation" data-cites="mcnemar1947">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">McNemar, 1947</a>)</span> — McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions. <em>Psychometrika</em>, 12(2), 153–157.</li>
+<li><span class="citation" data-cites="mantel1959">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Mantel &amp; Haenszel, 1959</a>)</span> — Mantel, N. &amp; Haenszel, W. (1959). Statistical aspects of the analysis of data from retrospective studies. <em>JNCI</em>, 22(4), 719–748.</li>
+<li><span class="citation" data-cites="cornfield1951">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Cornfield, 1951</a>)</span> — Cornfield, J. (1951). A method of estimating comparative rates. <em>JNCI</em>, 11, 1269–1275.</li>
+<li><span class="citation" data-cites="simpson1951">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span> — Simpson, E. H. (1951). The interpretation of interaction in contingency tables. <em>J. R. Stat. Soc. B</em>, 13(2), 238–241.</li>
+<li><span class="citation" data-cites="woolf1955">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Woolf, 1955</a>)</span> — Woolf, B. (1955). On estimating the relation between blood group and disease. <em>Ann. Hum. Genet.</em>, 19(4), 251–253.</li>
+<li><span class="citation" data-cites="agresti2013">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Agresti, 2013</a>)</span> — Agresti, A. (2013). <em>Categorical Data Analysis</em> (3rd ed.). Wiley.</li>
+<li><span class="citation" data-cites="rothman2008">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Rothman et&nbsp;al., 2008</a>)</span> — Rothman, K. J., Greenland, S. &amp; Lash, T. L. (2008). <em>Modern Epidemiology</em> (3rd ed.). LWW.</li>
 </ul>
+</div>
+</section>
+<section id="ejercicio-clínico-tema-v" class="slide level2 smaller scrollable">
+<h2>Ejercicio Clínico — Tema V</h2>
+<p><strong>Contexto:</strong> Asociación tipo fisioterapia × mejoría (n=100): Manual 35/50 mejoran, Ejercicio 25/50.</p>
+<ol type="1">
+<li>Calcula OR de mejoría (manual vs ejercicio)</li>
+<li>Interpreta</li>
+<li>¿Qué test?</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Solución</strong></p>
+<ol type="1">
+<li>OR = 35×25/15×25 = 2.33</li>
+<li>Terapia manual tiene 2.33× más odds de mejorar. Significativo</li>
+<li>χ² de Pearson (frecuencias esperadas &gt; 5)</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">35</span>,<span class="dv">25</span>,<span class="dv">15</span>,<span class="dv">25</span>),<span class="dv">2</span>)</span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>chi<span class="ot">&lt;-</span><span class="fu">chisq.test</span>(tabla,<span class="at">correct=</span><span class="cn">FALSE</span>)</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OR="</span>,<span class="fu">round</span>(<span class="dv">35</span><span class="sc">*</span><span class="dv">25</span><span class="sc">/</span>(<span class="dv">15</span><span class="sc">*</span><span class="dv">25</span>),<span class="dv">2</span>),<span class="st">" χ²="</span>,<span class="fu">round</span>(chi<span class="sc">$</span>stat,<span class="dv">2</span>),<span class="st">" P="</span>,<span class="fu">round</span>(chi<span class="sc">$</span>p.val,<span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>OR= 2.33  χ²= 4.17  P= 0.0412</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 

@@ -295,7 +295,7 @@
 <li><a href="#/esperanza-y-varianza-va-continua" id="/toc-esperanza-y-varianza-va-continua">Esperanza y varianza — Va continua</a></li>
 <li><a href="#/comparativa-discreta-vs-continua-conceptos-analogos" id="/toc-comparativa-discreta-vs-continua-conceptos-analogos">Comparativa: Discreta vs continua — Conceptos análogos</a></li>
 <li><a href="#/las-cuatro-funciones-de-r-para-distribuciones" id="/toc-las-cuatro-funciones-de-r-para-distribuciones">Las cuatro funciones de R para distribuciones</a></li>
-<li><a href="#/ejercicio-clínico-rápido-t02" id="/toc-ejercicio-clínico-rápido-t02">Ejercicio Clínico Rápido — T02</a></li>
+<li><a href="#/ejercicio-clínico-tema-ii-parte-i" id="/toc-ejercicio-clínico-tema-ii-parte-i">Ejercicio Clínico — Tema II (Parte I)</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1798,20 +1798,41 @@ Var(X) teórica = 400   Var(X) simulada = 398.9
 </div>
 </div>
 </section>
-<section id="ejercicio-clínico-rápido-t02" class="slide level2 center">
-<h2>Ejercicio Clínico Rápido — T02</h2>
-<p><strong>Contexto:</strong> En una consulta de fisioterapia, el 15% de los pacientes tienen lumbalgia crónica. Un nuevo test clínico tiene sensibilidad del 90% y especificidad del 85%.</p>
-<p><strong>Preguntas:</strong> 1. Si un paciente da positivo, ¿qué probabilidad tiene de tener realmente lumbalgia crónica? 2. ¿Por qué el VPP es tan bajo a pesar de la alta sensibilidad del test?</p>
-<p><strong>Soluciones:</strong> 1. VPP = P(D|+) = (0.90 × 0.15) / [0.90 × 0.15 + 0.15 × 0.85] = 0.135 / 0.2625 = <strong>51.4%</strong> 2. Por la baja prevalencia (15%) — los falsos positivos (15% × 85% = 12.75%) casi igualan a los verdaderos positivos (13.5%)</p>
+<section id="ejercicio-clínico-tema-ii-parte-i" class="slide level2 center">
+<h2>Ejercicio Clínico — Tema II (Parte I)</h2>
+<p><strong>Contexto:</strong> En una consulta, el 15% de pacientes tienen lumbalgia crónica. Un test tiene sensibilidad 90% y especificidad 85%.</p>
+<ol type="1">
+<li>Si un paciente da positivo, ¿probabilidad de que tenga lumbalgia?</li>
+<li>¿Por qué el VPP es bajo pese a la alta sensibilidad?</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Solución</strong></p>
+<ol type="1">
+<li>VPP = (0.90×0.15) / [0.90×0.15 + 0.15×0.85] = 0.135/0.2625 = <strong>51.4%</strong></li>
+<li>La baja prevalencia (15%) hace que los falsos positivos casi igualen a los verdaderos</li>
+</ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>prev <span class="ot">&lt;-</span> <span class="fl">0.15</span>; sens <span class="ot">&lt;-</span> <span class="fl">0.90</span>; spec <span class="ot">&lt;-</span> <span class="fl">0.85</span></span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>vpp <span class="ot">&lt;-</span> (sens <span class="sc">*</span> prev) <span class="sc">/</span> (sens <span class="sc">*</span> prev <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>spec) <span class="sc">*</span> (<span class="dv">1</span><span class="sc">-</span>prev))</span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VPP ="</span>, <span class="fu">round</span>(vpp <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>vpp <span class="ot">&lt;-</span> (sens<span class="sc">*</span>prev) <span class="sc">/</span> (sens<span class="sc">*</span>prev <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>spec)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev))</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>vpn <span class="ot">&lt;-</span> (spec<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev)) <span class="sc">/</span> (spec<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>sens)<span class="sc">*</span>prev)</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VPP ="</span>, <span class="fu">round</span>(vpp<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">VPN ="</span>, <span class="fu">round</span>(vpn<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>VPP = 51.4 %</code></pre>
+<pre><code>VPP = 51.4 % 
+VPN = 98 %</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 

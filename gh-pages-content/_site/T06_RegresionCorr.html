@@ -321,7 +321,6 @@
 <li><a href="#/selección-de-modelos-y-sobreajuste" id="/toc-selección-de-modelos-y-sobreajuste">Selección de modelos y sobreajuste</a></li>
 <li><a href="#/r-base-vs-bioestatr-comparativa-para-regresión" id="/toc-r-base-vs-bioestatr-comparativa-para-regresión">R base vs BioEstatR — Comparativa para regresión</a></li>
 
-<li><a href="#/ejercicio-clínico-rápido-t06" id="/toc-ejercicio-clínico-rápido-t06">Ejercicio Clínico Rápido — T06</a></li>
 </ul></li>
 <li><a href="#/resumen" id="/toc-resumen">Resumen</a>
 <ul>
@@ -329,6 +328,7 @@
 <li><a href="#/la-regresión-como-marco-unificador-de-todo-el-curso" id="/toc-la-regresión-como-marco-unificador-de-todo-el-curso">La regresión como marco unificador de todo el curso</a></li>
 <li><a href="#/ejercicio-clínico-regresión-lineal-en-fisioterapia" id="/toc-ejercicio-clínico-regresión-lineal-en-fisioterapia">Ejercicio clínico — Regresión lineal en fisioterapia</a></li>
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
+<li><a href="#/ejercicio-clínico-tema-vi" id="/toc-ejercicio-clínico-tema-vi">Ejercicio Clínico — Tema VI</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1863,7 +1863,7 @@ P = 5e-04</code></pre>
 <img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-22-1.png" width="768" class="r-stretch"><p><strong>Qué buscar en cada gráfico:</strong> 1. <strong>Residuos vs Ajustados:</strong> Nube sin patrón → linealidad + homocedasticidad ✓ 2. <strong>Q-Q Normal:</strong> Puntos cerca de la diagonal → normalidad ✓ 3. <strong>Scale-Location:</strong> Línea horizontal → homocedasticidad ✓ 4. <strong>Leverage:</strong> Puntos alejados en <span class="math inline">\(x\)</span> y <span class="math inline">\(y\)</span> → outliers + influyentes 5. <strong>Cook’s D:</strong> Barras altas → observaciones que cambian sustancialmente el modelo</p>
 </section>
 <section id="cuarteto-de-anscombe-por-qué-los-gráficos-importan-anscombe1973" class="slide level2 center">
-<h2>Cuarteto de anscombe — Por qué los gráficos importan <span class="citation" data-cites="anscombe1973">(<a href="#/referencias" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span></h2>
+<h2>Cuarteto de anscombe — Por qué los gráficos importan <span class="citation" data-cites="anscombe1973">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span></h2>
 <p>Los cuatro conjuntos de datos de Anscombe tienen <strong>estadísticas idénticas</strong> (<span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\bar{y}\)</span>, <span class="math inline">\(s_x\)</span>, <span class="math inline">\(s_y\)</span>, <span class="math inline">\(r\)</span>, recta de regresión) pero patrones <strong>completamente diferentes</strong>.</p>
 <div class="cell">
 <details class="code-fold">
@@ -2437,28 +2437,6 @@ max  8.592  1.619
 </section>
 <section class="slide level2 center">
 
-</section>
-<section id="ejercicio-clínico-rápido-t06" class="slide level2 center">
-<h2>Ejercicio Clínico Rápido — T06</h2>
-<p><strong>Contexto:</strong> Se estudia la relación entre edad (<span class="math inline">\(X\)</span>, años) y flexión lumbar (<span class="math inline">\(Y\)</span>, grados) en 10 pacientes. La recta de regresión estimada es <span class="math inline">\(\hat{Y} = 85 - 0.6X\)</span> con <span class="math inline">\(R^2 = 0.64\)</span>.</p>
-<p><strong>Preguntas:</strong> 1. Interpreta la pendiente (<span class="math inline">\(\hat{\beta}_1 = -0.6\)</span>) en términos clínicos 2. ¿Qué predice el modelo para un paciente de 50 años? 3. ¿Qué significa <span class="math inline">\(R^2 = 0.64\)</span>?</p>
-<p><strong>Soluciones:</strong> 1. Por cada año adicional de edad, la flexión lumbar disminuye en promedio 0.6°. Una persona de 70 años tendría <span class="math inline">\(0.6 \times 20 = 12°\)</span> menos que una de 50. 2. <span class="math inline">\(\hat{Y}(50) = 85 - 0.6 \times 50 = 85 - 30 = 55°\)</span> 3. El 64% de la variabilidad en la flexión lumbar se explica por la edad. El 36% restante se debe a otros factores (genética, actividad física, lesiones previas…)</p>
-<div class="cell">
-<details class="code-fold">
-<summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-hidden="true" tabindex="-1"></a>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">65</span>, <span class="dv">70</span>)</span>
-<span id="cb84-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb84-3"><a aria-hidden="true" tabindex="-1"></a>flexion <span class="ot">&lt;-</span> <span class="dv">85</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span>edad <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb84-4"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(flexion <span class="sc">~</span> edad)</span>
-<span id="cb84-5"><a aria-hidden="true" tabindex="-1"></a>pred_50 <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span><span class="dv">50</span>))</span>
-<span id="cb84-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Predicción para 50 años:"</span>, <span class="fu">round</span>(pred_50, <span class="dv">1</span>), <span class="st">"°"</span>,</span>
-<span id="cb84-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">R² ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared, <span class="dv">2</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Predicción para 50 años: 55.1 ° 
-R² = 0.93</code></pre>
-</div>
-</div>
 </section></section>
 <section>
 <section id="resumen" class="title-slide slide level1 center">
@@ -2558,20 +2536,59 @@ R² = 0.93</code></pre>
 <li>¿Puedes afirmar que el IMC <strong>causa</strong> un aumento del % de grasa? ¿Por qué?</li>
 </ol>
 </section>
-<section id="referencias" class="slide level2 smaller scrollable">
+<section id="referencias" class="slide level2 center">
 <h2>Referencias</h2>
 <div class="reference-box">
 <ul>
-<li><span class="citation" data-cites="bioestatr2026">(<a href="#/referencias" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
-<li><span class="citation" data-cites="luque2026">(<a href="#/referencias" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
-<li><span class="citation" data-cites="pearson1895">(<a href="#/referencias" role="doc-biblioref" onclick="">Pearson, 1895</a>)</span> — Pearson, K. (1895). Note on regression and inheritance in the case of two parents. <em>Proc. R. Soc. Lond.</em>, 58, 240–242.</li>
-<li><span class="citation" data-cites="spearman1904">(<a href="#/referencias" role="doc-biblioref" onclick="">Spearman, 1904</a>)</span> — Spearman, C. (1904). The proof and measurement of association between two things. <em>Am. J. Psychol.</em>, 15(1), 72101.</li>
-<li><span class="citation" data-cites="anscombe1973">(<a href="#/referencias" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span> — Anscombe, F. J. (1973). Graphs in statistical analysis. <em>Am. Stat.</em>, 27(1), 17–21.</li>
-<li><span class="citation" data-cites="gauss1809">(<a href="#/referencias" role="doc-biblioref" onclick="">Gauss, 1809</a>)</span> — Gauss, C. F. (1809). <em>Theoria motus corporum coelestium</em>. (Mínimos cuadrados).</li>
-<li><span class="citation" data-cites="legendre1805">(<a href="#/referencias" role="doc-biblioref" onclick="">Legendre, 1805</a>)</span> — Legendre, A. M. (1805). <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>.</li>
-<li><span class="citation" data-cites="draper1998">(<a href="#/referencias" role="doc-biblioref" onclick="">Draper &amp; Smith, 1998</a>)</span> — Draper, N. R. &amp; Smith, H. (1998). <em>Applied Regression Analysis</em> (3rd ed.). Wiley.</li>
-<li><span class="citation" data-cites="harrell2015">(<a href="#/referencias" role="doc-biblioref" onclick="">Harrell, 2015</a>)</span> — Harrell, F. E. (2015). <em>Regression Modeling Strategies</em> (2nd ed.). Springer.</li>
+<li><span class="citation" data-cites="bioestatr2026">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
+<li><span class="citation" data-cites="luque2026">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
+<li><span class="citation" data-cites="pearson1895">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Pearson, 1895</a>)</span> — Pearson, K. (1895). Note on regression and inheritance in the case of two parents. <em>Proc. R. Soc. Lond.</em>, 58, 240–242.</li>
+<li><span class="citation" data-cites="spearman1904">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Spearman, 1904</a>)</span> — Spearman, C. (1904). The proof and measurement of association between two things. <em>Am. J. Psychol.</em>, 15(1), 72101.</li>
+<li><span class="citation" data-cites="anscombe1973">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Anscombe, 1973</a>)</span> — Anscombe, F. J. (1973). Graphs in statistical analysis. <em>Am. Stat.</em>, 27(1), 17–21.</li>
+<li><span class="citation" data-cites="gauss1809">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Gauss, 1809</a>)</span> — Gauss, C. F. (1809). <em>Theoria motus corporum coelestium</em>. (Mínimos cuadrados).</li>
+<li><span class="citation" data-cites="legendre1805">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Legendre, 1805</a>)</span> — Legendre, A. M. (1805). <em>Nouvelles méthodes pour la détermination des orbites des comètes</em>.</li>
+<li><span class="citation" data-cites="draper1998">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Draper &amp; Smith, 1998</a>)</span> — Draper, N. R. &amp; Smith, H. (1998). <em>Applied Regression Analysis</em> (3rd ed.). Wiley.</li>
+<li><span class="citation" data-cites="harrell2015">(<a href="#/ejercicio-clínico-tema-vi" role="doc-biblioref" onclick="">Harrell, 2015</a>)</span> — Harrell, F. E. (2015). <em>Regression Modeling Strategies</em> (2nd ed.). Springer.</li>
 </ul>
+</div>
+</section>
+<section id="ejercicio-clínico-tema-vi" class="slide level2 smaller scrollable">
+<h2>Ejercicio Clínico — Tema VI</h2>
+<p><strong>Contexto:</strong> Relación edad-flexión lumbar. Ŷ = 85 − 0.6X, R² = 0.64.</p>
+<ol type="1">
+<li>Interpreta pendiente (−0.6)</li>
+<li>Predicción para 50 años</li>
+<li>Significado de R²</li>
+</ol>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p><strong>Solución</strong></p>
+<ol type="1">
+<li>Por cada año, la flexión disminuye 0.6° en promedio</li>
+<li>Ŷ(50) = 85 − 30 = 55°</li>
+<li>64% de variabilidad explicada por edad; 36% otros factores</li>
+</ol>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>); edad<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">25</span>,<span class="dv">70</span>,<span class="at">len=</span><span class="dv">10</span>)</span>
+<span id="cb84-2"><a aria-hidden="true" tabindex="-1"></a>flexion<span class="ot">&lt;-</span><span class="dv">85</span><span class="fl">-0.6</span><span class="sc">*</span>edad<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">3</span>)</span>
+<span id="cb84-3"><a aria-hidden="true" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="fu">lm</span>(flexion<span class="sc">~</span>edad)</span>
+<span id="cb84-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R²="</span>,<span class="fu">round</span>(<span class="fu">summary</span>(m)<span class="sc">$</span>r.sq,<span class="dv">2</span>),<span class="st">" Pred(50)="</span>,<span class="fu">round</span>(<span class="fu">predict</span>(m,<span class="fu">data.frame</span>(<span class="at">edad=</span><span class="dv">50</span>)),<span class="dv">1</span>),<span class="st">"°"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>R²= 0.93  Pred(50)= 55.1 °</code></pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 
 
