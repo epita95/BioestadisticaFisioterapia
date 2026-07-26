@@ -54,8 +54,8 @@ Cada tema incluye: fundamentos teóricos con desarrollo matemático, aplicacio
 | **02** | Probabilidad y VA (I) | Kolmogorov, Bayes, VPP/VPN, variables aleatorias discretas y continuas | Sem. 3 | → [T02-I](T02_I_Probabilidad.html) |
 | **02** | Probabilidad y VA (II) | Distribuciones Normal, Binomial, Poisson, t, χ², F, TCL, aproximaciones | Sem. 4–5 | → [T02-II](T02_II_Probabilidad.html) |
 | **03** | Estimación e Intervalos de Confianza | TCL, IC para media y proporción, Wilson, tamaño muestral | Sem. 6 | → [T03](T03_Estimacion_IC.html) |
-| **04** | Contraste de Hipótesis (I) | NHST, error tipo I/II, normalidad, tests para una muestra | Sem. 7 | → [T04-I](T04_I_Test_Hipotesis.html) |
-| **04** | Contraste de Hipótesis (II) | Tests dos muestras, no paramétricos, McNemar, potencia, d de Cohen | Sem. 8 | → [T04-II](T04_II_Test_Hipotesis.html) |
+| **04** | Contraste de Hipótesis (I) | NHST, error tipo I/II, normalidad, tests para una muestra | Sem. 7 | → [T04](T04_Test_Hipotesis.html) |
+| **04** | Contraste de Hipótesis (II) | Tests dos muestras, no paramétricos, McNemar, potencia, d de Cohen | Sem. 8 | → [T04](T04_Test_Hipotesis.html) |
 | **05** | Datos Cualitativos — χ² | Tablas de contingencia, OR, RR, DR, NNT, Mantel-Haenszel, Fisher | Sem. 9–10 | → [T05](T05_ChiCuadrado.html) |
 | **06** | Regresión y Correlación | Pearson/Spearman, MCO, R², predicción, Anscombe, diagnóstico | Sem. 11–12 | → [T06](T06_RegresionCorr.html) |
 

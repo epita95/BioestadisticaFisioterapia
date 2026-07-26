@@ -263,23 +263,9 @@ cat("Covarianza =", round(cov(x,y),3),
 
 **La covarianza indica la DIRECCIÓN de la relación.**
 
-## De la covarianza a la pendiente de regresión
-
-**Relación con la pendiente:** $\hat{\beta}_1 = \frac{\Cov(X,Y)}{\Var(X)} = \frac{S_{xy}}{S_{xx}}$
-
 ::: {.callout-note}
-**Intuición:** La covarianza te dice si $X$ e $Y$ van en la misma dirección (positiva) o en direcciones opuestas (negativa). La pendiente $\hat{\beta}_1$ va un paso más allá: te dice **cuánto** cambia $Y$ por cada unidad de cambio en $X$.
+**Intuición:** La covarianza te dice si $X$ e $Y$ van en la misma dirección (positiva) o en direcciones opuestas (negativa). La pendiente $\hat{\beta}_1$ va un paso más allá: te dice **cuánto** cambia $Y$ por cada unidad de cambio en $X$. La covarianza indica la DIRECCIÓN de la relación; la pendiente cuantifica su MAGNITUD.
 :::
-
-```{r}
-x<-c(4,5,8,10,12); y<-c(2,3,5,6,7)
-cat("Covarianza =", round(cov(x,y),3),
-    "\nVar(X) =", round(var(x),3),
-    "\nb1 = Cov/Var =", round(cov(x,y)/var(x),3),
-    "\nlm() b1 =", round(coef(lm(y~x))[2],3))
-```
-
-**La covarianza indica la DIRECCIÓN de la relación; la pendiente cuantifica su MAGNITUD.**
 
 ## $S_{xx}$, $S_{xy}$, $S_{yy}$ — Los Tres Pilares de la Regresión
 
@@ -552,8 +538,8 @@ $$P = 2 \times P(T_{10} > 2.437) = 2 \times 0.0175 = 0.035$$
 :::
 
 ```{r}
-# Datos disponibles en data/imc_graso_higado.csv
-# read.csv("data/imc_graso_higado.csv")
+# ⬇️ Los datos están disponibles en data/imc_graso_higado.csv para descargar y practicar
+# df <- read.csv("data/imc_graso_higado.csv")  # cargar si se prefiere desde archivo
 
 # Test de correlación de Pearson
 cor.test(imc, graso)
@@ -773,32 +759,7 @@ cat("Manual: b0=", round(mean(y)-cov(x,y)/var(x)*mean(x),2),
 # BioEstatR: rls(y ~ x, data=data.frame(x,y))
 ```
 
-## Interpretacion detallada del modelo de regresión
-
-```{r}
-modelo <- lm(graso ~ imc)
-s <- summary(modelo)
-```
-
-**Tabla ANOVA:** Descompone la variabilidad total de $Y$:
-
-| Fuente | Suma Cuadrados | gl | Cuadrado Medio | F | P |
-|--------|---------------|----|----------------|-----|-----|
-| Regresión ($x$) | $SC_{reg}$ | 1 | $CM_{reg}$ | $CM_{reg}/CM_{res}$ | |
-| Residual | $SC_{res}$ | $n-2$ | $CM_{res} = s^2$ | | |
-| Total | $SC_{tot}$ | $n-1$ | | | |
-
-$$R^2 = \frac{SC_{reg}}{SC_{tot}} = 1 - \frac{SC_{res}}{SC_{tot}}$$
-
-```{r}
-
-anova_modelo <- anova(modelo)
-print(anova_modelo)
-cat("R² =", round(s$r.squared, 4),
-    "\nR² ajustado =", round(s$adj.r.squared, 4))
-```
-
-## Tabla ANOVA del modelo de regresión
+## Interpretación detallada del modelo y tabla ANOVA
 
 La tabla ANOVA descompone la variabilidad total de $Y$:
 
@@ -1015,11 +976,12 @@ legend("topleft",
 Cuando tenemos **más de dos variables**, la matriz de correlaciones resume todas las asociaciones lineales por pares en una sola tabla. Es una herramienta exploratoria fundamental antes de construir modelos de regresión.
 :::
 
-**Ejemplo clínico — Datos de 12 adolescentes (15–19 años):**
+**Ejemplo clínico — Datos simulados de 12 adolescentes (15–19 años):**
 
 ```{r}
 #| fig-height: 5
-# Datos ampliados: a las variables originales (IMC, % graso) se añaden Edad, Fuerza prensil (kg) y EVA dolor (0-10)
+# Datos ampliados simulados con las mismas variables del T06 más Edad, Fuerza prensil (kg) y EVA dolor (0-10)
+# ⚠️ Estos datos NO coinciden con los 12 pacientes del ejemplo IMC-Graso anterior
 datos_clinicos <- data.frame(
   IMC   = c(20.36, 20.34, 20.05, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
   Graso = c(17.36, 12.72, 11.65, 19.34, 24.19, 25.62, 20.91, 17.81, 29.70, 25.43, 18.62, 23.15),
@@ -1050,6 +1012,7 @@ knitr::kable(round(R, 3), format = "pipe", align = "c",
 
 ```{r}
 #| fig-height: 4.5
+if (!requireNamespace("corrplot", quietly = TRUE)) install.packages("corrplot")
 colores <- colorRampPalette(c("#2166ac", "white", "#b2182b"))(200)
 corrplot::corrplot(R, method = "color", type = "upper",
                    col = colores, addCoef.col = "black",
@@ -1127,7 +1090,7 @@ donde $k$ = número de parámetros. Penaliza la complejidad. Menor AIC = mejor m
 **En Fisioterapia:** al predecir recuperación funcional, incluir demasiadas variables (edad, sexo, IMC, comorbilidades, motivación...) puede llevar a sobreajuste si $n$ es pequeño. Usar $R^2_{adj}$ y AIC para guiar la selección.
 :::
 
-Referencia: Akaike, H. (1974). A new look at the statistical model identification. IEEE Trans. Autom. Control, 19(6), 716-723.*
+*Referencia:* Akaike, H. (1974). A new look at the statistical model identification. *IEEE Trans. Autom. Control*, 19(6), 716–723.
 
 
 ## R base vs BioEstatR — Comparativa para regresión
@@ -1242,14 +1205,13 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 - [@bioestatr2026] — Femia, P. & Luque-Fernández, M. A. (2026). *BioEstatR: Biostatistics Routines in R*. R package. Universidad de Granada.
 - [@luque2026] — Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Universidad de Granada.
 - [@pearson1895] — Pearson, K. (1895). Note on regression and inheritance in the case of two parents. *Proc. R. Soc. Lond.*, 58, 240–242.
-- [@spearman1904] — Spearman, C. (1904). The proof and measurement of association between two things. *Am. J. Psychol.*, 15(1), 72101.
+- [@spearman1904] — Spearman, C. (1904). The proof and measurement of association between two things. *Am. J. Psychol.*, 15(1), 72–101.
 - [@anscombe1973] — Anscombe, F. J. (1973). Graphs in statistical analysis. *Am. Stat.*, 27(1), 17–21.
 - [@gauss1809] — Gauss, C. F. (1809). *Theoria motus corporum coelestium*. (Mínimos cuadrados).
 - [@legendre1805] — Legendre, A. M. (1805). *Nouvelles méthodes pour la détermination des orbites des comètes*.
 - [@draper1998] — Draper, N. R. & Smith, H. (1998). *Applied Regression Analysis* (3rd ed.). Wiley.
 - [@harrell2015] — Harrell, F. E. (2015). *Regression Modeling Strategies* (2nd ed.). Springer.
 :::
----
 
 ---
 
@@ -1297,26 +1259,26 @@ df <- read.csv("data/flexion_edad.csv")
 plot(df$edad, df$flexion_lumbar, pch=19, col="steelblue", cex=1.3,
      xlab="Edad (años)", ylab="Flexión lumbar (°)",
      main="Flexión lumbar vs. Edad (n = 10)")
-modelo <- lm(flexion_lumbar ~ edad, data = df)
-abline(modelo, col="darkgreen", lwd=2.5)
+modelo_flexion <- lm(flexion_lumbar ~ edad, data = df)
+abline(modelo_flexion, col="darkgreen", lwd=2.5)
 # 3. Resumen del modelo
-s <- summary(modelo)
+s_flex <- summary(modelo_flexion)
 # 4. Predicción a 50 años
-pred_50 <- predict(modelo, data.frame(edad=50))
+pred_50 <- predict(modelo_flexion, data.frame(edad=50))
 points(50, pred_50, pch=19, col="coral", cex=2.5)
 text(50, pred_50+2, paste0(round(pred_50,1),"°"), col="coral", font=2, pos=3)
 # 5. Banda de confianza
 newx <- seq(25, 70, length=50)
-preds <- predict(modelo, data.frame(edad=newx), interval="confidence")
+preds <- predict(modelo_flexion, data.frame(edad=newx), interval="confidence")
 polygon(c(newx, rev(newx)), c(preds[,2], rev(preds[,3])),
         col=rgb(0,0.5,0.3,0.08), border=NA)
 
-cat("R² =", round(s$r.squared, 3),
-    "\nβ₀ =", round(coef(modelo)[1], 1),
-    "\nβ₁ =", round(coef(modelo)[2], 2),
-    "\nIC 95% β₁ = [", round(confint(modelo)[2,1],2), ",", round(confint(modelo)[2,2],2), "]",
+cat("R² =", round(s_flex$r.squared, 3),
+    "\nβ₀ =", round(coef(modelo_flexion)[1], 1),
+    "\nβ₁ =", round(coef(modelo_flexion)[2], 2),
+    "\nIC 95% β₁ = [", round(confint(modelo_flexion)[2,1],2), ",", round(confint(modelo_flexion)[2,2],2), "]",
     "\nPredicción 50 años:", round(pred_50,1), "°",
-    "\nP =", format(s$coefficients[2,4], digits=3))
+    "\nP =", format(s_flex$coefficients[2,4], digits=3))
 ```
 :::
 ---

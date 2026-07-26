@@ -1159,6 +1159,7 @@ $Z_{11}^2 = (7-9.91)^2/9.91 = 0.855$. Sumando las 12 celdas: $\chi^2_{12} = 13.8
 3. Ambas comparten la misma lógica inferencial: $H_0$, estadístico, P-valor, IC
 
 ::: {.exercise}
+
 ## Ejercicio clínico — Análisis de tablas 2×2
 
 Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado (vs. ejercicio en casa) se asocia con la recuperación funcional a los 3 meses en pacientes con artrosis de cadera:
@@ -1172,6 +1173,8 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 1. ¿Qué tipo de estudio es? Identifica las medidas de asociación apropiadas.
 2. Calcula OR, RR y sus IC 95% usando `tabla2x2()` de BioEstatR. Interpreta.
 3. Realiza el test $\chi^2$. ¿Es significativa la asociación? ¿Hay confusión por gravedad inicial?
+
+:::
 :::
 
 ## Referencias
