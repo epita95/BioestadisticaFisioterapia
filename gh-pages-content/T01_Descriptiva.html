@@ -2505,7 +2505,7 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <tr class="even">
 <td>Gráficos por grupo</td>
 <td><code>boxplot(y ~ g)</code></td>
-<td><code>grps(y ~ g)</code></td>
+<td><code>grps(x = y, f = g)</code></td>
 </tr>
 <tr class="odd">
 <td>Test de normalidad + Q-Q plot</td>
@@ -2528,7 +2528,7 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <span id="cb74-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x)               <span class="co"># todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk</span></span>
 <span id="cb74-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x, <span class="at">cuts=</span><span class="dv">5</span>)       <span class="co"># igual pero agrupando en 5 intervalos</span></span>
 <span id="cb74-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># table(x)            # tabla de frecuencias con porcentajes (función BioEstatR)</span></span>
-<span id="cb74-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">grps</span>(y <span class="sc">~</span> grupo)       <span class="co"># boxplots + resumen por grupo</span></span>
+<span id="cb74-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">grps</span>(<span class="at">x =</span> y, <span class="at">f =</span> grupo)       <span class="co"># boxplots + resumen por grupo</span></span>
 <span id="cb74-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">normal</span>(x)             <span class="co"># Shapiro-Wilk + histograma + Q-Q plot</span></span>
 <span id="cb74-9"><a aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb74-10"><a aria-hidden="true" tabindex="-1"></a></span>
