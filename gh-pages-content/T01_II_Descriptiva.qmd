@@ -819,23 +819,51 @@ La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana 
 
 ## Ejercicio Clínico — Tema I
 
-**Contexto:** Un fisioterapeuta mide la flexión de rodilla en 8 pacientes (grados): 112, 118, 125, 122, 130, 128, 119, 126.
+**Contexto:** Un fisioterapeuta mide la flexión de rodilla en 8 pacientes: 112°, 118°, 125°, 122°, 130°, 128°, 119°, 126°.
 
+::: {.incremental}
 1. Calcula la media, mediana y rango intercuartílico
-2. ¿Qué medida es más robusta si aparece un outlier de 155°?
-3. ¿Cómo clasificarías esta variable (tipo, escala de medida)?
+2. ¿Qué medida es más robusta si aparece un paciente con 155°?
+3. ¿Cómo clasificarías esta variable (tipo, escala)?
+:::
 
 ::: {.callout-tip collapse="true"}
-**Solución**
+**Solución completa con R**
 
-1. Media = 122.5°, Mediana = 123.5°, Q₁ = 118.5°, Q₃ = 127.5°, RIQ = 9°
-2. La mediana — la media subiría a 126.6° arrastrada por el outlier
-3. Cuantitativa continua, escala de razón
+1. **Sin outlier:** $\bar{x}=122.5°$, $Me=123.5°$, $Q_1=118.8°$, $Q_3=126.5°$, $RIQ=7.8°$
+2. **Con outlier (155°):** $\bar{x}$ sube a 126.1° (arrastrada), $Me$ apenas cambia a 125° → la **mediana es robusta**
+3. Cuantitativa continua, escala de razón (el 0° es absoluto)
 
 ```{r}
+#| fig-height: 5.5
 x <- c(112, 118, 125, 122, 130, 128, 119, 126)
-cat("Media:", mean(x), "\nMediana:", median(x),
-    "\nQ1:", quantile(x, 0.25), "Q3:", quantile(x, 0.75),
-    "\nRIQ:", IQR(x))
+x_out <- c(x, 155)
+
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+
+# Panel 1: Sin outlier
+boxplot(x, main="Sin outlier (n=8)", col="steelblue", ylab="Grados", ylim=c(110,160))
+stripchart(x, method="jitter", add=TRUE, pch=19, col="darkgreen", cex=1.2)
+abline(h=mean(x), col="coral", lty=2, lwd=2.5)
+abline(h=median(x), col="darkgreen", lty=1, lwd=2.5)
+text(1, mean(x)+2, paste0("x̄=", round(mean(x),1)), col="coral", font=2)
+text(1, median(x)-3, paste0("Me=", median(x)), col="darkgreen", font=2)
+
+# Panel 2: Con outlier
+boxplot(x_out, main="Con outlier 155° (n=9)", col="coral", ylab="", ylim=c(110,160))
+stripchart(x_out, method="jitter", add=TRUE, pch=19, col="darkgreen", cex=1.2)
+abline(h=mean(x_out), col="coral", lty=2, lwd=2.5)
+abline(h=median(x_out), col="darkgreen", lty=1, lwd=2.5)
+text(1, mean(x_out)+2, paste0("x̄=", round(mean(x_out),1)), col="coral", font=2)
+text(1, median(x_out)-3, paste0("Me=", median(x_out)), col="darkgreen", font=2)
+
+mtext("La mediana resiste outliers; la media NO", side=3, line=-1.5, 
+      outer=TRUE, col="darkgreen", font=2, cex=0.9)
+par(mfrow=c(1,1))
 ```
+
+**Clasificación de la variable:**
+- Tipo: **Cuantitativa** (numérica)
+- Naturaleza: **Continua** (cualquier valor en un rango)
+- Escala: **Razón** (el 0° es absoluto, permite cocientes — 130° es el doble de 65°)
 :::

@@ -1798,11 +1798,11 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 </section>
 <section id="ejercicio-clínico-tema-i" class="slide level2 center">
 <h2>Ejercicio Clínico — Tema I</h2>
-<p><strong>Contexto:</strong> Un fisioterapeuta mide la flexión de rodilla en 8 pacientes (grados): 112, 118, 125, 122, 130, 128, 119, 126.</p>
+<p><strong>Contexto:</strong> Un fisioterapeuta mide la flexión de rodilla en 8 pacientes: 112°, 118°, 125°, 122°, 130°, 128°, 119°, 126°.</p>
 <ol type="1">
-<li>Calcula la media, mediana y rango intercuartílico</li>
-<li>¿Qué medida es más robusta si aparece un outlier de 155°?</li>
-<li>¿Cómo clasificarías esta variable (tipo, escala de medida)?</li>
+<li class="fragment">Calcula la media, mediana y rango intercuartílico</li>
+<li class="fragment">¿Qué medida es más robusta si aparece un paciente con 155°?</li>
+<li class="fragment">¿Cómo clasificarías esta variable (tipo, escala)?</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -1813,27 +1813,52 @@ Q1 = 99.5 °  |  Q3 = 121.9 °  |  Mín = 80 °  |  Máx = 139.9 °</code></pre>
 <p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Solución</strong></p>
+<p><strong>Solución completa con R</strong></p>
 <ol type="1">
-<li>Media = 122.5°, Mediana = 123.5°, Q₁ = 118.5°, Q₃ = 127.5°, RIQ = 9°</li>
-<li>La mediana — la media subiría a 126.6° arrastrada por el outlier</li>
-<li>Cuantitativa continua, escala de razón</li>
+<li><strong>Sin outlier:</strong> <span class="math inline">\(\bar{x}=122.5°\)</span>, <span class="math inline">\(Me=123.5°\)</span>, <span class="math inline">\(Q_1=118.8°\)</span>, <span class="math inline">\(Q_3=126.5°\)</span>, <span class="math inline">\(RIQ=7.8°\)</span></li>
+<li><strong>Con outlier (155°):</strong> <span class="math inline">\(\bar{x}\)</span> sube a 126.1° (arrastrada), <span class="math inline">\(Me\)</span> apenas cambia a 125° → la <strong>mediana es robusta</strong></li>
+<li>Cuantitativa continua, escala de razón (el 0° es absoluto)</li>
 </ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">112</span>, <span class="dv">118</span>, <span class="dv">125</span>, <span class="dv">122</span>, <span class="dv">130</span>, <span class="dv">128</span>, <span class="dv">119</span>, <span class="dv">126</span>)</span>
-<span id="cb72-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Media:"</span>, <span class="fu">mean</span>(x), <span class="st">"</span><span class="sc">\n</span><span class="st">Mediana:"</span>, <span class="fu">median</span>(x),</span>
-<span id="cb72-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">Q1:"</span>, <span class="fu">quantile</span>(x, <span class="fl">0.25</span>), <span class="st">"Q3:"</span>, <span class="fu">quantile</span>(x, <span class="fl">0.75</span>),</span>
-<span id="cb72-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">RIQ:"</span>, <span class="fu">IQR</span>(x))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb72-2"><a aria-hidden="true" tabindex="-1"></a>x_out <span class="ot">&lt;-</span> <span class="fu">c</span>(x, <span class="dv">155</span>)</span>
+<span id="cb72-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb72-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Sin outlier</span></span>
+<span id="cb72-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x, <span class="at">main=</span><span class="st">"Sin outlier (n=8)"</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">ylab=</span><span class="st">"Grados"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">110</span>,<span class="dv">160</span>))</span>
+<span id="cb72-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb72-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(x), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb72-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">median</span>(x), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb72-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">mean</span>(x)<span class="sc">+</span><span class="dv">2</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb72-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">median</span>(x)<span class="sc">-</span><span class="dv">3</span>, <span class="fu">paste0</span>(<span class="st">"Me="</span>, <span class="fu">median</span>(x)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb72-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Con outlier</span></span>
+<span id="cb72-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x_out, <span class="at">main=</span><span class="st">"Con outlier 155° (n=9)"</span>, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">ylab=</span><span class="st">""</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">110</span>,<span class="dv">160</span>))</span>
+<span id="cb72-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x_out, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb72-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">mean</span>(x_out), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">lty=</span><span class="dv">2</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb72-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="fu">median</span>(x_out), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lty=</span><span class="dv">1</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb72-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">mean</span>(x_out)<span class="sc">+</span><span class="dv">2</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x_out),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb72-20"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fu">median</span>(x_out)<span class="sc">-</span><span class="dv">3</span>, <span class="fu">paste0</span>(<span class="st">"Me="</span>, <span class="fu">median</span>(x_out)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>)</span>
+<span id="cb72-21"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-22"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mtext</span>(<span class="st">"La mediana resiste outliers; la media NO"</span>, <span class="at">side=</span><span class="dv">3</span>, <span class="at">line=</span><span class="sc">-</span><span class="fl">1.5</span>, </span>
+<span id="cb72-23"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">outer=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">0.9</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
-<div class="cell-output cell-output-stdout">
-<pre><code>Media: 122.5 
-Mediana: 123.5 
-Q1: 118.75 Q3: 126.5 
-RIQ: 7.75</code></pre>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="T01_II_Descriptiva_files/figure-revealjs/unnamed-chunk-19-1.png" width="864"></p>
+</figure>
 </div>
 </div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<p><strong>Clasificación de la variable:</strong> - Tipo: <strong>Cuantitativa</strong> (numérica) - Naturaleza: <strong>Continua</strong> (cualquier valor en un rango) - Escala: <strong>Razón</strong> (el 0° es absoluto, permite cocientes — 130° es el doble de 65°)</p>
 </div>
 </div>
 </div>
