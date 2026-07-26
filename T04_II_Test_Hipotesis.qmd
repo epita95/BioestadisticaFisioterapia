@@ -1027,7 +1027,7 @@ legend("bottomleft", c("Decisión", "Condición", "Test final"),
 2. Si Shapiro $P=0.03$ en B, ¿alternativa?
 3. ¿Diferencia clínicamente relevante?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. t de Welch (no asume varianzas iguales, muestras independientes)

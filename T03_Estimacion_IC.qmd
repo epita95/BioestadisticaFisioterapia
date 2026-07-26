@@ -1000,7 +1000,7 @@ np(x = 18, n = 40, d = 0.05, conf = 0.95) # para proporción
 2. ¿n para error máximo 0.5 pts (confianza 95%)?
 3. ¿Válido usar t si desconocemos distribución?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $IC_{95\%} = 3.2 \pm 2.03 \times 1.5/\sqrt{36} = [2.69,\, 3.71]$

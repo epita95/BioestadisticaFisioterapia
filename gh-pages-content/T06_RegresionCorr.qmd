@@ -1260,7 +1260,7 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 2. Predicción para 50 años
 3. Significado de $R^2$
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. Por cada año más de edad, la flexión disminuye 0.6° en promedio

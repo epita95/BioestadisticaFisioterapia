@@ -1202,7 +1202,7 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 2. Interpreta
 3. ¿Qué test de contraste?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $OR = \frac{35 \times 25}{15 \times 25} = \frac{875}{375} = \mathbf{2.33}$

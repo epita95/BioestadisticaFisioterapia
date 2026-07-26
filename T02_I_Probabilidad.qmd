@@ -586,6 +586,33 @@ P_D_given_Pos <- (P_Pos_given_D * P_D) / P_Pos
 cat("P(+)     =", round(P_Pos, 4),
     "\nP(D | +) =", round(P_D_given_Pos, 4),
     "\n→ Solo el 16.7% de los positivos tienen la enfermedad")
+
+
+# Visualización: matriz de confusión
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Barras de composición del test
+vp <- P_Pos_given_D * P_D; fp <- P_Pos_given_NoD * P_NoD
+vn <- (1-P_Pos_given_NoD) * P_NoD; fn <- (1-P_Pos_given_D) * P_D
+m <- matrix(c(vp, fp, vn, fn), 2, dimnames=list(
+  c("D+ (Enfermo)","D- (Sano)"), c("Test +","Test -")))
+barplot(m, beside=TRUE, col=c("coral","steelblue"), 
+        main=paste0("VPP=", round(vp/(vp+fp)*100,1), "%  VPN=", round(vn/(vn+fn)*100,1), "%"),
+        ylab="Probabilidad", ylim=c(0,0.9))
+legend("topright", c("Enfermo","Sano"), fill=c("coral","steelblue"), bty="n", cex=0.8)
+# Panel 2: Árbol simplificado
+plot(NA, xlim=c(0,10), ylim=c(0,10), axes=F, xlab="", ylab="",
+     main="Árbol de decisión diagnóstica")
+text(5, 9.5, "Paciente", font=2, cex=1.2)
+arrows(5, 9, 2.5, 7, lwd=2, col="coral")
+arrows(5, 9, 7.5, 7, lwd=2, col="steelblue")
+text(2.5, 8, paste0("D+ (", P_D*100, "%)"), col="coral", font=2)
+text(7.5, 8, paste0("D- (", P_NoD*100, "%)"), col="steelblue", font=2)
+rect(1, 3, 4, 6, col=rgb(1,0,0,0.1), border="coral")
+text(2.5, 4.5, paste0("VPP\n", round(vp/(vp+fp)*100,1), "%"), font=2, cex=0.8)
+rect(6, 3, 9, 6, col=rgb(0,0,1,0.1), border="steelblue")
+text(7.5, 4.5, paste0("VPN\n", round(vn/(vn+fn)*100,1), "%"), font=2, cex=0.8)
+par(mfrow=c(1,1))
+
 ```
 
 ::: {.callout-warning}
@@ -935,7 +962,7 @@ Este patrón se repite para todas las distribuciones: `dbinom`, `pbinom`, `qbin
 1. Si un paciente da positivo, ¿probabilidad de tener lumbalgia?
 2. ¿Por qué el VPP es bajo pese a la alta sensibilidad?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $VPP = \frac{0.90 \times 0.15}{0.90 \times 0.15 + 0.15 \times 0.85} = \frac{0.135}{0.2625} = \mathbf{51.4\%}$

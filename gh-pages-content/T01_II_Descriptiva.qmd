@@ -838,7 +838,7 @@ La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana 
 3. ¿Cómo clasificarías esta variable (tipo, escala)?
 :::
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución completa con R**
 
 1. **Sin outlier:** $\bar{x}=122.5°$, $Me=123.5°$, $Q_1=118.8°$, $Q_3=126.5°$, $RIQ=7.8°$

@@ -659,7 +659,7 @@ testt(x = 47, n = 50, p0 = 0.95)
 2. Interpreta: $t=-0.43$, $gl=5$, $P=0.683$, IC 95% [126.4°, 132.9°]
 3. ¿Conclusión clínica?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $H_0: \mu = 130°$ vs $H_1: \mu \neq 130°$ (bilateral)

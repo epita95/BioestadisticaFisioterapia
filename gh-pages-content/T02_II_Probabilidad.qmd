@@ -832,7 +832,7 @@ Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta
 2. ¿% población con fuerza $\leq 22$ kg?
 3. Tratando 10 pacientes, ¿P(exactamente 8 mejorías)?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $Z = (22-30)/8 = -1.0$ → 1 DE bajo la media

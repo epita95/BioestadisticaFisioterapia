@@ -454,6 +454,20 @@ $$R_{ij} = \frac{O_{ij} - E_{ij}}{\sqrt{E_{ij}}}$$
 ```{r}
 chi <- chisq.test(trat)
 round(chi$stdres, 2)
+# Visualización: heatmap de residuos
+par(mfrow=c(1,1), mar=c(5,5,4,2))
+sr <- chi$stdres
+# Invertir filas para que coincida con el orden visual
+image(1:ncol(sr), 1:nrow(sr), t(sr[nrow(sr):1,]),
+      col=colorRampPalette(c("darkgreen","white","coral"))(100),
+      main="Residuos Estandarizados", xlab="", ylab="", xaxt="n", yaxt="n")
+axis(1, at=1:ncol(sr), labels=colnames(sr), las=2, cex.axis=0.8)
+axis(2, at=nrow(sr):1, labels=rownames(sr), las=2, cex.axis=0.8)
+for(i in 1:nrow(sr))
+  for(j in 1:ncol(sr))
+    text(j, nrow(sr)-i+1, round(sr[i,j],1), 
+         col=ifelse(abs(sr[i,j])>2,"white","black"), font=2, cex=0.85)
+
 ```
 
 ## Test de independencia — Tablas $r \times c$
@@ -1188,7 +1202,7 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 2. Interpreta
 3. ¿Qué test de contraste?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $OR = \frac{35 \times 25}{15 \times 25} = \frac{875}{375} = \mathbf{2.33}$

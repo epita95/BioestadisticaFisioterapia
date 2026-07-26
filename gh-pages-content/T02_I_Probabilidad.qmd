@@ -962,7 +962,7 @@ Este patrón se repite para todas las distribuciones: `dbinom`, `pbinom`, `qbin
 1. Si un paciente da positivo, ¿probabilidad de tener lumbalgia?
 2. ¿Por qué el VPP es bajo pese a la alta sensibilidad?
 
-::: {.callout-tip collapse="true"}
+::: {.callout-tip}
 **Solución**
 
 1. $VPP = \frac{0.90 \times 0.15}{0.90 \times 0.15 + 0.15 \times 0.85} = \frac{0.135}{0.2625} = \mathbf{51.4\%}$
