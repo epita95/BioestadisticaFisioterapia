@@ -539,27 +539,53 @@ $$g_2 = \frac{\frac{1}{n}\sum(x_i-\bar{x})^4}{s^4}$$
 :::
 
 ```{r}
-#| fig-height: 6
-par(mfrow=c(1,2), mar=c(4,4,3,1))
-# Asimetría
+#| fig-height: 6.5
+par(mfrow=c(1,2), mar=c(4,4,3,1), bg="white")
+
+# ── Panel 1: Asimetría con valores numéricos ──
 set.seed(123)
 x_sym <- rnorm(1000, 90, 15)
-x_pos <- rexp(1000, 1/10)
-x_neg <- -rexp(1000, 1/8) + 40
-plot(density(x_sym), col="steelblue", lwd=3, main="Asimetría", xlab="x", ylab="Densidad", ylim=c(0,0.045))
+x_pos <- rexp(1000, rate=1/10)
+x_neg <- -rexp(1000, rate=1/8) + 40
+# Calcular asimetría
+g1_sym <- round(mean((x_sym-mean(x_sym))^3)/sd(x_sym)^3, 2)
+g1_pos <- round(mean((x_pos-mean(x_pos))^3)/sd(x_pos)^3, 2)
+g1_neg <- round(mean((x_neg-mean(x_neg))^3)/sd(x_neg)^3, 2)
+
+xlim_asim <- range(density(x_sym)$x, density(x_pos)$x, density(x_neg)$x)
+ylim_asim <- range(density(x_sym)$y, density(x_pos)$y, density(x_neg)$y)
+plot(density(x_sym), col="steelblue", lwd=3, main="Asimetría (Skewness)", 
+     xlab="Valor", ylab="Densidad", xlim=xlim_asim, ylim=c(0, ylim_asim[2]*1.1))
 lines(density(x_pos), col="seagreen", lwd=3)
 lines(density(x_neg), col="coral", lwd=3)
-legend("topright", c("Simétrica","Positiva","Negativa"), col=c("steelblue","seagreen","coral"), lwd=3, bty="n", cex=0.8)
+# Añadir medias como referencia
+abline(v=mean(x_sym), col="steelblue", lty=2, lwd=1.2)
+abline(v=mean(x_pos), col="seagreen", lty=2, lwd=1.2)
+abline(v=mean(x_neg), col="coral", lty=2, lwd=1.2)
+legend("topright", 
+       c(paste0("Simétrica (g₁=",g1_sym,")"),
+         paste0("Positiva (g₁=",g1_pos,")"),
+         paste0("Negativa (g₁=",g1_neg,")")),
+       col=c("steelblue","seagreen","coral"), lwd=3, bty="n", cex=0.7)
 
-# Curtosis
-dx<-density(rt(100000,4),adjust=1.5,from=-5,to=5)
-dy<-density(rnorm(100000),adjust=1.5,from=-5,to=5)
-dz<-density(runif(100000,-2,2),adjust=1.5,from=-5,to=5)
-plot(dx,col="coral",lwd=3,ylim=c(0,max(dx$y,dy$y,dz$y)*1.1),
-     main="Curtosis (apuntamiento)",xlab="x",ylab="Densidad")
-lines(dy,col="steelblue",lwd=3); lines(dz,col="seagreen",lwd=3)
-legend("topright",c("Leptocúrtica","Mesocúrtica","Platicúrtica"),
-       col=c("coral","steelblue","seagreen"),lwd=3,bty="n",cex=0.8)
+# ── Panel 2: Curtosis con valores numéricos ──
+dx <- density(rt(100000, 4), adjust=1.2, from=-5, to=5)
+dy <- density(rnorm(100000), adjust=1.2, from=-5, to=5)
+dz <- density(runif(100000, -2, 2), adjust=1.2, from=-5, to=5)
+# Calcular exceso de curtosis
+g2_lepto <- round(mean((rt(100000,4)-0)^4)/1^4 - 3, 1)
+g2_meso  <- round(mean((rnorm(100000,0,1)-0)^4)/1^4 - 3, 1)
+g2_plati <- round(mean((runif(100000,-2,2)-0)^4)/((2-(-2))^2/12) - 3, 1)
+
+plot(dx, col="coral", lwd=3, ylim=c(0, max(dx$y,dy$y,dz$y)*1.15),
+     main="Curtosis (Exceso de curtosis)", xlab="Valor estandarizado", ylab="Densidad")
+lines(dy, col="steelblue", lwd=3)
+lines(dz, col="seagreen", lwd=3)
+legend("topright",
+       c(paste0("Leptocúrtica (exc=", g2_lepto, ")"),
+         paste0("Mesocúrtica (exc=", g2_meso, ")"),
+         paste0("Platicúrtica (exc=", g2_plati, ")")),
+       col=c("coral","steelblue","seagreen"), lwd=3, bty="n", cex=0.7)
 par(mfrow=c(1,1))
 ```
 
