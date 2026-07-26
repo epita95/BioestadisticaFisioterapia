@@ -341,6 +341,21 @@ $$Me = L_{i-1} + \frac{n/2 - N_{i-1}}{n_i} \cdot a = 130 + \frac{30-20}{25} \tim
 
 **Calcula $Q_1$, $Q_2$, $Q_3$ para:** 3, 5, 7, 8, 12, 15, 18, 21
 
+::: {.callout-tip}
+**Solución:** Ordenados: 3, 5, 7, 8, 12, 15, 18, 21 ($n=8$, par)
+
+- $Q_1 = P_{25}$: posición $0.25 \times 8 = 2$ → entre 5 y 7 → $Q_1 = \mathbf{6.0}$
+- $Q_2 = Me$: posición $0.50 \times 8 = 4$ → entre 8 y 12 → $Q_2 = \mathbf{10.0}$
+- $Q_3 = P_{75}$: posición $0.75 \times 8 = 6$ → entre 15 y 18 → $Q_3 = \mathbf{16.5}$
+- $RIQ = Q_3 - Q_1 = 16.5 - 6.0 = \mathbf{10.5}$
+
+```{r}
+x <- c(3, 5, 7, 8, 12, 15, 18, 21)
+cat("Q1 =", quantile(x, 0.25), "\nQ2 =", quantile(x, 0.50),
+    "\nQ3 =", quantile(x, 0.75), "\nRIQ =", IQR(x))
+```
+:::
+
 ## Diagrama de cajas (Boxplot)
 
 # Medidas de Dispersión y Forma {.center}
