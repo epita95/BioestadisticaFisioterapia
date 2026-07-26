@@ -908,7 +908,33 @@ $$\mu_0 \in \text{IC}_{1-\alpha} \;\Longleftrightarrow\; \text{No se rechaza } H
 El **IC es más informativo** que el test: da todo el rango de valores compatibles con los datos, no solo una decisión binaria. El Tema 4 desarrolla en profundidad la teoría de contrastes de hipótesis.
 :::
 
-## Resumen visual: De la muestra a la decisión clínica
+#
+---
+
+## Ejercicio Clínico Rápido — T03
+
+**Contexto:** En una muestra de 36 pacientes con cervicalgia, la reducción media del dolor (EVA) tras tratamiento fue de 3.2 puntos con $s=1.5$.
+
+**Preguntas:**
+1. Calcula e interpreta el IC 95% para la media poblacional
+2. ¿Qué tamaño muestral necesitaríamos para estimar la media con un error máximo de 0.5 puntos (confianza 95%)?
+3. ¿Es válido usar la distribución t si desconocemos si la población es Normal?
+
+**Soluciones:**
+1. $IC_{95\%} = 3.2 \pm 2.03 \times 1.5/\sqrt{36} = 3.2 \pm 0.51 = [2.69, 3.71]$. Con 95% de confianza, la reducción media poblacional está entre 2.69 y 3.71 puntos EVA.
+2. $n = (1.96 \times 1.5 / 0.5)^2 = 34.6 \rightarrow 35$ pacientes
+3. Sí — con $n=36 > 30$, el TCL garantiza que $\bar{x}$ es aproximadamente Normal
+
+```{r}
+n <- 36; xbar <- 3.2; s <- 1.5
+SE <- s / sqrt(n)
+IC <- xbar + c(-1, 1) * qt(0.975, n-1) * SE
+cat("IC 95%: [", round(IC[1], 2), ",", round(IC[2], 2), "]",
+    "\nTamaño muestral para error=0.5:", ceiling((qnorm(0.975)*s/0.5)^2))
+```
+
+
+# Resumen visual: De la muestra a la decisión clínica
 
 **Ejemplo de fisioterapia ($n=8$, $\bar{x}=168.25°$, $s=4.06°$):**
 
@@ -945,7 +971,33 @@ nm(d = 3, s = 12, alfa = 0.05)            # para media
 np(x = 18, n = 40, d = 0.05, conf = 0.95) # para proporción
 ```
 
-## Resumen — Tema 3
+#
+---
+
+## Ejercicio Clínico Rápido — T03
+
+**Contexto:** En una muestra de 36 pacientes con cervicalgia, la reducción media del dolor (EVA) tras tratamiento fue de 3.2 puntos con $s=1.5$.
+
+**Preguntas:**
+1. Calcula e interpreta el IC 95% para la media poblacional
+2. ¿Qué tamaño muestral necesitaríamos para estimar la media con un error máximo de 0.5 puntos (confianza 95%)?
+3. ¿Es válido usar la distribución t si desconocemos si la población es Normal?
+
+**Soluciones:**
+1. $IC_{95\%} = 3.2 \pm 2.03 \times 1.5/\sqrt{36} = 3.2 \pm 0.51 = [2.69, 3.71]$. Con 95% de confianza, la reducción media poblacional está entre 2.69 y 3.71 puntos EVA.
+2. $n = (1.96 \times 1.5 / 0.5)^2 = 34.6 \rightarrow 35$ pacientes
+3. Sí — con $n=36 > 30$, el TCL garantiza que $\bar{x}$ es aproximadamente Normal
+
+```{r}
+n <- 36; xbar <- 3.2; s <- 1.5
+SE <- s / sqrt(n)
+IC <- xbar + c(-1, 1) * qt(0.975, n-1) * SE
+cat("IC 95%: [", round(IC[1], 2), ",", round(IC[2], 2), "]",
+    "\nTamaño muestral para error=0.5:", ceiling((qnorm(0.975)*s/0.5)^2))
+```
+
+
+# Resumen — Tema 3
 
 ::: {.incremental}
 - **Teorema Central del Límite (TCL):** $\bar{X} \approx N(\mu, \sigma/\sqrt{n})$ para $n$ grande → fundamento de toda la inferencia

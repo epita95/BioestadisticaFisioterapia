@@ -815,3 +815,27 @@ La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana 
 - [@Stevens1946] Stevens, S. S. (1946). On the theory of scales of measurement. *Science*, 103(2684), 677–680.
 - [@Tukey1977] Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
 :::
+---
+
+## Ejercicio Clínico Rápido — T01
+
+**Contexto:** Un fisioterapeuta mide la flexión de rodilla en 8 pacientes:
+112°, 118°, 125°, 122°, 130°, 128°, 119°, 126°
+
+**Preguntas:**
+1. Calcula la media ($\bar{x}$), mediana ($Me$) y rango intercuartílico ($RIQ$)
+2. ¿Qué medida de tendencia central es más adecuada si hay un outlier de 155°?
+3. ¿Cómo clasificarías esta variable (tipo, escala)?
+
+**Soluciones:**
+1. $\bar{x}=122.5°$, $Me=123.5°$, $Q_1=118.5°$, $Q_3=127.5°$, $RIQ=9°$
+2. La mediana — la media subiría a 126.6° arrastrada por el outlier
+3. Cuantitativa continua, escala de razón
+
+```{r}
+x <- c(112, 118, 125, 122, 130, 128, 119, 126)
+cat("Media:", mean(x), "\nMediana:", median(x),
+    "\nQ1:", quantile(x, 0.25), "Q3:", quantile(x, 0.75),
+    "\nRIQ:", IQR(x))
+```
+

@@ -823,6 +823,38 @@ text(col_x[3], 3.75, "mcnemar.test()", font = 2, cex = 0.8, col = "white")
 
 ---
 
+
+---
+
+## Ejercicio Clínico Rápido — T04
+
+**Contexto:** Comparamos dos tratamientos para lumbalgia. Grupo A (ejercicio, n=15): $\bar{x}_A=4.2$, $s_A=1.8$. Grupo B (ejercicio + punción seca, n=12): $\bar{x}_B=6.8$, $s_B=2.1$. Medido en escala EVA (0-10).
+
+**Preguntas:**
+1. ¿Qué test usarías y por qué? (¿paramétrico o no paramétrico?)
+2. Si el test de Shapiro-Wilk da P=0.03 para el Grupo B, ¿qué test alternativo usarías?
+3. Interpreta: ¿es la diferencia clínicamente relevante si la diferencia mínima importante es 2 puntos EVA?
+
+**Soluciones:**
+1. Variables cuantitativas → test t para muestras independientes (Welch, ya que $n$ pequeño y varianzas podrían diferir)
+2. Mann-Whitney U (Wilcoxon) — alternativa no paramétrica cuando no se cumple normalidad
+3. Diferencia observada = 6.8 − 4.2 = 2.6 > 2 (DMI) → clínicamente relevante si es significativa
+
+```{r}
+n1<-15; m1<-4.2; s1<-1.8; n2<-12; m2<-6.8; s2<-2.1
+# t de Welch (aproximación con estadísticos resumen)
+se <- sqrt(s1^2/n1 + s2^2/n2)
+t_stat <- (m1 - m2) / se
+# Grados de libertad Satterthwaite
+num <- (s1^2/n1 + s2^2/n2)^2
+den <- (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1)
+gl <- num/den
+p <- 2 * pt(-abs(t_stat), gl)
+cat("t =", round(t_stat,3), "gl =", round(gl,1), "P =", round(p,4),
+    "\nDiferencia:", m1-m2, "(IC 95% requiere datos originales)")
+```
+
+
 # Resumen {.center}
 
 ::: {.incremental}

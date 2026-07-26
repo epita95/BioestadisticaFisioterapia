@@ -924,4 +924,23 @@ Este patrón se repite para todas las distribuciones: `dbinom`, `pbinom`, `qbin
 :::
 
 ---
+---
+
+## Ejercicio Clínico Rápido — T02
+
+**Contexto:** En una consulta de fisioterapia, el 15% de los pacientes tienen lumbalgia crónica. Un nuevo test clínico tiene sensibilidad del 90% y especificidad del 85%.
+
+**Preguntas:**
+1. Si un paciente da positivo, ¿qué probabilidad tiene de tener realmente lumbalgia crónica?
+2. ¿Por qué el VPP es tan bajo a pesar de la alta sensibilidad del test?
+
+**Soluciones:**
+1. VPP = P(D|+) = (0.90 × 0.15) / [0.90 × 0.15 + 0.15 × 0.85] = 0.135 / 0.2625 = **51.4%**
+2. Por la baja prevalencia (15%) — los falsos positivos (15% × 85% = 12.75%) casi igualan a los verdaderos positivos (13.5%)
+
+```{r}
+prev <- 0.15; sens <- 0.90; spec <- 0.85
+vpp <- (sens * prev) / (sens * prev + (1-spec) * (1-prev))
+cat("VPP =", round(vpp * 100, 1), "%")
+```
 

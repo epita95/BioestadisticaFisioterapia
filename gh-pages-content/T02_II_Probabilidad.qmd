@@ -797,7 +797,33 @@ Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta
 4. ¿Qué percentil ocupa? `pnorm(95, 75, 15)`. Interpreta el resultado.
 :::
 
-## Resumen — Tema 2
+#
+---
+
+## Ejercicio Clínico Rápido — T02
+
+**Contexto:** La fuerza de prensión manual en pacientes sanos sigue una $N(30, 8^2)$ kg. Un paciente obtiene 22 kg.
+
+**Preguntas:**
+1. Calcula el Z-score e interpreta su valor clínico
+2. ¿Qué porcentaje de la población sana tiene una fuerza ≤ 22 kg?
+3. Si tratamos 10 pacientes con una terapia que tiene 70% de éxito, ¿cuál es la probabilidad de que exactamente 8 mejoren?
+
+**Soluciones:**
+1. $Z = (22-30)/8 = -1.0$ → 1 DE por debajo de la media
+2. $P(X \leq 22) = P(Z \leq -1) = 15.9\%$ 
+3. $P(X=8) = \binom{10}{8}(0.7)^8(0.3)^2 = 0.233$ (23.3%)
+
+```{r}
+z <- (22 - 30) / 8
+p_bajo <- pnorm(22, 30, 8)
+p_binom <- dbinom(8, 10, 0.7)
+cat("Z =", z, "\nP(X<=22) =", round(p_bajo*100, 1), "%",
+    "\nP(X=8) =", round(p_binom*100, 1), "%")
+```
+
+
+# Resumen — Tema 2
 
 ::: {.incremental}
 - **Probabilidad** como herramienta para cuantificar incertidumbre clínica (Kolmogorov, Bayes)

@@ -1157,6 +1157,34 @@ rls(graso ~ imc, data = df)
 
 ---
 
+
+---
+
+## Ejercicio Clínico Rápido — T06
+
+**Contexto:** Se estudia la relación entre edad ($X$, años) y flexión lumbar ($Y$, grados) en 10 pacientes. La recta de regresión estimada es $\hat{Y} = 85 - 0.6X$ con $R^2 = 0.64$.
+
+**Preguntas:**
+1. Interpreta la pendiente ($\hat{\beta}_1 = -0.6$) en términos clínicos
+2. ¿Qué predice el modelo para un paciente de 50 años?
+3. ¿Qué significa $R^2 = 0.64$?
+
+**Soluciones:**
+1. Por cada año adicional de edad, la flexión lumbar disminuye en promedio 0.6°. Una persona de 70 años tendría $0.6 \times 20 = 12°$ menos que una de 50.
+2. $\hat{Y}(50) = 85 - 0.6 \times 50 = 85 - 30 = 55°$
+3. El 64% de la variabilidad en la flexión lumbar se explica por la edad. El 36% restante se debe a otros factores (genética, actividad física, lesiones previas...)
+
+```{r}
+edad <- c(25, 30, 35, 40, 45, 50, 55, 60, 65, 70)
+set.seed(123)
+flexion <- 85 - 0.6*edad + rnorm(10, 0, 3)
+modelo <- lm(flexion ~ edad)
+pred_50 <- predict(modelo, data.frame(edad=50))
+cat("Predicción para 50 años:", round(pred_50, 1), "°",
+    "\nR² =", round(summary(modelo)$r.squared, 2))
+```
+
+
 # Resumen {.center}
 
 ::: {.incremental}

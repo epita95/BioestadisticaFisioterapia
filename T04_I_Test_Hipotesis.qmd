@@ -627,5 +627,24 @@ testt(x = 47, n = 50, p0 = 0.95)
 ```
 
 **Salida de `testt`:** Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.
+---
 
+## Ejercicio Clínico Rápido — T04
+
+**Contexto:** Se mide la flexión de rodilla en 6 pacientes tras una intervención: 125°, 132°, 128°, 135°, 130°, 126°. El valor de referencia poblacional es 130°.
+
+**Preguntas:**
+1. Formula $H_0$ y $H_1$ para contrastar si la intervención cambia la flexión
+2. Interpreta el resultado: $t = -0.43$, gl = 5, $P = 0.683$, IC 95%: [126.4°, 132.9°]
+3. ¿Qué concluyes clínicamente?
+
+**Soluciones:**
+1. $H_0: \mu = 130°$ vs $H_1: \mu \neq 130°$ (bilateral)
+2. $P = 0.683 > 0.05$ → NO rechazamos $H_0$. El IC 95% contiene el valor de referencia (130°)
+3. No hay evidencia suficiente para afirmar que la intervención cambie la flexión — los datos son compatibles con que la media poblacional sea 130°
+
+```{r}
+x <- c(125,132,128,135,130,126)
+t.test(x, mu = 130)
+```
 
