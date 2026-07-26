@@ -907,8 +907,8 @@ F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"><p><strong>Resultados:</strong> - <span class="math inline">\(\hat{\beta}_0 = -13.96\)</span> (intercepto) - <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(\hat{\beta}_0 = -13.96\)</span> (intercepto), <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(R^2 = 0.373\)</span> (37.3% de variabilidad explicada), Error estándar residual <span class="math inline">\(s = 3.89\)</span> - <span class="math inline">\(P = 0.001\)</span> (pendiente significativa)</p>
-<p><strong>Interpretación:</strong> Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en <strong>1.52 puntos porcentuales</strong> (IC 95%: 0.77 a 2.28).</p>
+<img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"><p><strong>Resultados:</strong> - <span class="math inline">\(\hat{\beta}_0 = -13.96\)</span> (intercepto), <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(R^2 = 0.373\)</span> (37.3% de variabilidad explicada), Error estándar residual <span class="math inline">\(s = 5.55\)</span> - <span class="math inline">\(P = 0.035\)</span> (pendiente significativa)</p>
+<p><strong>Interpretación:</strong> Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en <strong>1.52 puntos porcentuales</strong> (IC 95%: 0.13 a 2.92).</p>
 </section>
 <section id="varianza-residual-lo-que-el-modelo-no-explica" class="slide level2 center">
 <h2>Varianza residual — Lo que el modelo no explica</h2>
@@ -917,7 +917,7 @@ F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
 <p><span class="math display">\[s^2 = \frac{SC_{res}}{n-2} = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n-2}, \qquad s = \sqrt{s^2} \text{ (error estándar residual)}\]</span></p>
 </div>
 <p><strong>¿Por qué <span class="math inline">\(n-2\)</span>?</strong> Hemos estimado <strong>2 parámetros</strong> (<span class="math inline">\(\beta_0\)</span> y <span class="math inline">\(\beta_1\)</span>) → “gastamos” 2 grados de libertad. Es el mismo principio que <span class="math inline">\(n-1\)</span> en la varianza muestral (Tema 3), pero con 2 restricciones en lugar de 1.</p>
-<p><strong>En el ejemplo IMC-Graso:</strong> <span class="math inline">\(s = 3.89\)</span> significa que el modelo se equivoca típicamente en <span class="math inline">\(\pm 3.89\)</span> puntos porcentuales de grasa corporal al predecir desde el IMC.</p>
+<p><strong>En el ejemplo IMC-Graso:</strong> <span class="math inline">\(s = 5.55\)</span> significa que el modelo se equivoca típicamente en <span class="math inline">\(\pm 5.55\)</span> puntos porcentuales de grasa corporal al predecir desde el IMC.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>

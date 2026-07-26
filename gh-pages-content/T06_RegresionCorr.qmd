@@ -413,13 +413,11 @@ par(mfrow=c(1,1))
 ```
 
 **Resultados:**
-- $\hat{\beta}_0 = -13.96$ (intercepto)
-- $\hat{\beta}_1 = 1.52$ (pendiente)
 - $\hat{\beta}_0 = -13.96$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
-- $R^2 = 0.373$ (37.3% de variabilidad explicada), Error estándar residual $s = 3.89$
-- $P = 0.001$ (pendiente significativa)
+- $R^2 = 0.373$ (37.3% de variabilidad explicada), Error estándar residual $s = 5.55$
+- $P = 0.035$ (pendiente significativa)
 
-**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.77 a 2.28).
+**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.13 a 2.92).
 
 ## Varianza residual — Lo que el modelo no explica
 
@@ -431,7 +429,7 @@ $$s^2 = \frac{SC_{res}}{n-2} = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n-2}, \qq
 
 **¿Por qué $n-2$?** Hemos estimado **2 parámetros** ($\beta_0$ y $\beta_1$) → "gastamos" 2 grados de libertad. Es el mismo principio que $n-1$ en la varianza muestral (Tema 3), pero con 2 restricciones en lugar de 1.
 
-**En el ejemplo IMC-Graso:** $s = 3.89$ significa que el modelo se equivoca típicamente en $\pm 3.89$ puntos porcentuales de grasa corporal al predecir desde el IMC.
+**En el ejemplo IMC-Graso:** $s = 5.55$ significa que el modelo se equivoca típicamente en $\pm 5.55$ puntos porcentuales de grasa corporal al predecir desde el IMC.
 
 ```{r}
 modelo <- lm(graso ~ imc)
