@@ -82,10 +82,10 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 | Enfoque | Definición | Fundador(es) | Uso en Fisioterapia |
 |:--------|:-----------|:------------|:--------------------|
 | **Frecuentista** | $P(A) = \lim_{n\to\infty} n_A/n$ | von Mises, Fisher | Estimar tasas de recuperación poblacionales |
-| **Axiomatica** | $P$ satisface 3 axiomas (Kolmogorov 1933) | Kolmogorov | Base matemática de TODA la estadística |
+| **Axiomática** | $P$ satisface 3 axiomas (Kolmogorov 1933) | Kolmogorov | Base matemática de TODA la estadística |
 | **Bayesiana** | $P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}$ | Bayes, Laplace | Actualizar diagnósticos con evidencia clínica |
 
-**Relacion entre los tres enfoques:**
+**Relación entre los tres enfoques:**
 - El enfoque **frecuentista** define probabilidad como frecuencia relativa a largo plazo → $P(A) = \lim_{n\to\infty} n_A/n$
 - Kolmogorov demostró que esta definición satisface los **axiomas** de la teoría de la probabilidad → base matemática rigurosa
 - El enfoque **bayesiano** usa esos mismos axiomas pero interpreta $P(A)$ como grado de creencia, actualizable con el Teorema de Bayes
@@ -879,7 +879,7 @@ curve(dnorm(x, 150, 10), 110, 190, col="steelblue", lwd=3,
 curve(dnorm(x, 150, 25), 110, 190, col="seagreen", lwd=3, add=TRUE)
 abline(v=150, lty=2, col="grey")
 legend("topright", c(expression(sigma==10), expression(sigma==25)),
-       col=c("steelblue","coral"), lwd=3, bty="n", cex=1.2)
+       col=c("steelblue","seagreen"), lwd=3, bty="n", cex=1.2)
 text(150, 0.04, expression(mu==150), pos=1, cex=1.1)
 ```
 

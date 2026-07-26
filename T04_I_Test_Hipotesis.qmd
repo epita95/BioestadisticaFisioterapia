@@ -79,7 +79,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 :::
 :::
 
-**"Lo que la estadística nos dice no es si un efecto existe, sino cuan sorprendentes son los datos si asumimos que no existe."** — Ronald Fisher [@fisher1925]
+**"Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe."** — Ronald Fisher [@fisher1925]
 
 
 
@@ -628,5 +628,4 @@ testt(x = 47, n = 50, p0 = 0.95)
 
 **Salida de `testt`:** Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.
 
----
 

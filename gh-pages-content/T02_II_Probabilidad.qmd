@@ -178,16 +178,16 @@ curve(dnorm(x, 0, 1), -5, 8, lwd=3, col="steelblue", ylab="Densidad",
       main=expression(paste("Cambiando ", mu, " (", sigma, "=1)")), xlab="x")
 curve(dnorm(x, 2, 1), -5, 8, lwd=3, col="seagreen", add=TRUE)
 curve(dnorm(x, 4, 1), -5, 8, lwd=3, col="darkgreen", add=TRUE)
-abline(v=c(0,2,4), lty=2, col=c("steelblue","coral","darkgreen"))
+abline(v=c(0,2,4), lty=2, col=c("steelblue","seagreen","darkgreen"))
 legend("topright", c(expression(mu==0),expression(mu==2),expression(mu==4)),
-       col=c("steelblue","coral","darkgreen"), lwd=3, bty="n")
+       col=c("steelblue","seagreen","darkgreen"), lwd=3, bty="n")
 # Cambiar σ
 curve(dnorm(x, 0, 0.5), -5, 5, lwd=3, col="steelblue", ylab="",
       main=expression(paste("Cambiando ", sigma, " (", mu, "=0)")), xlab="x")
 curve(dnorm(x, 0, 1), -5, 5, lwd=3, col="seagreen", add=TRUE)
 curve(dnorm(x, 0, 2), -5, 5, lwd=3, col="darkgreen", add=TRUE)
 legend("topright", c(expression(sigma==0.5),expression(sigma==1),expression(sigma==2)),
-       col=c("steelblue","coral","darkgreen"), lwd=3, bty="n")
+       col=c("steelblue","seagreen","darkgreen"), lwd=3, bty="n")
 par(mfrow=c(1,1))
 ```
 
@@ -319,7 +319,7 @@ cat("P(X<22) =", round(pnorm(22, mu, sigma),3),
 
 ## Normal — Percentiles clave
 
-**Los más usados en inferencia estadistica:**
+**Los más usados en inferencia estadística:**
 
 | Percentil | Z | Uso |
 |-----------|-----|-----|
@@ -531,7 +531,7 @@ curve(dnorm(x), -4, 4, lwd=3, col="steelblue", ylab="Densidad",
       main="Normal vs t-Student (simétrica, colas pesadas)")
 curve(dt(x, 3), -4, 4, lwd=3, col="seagreen", add=TRUE)
 curve(dt(x, 10), -4, 4, lwd=3, col="darkgreen", add=TRUE)
-legend("topright", c("N(0,1)","t(3)","t(10)"), col=c("steelblue","coral","darkgreen"), lwd=3, bty="n")
+legend("topright", c("N(0,1)","t(3)","t(10)"), col=c("steelblue","seagreen","darkgreen"), lwd=3, bty="n")
 ```
 
 **Uso principal:** IC para la media con $\sigma$ desconocida, tests t para una y dos muestras.
@@ -558,12 +558,12 @@ curve(dchisq(x, 1), 0, 15, lwd=3, col="seagreen", ylab="Densidad",
 curve(dchisq(x, 3), 0, 15, lwd=3, col="darkgreen", add=TRUE)
 curve(dchisq(x, 6), 0, 15, lwd=3, col="steelblue", add=TRUE)
 legend("topright", c(expression(chi[1]^2),expression(chi[3]^2),expression(chi[6]^2)),
-       col=c("coral","darkgreen","steelblue"), lwd=3, bty="n")
+       col=c("seagreen","darkgreen","steelblue"), lwd=3, bty="n")
 ```
 
 **Uso principal:** Test $\chi^2$ para tablas de contingencia, test de bondad de ajuste.
 
-## Distribución F de snedecor
+## Distribución F de Snedecor
 
 
 *La distribución F la usaremos en el Tema 6 al evaluar modelos de regresión y comparar la variabilidad explicada por distintas variables clínicas.*
@@ -583,7 +583,7 @@ curve(df(x, 5, 5), 0, 5, lwd=3, col="steelblue", ylab="Densidad",
       main="Distribución F — Asimétrica, dos parámetros")
 curve(df(x, 10, 5), 0, 5, lwd=3, col="seagreen", add=TRUE)
 curve(df(x, 5, 20), 0, 5, lwd=3, col="darkgreen", add=TRUE)
-legend("topright", c("F(5,5)","F(10,5)","F(5,20)"), col=c("steelblue","coral","darkgreen"), lwd=3, bty="n")
+legend("topright", c("F(5,5)","F(10,5)","F(5,20)"), col=c("steelblue","seagreen","darkgreen"), lwd=3, bty="n")
 ```
 
 **Uso principal:** Test F para igualdad de varianzas, ANOVA, regresión (test F global).
@@ -688,7 +688,7 @@ barplot(dbinom(x,n,p), names=x, col="seagreen", main=paste0("NO aprox: n=",n,", 
 p<-0.9
 barplot(dbinom(x,n,p), names=x, col="seagreen", main=paste0("NO aprox: n=",n,", p=",p," (n(1-p)=",n*(1-p),"<5)"))
 
-# Caso 3: SÍ se cumple (n=50, p=0.3 → np=155, n(1-p)=35≥5)
+# Caso 3: SÍ se cumple (n=50, p=0.3 → np=15, n(1-p)=35≥5)
 n<-50; p<-0.3; x<-0:n
 bp <- barplot(dbinom(x,n,p), names=ifelse(x%%5==0,x,""), col="lightblue",
         main=paste0("SÍ aprox: n=",n,", p=",p," (np=",n*p,"≥5, n(1-p)=",n*(1-p),"≥5)"))

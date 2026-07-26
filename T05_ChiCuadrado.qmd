@@ -530,7 +530,7 @@ $$\chi^2_{\text{exp}} = \frac{\left(|O_{11}O_{22} - O_{12}O_{21}| - c\right)^2 \
 
 donde:
 - $|O_{11}O_{22} - O_{12}O_{21}|$: **producto cruzado** (en valor absoluto)
-- $c$: **correccion de continuidad** — depende del tipo de estudio
+- $c$: **corrección de continuidad** — depende del tipo de estudio
 - $F_1, F_2, C_1, C_2$: totales marginales de filas y columnas
 :::
 

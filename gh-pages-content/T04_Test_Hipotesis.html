@@ -312,6 +312,8 @@
 <li><a href="#/test-de-wilcoxon-signed-rank-calculo-paso-a-paso" id="/toc-test-de-wilcoxon-signed-rank-calculo-paso-a-paso">Test de Wilcoxon Signed-Rank — Cálculo paso a paso</a></li>
 <li><a href="#/wilcoxon-signed-rank-ejemplo-de-calculo-manual" id="/toc-wilcoxon-signed-rank-ejemplo-de-calculo-manual">Wilcoxon Signed-Rank ejemplo de cálculo manual</a></li>
 <li><a href="#/test-de-wilcoxon-signed-rank-pareado" id="/toc-test-de-wilcoxon-signed-rank-pareado">Test de Wilcoxon Signed-Rank pareado</a></li>
+<li><a href="#/ejercicio-rangos-y-outliers" id="/toc-ejercicio-rangos-y-outliers">Ejercicio: Rangos y Outliers</a></li>
+<li><a href="#/mann-whitney-u-calculo-paso-a-paso" id="/toc-mann-whitney-u-calculo-paso-a-paso">Mann-Whitney <span class="math inline">\(U\)</span> — Cálculo paso a paso</a></li>
 <li><a href="#/mann-whitney-u-ejemplo-de-calculo-manual" id="/toc-mann-whitney-u-ejemplo-de-calculo-manual">Mann-Whitney <span class="math inline">\(U\)</span> — Ejemplo de cálculo manual</a></li>
 <li><a href="#/tests-de-rangos-implementacion-en-r-y-bioestatr" id="/toc-tests-de-rangos-implementacion-en-r-y-bioestatr">Tests de rangos — Implementación en R y BioEstatR</a></li>
 <li><a href="#/mcnemar-no-parametrico-diferencias-de-proporciones-apareadas-bioestatr" id="/toc-mcnemar-no-parametrico-diferencias-de-proporciones-apareadas-bioestatr">McNemar no paramétrico: Diferencias de proporciones apareadas— BioEstatR</a></li>
@@ -391,7 +393,7 @@
 <li>“El IC 95% fue (−0.5, 8.2)” → ¿es clínicamente relevante?</li>
 </ul>
 </div></div>
-<p><strong>“Lo que la estadística nos dice no es si un efecto existe, sino cuan sorprendentes son los datos si asumimos que no existe.”</strong> — Ronald Fisher <span class="citation" data-cites="fisher1925">(<a href="#/referencias" role="doc-biblioref" onclick="">Fisher, 1925</a>)</span></p>
+<p><strong>“Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe.”</strong> — Ronald Fisher <span class="citation" data-cites="fisher1925">(<a href="#/referencias" role="doc-biblioref" onclick="">Fisher, 1925</a>)</span></p>
 </section></section>
 <section>
 <section id="marco-conceptual" class="title-slide slide level1 center">
@@ -1361,7 +1363,7 @@ Diferencia significativa: A &gt; B (P = 0.016)</code></pre>
 </details>
 
 </div>
-<img data-src="T04_Test_Hipotesis_files/figure-revealjs/unnamed-chunk-18-1.png" width="864" class="r-stretch"><p><strong>Todos los pacientes mejoran</strong> (lineas bajan) → evidencia clara de efecto.</p>
+<img data-src="T04_Test_Hipotesis_files/figure-revealjs/unnamed-chunk-18-1.png" width="864" class="r-stretch"><p><strong>Todos los pacientes mejoran</strong> (líneas bajan) → evidencia clara de efecto.</p>
 </section>
 <section id="test-pareado-para-medias" class="slide level2 center">
 <h2>Test pareado para medias</h2>
@@ -1943,7 +1945,13 @@ Todos los pacientes mejoraron → P &lt; 0.05 (efecto significativo)</code></pre
 </div>
 </div>
 </div>
-<p><em>¿Por qué usar rangos en lugar de los valores originales protege contra outliers?</em> ## Mann-Whitney <span class="math inline">\(U\)</span> — Cálculo paso a paso</p>
+</section>
+<section id="ejercicio-rangos-y-outliers" class="slide level2 center">
+<h2>Ejercicio: Rangos y Outliers</h2>
+<p><em>¿Por qué usar rangos en lugar de los valores originales protege contra outliers?</em></p>
+</section>
+<section id="mann-whitney-u-calculo-paso-a-paso" class="slide level2 center">
+<h2>Mann-Whitney <span class="math inline">\(U\)</span> — Cálculo paso a paso</h2>
 <p><strong>Contexto:</strong> Comparamos dos grupos <strong>independientes</strong>. <span class="math inline">\(H_0\)</span>: las dos poblaciones tienen la misma distribución.&nbsp;<span class="math inline">\(H_1\)</span>: las distribuciones difieren.</p>
 <p><span class="math display">\[H_0: \theta_1 = \theta_2 \quad \text{vs.} \quad H_1: \theta_1 \neq \theta_2\]</span></p>
 <p><strong>Paso 1 — Combinar y ordenar:</strong> Juntamos las <span class="math inline">\(N = n_1 + n_2\)</span> observaciones y asignamos rangos de 1 a <span class="math inline">\(N\)</span>.</p>
@@ -2166,7 +2174,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 </section>
 <section id="mcnemar-no-parametrico-diferencias-de-proporciones-apareadas-bioestatr" class="slide level2 center">
 <h2>McNemar no paramétrico: Diferencias de proporciones apareadas— BioEstatR</h2>
-<p><strong><code>testmacnemar</code> — salida completa e interpretación:</strong></p>
+<p><strong><code>testmcnemar</code> — salida completa e interpretación:</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -2620,7 +2628,7 @@ Omega² = 0.103 → 10.3 % varianza explicada</code></pre>
 </div>
 <div class="callout-content">
 <p><strong>Regla práctica:</strong> Si <span class="math inline">\(n \geq 30\)</span> por grupo y datos sin outliers extremos → paramétrico. Si <span class="math inline">\(n &lt; 15\)</span> y normalidad dudosa → no paramétrico. Entre 15 y 30, verificar con Shapiro-Wilk.</p>
-<p><strong>¿Quieres entender la matemática detrás de estos tests?</strong> Repasa las diapositivas anteriores: derivación del estadístico <span class="math inline">\(W^+\)</span> de Wilcoxon, el estadístico <span class="math inline">\(U\)</span> de Mann-Whitney, y los ejemplos de calculo manual paso a paso con datos de fisioterapia.</p>
+<p><strong>¿Quieres entender la matemática detrás de estos tests?</strong> Repasa las diapositivas anteriores: derivación del estadístico <span class="math inline">\(W^+\)</span> de Wilcoxon, el estadístico <span class="math inline">\(U\)</span> de Mann-Whitney, y los ejemplos de cálculo manual paso a paso con datos de fisioterapia.</p>
 </div>
 </div>
 </div>
@@ -2650,7 +2658,7 @@ Omega² = 0.103 → 10.3 % varianza explicada</code></pre>
 <tr class="header">
 <th style="text-align: left;">Trampa</th>
 <th style="text-align: left;">Problema</th>
-<th style="text-align: left;">Como protegerte</th>
+<th style="text-align: left;">Cómo protegerte</th>
 </tr>
 </thead>
 <tbody>
@@ -2696,7 +2704,7 @@ Omega² = 0.103 → 10.3 % varianza explicada</code></pre>
 <li><strong>El P-valor NO mide</strong> el tamaño del efecto ni la importancia clínica del resultado</li>
 <li><strong>Por sí solo, el P-valor no es una buena medida</strong> de la evidencia sobre un modelo</li>
 </ol>
-<p><strong>Buena práctica en fisioterapia:</strong> Reportar <strong>siempre</strong>: (1) P-valor exacto, (2) IC 95% para el efecto, (3) tamano del efecto (d de Cohen), y (4) juicio sobre la <strong>relevancia clínica</strong> de la diferencia observada <span class="citation" data-cites="greenland2016">(<a href="#/referencias" role="doc-biblioref" onclick="">Greenland et&nbsp;al., 2016</a>)</span>.</p>
+<p><strong>Buena práctica en fisioterapia:</strong> Reportar <strong>siempre</strong>: (1) P-valor exacto, (2) IC 95% para el efecto, (3) tamaño del efecto (d de Cohen), y (4) juicio sobre la <strong>relevancia clínica</strong> de la diferencia observada <span class="citation" data-cites="greenland2016">(<a href="#/referencias" role="doc-biblioref" onclick="">Greenland et&nbsp;al., 2016</a>)</span>.</p>
 </section>
 <section class="slide level2 center">
 

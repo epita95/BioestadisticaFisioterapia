@@ -608,5 +608,4 @@ for(i in seq_along(terminos)){
 }
 ```
 
-## Medidas de posición: Tipos
 

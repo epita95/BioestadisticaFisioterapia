@@ -79,7 +79,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 :::
 :::
 
-**"Lo que la estadística nos dice no es si un efecto existe, sino cuan sorprendentes son los datos si asumimos que no existe."** — Ronald Fisher [@fisher1925]
+**"Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe."** — Ronald Fisher [@fisher1925]
 
 
 
@@ -720,7 +720,7 @@ axis(1, at=1:2, labels=c("Antes","Después"))
 for(i in 1:5) lines(c(1,2), c(a[i],d[i]), col=i, lty=2)
 ```
 
-**Todos los pacientes mejoran** (lineas bajan) → evidencia clara de efecto.
+**Todos los pacientes mejoran** (líneas bajan) → evidencia clara de efecto.
 
 ## Test pareado para medias
 
@@ -973,7 +973,10 @@ cat(sprintf("W+ = %.1f | P = %.6f", wt_paired$statistic, wt_paired$p.value),
 :::
 
 
-*¿Por qué usar rangos en lugar de los valores originales protege contra outliers?*
+## Ejercicio: Rangos y Outliers
+
+*¿Por qué usar rangos en lugar de los valores originales protege contra outliers?*
+
 ## Mann-Whitney $U$ — Cálculo paso a paso
 
 **Contexto:** Comparamos dos grupos **independientes**. $H_0$: las dos poblaciones tienen la misma distribución. $H_1$: las distribuciones difieren.
@@ -1086,7 +1089,7 @@ wilcox.test(grupoA, grupoB, exact = FALSE)
 
 ## McNemar no paramétrico: Diferencias de proporciones apareadas— BioEstatR
 
-**`testmacnemar` — salida completa e interpretación:**
+**`testmcnemar` — salida completa e interpretación:**
 
 ```{r}
 #| eval: false
@@ -1390,7 +1393,7 @@ text(col_x[3], 3.75, "mcnemar.test()", font = 2, cex = 0.8, col = "white")
 ::: {.callout-important}
 **Regla práctica:** Si $n \geq 30$ por grupo y datos sin outliers extremos → paramétrico. Si $n < 15$ y normalidad dudosa → no paramétrico. Entre 15 y 30, verificar con Shapiro-Wilk.
 
-**¿Quieres entender la matemática detrás de estos tests?** Repasa las diapositivas anteriores: derivación del estadístico $W^+$ de Wilcoxon, el estadístico $U$ de Mann-Whitney, y los ejemplos de calculo manual paso a paso con datos de fisioterapia.
+**¿Quieres entender la matemática detrás de estos tests?** Repasa las diapositivas anteriores: derivación del estadístico $W^+$ de Wilcoxon, el estadístico $U$ de Mann-Whitney, y los ejemplos de cálculo manual paso a paso con datos de fisioterapia.
 :::
 
 ## Precauciones al leer p-valores en la literatura clínica
@@ -1399,7 +1402,7 @@ text(col_x[3], 3.75, "mcnemar.test()", font = 2, cex = 0.8, col = "white")
 **Tres trampas frecuentes al interpretar P-valores en artículos de fisioterapia:**
 :::
 
-| Trampa | Problema | Como protegerte |
+| Trampa | Problema | Cómo protegerte |
 |:-------|:---------|:----------------|
 | **Comparaciones múltiples** | Si un estudio compara 20 outcomes, ~1 saldrá significativo ($P<0.05$) solo por azar | Busca correcciones (Bonferroni, Holm). Desconfía de "outcomes exploratorios" |
 | **Muestras enormes** | Con $n>1000$, diferencias **clínicamente irrelevantes** (1° de ROM) pueden dar $P<0.001$ | Mira siempre el tamaño del efecto (d de Cohen) y el IC 95%, no solo el P-valor |
@@ -1420,7 +1423,7 @@ text(col_x[3], 3.75, "mcnemar.test()", font = 2, cex = 0.8, col = "white")
 5. **El P-valor NO mide** el tamaño del efecto ni la importancia clínica del resultado
 6. **Por sí solo, el P-valor no es una buena medida** de la evidencia sobre un modelo
 
-**Buena práctica en fisioterapia:** Reportar **siempre**: (1) P-valor exacto, (2) IC 95% para el efecto, (3) tamano del efecto (d de Cohen), y (4) juicio sobre la **relevancia clínica** de la diferencia observada [@greenland2016].
+**Buena práctica en fisioterapia:** Reportar **siempre**: (1) P-valor exacto, (2) IC 95% para el efecto, (3) tamaño del efecto (d de Cohen), y (4) juicio sobre la **relevancia clínica** de la diferencia observada [@greenland2016].
 
 ---
 

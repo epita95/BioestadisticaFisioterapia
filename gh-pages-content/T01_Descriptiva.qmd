@@ -1319,7 +1319,7 @@ La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana 
 :::
 
 ::: {.callout-tip}
-**Interpretación clínica:** La muestra presenta una flexión media de rodilla adecuada para la fase post-artroplastia, con variabilidad moderada entre pacientes. La distribución simétrica y compatible con la Normal respalda el uso de métodos paramétricos (media ± DT) y de pruebas como el test t de Student para comparaciones futuras (Tema 2).
+**Interpretación clínica:** La muestra presenta una flexión media de rodilla adecuada para la fase post-artroplastia, con variabilidad moderada entre pacientes. La distribución simétrica y compatible con la Normal respalda el uso de métodos paramétricos (media ± DT) y de pruebas como el test t de Student para comparaciones futuras (Tema 4).
 :::
 
 ## De la descripción a la inferencia — Puente al tema 2 y 3

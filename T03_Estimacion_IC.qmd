@@ -50,7 +50,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 3. Deducir matemáticamente el tamaño muestral a partir de la precisión deseada
 4. Construir e interpretar intervalos de confianza para una media y una proporción
 5. Calcular el tamaño muestral necesario para una precisión deseada
-6. Conectar la estimación por IC con el contraste de hipotesis (test $t$)
+6. Conectar la estimación por IC con el contraste de hipótesis (test $t$)
 :::
 
 ## Recordemos: Población y muestra
@@ -128,7 +128,7 @@ La **estimación puntual** asigna al parámetro poblacional un **único valor** 
 | Parámetro poblacional | Estimador puntual |
 |:----------------------|:------------------|
 | Media $\mu$ | $\hat{\mu} = \bar{x}$ |
-| Desviación tipica $\sigma$ | $\hat{\sigma} = s$ |
+| Desviación típica $\sigma$ | $\hat{\sigma} = s$ |
 | Proporción $p$ | $\hat{p} = x/n$ |
 
 ## Comprueba tu comprensión — Parámetro vs estimador
@@ -200,14 +200,14 @@ S2_correct <- S2_prime * n/(n-1)  # S² = S'² × n/(n-1)
 
 par(mfrow=c(1,2), mar=c(4,4,3,1))
 hist(S2_prime, col=rgb(0.9,0.3,0.2,0.4), border="white", breaks=40,
-     main="Sin correccion: S'2 = Suma/n",
+     main="Sin corrección: S'2 = Suma/n",
      xlab="Varianza estimada", xlim=c(0,1500))
 abline(v=sigma2, col="darkgreen", lwd=3); abline(v=mean(S2_prime), col="#e74c3c", lwd=3, lty=2)
 text(800, 0.003, paste0("Media = ",round(mean(S2_prime),0),"\nSesgo = -",round(100*(1-mean(S2_prime)/sigma2),1),"%"),
      col="#e74c3c", font=2, cex=0.8)
 
 hist(S2_correct, col=rgb(0.2,0.6,0.4,0.4), border="white", breaks=40,
-     main="Con correccion: S2 = Suma/(n-1)",
+     main="Con corrección: S2 = Suma/(n-1)",
      xlab="Varianza estimada", xlim=c(0,1500))
 abline(v=sigma2, col="darkgreen", lwd=3); abline(v=mean(S2_correct), col="#27ae60", lwd=3, lty=2)
 text(800, 0.003, paste0("Media = ",round(mean(S2_correct),0),"\nSesgo ~ 0%"),
@@ -492,7 +492,7 @@ $$IC_{1-\alpha}(\mu) = \bar{x} \pm t_{\alpha/2;\, n-1} \cdot \frac{s}{\sqrt{n}}$
 **Conflicto:** aumentar $1-\alpha$ → $t_{\alpha/2} \uparrow$ → $d \uparrow$ → menos precisión. Solución: aumentar $n$.
 
 
-*Regla nemotécnica para IC:* "A más confianza, más ancho. A más muestra, más estrecho." Si quieres un IC más preciso (estrecho), aumenta $n$. Duplicar la precisión requiere cuadruplicar $n$.
+*Regla mnemotécnica para IC:* "A más confianza, más ancho. A más muestra, más estrecho." Si quieres un IC más preciso (estrecho), aumenta $n$. Duplicar la precisión requiere cuadruplicar $n$.
 
 ## Actividad en pareja — ¿Qué IC es más preciso?
 
@@ -693,7 +693,7 @@ cat("IC 95%: (", round(IC_lo,1), ",", round(IC_hi,1), ")°",
     "\nPrecision d =", round(t_crit*s/sqrt(n),2), "°")
 ```
 
-**Interpretación clinica:** Con 95% de confianza, la flexión media de hombro post-rehabilitación está entre 164.9° y 171.6°. La precisión de ±3.4° es clínicamente aceptable para goniometría.
+**Interpretación clínica:** Con 95% de confianza, la flexión media de hombro post-rehabilitación está entre 164.9° y 171.6°. La precisión de ±3.4° es clínicamente aceptable para goniometría.
 
 ## IC para una proporción poblacional
 
