@@ -328,6 +328,7 @@
 <li><a href="#/la-regresión-como-marco-unificador-de-todo-el-curso" id="/toc-la-regresión-como-marco-unificador-de-todo-el-curso">La regresión como marco unificador de todo el curso</a></li>
 <li><a href="#/ejercicio-clínico-regresión-lineal-en-fisioterapia" id="/toc-ejercicio-clínico-regresión-lineal-en-fisioterapia">Ejercicio clínico — Regresión lineal en fisioterapia</a></li>
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
+
 <li><a href="#/ejercicio-clínico-tema-vi" id="/toc-ejercicio-clínico-tema-vi">Ejercicio Clínico — Tema VI</a></li>
 </ul></li>
 </ul>
@@ -2552,13 +2553,16 @@ max  8.592  1.619
 </ul>
 </div>
 </section>
+<section class="slide level2 center">
+
+</section>
 <section id="ejercicio-clínico-tema-vi" class="slide level2 smaller scrollable">
 <h2>Ejercicio Clínico — Tema VI</h2>
-<p><strong>Contexto:</strong> Relación edad-flexión lumbar. Ŷ = 85 − 0.6X, R² = 0.64.</p>
+<p><strong>Contexto:</strong> Relación edad-flexión lumbar en 10 pacientes. <span class="math inline">\(\hat{Y} = 85 - 0.6X\)</span>, <span class="math inline">\(R^2 = 0.64\)</span>.</p>
 <ol type="1">
-<li>Interpreta pendiente (−0.6)</li>
+<li>Interpreta la pendiente (<span class="math inline">\(-0.6\)</span>) en términos clínicos</li>
 <li>Predicción para 50 años</li>
-<li>Significado de R²</li>
+<li>Significado de <span class="math inline">\(R^2\)</span></li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -2571,20 +2575,48 @@ max  8.592  1.619
 <div class="callout-content">
 <p><strong>Solución</strong></p>
 <ol type="1">
-<li>Por cada año, la flexión disminuye 0.6° en promedio</li>
-<li>Ŷ(50) = 85 − 30 = 55°</li>
-<li>64% de variabilidad explicada por edad; 36% otros factores</li>
+<li>Por cada año más de edad, la flexión disminuye 0.6° en promedio</li>
+<li><span class="math inline">\(\hat{Y}(50) = 85 - 0.6 \times 50 = 85 - 30 = 55°\)</span></li>
+<li>El 64% de la variabilidad en flexión se explica por la edad; el 36% por otros factores</li>
 </ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>); edad<span class="ot">&lt;-</span><span class="fu">seq</span>(<span class="dv">25</span>,<span class="dv">70</span>,<span class="at">len=</span><span class="dv">10</span>)</span>
-<span id="cb84-2"><a aria-hidden="true" tabindex="-1"></a>flexion<span class="ot">&lt;-</span><span class="dv">85</span><span class="fl">-0.6</span><span class="sc">*</span>edad<span class="sc">+</span><span class="fu">rnorm</span>(<span class="dv">10</span>,<span class="dv">0</span>,<span class="dv">3</span>)</span>
-<span id="cb84-3"><a aria-hidden="true" tabindex="-1"></a>m<span class="ot">&lt;-</span><span class="fu">lm</span>(flexion<span class="sc">~</span>edad)</span>
-<span id="cb84-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R²="</span>,<span class="fu">round</span>(<span class="fu">summary</span>(m)<span class="sc">$</span>r.sq,<span class="dv">2</span>),<span class="st">" Pred(50)="</span>,<span class="fu">round</span>(<span class="fu">predict</span>(m,<span class="fu">data.frame</span>(<span class="at">edad=</span><span class="dv">50</span>)),<span class="dv">1</span>),<span class="st">"°"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb84-2"><a aria-hidden="true" tabindex="-1"></a>edad <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="at">length.out=</span><span class="dv">10</span>)</span>
+<span id="cb84-3"><a aria-hidden="true" tabindex="-1"></a>flexion <span class="ot">&lt;-</span> <span class="dv">85</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span>edad <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb84-4"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(flexion <span class="sc">~</span> edad)</span>
+<span id="cb84-5"><a aria-hidden="true" tabindex="-1"></a>pred_50 <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span><span class="dv">50</span>))</span>
+<span id="cb84-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb84-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(edad, flexion, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">cex=</span><span class="fl">1.5</span>,</span>
+<span id="cb84-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"R²="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,<span class="dv">2</span>),</span>
+<span id="cb84-9"><a aria-hidden="true" tabindex="-1"></a>                 <span class="st">"  Y="</span>, <span class="fu">round</span>(<span class="fu">coef</span>(modelo)[<span class="dv">1</span>],<span class="dv">1</span>), <span class="st">"+"</span>, <span class="fu">round</span>(<span class="fu">coef</span>(modelo)[<span class="dv">2</span>],<span class="dv">2</span>),<span class="st">"X"</span>),</span>
+<span id="cb84-10"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Edad (años)"</span>, <span class="at">ylab=</span><span class="st">"Flexión lumbar (°)"</span>)</span>
+<span id="cb84-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb84-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Banda de confianza</span></span>
+<span id="cb84-13"><a aria-hidden="true" tabindex="-1"></a>newx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="at">length=</span><span class="dv">50</span>)</span>
+<span id="cb84-14"><a aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span>newx), <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
+<span id="cb84-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(newx, <span class="fu">rev</span>(newx)), <span class="fu">c</span>(preds[,<span class="dv">2</span>], <span class="fu">rev</span>(preds[,<span class="dv">3</span>])),</span>
+<span id="cb84-16"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.3</span>,<span class="fl">0.08</span>), <span class="at">border=</span><span class="cn">NA</span>)</span>
+<span id="cb84-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción destacada</span></span>
+<span id="cb84-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">50</span>, pred_50, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">cex=</span><span class="fl">2.5</span>)</span>
+<span id="cb84-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">50</span>, pred_50<span class="fl">+0.5</span>, <span class="fu">paste0</span>(<span class="fu">round</span>(pred_50,<span class="dv">1</span>),<span class="st">"°"</span>), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">pos=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-33-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R² ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,<span class="dv">3</span>),</span>
+<span id="cb85-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">Predicción 50 años:"</span>, <span class="fu">round</span>(pred_50,<span class="dv">1</span>), <span class="st">"°"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>R²= 0.93  Pred(50)= 55.1 °</code></pre>
+<pre><code>R² = 0.927 
+Predicción 50 años: 55.1 °</code></pre>
 </div>
 </div>
 </div>

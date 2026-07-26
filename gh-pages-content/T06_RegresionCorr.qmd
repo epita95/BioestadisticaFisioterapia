@@ -1235,25 +1235,46 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 :::
 ---
 
+---
+
 ## Ejercicio Clínico — Tema VI
 
-**Contexto:** Relación edad-flexión lumbar. Ŷ = 85 − 0.6X, R² = 0.64.
+**Contexto:** Relación edad-flexión lumbar en 10 pacientes. $\hat{Y} = 85 - 0.6X$, $R^2 = 0.64$.
 
-1. Interpreta pendiente (−0.6)
+1. Interpreta la pendiente ($-0.6$) en términos clínicos
 2. Predicción para 50 años
-3. Significado de R²
+3. Significado de $R^2$
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. Por cada año, la flexión disminuye 0.6° en promedio
-2. Ŷ(50) = 85 − 30 = 55°
-3. 64% de variabilidad explicada por edad; 36% otros factores
+1. Por cada año más de edad, la flexión disminuye 0.6° en promedio
+2. $\hat{Y}(50) = 85 - 0.6 \times 50 = 85 - 30 = 55°$
+3. El 64% de la variabilidad en flexión se explica por la edad; el 36% por otros factores
 
 ```{r}
-set.seed(123); edad<-seq(25,70,len=10)
-flexion<-85-0.6*edad+rnorm(10,0,3)
-m<-lm(flexion~edad)
-cat("R²=",round(summary(m)$r.sq,2)," Pred(50)=",round(predict(m,data.frame(edad=50)),1),"°")
+#| fig-height: 5.5
+set.seed(123)
+edad <- seq(25, 70, length.out=10)
+flexion <- 85 - 0.6*edad + rnorm(10, 0, 3)
+modelo <- lm(flexion ~ edad)
+pred_50 <- predict(modelo, data.frame(edad=50))
+
+plot(edad, flexion, pch=19, col="steelblue", cex=1.5,
+     main=paste0("R²=", round(summary(modelo)$r.squared,2),
+                 "  Y=", round(coef(modelo)[1],1), "+", round(coef(modelo)[2],2),"X"),
+     xlab="Edad (años)", ylab="Flexión lumbar (°)")
+abline(modelo, col="darkgreen", lwd=2.5)
+# Banda de confianza
+newx <- seq(25, 70, length=50)
+preds <- predict(modelo, data.frame(edad=newx), interval="confidence")
+polygon(c(newx, rev(newx)), c(preds[,2], rev(preds[,3])),
+        col=rgb(0,0.5,0.3,0.08), border=NA)
+# Predicción destacada
+points(50, pred_50, pch=19, col="coral", cex=2.5)
+text(50, pred_50+0.5, paste0(round(pred_50,1),"°"), col="coral", font=2, pos=3)
+
+cat("R² =", round(summary(modelo)$r.squared,3),
+    "\nPredicción 50 años:", round(pred_50,1), "°")
 ```
 :::

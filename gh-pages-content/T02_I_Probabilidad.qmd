@@ -926,23 +926,44 @@ Este patrón se repite para todas las distribuciones: `dbinom`, `pbinom`, `qbin
 ---
 ---
 
+---
+
 ## Ejercicio Clínico — Tema II (Parte I)
 
-**Contexto:** En una consulta, el 15% de pacientes tienen lumbalgia crónica. Un test tiene sensibilidad 90% y especificidad 85%.
+**Contexto:** El 15% de pacientes en consulta tienen lumbalgia crónica. Un test tiene sensibilidad 90% y especificidad 85%.
 
-1. Si un paciente da positivo, ¿probabilidad de que tenga lumbalgia?
+1. Si un paciente da positivo, ¿probabilidad de tener lumbalgia?
 2. ¿Por qué el VPP es bajo pese a la alta sensibilidad?
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. VPP = (0.90×0.15) / [0.90×0.15 + 0.15×0.85] = 0.135/0.2625 = **51.4%**
-2. La baja prevalencia (15%) hace que los falsos positivos casi igualen a los verdaderos
+1. $VPP = \frac{0.90 \times 0.15}{0.90 \times 0.15 + 0.15 \times 0.85} = \frac{0.135}{0.2625} = \mathbf{51.4\%}$
+2. La baja prevalencia (15%) hace que los falsos positivos dominen
 
 ```{r}
+#| fig-height: 5
 prev <- 0.15; sens <- 0.90; spec <- 0.85
 vpp <- (sens*prev) / (sens*prev + (1-spec)*(1-prev))
 vpn <- (spec*(1-prev)) / (spec*(1-prev)+(1-sens)*prev)
-cat("VPP =", round(vpp*100,1), "%", "\nVPN =", round(vpn*100,1), "%")
+
+# Visualización
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Árbol de probabilidades
+labels <- c("Enfermo\n(15%)", "Sano\n(85%)")
+bp <- barplot(c(prev, 1-prev), names=labels, col=c("coral","steelblue"),
+        main="Prevalencia de lumbalgia", ylab="Proporción", ylim=c(0,1))
+text(bp, c(prev,1-prev)+0.05, paste0(round(c(prev,1-prev)*100,1),"%"), font=2, cex=1.2)
+
+# Panel 2: Rendimiento del test
+vp <- sens*prev; fp <- (1-spec)*(1-prev); vn <- spec*(1-prev); fn <- (1-sens)*prev
+m <- matrix(c(vp, fn, fp, vn), 2, dimnames=list(c("Positivo","Negativo"), c("Enfermo","Sano")))
+barplot(m, beside=TRUE, col=c("coral","steelblue"),
+        main=paste0("Test: VPP=", round(vpp*100,1), "%  VPN=", round(vpn*100,1), "%"),
+        ylab="Probabilidad", ylim=c(0,0.8))
+legend("topright", c("Positivo","Negativo"), fill=c("coral","steelblue"), bty="n", cex=0.85)
+par(mfrow=c(1,1))
+
+cat("VPP =", round(vpp*100,1), "%\nVPN =", round(vpn*100,1), "%")
 ```
 :::

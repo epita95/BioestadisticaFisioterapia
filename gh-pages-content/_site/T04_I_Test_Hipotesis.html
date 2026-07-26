@@ -1184,10 +1184,10 @@ Test de Shapiro-Wilk: W = 0.956, P = 0.789</code></pre>
 </section>
 <section id="ejercicio-clínico-tema-iv-parte-i" class="slide level2 smaller scrollable">
 <h2>Ejercicio Clínico — Tema IV (Parte I)</h2>
-<p><strong>Contexto:</strong> Flexión rodilla en 6 pacientes: 125, 132, 128, 135, 130, 126°. Referencia: 130°.</p>
+<p><strong>Contexto:</strong> Flexión rodilla en 6 pacientes: 125°, 132°, 128°, 135°, 130°, 126°. Referencia: 130°.</p>
 <ol type="1">
-<li>Formula H₀ y H₁</li>
-<li>Interpreta: t = −0.43, gl = 5, P = 0.683, IC 95% [126.4°, 132.9°]</li>
+<li>Formula <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_1\)</span></li>
+<li>Interpreta: <span class="math inline">\(t=-0.43\)</span>, <span class="math inline">\(gl=5\)</span>, <span class="math inline">\(P=0.683\)</span>, IC 95% [126.4°, 132.9°]</li>
 <li>¿Conclusión clínica?</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1201,18 +1201,45 @@ Test de Shapiro-Wilk: W = 0.956, P = 0.789</code></pre>
 <div class="callout-content">
 <p><strong>Solución</strong></p>
 <ol type="1">
-<li>H₀: μ = 130° vs H₁: μ ≠ 130°</li>
-<li>P &gt; 0.05 → NO rechazar H₀. IC contiene 130°</li>
-<li>Sin evidencia de cambio en la flexión media poblacional</li>
+<li><span class="math inline">\(H_0: \mu = 130°\)</span> vs <span class="math inline">\(H_1: \mu \neq 130°\)</span> (bilateral)</li>
+<li><span class="math inline">\(P = 0.683 &gt; 0.05\)</span> → NO rechazar <span class="math inline">\(H_0\)</span>. El IC contiene 130°</li>
+<li>Sin evidencia suficiente de cambio en la flexión media</li>
 </ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">132</span>,<span class="dv">128</span>,<span class="dv">135</span>,<span class="dv">130</span>,<span class="dv">126</span>); tt<span class="ot">&lt;-</span><span class="fu">t.test</span>(x,<span class="at">mu=</span><span class="dv">130</span>)</span>
-<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"t="</span>,<span class="fu">round</span>(tt<span class="sc">$</span>stat,<span class="dv">2</span>),<span class="st">" P="</span>,<span class="fu">round</span>(tt<span class="sc">$</span>p.val,<span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>,<span class="dv">132</span>,<span class="dv">128</span>,<span class="dv">135</span>,<span class="dv">130</span>,<span class="dv">126</span>)</span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a>tt <span class="ot">&lt;-</span> <span class="fu">t.test</span>(x, <span class="at">mu=</span><span class="dv">130</span>)</span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Datos vs referencia</span></span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(x, <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">cex=</span><span class="fl">1.5</span>,</span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a>           <span class="at">xlim=</span><span class="fu">c</span>(<span class="dv">122</span>,<span class="dv">138</span>), <span class="at">main=</span><span class="st">"Flexión vs H0: μ=130°"</span>, <span class="at">xlab=</span><span class="st">"Grados (°)"</span>)</span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">130</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="fu">mean</span>(x), <span class="fl">1.2</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">cex=</span><span class="dv">2</span>)</span>
+<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">mean</span>(x), <span class="fl">1.35</span>, <span class="fu">paste0</span>(<span class="st">"x̄="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(x),<span class="dv">1</span>)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">pos=</span><span class="dv">3</span>)</span>
+<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Distribución t</span></span>
+<span id="cb24-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="dv">5</span>), <span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">"steelblue"</span>,</span>
+<span id="cb24-13"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"t(5): P="</span>, <span class="fu">round</span>(tt<span class="sc">$</span>p.value,<span class="dv">3</span>)), <span class="at">xlab=</span><span class="st">"t"</span>, <span class="at">ylab=</span><span class="st">"Densidad"</span>)</span>
+<span id="cb24-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fu">qt</span>(<span class="fl">0.975</span>,<span class="dv">5</span>), <span class="fu">qt</span>(<span class="fl">0.975</span>,<span class="dv">5</span>)), <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb24-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>tt<span class="sc">$</span>statistic, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span>
+<span id="cb24-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(tt<span class="sc">$</span>statistic, <span class="fl">0.35</span>, <span class="fu">paste0</span>(<span class="st">"t="</span>, <span class="fu">round</span>(tt<span class="sc">$</span>statistic,<span class="dv">2</span>)), <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">pos=</span><span class="dv">4</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="T04_I_Test_Hipotesis_files/figure-revealjs/unnamed-chunk-14-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb25-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"t ="</span>, <span class="fu">round</span>(tt<span class="sc">$</span>statistic,<span class="dv">2</span>), <span class="st">"gl ="</span>, tt<span class="sc">$</span>parameter, <span class="st">"P ="</span>, <span class="fu">round</span>(tt<span class="sc">$</span>p.value,<span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>t= -0.43  P= 0.6835</code></pre>
+<pre><code>t = -0.43 gl = 5 P = 0.6835</code></pre>
 </div>
 </div>
 </div>

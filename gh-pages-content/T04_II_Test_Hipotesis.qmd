@@ -955,26 +955,46 @@ legend("bottomleft", c("Decisión", "Condición", "Test final"),
 :::
 ---
 
+---
+
 ## Ejercicio Clínico — Tema IV (Parte II)
 
-**Contexto:** A (ejercicio, n=15): x̄=4.2, s=1.8. B (punción seca, n=12): x̄=6.8, s=2.1. EVA (0-10). DMI=2.
+**Contexto:** A (ejercicio, $n=15$): $\bar{x}=4.2$, $s=1.8$. B (punción seca, $n=12$): $\bar{x}=6.8$, $s=2.1$. EVA 0-10. DMI=2.
 
 1. ¿Qué test y por qué?
-2. Si Shapiro P=0.03 en B, ¿alternativa?
+2. Si Shapiro $P=0.03$ en B, ¿alternativa?
 3. ¿Diferencia clínicamente relevante?
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. t de Welch (no asume varianzas iguales)
-2. Mann-Whitney U (no paramétrico)
-3. Δ = 6.8−4.2 = 2.6 > 2 (DMI) → clínicamente relevante
+1. t de Welch (no asume varianzas iguales, muestras independientes)
+2. Mann-Whitney U — no paramétrico sin supuesto de normalidad
+3. $\Delta = 6.8-4.2 = 2.6 > 2$ (DMI) → **clínicamente relevante**
 
 ```{r}
-n1<-15;m1<-4.2;s1<-1.8;n2<-12;m2<-6.8;s2<-2.1
+#| fig-height: 5.5
+set.seed(123)
+n1<-15; m1<-4.2; s1<-1.8; n2<-12; m2<-6.8; s2<-2.1
+gA<-rnorm(n1,m1,s1); gB<-rnorm(n2,m2,s2)
 se<-sqrt(s1^2/n1+s2^2/n2); t_stat<-(m1-m2)/se
-gl<-(s1^2/n1+s2^2/n2)^2/((s1^2/n1)^2/(n1-1)+(s2^2/n2)^2/(n2-1))
-p<-2*pt(-abs(t_stat),gl)
-cat("t=",round(t_stat,2)," P=",round(p,4),"\nΔ=",m2-m1)
+gl_num<-(s1^2/n1+s2^2/n2)^2
+gl_den<-(s1^2/n1)^2/(n1-1)+(s2^2/n2)^2/(n2-1)
+p<-2*pt(-abs(t_stat),gl_num/gl_den)
+
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Boxplot comparativo
+boxplot(gA, gB, names=c("Ejercicio","Ej.+P.Seca"), col=c("steelblue","seagreen"),
+        ylab="EVA-dolor", ylim=c(0,10), main=paste0("Δ=", round(m2-m1,1)," (DMI=2)"))
+stripchart(list(A=gA,B=gB), method="jitter", pch=19, col="grey40", add=TRUE, cex=0.7)
+# Panel 2: Distribución t de Welch
+curve(dt(x, round(gl_num/gl_den)), -5, 5, lwd=3, col="seagreen",
+      main=paste0("Welch: P=", round(p,4)), xlab="t", ylab="Densidad")
+abline(v=c(-qt(0.975,round(gl_num/gl_den)), qt(0.975,round(gl_num/gl_den))), col="grey", lty=3)
+abline(v=t_stat, col="darkgreen", lwd=2)
+par(mfrow=c(1,1))
+
+cat("t =", round(t_stat,2), "gl ≈", round(gl_num/gl_den,1), "P =", round(p,4),
+    "\nΔ =", round(m2-m1,1), "> DMI=2 → clínicamente relevante")
 ```
 :::

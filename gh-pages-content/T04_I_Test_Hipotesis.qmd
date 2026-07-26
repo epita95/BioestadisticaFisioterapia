@@ -629,23 +629,43 @@ testt(x = 47, n = 50, p0 = 0.95)
 **Salida de `testt`:** Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.
 ---
 
+---
+
 ## Ejercicio Clínico — Tema IV (Parte I)
 
-**Contexto:** Flexión rodilla en 6 pacientes: 125, 132, 128, 135, 130, 126°. Referencia: 130°.
+**Contexto:** Flexión rodilla en 6 pacientes: 125°, 132°, 128°, 135°, 130°, 126°. Referencia: 130°.
 
-1. Formula H₀ y H₁
-2. Interpreta: t = −0.43, gl = 5, P = 0.683, IC 95% [126.4°, 132.9°]
+1. Formula $H_0$ y $H_1$
+2. Interpreta: $t=-0.43$, $gl=5$, $P=0.683$, IC 95% [126.4°, 132.9°]
 3. ¿Conclusión clínica?
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. H₀: μ = 130° vs H₁: μ ≠ 130°
-2. P > 0.05 → NO rechazar H₀. IC contiene 130°
-3. Sin evidencia de cambio en la flexión media poblacional
+1. $H_0: \mu = 130°$ vs $H_1: \mu \neq 130°$ (bilateral)
+2. $P = 0.683 > 0.05$ → NO rechazar $H_0$. El IC contiene 130°
+3. Sin evidencia suficiente de cambio en la flexión media
 
 ```{r}
-x<-c(125,132,128,135,130,126); tt<-t.test(x,mu=130)
-cat("t=",round(tt$stat,2)," P=",round(tt$p.val,4))
+#| fig-height: 5
+x <- c(125,132,128,135,130,126)
+tt <- t.test(x, mu=130)
+
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Datos vs referencia
+stripchart(x, method="jitter", pch=19, col="steelblue", cex=1.5,
+           xlim=c(122,138), main="Flexión vs H0: μ=130°", xlab="Grados (°)")
+abline(v=130, col="darkgreen", lwd=2, lty=2)
+points(mean(x), 1.2, pch=19, col="darkgreen", cex=2)
+text(mean(x), 1.35, paste0("x̄=", round(mean(x),1)), col="darkgreen", font=2, pos=3)
+# Panel 2: Distribución t
+curve(dt(x, 5), -4, 4, lwd=3, col="steelblue",
+      main=paste0("t(5): P=", round(tt$p.value,3)), xlab="t", ylab="Densidad")
+abline(v=c(-qt(0.975,5), qt(0.975,5)), col="grey", lty=3)
+abline(v=tt$statistic, col="darkgreen", lwd=2)
+text(tt$statistic, 0.35, paste0("t=", round(tt$statistic,2)), col="darkgreen", font=2, pos=4)
+par(mfrow=c(1,1))
+
+cat("t =", round(tt$statistic,2), "gl =", tt$parameter, "P =", round(tt$p.value,4))
 ```
 :::

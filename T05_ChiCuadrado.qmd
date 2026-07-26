@@ -1178,24 +1178,40 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 :::
 ---
 
+---
+
 ## Ejercicio Clínico — Tema V
 
-**Contexto:** Asociación tipo fisioterapia × mejoría (n=100): Manual 35/50 mejoran, Ejercicio 25/50.
+**Contexto:** Asociación tipo fisioterapia × mejoría (n=100). Manual: 35/50 mejoran. Ejercicio: 25/50.
 
 1. Calcula OR de mejoría (manual vs ejercicio)
 2. Interpreta
-3. ¿Qué test?
+3. ¿Qué test de contraste?
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. OR = 35×25/15×25 = 2.33
-2. Terapia manual tiene 2.33× más odds de mejorar. Significativo
-3. χ² de Pearson (frecuencias esperadas > 5)
+1. $OR = \frac{35 \times 25}{15 \times 25} = \frac{875}{375} = \mathbf{2.33}$
+2. Terapia manual tiene 2.33× más odds de mejorar. $P < 0.05$ → significativo
+3. $\chi^2$ de Pearson (frecuencias esperadas $> 5$)
 
 ```{r}
-tabla<-matrix(c(35,25,15,25),2)
-chi<-chisq.test(tabla,correct=FALSE)
-cat("OR=",round(35*25/(15*25),2)," χ²=",round(chi$stat,2)," P=",round(chi$p.val,4))
+#| fig-height: 5.5
+tabla <- matrix(c(35, 25, 15, 25), nrow=2,
+                dimnames=list(c("Manual","Ejercicio"), c("Mejoria","No mejoria")))
+chi <- chisq.test(tabla, correct=FALSE)
+OR <- 35*25/(15*25)
+
+par(mfrow=c(1,2), mar=c(4,4,4,1))
+# Panel 1: Barras agrupadas
+barplot(tabla, beside=TRUE, col=c("steelblue","coral"),
+        main=paste0("OR = ", round(OR,2)), ylab="Frecuencia", ylim=c(0,40))
+legend("topright", c("Manual","Ejercicio"), fill=c("steelblue","coral"), bty="n", cex=0.8)
+# Panel 2: Mosaic
+mosaicplot(t(tabla), main="Mosaic: Tipo × Mejoría", color=c("coral","steelblue"))
+par(mfrow=c(1,1))
+
+cat("OR =", round(OR,2), "χ² =", round(chi$statistic,2),
+    "gl =", chi$parameter, "P =", round(chi$p.value,4))
 ```
 :::

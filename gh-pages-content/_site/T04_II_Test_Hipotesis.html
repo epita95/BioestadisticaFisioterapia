@@ -309,6 +309,7 @@
 <ul>
 <li><a href="#/diagrama-de-decision-ejercicio-clinico-paso-a-paso" id="/toc-diagrama-de-decision-ejercicio-clinico-paso-a-paso">Diagrama de decisión — Ejercicio clínico paso a paso</a></li>
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
+
 <li><a href="#/ejercicio-clínico-tema-iv-parte-ii" id="/toc-ejercicio-clínico-tema-iv-parte-ii">Ejercicio Clínico — Tema IV (Parte II)</a></li>
 </ul></li>
 </ul>
@@ -1938,12 +1939,15 @@ Omega² = 0.103 → 10.3 % varianza explicada</code></pre>
 </ul>
 </div>
 </section>
+<section class="slide level2 center">
+
+</section>
 <section id="ejercicio-clínico-tema-iv-parte-ii" class="slide level2 smaller scrollable">
 <h2>Ejercicio Clínico — Tema IV (Parte II)</h2>
-<p><strong>Contexto:</strong> A (ejercicio, n=15): x̄=4.2, s=1.8. B (punción seca, n=12): x̄=6.8, s=2.1. EVA (0-10). DMI=2.</p>
+<p><strong>Contexto:</strong> A (ejercicio, <span class="math inline">\(n=15\)</span>): <span class="math inline">\(\bar{x}=4.2\)</span>, <span class="math inline">\(s=1.8\)</span>. B (punción seca, <span class="math inline">\(n=12\)</span>): <span class="math inline">\(\bar{x}=6.8\)</span>, <span class="math inline">\(s=2.1\)</span>. EVA 0-10. DMI=2.</p>
 <ol type="1">
 <li>¿Qué test y por qué?</li>
-<li>Si Shapiro P=0.03 en B, ¿alternativa?</li>
+<li>Si Shapiro <span class="math inline">\(P=0.03\)</span> en B, ¿alternativa?</li>
 <li>¿Diferencia clínicamente relevante?</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1957,22 +1961,49 @@ Omega² = 0.103 → 10.3 % varianza explicada</code></pre>
 <div class="callout-content">
 <p><strong>Solución</strong></p>
 <ol type="1">
-<li>t de Welch (no asume varianzas iguales)</li>
-<li>Mann-Whitney U (no paramétrico)</li>
-<li>Δ = 6.8−4.2 = 2.6 &gt; 2 (DMI) → clínicamente relevante</li>
+<li>t de Welch (no asume varianzas iguales, muestras independientes)</li>
+<li>Mann-Whitney U — no paramétrico sin supuesto de normalidad</li>
+<li><span class="math inline">\(\Delta = 6.8-4.2 = 2.6 &gt; 2\)</span> (DMI) → <strong>clínicamente relevante</strong></li>
 </ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a>n1<span class="ot">&lt;-</span><span class="dv">15</span>;m1<span class="ot">&lt;-</span><span class="fl">4.2</span>;s1<span class="ot">&lt;-</span><span class="fl">1.8</span>;n2<span class="ot">&lt;-</span><span class="dv">12</span>;m2<span class="ot">&lt;-</span><span class="fl">6.8</span>;s2<span class="ot">&lt;-</span><span class="fl">2.1</span></span>
-<span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>se<span class="ot">&lt;-</span><span class="fu">sqrt</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1<span class="sc">+</span>s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2); t_stat<span class="ot">&lt;-</span>(m1<span class="sc">-</span>m2)<span class="sc">/</span>se</span>
-<span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a>gl<span class="ot">&lt;-</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1<span class="sc">+</span>s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>((s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(n1<span class="dv">-1</span>)<span class="sc">+</span>(s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(n2<span class="dv">-1</span>))</span>
-<span id="cb56-4"><a aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_stat),gl)</span>
-<span id="cb56-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"t="</span>,<span class="fu">round</span>(t_stat,<span class="dv">2</span>),<span class="st">" P="</span>,<span class="fu">round</span>(p,<span class="dv">4</span>),<span class="st">"</span><span class="sc">\n</span><span class="st">Δ="</span>,m2<span class="sc">-</span>m1)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb56-2"><a aria-hidden="true" tabindex="-1"></a>n1<span class="ot">&lt;-</span><span class="dv">15</span>; m1<span class="ot">&lt;-</span><span class="fl">4.2</span>; s1<span class="ot">&lt;-</span><span class="fl">1.8</span>; n2<span class="ot">&lt;-</span><span class="dv">12</span>; m2<span class="ot">&lt;-</span><span class="fl">6.8</span>; s2<span class="ot">&lt;-</span><span class="fl">2.1</span></span>
+<span id="cb56-3"><a aria-hidden="true" tabindex="-1"></a>gA<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n1,m1,s1); gB<span class="ot">&lt;-</span><span class="fu">rnorm</span>(n2,m2,s2)</span>
+<span id="cb56-4"><a aria-hidden="true" tabindex="-1"></a>se<span class="ot">&lt;-</span><span class="fu">sqrt</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1<span class="sc">+</span>s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2); t_stat<span class="ot">&lt;-</span>(m1<span class="sc">-</span>m2)<span class="sc">/</span>se</span>
+<span id="cb56-5"><a aria-hidden="true" tabindex="-1"></a>gl_num<span class="ot">&lt;-</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1<span class="sc">+</span>s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb56-6"><a aria-hidden="true" tabindex="-1"></a>gl_den<span class="ot">&lt;-</span>(s1<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n1)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(n1<span class="dv">-1</span>)<span class="sc">+</span>(s2<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>n2)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(n2<span class="dv">-1</span>)</span>
+<span id="cb56-7"><a aria-hidden="true" tabindex="-1"></a>p<span class="ot">&lt;-</span><span class="dv">2</span><span class="sc">*</span><span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_stat),gl_num<span class="sc">/</span>gl_den)</span>
+<span id="cb56-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb56-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Boxplot comparativo</span></span>
+<span id="cb56-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(gA, gB, <span class="at">names=</span><span class="fu">c</span>(<span class="st">"Ejercicio"</span>,<span class="st">"Ej.+P.Seca"</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">"steelblue"</span>,<span class="st">"seagreen"</span>),</span>
+<span id="cb56-12"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"EVA-dolor"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>), <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"Δ="</span>, <span class="fu">round</span>(m2<span class="sc">-</span>m1,<span class="dv">1</span>),<span class="st">" (DMI=2)"</span>))</span>
+<span id="cb56-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">list</span>(<span class="at">A=</span>gA,<span class="at">B=</span>gB), <span class="at">method=</span><span class="st">"jitter"</span>, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"grey40"</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">cex=</span><span class="fl">0.7</span>)</span>
+<span id="cb56-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Distribución t de Welch</span></span>
+<span id="cb56-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dt</span>(x, <span class="fu">round</span>(gl_num<span class="sc">/</span>gl_den)), <span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">lwd=</span><span class="dv">3</span>, <span class="at">col=</span><span class="st">"seagreen"</span>,</span>
+<span id="cb56-16"><a aria-hidden="true" tabindex="-1"></a>      <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"Welch: P="</span>, <span class="fu">round</span>(p,<span class="dv">4</span>)), <span class="at">xlab=</span><span class="st">"t"</span>, <span class="at">ylab=</span><span class="st">"Densidad"</span>)</span>
+<span id="cb56-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fu">qt</span>(<span class="fl">0.975</span>,<span class="fu">round</span>(gl_num<span class="sc">/</span>gl_den)), <span class="fu">qt</span>(<span class="fl">0.975</span>,<span class="fu">round</span>(gl_num<span class="sc">/</span>gl_den))), <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb56-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span>t_stat, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="T04_II_Test_Hipotesis_files/figure-revealjs/unnamed-chunk-23-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"t ="</span>, <span class="fu">round</span>(t_stat,<span class="dv">2</span>), <span class="st">"gl ≈"</span>, <span class="fu">round</span>(gl_num<span class="sc">/</span>gl_den,<span class="dv">1</span>), <span class="st">"P ="</span>, <span class="fu">round</span>(p,<span class="dv">4</span>),</span>
+<span id="cb57-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">Δ ="</span>, <span class="fu">round</span>(m2<span class="sc">-</span>m1,<span class="dv">1</span>), <span class="st">"&gt; DMI=2 → clínicamente relevante"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>t= -3.4  P= 0.0026 
-Δ= 2.6</code></pre>
+<pre><code>t = -3.4 gl ≈ 21.8 P = 0.0026 
+Δ = 2.6 &gt; DMI=2 → clínicamente relevante</code></pre>
 </div>
 </div>
 </div>

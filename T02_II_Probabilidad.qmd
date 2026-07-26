@@ -822,24 +822,46 @@ Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta
 :::
 ---
 
+---
+
 ## Ejercicio Clínico — Tema II (Parte II)
 
-**Contexto:** Fuerza de prensión ~ N(30, 8²) kg. Paciente con 22 kg. Terapia con 70% éxito.
+**Contexto:** Fuerza de prensión $\sim N(30, 8^2)$ kg. Paciente con 22 kg. Terapia con 70% éxito por paciente.
 
 1. Calcula Z-score de 22 kg e interpreta
-2. ¿% población con fuerza ≤ 22 kg?
+2. ¿% población con fuerza $\leq 22$ kg?
 3. Tratando 10 pacientes, ¿P(exactamente 8 mejorías)?
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. Z = −1.0 (1 DE bajo la media)
-2. P = 15.9% de la población
-3. P(X=8) = C(10,8)×0.7⁸×0.3² = 23.3%
+1. $Z = (22-30)/8 = -1.0$ → 1 DE bajo la media
+2. $P(X \leq 22) = 15.9\%$ de la población
+3. $P(X=8) = \binom{10}{8}(0.7)^8(0.3)^2 = 23.3\%$
 
 ```{r}
-mu<-30; sigma<-8; p_bajo<-pnorm(22,30,8); p_binom<-dbinom(8,10,0.7)
-cat("Z =", (22-30)/8, "\nP(X<=22) =", round(p_bajo*100,1), "%",
-    "\nP(X=8) =", round(p_binom*100,1), "%")
+#| fig-height: 5
+mu <- 30; sigma <- 8
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+# Panel 1: Distribución normal
+curve(dnorm(x, mu, sigma), mu-24, mu+24, lwd=3, col="steelblue",
+      main=paste0("P(X≤22) = ", round(pnorm(22,mu,sigma)*100,1),"%"),
+      xlab="Fuerza (kg)", ylab="Densidad")
+abline(v=22, col="darkgreen", lwd=2)
+xr <- seq(mu-24, 22, 0.1)
+polygon(c(xr, rev(xr)), c(dnorm(xr,mu,sigma), rep(0,length(xr))), 
+        col=rgb(0,0.5,0.3,0.3), border=NA)
+# Panel 2: Binomial
+p_binom <- dbinom(8, 10, 0.7)
+probs <- dbinom(0:10, 10, 0.7)
+highlight <- ifelse(0:10==8, "coral", "lightblue")
+barplot(probs, names=0:10, col=highlight, border="white",
+        main=paste0("Bin(10,0.7): P(X=8)=", round(p_binom*100,1),"%"),
+        xlab="Nº mejorías", ylab="Probabilidad")
+abline(h=p_binom, col="darkgreen", lty=2, lwd=2)
+par(mfrow=c(1,1))
+
+cat("Z =", round((22-30)/8,1), "\nP(X≤22) =", round(pnorm(22,30,8)*100,1), "%",
+    "\nP(X=8) =", round(dbinom(8,10,0.7)*100,1), "%")
 ```
 :::

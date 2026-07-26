@@ -1800,9 +1800,9 @@ Var(X) teórica = 400   Var(X) simulada = 398.9
 </section>
 <section id="ejercicio-clínico-tema-ii-parte-i" class="slide level2 center">
 <h2>Ejercicio Clínico — Tema II (Parte I)</h2>
-<p><strong>Contexto:</strong> En una consulta, el 15% de pacientes tienen lumbalgia crónica. Un test tiene sensibilidad 90% y especificidad 85%.</p>
+<p><strong>Contexto:</strong> El 15% de pacientes en consulta tienen lumbalgia crónica. Un test tiene sensibilidad 90% y especificidad 85%.</p>
 <ol type="1">
-<li>Si un paciente da positivo, ¿probabilidad de que tenga lumbalgia?</li>
+<li>Si un paciente da positivo, ¿probabilidad de tener lumbalgia?</li>
 <li>¿Por qué el VPP es bajo pese a la alta sensibilidad?</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
@@ -1816,8 +1816,8 @@ Var(X) teórica = 400   Var(X) simulada = 398.9
 <div class="callout-content">
 <p><strong>Solución</strong></p>
 <ol type="1">
-<li>VPP = (0.90×0.15) / [0.90×0.15 + 0.15×0.85] = 0.135/0.2625 = <strong>51.4%</strong></li>
-<li>La baja prevalencia (15%) hace que los falsos positivos casi igualen a los verdaderos</li>
+<li><span class="math inline">\(VPP = \frac{0.90 \times 0.15}{0.90 \times 0.15 + 0.15 \times 0.85} = \frac{0.135}{0.2625} = \mathbf{51.4\%}\)</span></li>
+<li>La baja prevalencia (15%) hace que los falsos positivos dominen</li>
 </ol>
 <div class="cell">
 <details class="code-fold">
@@ -1825,10 +1825,38 @@ Var(X) teórica = 400   Var(X) simulada = 398.9
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>prev <span class="ot">&lt;-</span> <span class="fl">0.15</span>; sens <span class="ot">&lt;-</span> <span class="fl">0.90</span>; spec <span class="ot">&lt;-</span> <span class="fl">0.85</span></span>
 <span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>vpp <span class="ot">&lt;-</span> (sens<span class="sc">*</span>prev) <span class="sc">/</span> (sens<span class="sc">*</span>prev <span class="sc">+</span> (<span class="dv">1</span><span class="sc">-</span>spec)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev))</span>
 <span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>vpn <span class="ot">&lt;-</span> (spec<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev)) <span class="sc">/</span> (spec<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">+</span>(<span class="dv">1</span><span class="sc">-</span>sens)<span class="sc">*</span>prev)</span>
-<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VPP ="</span>, <span class="fu">round</span>(vpp<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%"</span>, <span class="st">"</span><span class="sc">\n</span><span class="st">VPN ="</span>, <span class="fu">round</span>(vpn<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización</span></span>
+<span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
+<span id="cb34-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Árbol de probabilidades</span></span>
+<span id="cb34-8"><a aria-hidden="true" tabindex="-1"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Enfermo</span><span class="sc">\n</span><span class="st">(15%)"</span>, <span class="st">"Sano</span><span class="sc">\n</span><span class="st">(85%)"</span>)</span>
+<span id="cb34-9"><a aria-hidden="true" tabindex="-1"></a>bp <span class="ot">&lt;-</span> <span class="fu">barplot</span>(<span class="fu">c</span>(prev, <span class="dv">1</span><span class="sc">-</span>prev), <span class="at">names=</span>labels, <span class="at">col=</span><span class="fu">c</span>(<span class="st">"coral"</span>,<span class="st">"steelblue"</span>),</span>
+<span id="cb34-10"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">main=</span><span class="st">"Prevalencia de lumbalgia"</span>, <span class="at">ylab=</span><span class="st">"Proporción"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb34-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(bp, <span class="fu">c</span>(prev,<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">+</span><span class="fl">0.05</span>, <span class="fu">paste0</span>(<span class="fu">round</span>(<span class="fu">c</span>(prev,<span class="dv">1</span><span class="sc">-</span>prev)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>),<span class="st">"%"</span>), <span class="at">font=</span><span class="dv">2</span>, <span class="at">cex=</span><span class="fl">1.2</span>)</span>
+<span id="cb34-12"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-13"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Rendimiento del test</span></span>
+<span id="cb34-14"><a aria-hidden="true" tabindex="-1"></a>vp <span class="ot">&lt;-</span> sens<span class="sc">*</span>prev; fp <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>spec)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev); vn <span class="ot">&lt;-</span> spec<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>prev); fn <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>sens)<span class="sc">*</span>prev</span>
+<span id="cb34-15"><a aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(vp, fn, fp, vn), <span class="dv">2</span>, <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"Positivo"</span>,<span class="st">"Negativo"</span>), <span class="fu">c</span>(<span class="st">"Enfermo"</span>,<span class="st">"Sano"</span>)))</span>
+<span id="cb34-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(m, <span class="at">beside=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">"coral"</span>,<span class="st">"steelblue"</span>),</span>
+<span id="cb34-17"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"Test: VPP="</span>, <span class="fu">round</span>(vpp<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%  VPN="</span>, <span class="fu">round</span>(vpn<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%"</span>),</span>
+<span id="cb34-18"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Probabilidad"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.8</span>))</span>
+<span id="cb34-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="fu">c</span>(<span class="st">"Positivo"</span>,<span class="st">"Negativo"</span>), <span class="at">fill=</span><span class="fu">c</span>(<span class="st">"coral"</span>,<span class="st">"steelblue"</span>), <span class="at">bty=</span><span class="st">"n"</span>, <span class="at">cex=</span><span class="fl">0.85</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="T02_I_Probabilidad_files/figure-revealjs/unnamed-chunk-21-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VPP ="</span>, <span class="fu">round</span>(vpp<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%</span><span class="sc">\n</span><span class="st">VPN ="</span>, <span class="fu">round</span>(vpn<span class="sc">*</span><span class="dv">100</span>,<span class="dv">1</span>), <span class="st">"%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>VPP = 51.4 % 
+<pre><code>VPP = 51.4 %
 VPN = 98 %</code></pre>
 </div>
 </div>

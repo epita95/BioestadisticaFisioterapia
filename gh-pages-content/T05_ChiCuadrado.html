@@ -326,6 +326,7 @@
 <li><a href="#/puente-al-tema-6-de-la-asociación-a-la-predicción" id="/toc-puente-al-tema-6-de-la-asociación-a-la-predicción">Puente al tema 6 — De la asociación a la predicción</a></li>
 <li><a href="#/ejercicio-clínico-análisis-de-tablas-22" id="/toc-ejercicio-clínico-análisis-de-tablas-22">Ejercicio clínico — Análisis de tablas 2×2</a></li>
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
+
 <li><a href="#/ejercicio-clínico-tema-v" id="/toc-ejercicio-clínico-tema-v">Ejercicio Clínico — Tema V</a></li>
 </ul></li>
 </ul>
@@ -2489,13 +2490,16 @@ La odds de bajo peso es 3.77 veces mayor en madres fumadoras.</code></pre>
 </ul>
 </div>
 </section>
+<section class="slide level2 center">
+
+</section>
 <section id="ejercicio-clínico-tema-v" class="slide level2 smaller scrollable">
 <h2>Ejercicio Clínico — Tema V</h2>
-<p><strong>Contexto:</strong> Asociación tipo fisioterapia × mejoría (n=100): Manual 35/50 mejoran, Ejercicio 25/50.</p>
+<p><strong>Contexto:</strong> Asociación tipo fisioterapia × mejoría (n=100). Manual: 35/50 mejoran. Ejercicio: 25/50.</p>
 <ol type="1">
 <li>Calcula OR de mejoría (manual vs ejercicio)</li>
 <li>Interpreta</li>
-<li>¿Qué test?</li>
+<li>¿Qué test de contraste?</li>
 </ol>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
@@ -2508,19 +2512,42 @@ La odds de bajo peso es 3.77 veces mayor en madres fumadoras.</code></pre>
 <div class="callout-content">
 <p><strong>Solución</strong></p>
 <ol type="1">
-<li>OR = 35×25/15×25 = 2.33</li>
-<li>Terapia manual tiene 2.33× más odds de mejorar. Significativo</li>
-<li>χ² de Pearson (frecuencias esperadas &gt; 5)</li>
+<li><span class="math inline">\(OR = \frac{35 \times 25}{15 \times 25} = \frac{875}{375} = \mathbf{2.33}\)</span></li>
+<li>Terapia manual tiene 2.33× más odds de mejorar. <span class="math inline">\(P &lt; 0.05\)</span> → significativo</li>
+<li><span class="math inline">\(\chi^2\)</span> de Pearson (frecuencias esperadas <span class="math inline">\(&gt; 5\)</span>)</li>
 </ol>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>tabla<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">35</span>,<span class="dv">25</span>,<span class="dv">15</span>,<span class="dv">25</span>),<span class="dv">2</span>)</span>
-<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>chi<span class="ot">&lt;-</span><span class="fu">chisq.test</span>(tabla,<span class="at">correct=</span><span class="cn">FALSE</span>)</span>
-<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OR="</span>,<span class="fu">round</span>(<span class="dv">35</span><span class="sc">*</span><span class="dv">25</span><span class="sc">/</span>(<span class="dv">15</span><span class="sc">*</span><span class="dv">25</span>),<span class="dv">2</span>),<span class="st">" χ²="</span>,<span class="fu">round</span>(chi<span class="sc">$</span>stat,<span class="dv">2</span>),<span class="st">" P="</span>,<span class="fu">round</span>(chi<span class="sc">$</span>p.val,<span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">25</span>, <span class="dv">15</span>, <span class="dv">25</span>), <span class="at">nrow=</span><span class="dv">2</span>,</span>
+<span id="cb34-2"><a aria-hidden="true" tabindex="-1"></a>                <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">"Manual"</span>,<span class="st">"Ejercicio"</span>), <span class="fu">c</span>(<span class="st">"Mejoria"</span>,<span class="st">"No mejoria"</span>)))</span>
+<span id="cb34-3"><a aria-hidden="true" tabindex="-1"></a>chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla, <span class="at">correct=</span><span class="cn">FALSE</span>)</span>
+<span id="cb34-4"><a aria-hidden="true" tabindex="-1"></a>OR <span class="ot">&lt;-</span> <span class="dv">35</span><span class="sc">*</span><span class="dv">25</span><span class="sc">/</span>(<span class="dv">15</span><span class="sc">*</span><span class="dv">25</span>)</span>
+<span id="cb34-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">1</span>))</span>
+<span id="cb34-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 1: Barras agrupadas</span></span>
+<span id="cb34-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tabla, <span class="at">beside=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="fu">c</span>(<span class="st">"steelblue"</span>,<span class="st">"coral"</span>),</span>
+<span id="cb34-9"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"OR = "</span>, <span class="fu">round</span>(OR,<span class="dv">2</span>)), <span class="at">ylab=</span><span class="st">"Frecuencia"</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">40</span>))</span>
+<span id="cb34-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">"topright"</span>, <span class="fu">c</span>(<span class="st">"Manual"</span>,<span class="st">"Ejercicio"</span>), <span class="at">fill=</span><span class="fu">c</span>(<span class="st">"steelblue"</span>,<span class="st">"coral"</span>), <span class="at">bty=</span><span class="st">"n"</span>, <span class="at">cex=</span><span class="fl">0.8</span>)</span>
+<span id="cb34-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Panel 2: Mosaic</span></span>
+<span id="cb34-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mosaicplot</span>(<span class="fu">t</span>(tabla), <span class="at">main=</span><span class="st">"Mosaic: Tipo × Mejoría"</span>, <span class="at">color=</span><span class="fu">c</span>(<span class="st">"coral"</span>,<span class="st">"steelblue"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="T05_ChiCuadrado_files/figure-revealjs/unnamed-chunk-17-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb35-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OR ="</span>, <span class="fu">round</span>(OR,<span class="dv">2</span>), <span class="st">"χ² ="</span>, <span class="fu">round</span>(chi<span class="sc">$</span>statistic,<span class="dv">2</span>),</span>
+<span id="cb35-4"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"gl ="</span>, chi<span class="sc">$</span>parameter, <span class="st">"P ="</span>, <span class="fu">round</span>(chi<span class="sc">$</span>p.value,<span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>OR= 2.33  χ²= 4.17  P= 0.0412</code></pre>
+<pre><code>OR = 2.33 χ² = 4.17 gl = 1 P = 0.0412</code></pre>
 </div>
 </div>
 </div>

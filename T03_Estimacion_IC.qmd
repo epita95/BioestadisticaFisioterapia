@@ -972,26 +972,41 @@ np(x = 18, n = 40, d = 0.05, conf = 0.95) # para proporción
 :::
 ---
 
+---
+
 ## Ejercicio Clínico — Tema III
 
-**Contexto:** 36 pacientes con cervicalgia, reducción media EVA = 3.2 pts, s = 1.5.
+**Contexto:** 36 pacientes con cervicalgia, reducción media EVA = 3.2 pts, $s=1.5$.
 
-1. Calcula el IC 95% para la media poblacional
-2. ¿n necesario para error máximo de 0.5 pts (95% confianza)?
-3. ¿Válido usar t si desconocemos distribución poblacional?
+1. Calcula e interpreta el IC 95% para la media poblacional
+2. ¿n para error máximo 0.5 pts (confianza 95%)?
+3. ¿Válido usar t si desconocemos distribución?
 
 ::: {.callout-tip collapse="true"}
 **Solución**
 
-1. IC₉₅ = 3.2 ± 2.03×1.5/√36 = [2.69, 3.71]
-2. n = (1.96×1.5/0.5)² = 34.6 → 35 pacientes
-3. Sí — con n > 30, el TCL garantiza normalidad de x̄
+1. $IC_{95\%} = 3.2 \pm 2.03 \times 1.5/\sqrt{36} = [2.69,\, 3.71]$
+2. $n = (1.96 \times 1.5 / 0.5)^2 = 34.6 \rightarrow 35$ pacientes
+3. Sí — $n>30$, el TCL garantiza normalidad de $\bar{x}$
 
 ```{r}
-n<-36; xbar<-3.2; s<-1.5; SE<-s/sqrt(n)
-IC<-xbar + c(-1,1)*qt(0.975,n-1)*SE
-n_needed<-ceiling((qnorm(0.975)*s/0.5)^2)
-cat("IC 95%: [",round(IC[1],2),",",round(IC[2],2),"]",
+#| fig-height: 5
+n <- 36; xbar <- 3.2; s <- 1.5
+SE <- s/sqrt(n)
+IC <- xbar + c(-1,1) * qt(0.975, n-1) * SE
+n_needed <- ceiling((qnorm(0.975)*s/0.5)^2)
+
+curve(dnorm(x, xbar, SE), xbar-4*SE, xbar+4*SE, lwd=3, col="steelblue",
+      main=paste0("IC 95%: [", round(IC[1],2), ", ", round(IC[2],2), "]"),
+      xlab="Reducción EVA (puntos)", ylab="Densidad")
+abline(v=IC, col="darkgreen", lwd=2, lty=2)
+abline(v=xbar, col="darkgreen", lwd=3)
+xr <- seq(IC[1], IC[2], 0.01)
+polygon(c(xr, rev(xr)), c(dnorm(xr, xbar, SE), rep(0,length(xr))),
+        col=rgb(0,0.5,0.3,0.25), border=NA)
+text(xbar, dnorm(xbar,xbar,SE)/2, paste0("n=", n_needed, " para error=0.5"), col="darkgreen", font=2)
+
+cat("IC 95%: [", round(IC[1],2), ",", round(IC[2],2), "]",
     "\nn necesario:", n_needed)
 ```
 :::
