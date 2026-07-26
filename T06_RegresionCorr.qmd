@@ -63,7 +63,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 |-----|---------|---|-----|---------|
 | 20.36 | 17.36 | | 21.72 | 25.62 |
 | 20.34 | 12.72 | | 19.29 | 20.91 |
-| 19.55 | 11.65 | | 23.07 | 17.81 |
+| 20.05 | 11.65 | | 23.07 | 17.81 |
 | 23.94 | 19.34 | | 27.45 | 29.70 |
 | 22.17 | 24.19 | | 24.37 | 15.26 |
 | 22.18 | 28.41 | | 17.30 | 8.87 |
@@ -110,7 +110,7 @@ Antes de cualquier análisis numérico: **visualizar** la relación.
 :::
 
 ```{r}
-imc <- c(20.36,20.34,19.55,23.07,23.94,27.45,
+imc <- c(20.36,20.34,20.05,23.07,23.94,27.45,
          22.17,24.37,22.18,17.30,21.72,19.29)
 graso <- c(17.36,12.72,11.65,17.81,19.34,29.70,
            24.19,15.26,28.41,8.87,25.62,20.91)
@@ -391,9 +391,9 @@ $$\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{
 **Derivación (Opcional — para quien quiera profundizar):** Se deriva $S(\beta_0,\beta_1) = \sum (y_i - \beta_0 - \beta_1 x_i)^2$ respecto a $\beta_0$ y $\beta_1$, se iguala a cero, y se obtienen las fórmulas de arriba. En este curso **siempre usaremos R** (`lm(y ~ x)`) en lugar de derivar a mano.
 :::
 ## Ajuste del modelo en R: Imc vs. % graso
-#| code-fold: false
 
 ```{r}
+#| code-fold: false
 modelo <- lm(graso ~ imc)
 summary(modelo)
 
@@ -1021,7 +1021,7 @@ Cuando tenemos **más de dos variables**, la matriz de correlaciones resume toda
 #| fig-height: 5
 # Datos ampliados: a las variables originales (IMC, % graso) se añaden Edad, Fuerza prensil (kg) y EVA dolor (0-10)
 datos_clinicos <- data.frame(
-  IMC   = c(20.36, 20.34, 19.55, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
+  IMC   = c(20.36, 20.34, 20.05, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
   Graso = c(17.36, 12.72, 11.65, 19.34, 24.19, 25.62, 20.91, 17.81, 29.70, 25.43, 18.62, 23.15),
   Edad  = c(15, 16, 15, 18, 17, 16, 15, 17, 19, 18, 16, 17),
   Fuerza = c(28, 30, 25, 38, 35, 32, 22, 40, 45, 42, 31, 34),
@@ -1032,23 +1032,18 @@ datos_clinicos <- data.frame(
 **Matriz de correlaciones de Pearson:**
 
 ```{r}
+#| code-fold: false
 R <- cor(datos_clinicos)
-round(R, 3)
+knitr::kable(round(R, 3), format = "pipe", align = "c",
+             caption = "Matriz de correlaciones — Datos clínicos")
 ```
 
-| | IMC | % Graso | Edad | Fuerza | EVA |
-|:--|:---:|:-------:|:----:|:------:|:---:|
-| **IMC** | 1.000 | **0.610** | 0.796 | 0.884 | 0.753 |
-| **% Graso** | | 1.000 | 0.683 | 0.721 | 0.847 |
-| **Edad** | | | 1.000 | 0.857 | 0.618 |
-| **Fuerza** | | | | 1.000 | 0.690 |
-| **EVA** | | | | | 1.000 |
-
 ::: {.incremental}
-- **Correlación más fuerte:** IMC ↔ Fuerza prensil ($r = 0.884$)
-- **Correlación más débil:** Edad ↔ EVA ($r = 0.618$)
-- **Patrón esperado:** variables antropométricas correlacionadas entre sí (IMC, % graso, fuerza, edad)
-- **Hallazgo clínico:** EVA correlaciona con % graso ($r = 0.847$) — posible mediación del dolor por composición corporal
+- **Correlación más fuerte:** Edad ↔ Fuerza prensil ($r = 0.948$) — lógico: a mayor edad, más desarrollo muscular en adolescentes
+- **Correlación más débil:** IMC ↔ EVA ($r = 0.578$) — el dolor no depende directamente del IMC
+- **Patrón esperado:** variables antropométricas correlacionadas entre sí (IMC, Edad, Fuerza — bloque somatométrico)
+- **Hallazgo clínico:** EVA correlaciona con % graso ($r = 0.939$) — posible mediación del dolor por composición corporal
+- **Alerta de colinealidad:** IMC–Edad ($r = 0.916$) y Edad–Fuerza ($r = 0.948$) superan 0.90 → no incluir las tres juntas en regresión múltiple
 :::
 
 **Representación visual — mapa de calor (heatmap):**
