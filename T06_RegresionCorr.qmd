@@ -1253,46 +1253,70 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 
 ---
 
-## Ejercicio Clínico — Tema VI
+## Ejercicio Clínico — Tema VI {.smaller}
 
-**Contexto:** Relación edad-flexión lumbar en 10 pacientes. $\hat{Y} = 85 - 0.6X$, $R^2 = 0.64$.
+**Contexto:** Un fisioterapeuta mide la flexión lumbar (°) en 10 pacientes de distintas edades.
 
-1. Interpreta la pendiente ($-0.6$) en términos clínicos
-2. Predicción para 50 años
-3. Significado de $R^2$
+::: {.small}
+📥 **Descarga los datos:** [flexion_edad.csv](data/flexion_edad.csv)
+
+| Paciente | Edad (años) | Flexión lumbar (°) |
+|:--------:|:-----------:|:-------------------:|
+| 1 | 25 | 68.3 |
+| 2 | 30 | 66.3 |
+| 3 | 35 | 68.7 |
+| 4 | 40 | 61.2 |
+| 5 | 45 | 58.4 |
+| 6 | 50 | 60.1 |
+| 7 | 55 | 53.4 |
+| 8 | 60 | 45.2 |
+| 9 | 65 | 43.9 |
+| 10 | 70 | 41.7 |
+:::
+
+::: {.incremental}
+1. **Diagrama de dispersión:** ¿qué relación observas entre edad y flexión?
+2. **Ajusta el modelo:** `lm(flexion_lumbar ~ edad, data = df)` e interpreta $\hat{\beta}_1$
+3. **Predicción:** ¿qué flexión lumbar esperas en un paciente de 50 años?
+4. **Bondad de ajuste:** ¿qué significa $R^2 = 0.927$ en este contexto?
+:::
 
 ::: {.callout-tip}
-**Solución**
+**Solución** [Clica en «Mostrar código R» para ver el análisis completo]
 
-1. Por cada año más de edad, la flexión disminuye 0.6° en promedio
-2. $\hat{Y}(50) = 85 - 0.6 \times 50 = 85 - 30 = 55°$
-3. El 64% de la variabilidad en flexión se explica por la edad; el 36% por otros factores
+1. Relación **lineal inversa**: a más edad, menor flexión lumbar
+2. $\hat{\beta}_1 = -0.65$ (IC 95%: $[-0.80, -0.50]$) → por cada año más de edad, la flexión lumbar disminuye **0.65°** en promedio ($P < 0.001$)
+3. $\hat{Y}(50) = 87.5 - 0.65 \times 50 = 55.1°$
+4. $R^2 = 0.927$ → el **92.7%** de la variabilidad en flexión lumbar se explica por la edad
 
 ```{r}
-#| fig-height: 5.5
-set.seed(123)
-edad <- seq(25, 70, length.out=10)
-flexion <- 85 - 0.6*edad + rnorm(10, 0, 3)
-# Predicción con el modelo teórico: Y = 85 - 0.6X
-pred_50 <- 85 - 0.6 * 50
-
-plot(edad, flexion, pch=19, col="steelblue", cex=1.5,
-     main=expression(hat(Y) == 85 - 0.6*X ~~ "·" ~~ R^2 == 0.64),
-     xlab="Edad (años)", ylab="Flexión lumbar (°)")
-abline(a=85, b=-0.6, col="darkgreen", lwd=2.5)
-# Banda de confianza (IC 95% para la media)
-modelo <- lm(flexion ~ edad)
+#| fig-height: 5
+# 1. Leer datos
+df <- read.csv("data/flexion_edad.csv")
+# 2. Diagrama de dispersión + recta de regresión
+plot(df$edad, df$flexion_lumbar, pch=19, col="steelblue", cex=1.3,
+     xlab="Edad (años)", ylab="Flexión lumbar (°)",
+     main="Flexión lumbar vs. Edad (n = 10)")
+modelo <- lm(flexion_lumbar ~ edad, data = df)
+abline(modelo, col="darkgreen", lwd=2.5)
+# 3. Resumen del modelo
+s <- summary(modelo)
+# 4. Predicción a 50 años
+pred_50 <- predict(modelo, data.frame(edad=50))
+points(50, pred_50, pch=19, col="coral", cex=2.5)
+text(50, pred_50+2, paste0(round(pred_50,1),"°"), col="coral", font=2, pos=3)
+# 5. Banda de confianza
 newx <- seq(25, 70, length=50)
 preds <- predict(modelo, data.frame(edad=newx), interval="confidence")
 polygon(c(newx, rev(newx)), c(preds[,2], rev(preds[,3])),
         col=rgb(0,0.5,0.3,0.08), border=NA)
-# Predicción destacada a los 50 años
-points(50, pred_50, pch=19, col="coral", cex=2.5)
-text(50, pred_50+1.5, paste0(pred_50,"°"), col="coral", font=2, pos=3)
 
-cat("Ecuación teórica: Ŷ = 85 - 0.6X",
-    "\nR² teórico = 0.64",
-    "\nPredicción a 50 años: 85 - 0.6×50 =", pred_50, "°")
+cat("R² =", round(s$r.squared, 3),
+    "\nβ₀ =", round(coef(modelo)[1], 1),
+    "\nβ₁ =", round(coef(modelo)[2], 2),
+    "\nIC 95% β₁ = [", round(confint(modelo)[2,1],2), ",", round(confint(modelo)[2,2],2), "]",
+    "\nPredicción 50 años:", round(pred_50,1), "°",
+    "\nP =", format(s$coefficients[2,4], digits=3))
 ```
 :::
 ---
