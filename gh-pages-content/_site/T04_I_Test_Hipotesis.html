@@ -298,6 +298,14 @@
 <li><a href="#/bioestatr-testt-para-una-muestra" id="/toc-bioestatr-testt-para-una-muestra">BioEstatR — <code>testt</code> para una muestra</a></li>
 <li><a href="#/salida-de-testt-muestra-automaticamente-estadistico-gl-p-valor-ic-95-estimacion-del-efecto-bruto-y-test-de-normalidad-shapiro-wilk-para-medias." id="/toc-salida-de-testt-muestra-automaticamente-estadistico-gl-p-valor-ic-95-estimacion-del-efecto-bruto-y-test-de-normalidad-shapiro-wilk-para-medias."><strong>Salida de <code>testt</code>:</strong> Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.</a></li>
 <li><a href="#/ejercicio-clínico-tema-iv-parte-i" id="/toc-ejercicio-clínico-tema-iv-parte-i">Ejercicio Clínico — Tema IV (Parte I)</a></li>
+
+</ul></li>
+<li><a href="#/código-del-tema-iv-parte-i-resumen-organizado" id="/toc-código-del-tema-iv-parte-i-resumen-organizado">Código del Tema IV (Parte I) — Resumen Organizado</a>
+<ul>
+<li><a href="#/test-para-una-media-t-student-1" id="/toc-test-para-una-media-t-student-1">Test para una media (t-Student)</a></li>
+<li><a href="#/test-para-una-proporción" id="/toc-test-para-una-proporción">Test para una proporción</a></li>
+<li><a href="#/verificación-de-normalidad" id="/toc-verificación-de-normalidad">Verificación de normalidad</a></li>
+<li><a href="#/cálculo-manual-del-p-valor" id="/toc-cálculo-manual-del-p-valor">Cálculo manual del P-valor</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -354,7 +362,7 @@
 <li>“El IC 95% fue (−0.5, 8.2)” → ¿es clínicamente relevante?</li>
 </ul>
 </div></div>
-<p><strong>“Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe.”</strong> — Ronald Fisher <span class="citation" data-cites="fisher1925">(<a href="#/ejercicio-clínico-tema-iv-parte-i" role="doc-biblioref" onclick="">Fisher, 1925</a>)</span></p>
+<p><strong>“Lo que la estadística nos dice no es si un efecto existe, sino cuán sorprendentes son los datos si asumimos que no existe.”</strong> — Ronald Fisher <span class="citation" data-cites="fisher1925">(<a href="#/cálculo-manual-del-p-valor" role="doc-biblioref" onclick="">Fisher, 1925</a>)</span></p>
 </section></section>
 <section>
 <section id="marco-conceptual" class="title-slide slide level1 center">
@@ -1205,7 +1213,7 @@ Test de Shapiro-Wilk: W = 0.956, P = 0.789</code></pre>
 <section id="salida-de-testt-muestra-automaticamente-estadistico-gl-p-valor-ic-95-estimacion-del-efecto-bruto-y-test-de-normalidad-shapiro-wilk-para-medias." class="slide level2 center">
 <h2><strong>Salida de <code>testt</code>:</strong> Muestra automáticamente: estadístico, gl, P-valor, IC 95%, estimación del efecto bruto, y test de normalidad (Shapiro-Wilk) para medias.</h2>
 </section>
-<section id="ejercicio-clínico-tema-iv-parte-i" class="slide level2 smaller scrollable">
+<section id="ejercicio-clínico-tema-iv-parte-i" class="slide level2 center">
 <h2>Ejercicio Clínico — Tema IV (Parte I)</h2>
 <p><strong>Contexto:</strong> Flexión rodilla en 6 pacientes: 125°, 132°, 128°, 135°, 130°, 126°. Referencia: 130°.</p>
 <ol type="1">
@@ -1267,6 +1275,74 @@ Test de Shapiro-Wilk: W = 0.956, P = 0.789</code></pre>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2 center">
+
+</section></section>
+<section>
+<section id="código-del-tema-iv-parte-i-resumen-organizado" class="title-slide slide level1 center">
+<h1>Código del Tema IV (Parte I) — Resumen Organizado</h1>
+
+</section>
+<section id="test-para-una-media-t-student-1" class="slide level2 center">
+<h2>Test para una media (t-Student)</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test t para una muestra</span></span>
+<span id="cb28-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">132</span>, <span class="dv">128</span>, <span class="dv">135</span>, <span class="dv">130</span>, <span class="dv">126</span>)</span>
+<span id="cb28-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x, <span class="at">mu =</span> <span class="dv">130</span>)                       <span class="co"># H₀: μ = 130</span></span>
+<span id="cb28-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Con BioEstatR (datos resumidos)</span></span>
+<span id="cb28-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb28-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">testt</span>(<span class="at">m =</span> <span class="fu">mean</span>(x), <span class="at">s =</span> <span class="fu">sd</span>(x), <span class="at">n =</span> <span class="fu">length</span>(x), <span class="at">m0 =</span> <span class="dv">130</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="test-para-una-proporción" class="slide level2 center">
+<h2>Test para una proporción</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test z para una proporción</span></span>
+<span id="cb29-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">48</span>; n <span class="ot">&lt;-</span> <span class="dv">287</span>; p0 <span class="ot">&lt;-</span> <span class="fl">0.22</span></span>
+<span id="cb29-3"><a aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> x <span class="sc">/</span> n</span>
+<span id="cb29-4"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (p_hat <span class="sc">-</span> p0) <span class="sc">/</span> <span class="fu">sqrt</span>(p0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p0) <span class="sc">/</span> n)</span>
+<span id="cb29-5"><a aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fu">abs</span>(z))</span>
+<span id="cb29-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"z ="</span>, <span class="fu">round</span>(z, <span class="dv">3</span>), <span class="st">"P ="</span>, <span class="fu">round</span>(P, <span class="dv">4</span>))</span>
+<span id="cb29-7"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Con BioEstatR</span></span>
+<span id="cb29-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb29-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">testp</span>(<span class="at">x =</span> <span class="dv">47</span>, <span class="at">n =</span> <span class="dv">50</span>, <span class="at">p0 =</span> <span class="fl">0.95</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="verificación-de-normalidad" class="slide level2 center">
+<h2>Verificación de normalidad</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test de Shapiro-Wilk</span></span>
+<span id="cb30-2"><a aria-hidden="true" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">132</span>, <span class="dv">128</span>, <span class="dv">135</span>, <span class="dv">130</span>, <span class="dv">126</span>)</span>
+<span id="cb30-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(datos)                       <span class="co"># P &gt; 0.05 → normalidad asumible</span></span>
+<span id="cb30-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Con BioEstatR (test + gráficos)</span></span>
+<span id="cb30-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb30-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">testnormal</span>(datos)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="cálculo-manual-del-p-valor" class="slide level2 smaller scrollable">
+<h2>Cálculo manual del P-valor</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># P-valor a partir de t observado</span></span>
+<span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a>t_exp <span class="ot">&lt;-</span> <span class="fl">2.40</span>; gl <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb31-3"><a aria-hidden="true" tabindex="-1"></a>P <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_exp), gl)              <span class="co"># P bilateral = 0.037</span></span>
+<span id="cb31-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"P ="</span>, <span class="fu">round</span>(P, <span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 
 

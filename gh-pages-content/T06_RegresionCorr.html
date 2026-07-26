@@ -404,7 +404,7 @@
 <td>20.91</td>
 </tr>
 <tr class="odd">
-<td>19.55</td>
+<td>20.05</td>
 <td>11.65</td>
 <td></td>
 <td>23.07</td>
@@ -481,7 +481,7 @@
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.36</span>,<span class="fl">20.34</span>,<span class="fl">19.55</span>,<span class="fl">23.07</span>,<span class="fl">23.94</span>,<span class="fl">27.45</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">20.36</span>,<span class="fl">20.34</span>,<span class="fl">20.05</span>,<span class="fl">23.07</span>,<span class="fl">23.94</span>,<span class="fl">27.45</span>,</span>
 <span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a>         <span class="fl">22.17</span>,<span class="fl">24.37</span>,<span class="fl">22.18</span>,<span class="fl">17.30</span>,<span class="fl">21.72</span>,<span class="fl">19.29</span>)</span>
 <span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a>graso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">17.36</span>,<span class="fl">12.72</span>,<span class="fl">11.65</span>,<span class="fl">17.81</span>,<span class="fl">19.34</span>,<span class="fl">29.70</span>,</span>
 <span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a>           <span class="fl">24.19</span>,<span class="fl">15.26</span>,<span class="fl">28.41</span>,<span class="fl">8.87</span>,<span class="fl">25.62</span>,<span class="fl">20.91</span>)</span>
@@ -861,13 +861,9 @@ lm() b1 = 0.616</code></pre>
 </section>
 <section id="ajuste-del-modelo-en-r-imc-vs.-graso" class="slide level2 center">
 <h2>Ajuste del modelo en R: Imc vs.&nbsp;% graso</h2>
-<p>#| code-fold: false</p>
 <div class="cell">
-<details class="code-fold">
-<summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc)</span>
 <span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -875,21 +871,19 @@ lm(formula = graso ~ imc)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--7.980 -3.704 -1.488  4.604  8.526 
+-7.893 -3.710 -1.422  4.664  8.592 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)  
-(Intercept)  -14.100     13.399  -1.052   0.3174  
-imc            1.532      0.610   2.512   0.0308 *
+(Intercept) -13.9643    13.7508  -1.016    0.334  
+imc           1.5231     0.6249   2.437    0.035 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.484 on 10 degrees of freedom
-Multiple R-squared:  0.3868,    Adjusted R-squared:  0.3255 
-F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
+Residual standard error: 5.547 on 10 degrees of freedom
+Multiple R-squared:  0.3726,    Adjusted R-squared:  0.3099 
+F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
 </div>
-<details class="code-fold">
-<summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Visualización</span></span>
 <span id="cb14-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">1</span>))</span>
 <span id="cb14-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Scatter + recta</span></span>
@@ -901,12 +895,8 @@ F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
 <span id="cb14-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(modelo), <span class="fu">residuals</span>(modelo), <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"steelblue"</span>,</span>
 <span id="cb14-10"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Residuos vs Ajustados"</span>, <span class="at">xlab=</span><span class="st">"Ajustados"</span>, <span class="at">ylab=</span><span class="st">"Residuos"</span>)</span>
 <span id="cb14-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">"grey"</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 
-<details class="code-fold">
-<summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
 </div>
 <img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-7-1.png" width="864" class="r-stretch"><p><strong>Resultados:</strong> - <span class="math inline">\(\hat{\beta}_0 = -13.96\)</span> (intercepto), <span class="math inline">\(\hat{\beta}_1 = 1.52\)</span> (pendiente) - <span class="math inline">\(R^2 = 0.373\)</span> (37.3% de variabilidad explicada), Error estándar residual <span class="math inline">\(s = 5.55\)</span> - <span class="math inline">\(P = 0.035\)</span> (pendiente significativa)</p>
 <p><strong>Interpretación:</strong> Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en <strong>1.52 puntos porcentuales</strong> (IC 95%: 0.13 a 2.92).</p>
@@ -931,9 +921,9 @@ F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
 <span id="cb16-7"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">summary(modelo)$sigma ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>sigma, <span class="dv">2</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>SC_res = 300.75 | n-2 = 10 
-s2 = 30.08 | s = 5.48 
-summary(modelo)$sigma = 5.48</code></pre>
+<pre><code>SC_res = 307.73 | n-2 = 10 
+s2 = 30.77 | s = 5.55 
+summary(modelo)$sigma = 5.55</code></pre>
 </div>
 </div>
 </section>
@@ -1009,7 +999,7 @@ summary(modelo)$sigma = 5.48</code></pre>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
-19.60857 </code></pre>
+19.54338 </code></pre>
 </div>
 </div>
 <img data-src="T06_RegresionCorr_files/figure-revealjs/unnamed-chunk-10-1.png" width="864" class="r-stretch"></section>
@@ -1118,13 +1108,13 @@ summary(modelo)$sigma = 5.48</code></pre>
     Pearson's product-moment correlation
 
 data:  imc and graso
-t = 2.5118, df = 10, p-value = 0.03082
+t = 2.4371, df = 10, p-value = 0.03502
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.07475154 0.88129428
+ 0.05623223 0.87707188
 sample estimates:
       cor 
-0.6219706 </code></pre>
+0.6104341 </code></pre>
 </div>
 </div>
 <p><strong>Intervalo de confianza para <span class="math inline">\(\rho\)</span> (transformación <span class="math inline">\(z\)</span> de Fisher):</strong> <span class="math display">\[z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right), \quad IC_{1-\alpha}(z_\rho) = z \pm \frac{z_{1-\alpha/2}}{\sqrt{n-3}}\]</span></p>
@@ -1189,7 +1179,7 @@ sample estimates:
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Pearson (paramétrica, lineal)</span></span>
 <span id="cb27-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso)                    <span class="co"># r = 0.610</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.6219706</code></pre>
+<pre><code>[1] 0.6104341</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso)               <span class="co"># Test H0: ρ = 0</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -1197,13 +1187,13 @@ sample estimates:
     Pearson's product-moment correlation
 
 data:  imc and graso
-t = 2.5118, df = 10, p-value = 0.03082
+t = 2.4371, df = 10, p-value = 0.03502
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- 0.07475154 0.88129428
+ 0.05623223 0.87707188
 sample estimates:
       cor 
-0.6219706 </code></pre>
+0.6104341 </code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Spearman (no paramétrica, monótona)</span></span>
 <span id="cb31-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso, <span class="at">method=</span><span class="st">"spearman"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1334,9 +1324,9 @@ sample estimates:
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit      lwr      upr
-1 19.60857 16.07187 23.14527
-2 24.20524 18.61755 29.79292
-3 28.80190 19.68110 37.92271</code></pre>
+1 19.54338 15.96946 23.11731
+2 24.11261 18.46194 29.76328
+3 28.68183 19.40882 37.95485</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
@@ -1345,9 +1335,9 @@ sample estimates:
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       fit       lwr      upr
-1 19.60857  6.887691 32.32945
-2 24.20524 10.768915 37.64156
-3 28.80190 13.553900 44.04991</code></pre>
+1 19.54338  6.676852 32.40992
+2 24.11261 10.521995 37.70322
+3 28.68183 13.229858 44.13381</code></pre>
 </div>
 </div>
 </section>
@@ -1658,16 +1648,16 @@ R: b0= -0.21  b1= 0.616</code></pre>
 
 Response: graso
           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-imc        1 189.75 189.750  6.3092 0.03082 *
-Residuals 10 300.75  30.075                  
+imc        1 182.78 182.777  5.9396 0.03502 *
+Residuals 10 307.73  30.773                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R² ="</span>, <span class="fu">round</span>(s<span class="sc">$</span>r.squared, <span class="dv">4</span>),</span>
 <span id="cb47-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">R² ajustado ="</span>, <span class="fu">round</span>(s<span class="sc">$</span>adj.r.squared, <span class="dv">4</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>R² = 0.3868 
-R² ajustado = 0.3255</code></pre>
+<pre><code>R² = 0.3726 
+R² ajustado = 0.3099</code></pre>
 </div>
 </div>
 </section>
@@ -1730,8 +1720,8 @@ R² ajustado = 0.3255</code></pre>
 
 Response: graso
           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-imc        1 189.75 189.750  6.3092 0.03082 *
-Residuals 10 300.75  30.075                  
+imc        1 182.78 182.777  5.9396 0.03502 *
+Residuals 10 307.73  30.773                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
@@ -1740,9 +1730,9 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <span id="cb51-3"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">Error estándar residual ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>sigma, <span class="dv">2</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
-R² = 0.3868 
-R² ajustado = 0.3255 
-Error estándar residual = 5.48</code></pre>
+R² = 0.3726 
+R² ajustado = 0.3099 
+Error estándar residual = 5.55</code></pre>
 </div>
 </div>
 <p><strong>Interpretación:</strong> <span class="math inline">\(F(1,10) = 5.94\)</span>, <span class="math inline">\(P = 0.035\)</span> → La pendiente es significativamente distinta de cero (<span class="math inline">\(P &lt; 0.05\)</span>). El IMC <strong>sí</strong> predice el % de masa grasa.</p>
@@ -2019,7 +2009,7 @@ P = 5e-04</code></pre>
 <summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Datos ampliados: a las variables originales (IMC, % graso) se añaden Edad, Fuerza prensil (kg) y EVA dolor (0-10)</span></span>
 <span id="cb66-2"><a aria-hidden="true" tabindex="-1"></a>datos_clinicos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">IMC   =</span> <span class="fu">c</span>(<span class="fl">20.36</span>, <span class="fl">20.34</span>, <span class="fl">19.55</span>, <span class="fl">23.94</span>, <span class="fl">22.17</span>, <span class="fl">21.72</span>, <span class="fl">19.29</span>, <span class="fl">23.07</span>, <span class="fl">27.45</span>, <span class="fl">24.91</span>, <span class="fl">22.69</span>, <span class="fl">21.15</span>),</span>
+<span id="cb66-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">IMC   =</span> <span class="fu">c</span>(<span class="fl">20.36</span>, <span class="fl">20.34</span>, <span class="fl">20.05</span>, <span class="fl">23.94</span>, <span class="fl">22.17</span>, <span class="fl">21.72</span>, <span class="fl">19.29</span>, <span class="fl">23.07</span>, <span class="fl">27.45</span>, <span class="fl">24.91</span>, <span class="fl">22.69</span>, <span class="fl">21.15</span>),</span>
 <span id="cb66-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Graso =</span> <span class="fu">c</span>(<span class="fl">17.36</span>, <span class="fl">12.72</span>, <span class="fl">11.65</span>, <span class="fl">19.34</span>, <span class="fl">24.19</span>, <span class="fl">25.62</span>, <span class="fl">20.91</span>, <span class="fl">17.81</span>, <span class="fl">29.70</span>, <span class="fl">25.43</span>, <span class="fl">18.62</span>, <span class="fl">23.15</span>),</span>
 <span id="cb66-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Edad  =</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">15</span>, <span class="dv">18</span>, <span class="dv">17</span>, <span class="dv">16</span>, <span class="dv">15</span>, <span class="dv">17</span>, <span class="dv">19</span>, <span class="dv">18</span>, <span class="dv">16</span>, <span class="dv">17</span>),</span>
 <span id="cb66-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="at">Fuerza =</span> <span class="fu">c</span>(<span class="dv">28</span>, <span class="dv">30</span>, <span class="dv">25</span>, <span class="dv">38</span>, <span class="dv">35</span>, <span class="dv">32</span>, <span class="dv">22</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">42</span>, <span class="dv">31</span>, <span class="dv">34</span>),</span>
@@ -2029,26 +2019,17 @@ P = 5e-04</code></pre>
 </div>
 <p><strong>Matriz de correlaciones de Pearson:</strong></p>
 <div class="cell">
-<details class="code-fold">
-<summary>Mostrar código R</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a aria-hidden="true" tabindex="-1"></a>R <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_clinicos)</span>
-<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(R, <span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>         IMC Graso  Edad Fuerza   EVA
-IMC    1.000 0.664 0.921  0.929 0.599
-Graso  0.664 1.000 0.647  0.598 0.939
-Edad   0.921 0.647 1.000  0.948 0.676
-Fuerza 0.929 0.598 0.948  1.000 0.592
-EVA    0.599 0.939 0.676  0.592 1.000</code></pre>
-</div>
-</div>
+<span id="cb67-2"><a aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">round</span>(R, <span class="dv">3</span>), <span class="at">format =</span> <span class="st">"pipe"</span>, <span class="at">align =</span> <span class="st">"c"</span>,</span>
+<span id="cb67-3"><a aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">"Matriz de correlaciones — Datos clínicos"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
 <table class="caption-top">
+<caption>Matriz de correlaciones — Datos clínicos</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
 <th style="text-align: center;">IMC</th>
-<th style="text-align: center;">% Graso</th>
+<th style="text-align: center;">Graso</th>
 <th style="text-align: center;">Edad</th>
 <th style="text-align: center;">Fuerza</th>
 <th style="text-align: center;">EVA</th>
@@ -2056,64 +2037,67 @@ EVA    0.599 0.939 0.676  0.592 1.000</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>IMC</strong></td>
+<td style="text-align: left;">IMC</td>
 <td style="text-align: center;">1.000</td>
-<td style="text-align: center;"><strong>0.610</strong></td>
-<td style="text-align: center;">0.796</td>
-<td style="text-align: center;">0.884</td>
-<td style="text-align: center;">0.753</td>
+<td style="text-align: center;">0.645</td>
+<td style="text-align: center;">0.916</td>
+<td style="text-align: center;">0.924</td>
+<td style="text-align: center;">0.578</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>% Graso</strong></td>
-<td style="text-align: center;"></td>
+<td style="text-align: left;">Graso</td>
+<td style="text-align: center;">0.645</td>
 <td style="text-align: center;">1.000</td>
-<td style="text-align: center;">0.683</td>
-<td style="text-align: center;">0.721</td>
-<td style="text-align: center;">0.847</td>
+<td style="text-align: center;">0.647</td>
+<td style="text-align: center;">0.598</td>
+<td style="text-align: center;">0.939</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>Edad</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td style="text-align: left;">Edad</td>
+<td style="text-align: center;">0.916</td>
+<td style="text-align: center;">0.647</td>
 <td style="text-align: center;">1.000</td>
-<td style="text-align: center;">0.857</td>
-<td style="text-align: center;">0.618</td>
+<td style="text-align: center;">0.948</td>
+<td style="text-align: center;">0.676</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>Fuerza</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td style="text-align: left;">Fuerza</td>
+<td style="text-align: center;">0.924</td>
+<td style="text-align: center;">0.598</td>
+<td style="text-align: center;">0.948</td>
 <td style="text-align: center;">1.000</td>
-<td style="text-align: center;">0.690</td>
+<td style="text-align: center;">0.592</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;"><strong>EVA</strong></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
+<td style="text-align: left;">EVA</td>
+<td style="text-align: center;">0.578</td>
+<td style="text-align: center;">0.939</td>
+<td style="text-align: center;">0.676</td>
+<td style="text-align: center;">0.592</td>
 <td style="text-align: center;">1.000</td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
 <ul>
-<li class="fragment"><strong>Correlación más fuerte:</strong> IMC ↔︎ Fuerza prensil (<span class="math inline">\(r = 0.884\)</span>)</li>
-<li class="fragment"><strong>Correlación más débil:</strong> Edad ↔︎ EVA (<span class="math inline">\(r = 0.618\)</span>)</li>
-<li class="fragment"><strong>Patrón esperado:</strong> variables antropométricas correlacionadas entre sí (IMC, % graso, fuerza, edad)</li>
-<li class="fragment"><strong>Hallazgo clínico:</strong> EVA correlaciona con % graso (<span class="math inline">\(r = 0.847\)</span>) — posible mediación del dolor por composición corporal</li>
+<li class="fragment"><strong>Correlación más fuerte:</strong> Edad ↔︎ Fuerza prensil (<span class="math inline">\(r = 0.948\)</span>) — lógico: a mayor edad, más desarrollo muscular en adolescentes</li>
+<li class="fragment"><strong>Correlación más débil:</strong> IMC ↔︎ EVA (<span class="math inline">\(r = 0.578\)</span>) — el dolor no depende directamente del IMC</li>
+<li class="fragment"><strong>Patrón esperado:</strong> variables antropométricas correlacionadas entre sí (IMC, Edad, Fuerza — bloque somatométrico)</li>
+<li class="fragment"><strong>Hallazgo clínico:</strong> EVA correlaciona con % graso (<span class="math inline">\(r = 0.939\)</span>) — posible mediación del dolor por composición corporal</li>
+<li class="fragment"><strong>Alerta de colinealidad:</strong> IMC–Edad (<span class="math inline">\(r = 0.916\)</span>) y Edad–Fuerza (<span class="math inline">\(r = 0.948\)</span>) superan 0.90 → no incluir las tres juntas en regresión múltiple</li>
 </ul>
 <p><strong>Representación visual — mapa de calor (heatmap):</strong></p>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"#2166ac"</span>, <span class="st">"white"</span>, <span class="st">"#b2182b"</span>))(<span class="dv">200</span>)</span>
-<span id="cb69-2"><a aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">"color"</span>, <span class="at">type =</span> <span class="st">"upper"</span>,</span>
-<span id="cb69-3"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">col =</span> colores, <span class="at">addCoef.col =</span> <span class="st">"black"</span>,</span>
-<span id="cb69-4"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">tl.col =</span> <span class="st">"black"</span>, <span class="at">tl.cex =</span> <span class="fl">0.9</span>,</span>
-<span id="cb69-5"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">number.cex =</span> <span class="fl">0.8</span>, <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb69-6"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">title =</span> <span class="st">"Matriz de Correlaciones — Datos Clínicos"</span>,</span>
-<span id="cb69-7"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a aria-hidden="true" tabindex="-1"></a>colores <span class="ot">&lt;-</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"#2166ac"</span>, <span class="st">"white"</span>, <span class="st">"#b2182b"</span>))(<span class="dv">200</span>)</span>
+<span id="cb68-2"><a aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(R, <span class="at">method =</span> <span class="st">"color"</span>, <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb68-3"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">col =</span> colores, <span class="at">addCoef.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb68-4"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">tl.col =</span> <span class="st">"black"</span>, <span class="at">tl.cex =</span> <span class="fl">0.9</span>,</span>
+<span id="cb68-5"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">number.cex =</span> <span class="fl">0.8</span>, <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb68-6"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">title =</span> <span class="st">"Matriz de Correlaciones — Datos Clínicos"</span>,</span>
+<span id="cb68-7"><a aria-hidden="true" tabindex="-1"></a>                   <span class="at">mar =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">0</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 
 </div>
@@ -2149,13 +2133,13 @@ EVA    0.599 0.939 0.676  0.592 1.000</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: % graso ~ IMC + edad + sexo</span></span>
-<span id="cb70-2"><a aria-hidden="true" tabindex="-1"></a>modelo_mult <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc <span class="sc">+</span> edad <span class="sc">+</span> sexo, <span class="at">data =</span> df)</span>
-<span id="cb70-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_mult)</span>
-<span id="cb70-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># BioEstatR</span></span>
-<span id="cb70-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BioEstatR"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"BioEstatR"</span>)</span>
-<span id="cb70-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: % graso ~ IMC + edad + sexo</span></span>
+<span id="cb69-2"><a aria-hidden="true" tabindex="-1"></a>modelo_mult <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc <span class="sc">+</span> edad <span class="sc">+</span> sexo, <span class="at">data =</span> df)</span>
+<span id="cb69-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_mult)</span>
+<span id="cb69-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># BioEstatR</span></span>
+<span id="cb69-6"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BioEstatR"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"BioEstatR"</span>)</span>
+<span id="cb69-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <ul>
@@ -2174,17 +2158,17 @@ EVA    0.599 0.939 0.676  0.592 1.000</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: R² vs R² ajustado</span></span>
-<span id="cb71-2"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nobs</span>(modelo); k <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb71-3"><a aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared</span>
-<span id="cb71-4"><a aria-hidden="true" tabindex="-1"></a>R2_adj <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span><span class="sc">-</span>R2)<span class="sc">*</span>(n<span class="dv">-1</span>)<span class="sc">/</span>(n<span class="sc">-</span>k<span class="dv">-1</span>)</span>
-<span id="cb71-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R² ="</span>, <span class="fu">round</span>(R2, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">R² ajustado ="</span>, <span class="fu">round</span>(R2_adj, <span class="dv">4</span>),</span>
-<span id="cb71-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">(Diferencia:"</span>, <span class="fu">round</span>((R2<span class="sc">-</span>R2_adj)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>), <span class="st">"pp)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ejemplo: R² vs R² ajustado</span></span>
+<span id="cb70-2"><a aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nobs</span>(modelo); k <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb70-3"><a aria-hidden="true" tabindex="-1"></a>R2 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared</span>
+<span id="cb70-4"><a aria-hidden="true" tabindex="-1"></a>R2_adj <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> (<span class="dv">1</span><span class="sc">-</span>R2)<span class="sc">*</span>(n<span class="dv">-1</span>)<span class="sc">/</span>(n<span class="sc">-</span>k<span class="dv">-1</span>)</span>
+<span id="cb70-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R² ="</span>, <span class="fu">round</span>(R2, <span class="dv">4</span>), <span class="st">"</span><span class="sc">\n</span><span class="st">R² ajustado ="</span>, <span class="fu">round</span>(R2_adj, <span class="dv">4</span>),</span>
+<span id="cb70-6"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">(Diferencia:"</span>, <span class="fu">round</span>((R2<span class="sc">-</span>R2_adj)<span class="sc">*</span><span class="dv">100</span>, <span class="dv">2</span>), <span class="st">"pp)"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>R² = 0.3868 
-R² ajustado = 0.3255 
-(Diferencia: 6.13 pp)</code></pre>
+<pre><code>R² = 0.3726 
+R² ajustado = 0.3099 
+(Diferencia: 6.27 pp)</code></pre>
 </div>
 </div>
 <p><strong>Regla:</strong> Si la diferencia entre <span class="math inline">\(R^2\)</span> y <span class="math inline">\(R^2_{\text{adj}}\)</span> es grande, el modelo puede estar sobreajustado (demasiadas variables para los datos disponibles).</p>
@@ -2219,8 +2203,8 @@ R² ajustado = 0.3255
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc)</span>
-<span id="cb73-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)           <span class="co"># Coeficientes, R², test F</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc)</span>
+<span id="cb72-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)           <span class="co"># Coeficientes, R², test F</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2229,60 +2213,60 @@ lm(formula = graso ~ imc)
 
 Residuals:
    Min     1Q Median     3Q    Max 
--7.980 -3.704 -1.488  4.604  8.526 
+-7.893 -3.710 -1.422  4.664  8.592 
 
 Coefficients:
             Estimate Std. Error t value Pr(&gt;|t|)  
-(Intercept)  -14.100     13.399  -1.052   0.3174  
-imc            1.532      0.610   2.512   0.0308 *
+(Intercept) -13.9643    13.7508  -1.016    0.334  
+imc           1.5231     0.6249   2.437    0.035 *
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 5.484 on 10 degrees of freedom
-Multiple R-squared:  0.3868,    Adjusted R-squared:  0.3255 
-F-statistic: 6.309 on 1 and 10 DF,  p-value: 0.03082</code></pre>
+Residual standard error: 5.547 on 10 degrees of freedom
+Multiple R-squared:  0.3726,    Adjusted R-squared:  0.3099 
+F-statistic:  5.94 on 1 and 10 DF,  p-value: 0.03502</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modelo)            <span class="co"># IC 95% para coeficientes</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modelo)            <span class="co"># IC 95% para coeficientes</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>                  2.5 %    97.5 %
-(Intercept) -43.9555317 15.754876
-imc           0.1730377  2.891407</code></pre>
+(Intercept) -44.6029087 16.674382
+imc           0.1306021  2.915548</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)              <span class="co"># Tabla ANOVA</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)              <span class="co"># Tabla ANOVA</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
 Response: graso
           Df Sum Sq Mean Sq F value  Pr(&gt;F)  
-imc        1 189.75 189.750  6.3092 0.03082 *
-Residuals 10 300.75  30.075                  
+imc        1 182.78 182.777  5.9396 0.03502 *
+Residuals 10 307.73  30.773                  
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo)                <span class="co"># Criterio de información</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">AIC</span>(modelo)                <span class="co"># Criterio de información</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 78.71116</code></pre>
+<pre><code>[1] 78.98624</code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">imc=</span><span class="dv">22</span>))   <span class="co"># Predicciones</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">imc=</span><span class="dv">22</span>))   <span class="co"># Predicciones</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>       1 
-19.60857 </code></pre>
+19.54338 </code></pre>
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)               <span class="co"># 4 gráficos diagnóstico</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)               <span class="co"># 4 gráficos diagnóstico</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -2318,12 +2302,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BioEstatR"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"BioEstatR"</span>)</span>
-<span id="cb84-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
-<span id="cb84-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Todo en uno: coeficientes, IC, R², ANOVA,</span></span>
-<span id="cb84-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># gráficos de diagnóstico, predicciones</span></span>
-<span id="cb84-5"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(imc, graso)</span>
-<span id="cb84-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rls</span>(graso <span class="sc">~</span> imc, <span class="at">data =</span> df)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"BioEstatR"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"BioEstatR"</span>)</span>
+<span id="cb83-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb83-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Todo en uno: coeficientes, IC, R², ANOVA,</span></span>
+<span id="cb83-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># gráficos de diagnóstico, predicciones</span></span>
+<span id="cb83-5"><a aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(imc, graso)</span>
+<span id="cb83-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rls</span>(graso <span class="sc">~</span> imc, <span class="at">data =</span> df)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -2333,37 +2317,37 @@ Regresión lineal simple
 
   variable  n  media    dt   Min   Max Rango
 1    graso 12 19.320 6.678  8.87 29.70 20.83
-2      imc 12 21.812 2.711 17.30 27.45 10.15
+2      imc 12 21.853 2.676 17.30 27.45 10.15
 
-  Cov(graso,imc) = 11.258
+  Cov(graso,imc) = 10.91
 
 # Correlación de Pearson --- 
 
-      r IC_inf IC_sup gl  texp     sig
-  0.622  0.075  0.881 10 2.512 = 0.031
+     r IC_inf IC_sup gl  texp     sig
+  0.61  0.056  0.877 10 2.437 = 0.035
 
 # Modelo lineal --- 
 
   Modelo:  graso ~ imc 
-  R² =  0.387 
-  S²residual =  30.075 
+  R² =  0.372 
+  S²residual =  30.773 
   :
 
          Coef   estim     se  ic_inf ic_sup  texp   sig
-1 (Constante) -14.100 13.399 -43.956 15.755 1.052 0.317
-2         imc   1.532  0.610   0.173  2.891 2.512 0.031
+1 (Constante) -13.964 13.751 -44.603 16.674 1.016 0.334
+2         imc   1.523  0.625   0.131  2.916 2.437 0.035
 
 # Distribución residual --- 
-  Error estándar residual: 5.484 
+  Error estándar residual: 5.547 
        res   zres
-min -7.980 -1.592
-Q1  -3.704 -0.801
-Q2  -1.488 -0.293
-Q3   4.604  0.889
-max  8.526  1.625
+min -7.893 -1.556
+Q1  -3.710 -0.793
+Q2  -1.422 -0.277
+Q3   4.664  0.891
+max  8.592  1.619
 
   Test de normalidad residual (Shapiro-Wilk): 
-  w =0.93, p= 0.377</code></pre>
+  w =0.935, p= 0.438</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
@@ -2590,25 +2574,25 @@ max  8.526  1.625
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb86-2"><a aria-hidden="true" tabindex="-1"></a>edad <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="at">length.out=</span><span class="dv">10</span>)</span>
-<span id="cb86-3"><a aria-hidden="true" tabindex="-1"></a>flexion <span class="ot">&lt;-</span> <span class="dv">85</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span>edad <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb86-4"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(flexion <span class="sc">~</span> edad)</span>
-<span id="cb86-5"><a aria-hidden="true" tabindex="-1"></a>pred_50 <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span><span class="dv">50</span>))</span>
-<span id="cb86-6"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(edad, flexion, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">cex=</span><span class="fl">1.5</span>,</span>
-<span id="cb86-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"R²="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,<span class="dv">2</span>),</span>
-<span id="cb86-9"><a aria-hidden="true" tabindex="-1"></a>                 <span class="st">"  Y="</span>, <span class="fu">round</span>(<span class="fu">coef</span>(modelo)[<span class="dv">1</span>],<span class="dv">1</span>), <span class="st">"+"</span>, <span class="fu">round</span>(<span class="fu">coef</span>(modelo)[<span class="dv">2</span>],<span class="dv">2</span>),<span class="st">"X"</span>),</span>
-<span id="cb86-10"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Edad (años)"</span>, <span class="at">ylab=</span><span class="st">"Flexión lumbar (°)"</span>)</span>
-<span id="cb86-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
-<span id="cb86-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Banda de confianza</span></span>
-<span id="cb86-13"><a aria-hidden="true" tabindex="-1"></a>newx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="at">length=</span><span class="dv">50</span>)</span>
-<span id="cb86-14"><a aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span>newx), <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
-<span id="cb86-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(newx, <span class="fu">rev</span>(newx)), <span class="fu">c</span>(preds[,<span class="dv">2</span>], <span class="fu">rev</span>(preds[,<span class="dv">3</span>])),</span>
-<span id="cb86-16"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.3</span>,<span class="fl">0.08</span>), <span class="at">border=</span><span class="cn">NA</span>)</span>
-<span id="cb86-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción destacada</span></span>
-<span id="cb86-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">50</span>, pred_50, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">cex=</span><span class="fl">2.5</span>)</span>
-<span id="cb86-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">50</span>, pred_50<span class="fl">+0.5</span>, <span class="fu">paste0</span>(<span class="fu">round</span>(pred_50,<span class="dv">1</span>),<span class="st">"°"</span>), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">pos=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb85-2"><a aria-hidden="true" tabindex="-1"></a>edad <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="at">length.out=</span><span class="dv">10</span>)</span>
+<span id="cb85-3"><a aria-hidden="true" tabindex="-1"></a>flexion <span class="ot">&lt;-</span> <span class="dv">85</span> <span class="sc">-</span> <span class="fl">0.6</span><span class="sc">*</span>edad <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">3</span>)</span>
+<span id="cb85-4"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(flexion <span class="sc">~</span> edad)</span>
+<span id="cb85-5"><a aria-hidden="true" tabindex="-1"></a>pred_50 <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span><span class="dv">50</span>))</span>
+<span id="cb85-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(edad, flexion, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">cex=</span><span class="fl">1.5</span>,</span>
+<span id="cb85-8"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="fu">paste0</span>(<span class="st">"R²="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,<span class="dv">2</span>),</span>
+<span id="cb85-9"><a aria-hidden="true" tabindex="-1"></a>                 <span class="st">"  Y="</span>, <span class="fu">round</span>(<span class="fu">coef</span>(modelo)[<span class="dv">1</span>],<span class="dv">1</span>), <span class="st">"+"</span>, <span class="fu">round</span>(<span class="fu">coef</span>(modelo)[<span class="dv">2</span>],<span class="dv">2</span>),<span class="st">"X"</span>),</span>
+<span id="cb85-10"><a aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Edad (años)"</span>, <span class="at">ylab=</span><span class="st">"Flexión lumbar (°)"</span>)</span>
+<span id="cb85-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(modelo, <span class="at">col=</span><span class="st">"darkgreen"</span>, <span class="at">lwd=</span><span class="fl">2.5</span>)</span>
+<span id="cb85-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Banda de confianza</span></span>
+<span id="cb85-13"><a aria-hidden="true" tabindex="-1"></a>newx <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">25</span>, <span class="dv">70</span>, <span class="at">length=</span><span class="dv">50</span>)</span>
+<span id="cb85-14"><a aria-hidden="true" tabindex="-1"></a>preds <span class="ot">&lt;-</span> <span class="fu">predict</span>(modelo, <span class="fu">data.frame</span>(<span class="at">edad=</span>newx), <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
+<span id="cb85-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(newx, <span class="fu">rev</span>(newx)), <span class="fu">c</span>(preds[,<span class="dv">2</span>], <span class="fu">rev</span>(preds[,<span class="dv">3</span>])),</span>
+<span id="cb85-16"><a aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">rgb</span>(<span class="dv">0</span>,<span class="fl">0.5</span>,<span class="fl">0.3</span>,<span class="fl">0.08</span>), <span class="at">border=</span><span class="cn">NA</span>)</span>
+<span id="cb85-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción destacada</span></span>
+<span id="cb85-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="dv">50</span>, pred_50, <span class="at">pch=</span><span class="dv">19</span>, <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">cex=</span><span class="fl">2.5</span>)</span>
+<span id="cb85-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">50</span>, pred_50<span class="fl">+0.5</span>, <span class="fu">paste0</span>(<span class="fu">round</span>(pred_50,<span class="dv">1</span>),<span class="st">"°"</span>), <span class="at">col=</span><span class="st">"coral"</span>, <span class="at">font=</span><span class="dv">2</span>, <span class="at">pos=</span><span class="dv">3</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -2619,8 +2603,8 @@ max  8.526  1.625
 </div>
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R² ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,<span class="dv">3</span>),</span>
-<span id="cb87-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">Predicción 50 años:"</span>, <span class="fu">round</span>(pred_50,<span class="dv">1</span>), <span class="st">"°"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"R² ="</span>, <span class="fu">round</span>(<span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared,<span class="dv">3</span>),</span>
+<span id="cb86-2"><a aria-hidden="true" tabindex="-1"></a>    <span class="st">"</span><span class="sc">\n</span><span class="st">Predicción 50 años:"</span>, <span class="fu">round</span>(pred_50,<span class="dv">1</span>), <span class="st">"°"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>R² = 0.927 
@@ -2644,21 +2628,21 @@ Predicción 50 años: 55.1 °</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Datos</span></span>
-<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">27</span>, <span class="dv">26</span>, <span class="dv">32</span>, <span class="dv">29</span>, <span class="dv">31</span>)</span>
-<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a>graso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">26</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">33</span>, <span class="dv">27</span>, <span class="dv">31</span>)</span>
-<span id="cb89-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-5"><a aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
-<span id="cb89-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Pearson</span></span>
-<span id="cb89-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso)</span>
-<span id="cb89-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso)                      <span class="co"># Test de significación</span></span>
-<span id="cb89-9"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Spearman (no paramétrica)</span></span>
-<span id="cb89-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb89-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb89-13"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Matriz de correlación</span></span>
-<span id="cb89-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">cbind</span>(imc, graso))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Datos</span></span>
+<span id="cb88-2"><a aria-hidden="true" tabindex="-1"></a>imc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">28</span>, <span class="dv">24</span>, <span class="dv">30</span>, <span class="dv">27</span>, <span class="dv">26</span>, <span class="dv">32</span>, <span class="dv">29</span>, <span class="dv">31</span>)</span>
+<span id="cb88-3"><a aria-hidden="true" tabindex="-1"></a>graso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="dv">22</span>, <span class="dv">26</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">24</span>, <span class="dv">23</span>, <span class="dv">33</span>, <span class="dv">27</span>, <span class="dv">31</span>)</span>
+<span id="cb88-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-5"><a aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: false</span></span>
+<span id="cb88-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Pearson</span></span>
+<span id="cb88-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso)</span>
+<span id="cb88-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso)                      <span class="co"># Test de significación</span></span>
+<span id="cb88-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Spearman (no paramétrica)</span></span>
+<span id="cb88-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(imc, graso, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb88-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(imc, graso, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb88-13"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-14"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Matriz de correlación</span></span>
+<span id="cb88-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(<span class="fu">cbind</span>(imc, graso))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
@@ -2667,41 +2651,41 @@ Predicción 50 años: 55.1 °</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste del modelo</span></span>
-<span id="cb90-2"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc)</span>
-<span id="cb90-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)                           <span class="co"># Coeficientes, R², test F</span></span>
-<span id="cb90-4"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Elementos del modelo</span></span>
-<span id="cb90-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)                              <span class="co"># β₀ (intercepto), β₁ (pendiente)</span></span>
-<span id="cb90-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(modelo)                            <span class="co"># Valores ajustados ŷ</span></span>
-<span id="cb90-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(modelo)                         <span class="co"># Residuos e = y - ŷ</span></span>
-<span id="cb90-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modelo)                           <span class="co"># IC 95% para coeficientes</span></span>
-<span id="cb90-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción</span></span>
-<span id="cb90-12"><a aria-hidden="true" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">imc =</span> <span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">35</span>))</span>
-<span id="cb90-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo)                               <span class="co"># Puntual</span></span>
-<span id="cb90-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo, <span class="at">interval =</span> <span class="st">"confidence"</span>)      <span class="co"># IC media</span></span>
-<span id="cb90-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo, <span class="at">interval =</span> <span class="st">"prediction"</span>)      <span class="co"># IP individual</span></span>
-<span id="cb90-16"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># R²</span></span>
-<span id="cb90-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared                 <span class="co"># Proporción de varianza explicada</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Ajuste del modelo</span></span>
+<span id="cb89-2"><a aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">lm</span>(graso <span class="sc">~</span> imc)</span>
+<span id="cb89-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)                           <span class="co"># Coeficientes, R², test F</span></span>
+<span id="cb89-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Elementos del modelo</span></span>
+<span id="cb89-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(modelo)                              <span class="co"># β₀ (intercepto), β₁ (pendiente)</span></span>
+<span id="cb89-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">fitted</span>(modelo)                            <span class="co"># Valores ajustados ŷ</span></span>
+<span id="cb89-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">residuals</span>(modelo)                         <span class="co"># Residuos e = y - ŷ</span></span>
+<span id="cb89-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(modelo)                           <span class="co"># IC 95% para coeficientes</span></span>
+<span id="cb89-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Predicción</span></span>
+<span id="cb89-12"><a aria-hidden="true" tabindex="-1"></a>nuevo <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">imc =</span> <span class="fu">c</span>(<span class="dv">26</span>, <span class="dv">35</span>))</span>
+<span id="cb89-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo)                               <span class="co"># Puntual</span></span>
+<span id="cb89-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo, <span class="at">interval =</span> <span class="st">"confidence"</span>)      <span class="co"># IC media</span></span>
+<span id="cb89-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(modelo, <span class="at">newdata =</span> nuevo, <span class="at">interval =</span> <span class="st">"prediction"</span>)      <span class="co"># IP individual</span></span>
+<span id="cb89-16"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb89-17"><a aria-hidden="true" tabindex="-1"></a><span class="co"># R²</span></span>
+<span id="cb89-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo)<span class="sc">$</span>r.squared                 <span class="co"># Proporción de varianza explicada</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
 <section id="diagnóstico-de-residuos" class="slide level2 center">
 <h2>Diagnóstico de residuos</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de diagnóstico</span></span>
-<span id="cb91-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb91-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)                              <span class="co"># 4 gráficos de diagnóstico</span></span>
-<span id="cb91-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb91-5"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test de normalidad de residuos</span></span>
-<span id="cb91-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(modelo))</span>
-<span id="cb91-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb91-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Homocedasticidad (Breusch-Pagan)</span></span>
-<span id="cb91-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb91-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Gráficos de diagnóstico</span></span>
+<span id="cb90-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb90-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)                              <span class="co"># 4 gráficos de diagnóstico</span></span>
+<span id="cb90-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb90-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test de normalidad de residuos</span></span>
+<span id="cb90-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(<span class="fu">residuals</span>(modelo))</span>
+<span id="cb90-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb90-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Homocedasticidad (Breusch-Pagan)</span></span>
+<span id="cb90-10"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
+<span id="cb90-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="con-bioestatr" class="slide level2 smaller scrollable">
@@ -2709,8 +2693,8 @@ Predicción 50 años: 55.1 °</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
-<span id="cb92-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rls</span>(<span class="at">y =</span> graso, <span class="at">x =</span> imc)                   <span class="co"># Regresión lineal completa</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb91-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rls</span>(<span class="at">y =</span> graso, <span class="at">x =</span> imc)                   <span class="co"># Regresión lineal completa</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 

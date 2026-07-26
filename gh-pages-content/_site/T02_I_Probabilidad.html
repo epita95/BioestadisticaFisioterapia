@@ -296,6 +296,13 @@
 <li><a href="#/comparativa-discreta-vs-continua-conceptos-analogos" id="/toc-comparativa-discreta-vs-continua-conceptos-analogos">Comparativa: Discreta vs continua — Conceptos análogos</a></li>
 <li><a href="#/las-cuatro-funciones-de-r-para-distribuciones" id="/toc-las-cuatro-funciones-de-r-para-distribuciones">Las cuatro funciones de R para distribuciones</a></li>
 <li><a href="#/ejercicio-clínico-tema-ii-parte-i" id="/toc-ejercicio-clínico-tema-ii-parte-i">Ejercicio Clínico — Tema II (Parte I)</a></li>
+
+</ul></li>
+<li><a href="#/código-del-tema-ii-parte-i-resumen-organizado" id="/toc-código-del-tema-ii-parte-i-resumen-organizado">Código del Tema II (Parte I) — Resumen Organizado</a>
+<ul>
+<li><a href="#/probabilidad-básica" id="/toc-probabilidad-básica">Probabilidad básica</a></li>
+<li><a href="#/probabilidad-condicional-y-bayes" id="/toc-probabilidad-condicional-y-bayes">Probabilidad condicional y Bayes</a></li>
+<li><a href="#/variables-aleatorias" id="/toc-variables-aleatorias">Variables aleatorias</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1893,6 +1900,78 @@ VPN = 98 %</code></pre>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2 center">
+
+</section></section>
+<section>
+<section id="código-del-tema-ii-parte-i-resumen-organizado" class="title-slide slide level1 center">
+<h1>Código del Tema II (Parte I) — Resumen Organizado</h1>
+
+</section>
+<section id="probabilidad-básica" class="slide level2 center">
+<h2>Probabilidad básica</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Regla de Laplace</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>P_3 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">6</span>          <span class="co"># P(sacar un 3 en un dado)</span></span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>P_par <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">/</span><span class="dv">6</span>        <span class="co"># P(sacar par)</span></span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Complemento</span></span>
+<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a>P_HTA <span class="ot">&lt;-</span> <span class="fl">0.30</span></span>
+<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a>P_no_HTA <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> P_HTA  <span class="co"># P(no HTA) = 0.70</span></span>
+<span id="cb39-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-9"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Unión de eventos (inclusión-exclusión)</span></span>
+<span id="cb39-10"><a aria-hidden="true" tabindex="-1"></a>P_A <span class="ot">&lt;-</span> <span class="dv">40</span><span class="sc">/</span><span class="dv">100</span>; P_B <span class="ot">&lt;-</span> <span class="dv">30</span><span class="sc">/</span><span class="dv">100</span>; P_AB <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">/</span><span class="dv">100</span></span>
+<span id="cb39-11"><a aria-hidden="true" tabindex="-1"></a>P_A_union_B <span class="ot">&lt;-</span> P_A <span class="sc">+</span> P_B <span class="sc">-</span> P_AB  <span class="co"># 0.60</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="probabilidad-condicional-y-bayes" class="slide level2 center">
+<h2>Probabilidad condicional y Bayes</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidad condicional</span></span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>P_R_given_M <span class="ot">&lt;-</span> <span class="dv">72</span><span class="sc">/</span><span class="dv">120</span>     <span class="co"># P(Recuperado | Mujer) = 0.60</span></span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a>P_R_given_H <span class="ot">&lt;-</span> <span class="dv">32</span><span class="sc">/</span><span class="dv">80</span>      <span class="co"># P(Recuperado | Hombre) = 0.40</span></span>
+<span id="cb40-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Teorema de Bayes — Test diagnóstico</span></span>
+<span id="cb40-6"><a aria-hidden="true" tabindex="-1"></a>prev <span class="ot">&lt;-</span> <span class="fl">0.15</span>              <span class="co"># Prevalencia</span></span>
+<span id="cb40-7"><a aria-hidden="true" tabindex="-1"></a>sens <span class="ot">&lt;-</span> <span class="fl">0.90</span>              <span class="co"># Sensibilidad</span></span>
+<span id="cb40-8"><a aria-hidden="true" tabindex="-1"></a>spec <span class="ot">&lt;-</span> <span class="fl">0.85</span>              <span class="co"># Especificidad</span></span>
+<span id="cb40-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a aria-hidden="true" tabindex="-1"></a>vpp <span class="ot">&lt;-</span> (sens <span class="sc">*</span> prev) <span class="sc">/</span> (sens <span class="sc">*</span> prev <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> spec) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prev))</span>
+<span id="cb40-11"><a aria-hidden="true" tabindex="-1"></a>vpn <span class="ot">&lt;-</span> (spec <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prev)) <span class="sc">/</span> (spec <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> prev) <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">-</span> sens) <span class="sc">*</span> prev)</span>
+<span id="cb40-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VPP ="</span>, <span class="fu">round</span>(vpp <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>)</span>
+<span id="cb40-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"VPN ="</span>, <span class="fu">round</span>(vpn <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>), <span class="st">"%"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="variables-aleatorias" class="slide level2 center">
+<h2>Variables aleatorias</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># VA Discreta — Binomial</span></span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="dv">3</span>, <span class="fl">0.5</span>)   <span class="co"># P(X = x)</span></span>
+<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a>Ex <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> px)          <span class="co"># Esperanza</span></span>
+<span id="cb41-5"><a aria-hidden="true" tabindex="-1"></a>Varx <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> Ex)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> px)  <span class="co"># Varianza</span></span>
+<span id="cb41-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># VA Continua — Normal</span></span>
+<span id="cb41-8"><a aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">30</span>; sigma <span class="ot">&lt;-</span> <span class="dv">8</span>; x_obs <span class="ot">&lt;-</span> <span class="dv">22</span></span>
+<span id="cb41-9"><a aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (x_obs <span class="sc">-</span> mu) <span class="sc">/</span> sigma  <span class="co"># Z-score</span></span>
+<span id="cb41-10"><a aria-hidden="true" tabindex="-1"></a>p_bajo <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(x_obs, mu, sigma)  <span class="co"># P(X ≤ 22)</span></span>
+<span id="cb41-11"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Las 4 funciones de R para distribuciones</span></span>
+<span id="cb41-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">dnorm</span>(x, mu, sigma)    <span class="co"># Densidad f(x)</span></span>
+<span id="cb41-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(q, mu, sigma)    <span class="co"># Distribución F(q) = P(X ≤ q)</span></span>
+<span id="cb41-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(p, mu, sigma)    <span class="co"># Cuantil</span></span>
+<span id="cb41-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">rnorm</span>(n, mu, sigma)    <span class="co"># Generar n valores aleatorios</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 
 

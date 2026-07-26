@@ -282,6 +282,13 @@
 <li><a href="#/diagrama-de-tallo-y-hojas" id="/toc-diagrama-de-tallo-y-hojas">Diagrama de tallo y hojas</a></li>
 <li><a href="#/pictogramas-nube-de-palabras-y-diagramas-comparativos" id="/toc-pictogramas-nube-de-palabras-y-diagramas-comparativos">Pictogramas, nube de palabras y diagramas comparativos</a></li>
 <li><a href="#/nube-de-palabras-términos-estadísticos-en-fisioterapia" id="/toc-nube-de-palabras-términos-estadísticos-en-fisioterapia">Nube de palabras — Términos estadísticos en fisioterapia</a></li>
+
+</ul></li>
+<li><a href="#/código-del-tema-i-parte-i-resumen-organizado" id="/toc-código-del-tema-i-parte-i-resumen-organizado">Código del Tema I (Parte I) — Resumen Organizado</a>
+<ul>
+<li><a href="#/variables-y-estructura-de-datos" id="/toc-variables-y-estructura-de-datos">Variables y estructura de datos</a></li>
+<li><a href="#/medidas-de-posición" id="/toc-medidas-de-posición">Medidas de posición</a></li>
+<li><a href="#/visualización" id="/toc-visualización">Visualización</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -1362,9 +1369,76 @@
 </details>
 
 </div>
+<img data-src="T01_I_Descriptiva_files/figure-revealjs/unnamed-chunk-15-1.png" width="864" class="r-stretch"></section>
+<section class="slide level2 center">
+
+</section></section>
+<section>
+<section id="código-del-tema-i-parte-i-resumen-organizado" class="title-slide slide level1 center">
+<h1>Código del Tema I (Parte I) — Resumen Organizado</h1>
+
+</section>
+<section id="variables-y-estructura-de-datos" class="slide level2 center">
+<h2>Variables y estructura de datos</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Tipos de variables en fisioterapia</span></span>
+<span id="cb22-2"><a aria-hidden="true" tabindex="-1"></a>diagnostico <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Lumbalgia"</span>,<span class="st">"Cervicalgia"</span>,<span class="st">"Omalgia"</span>)  <span class="co"># Nominal</span></span>
+<span id="cb22-3"><a aria-hidden="true" tabindex="-1"></a>eva_dolor   <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">5</span>)                      <span class="co"># Ordinal (0-10)</span></span>
+<span id="cb22-4"><a aria-hidden="true" tabindex="-1"></a>n_sesiones  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">3</span>, <span class="dv">12</span>, <span class="dv">6</span>, <span class="dv">9</span>)                     <span class="co"># Discreta</span></span>
+<span id="cb22-5"><a aria-hidden="true" tabindex="-1"></a>rom_hombro  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">145</span>, <span class="dv">152</span>, <span class="dv">138</span>, <span class="dv">160</span>, <span class="dv">148</span>, <span class="dv">155</span>)          <span class="co"># Continua</span></span>
+<span id="cb22-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de frecuencias</span></span>
+<span id="cb22-8"><a aria-hidden="true" tabindex="-1"></a>grupo_sanguineo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"A"</span>,<span class="dv">150</span>), <span class="fu">rep</span>(<span class="st">"B"</span>,<span class="dv">75</span>), <span class="fu">rep</span>(<span class="st">"AB"</span>,<span class="dv">25</span>), <span class="fu">rep</span>(<span class="st">"O"</span>,<span class="dv">250</span>))</span>
+<span id="cb22-9"><a aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(grupo_sanguineo)</span>
+<span id="cb22-10"><a aria-hidden="true" tabindex="-1"></a>frec_rel <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabla)   <span class="co"># frecuencias relativas</span></span>
+<span id="cb22-11"><a aria-hidden="true" tabindex="-1"></a>frec_rel</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="medidas-de-posición" class="slide level2 center">
+<h2>Medidas de posición</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">132</span>, <span class="dv">128</span>, <span class="dv">135</span>, <span class="dv">130</span>, <span class="dv">126</span>, <span class="dv">131</span>, <span class="dv">129</span>)</span>
+<span id="cb23-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Tendencia central</span></span>
+<span id="cb23-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)        <span class="co"># Media aritmética</span></span>
+<span id="cb23-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">median</span>(x)      <span class="co"># Mediana</span></span>
+<span id="cb23-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Moda (manual)</span></span>
+<span id="cb23-7"><a aria-hidden="true" tabindex="-1"></a>tabla_freq <span class="ot">&lt;-</span> <span class="fu">table</span>(x)</span>
+<span id="cb23-8"><a aria-hidden="true" tabindex="-1"></a>moda <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">names</span>(tabla_freq[tabla_freq <span class="sc">==</span> <span class="fu">max</span>(tabla_freq)]))</span>
+<span id="cb23-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Posición</span></span>
+<span id="cb23-11"><a aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(x, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.50</span>, <span class="fl">0.75</span>))  <span class="co"># Q1, Q2, Q3</span></span>
+<span id="cb23-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(x)     <span class="co"># Min, Q1, Mediana, Media, Q3, Max</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="visualización" class="slide level2 center">
+<h2>Visualización</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Histograma</span></span>
+<span id="cb24-2"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">border =</span> <span class="st">"white"</span>, <span class="at">main =</span> <span class="st">"Histograma"</span>, <span class="at">xlab =</span> <span class="st">"Valor"</span>)</span>
+<span id="cb24-3"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-4"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de barras</span></span>
+<span id="cb24-5"><a aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tabla, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>,<span class="st">"coral"</span>,<span class="st">"gold"</span>,<span class="st">"seagreen"</span>), <span class="at">main =</span> <span class="st">"Barras"</span>)</span>
+<span id="cb24-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Diagrama de sectores</span></span>
+<span id="cb24-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">pie</span>(tabla, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>,<span class="st">"coral"</span>,<span class="st">"gold"</span>,<span class="st">"seagreen"</span>), <span class="at">main =</span> <span class="st">"Sectores"</span>)</span>
+<span id="cb24-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot comparativo</span></span>
+<span id="cb24-11"><a aria-hidden="true" tabindex="-1"></a>g1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">170</span>, <span class="dv">10</span>); g2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="dv">180</span>, <span class="dv">15</span>)</span>
+<span id="cb24-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(g1, g2, <span class="at">names =</span> <span class="fu">c</span>(<span class="st">"Grupo 1"</span>,<span class="st">"Grupo 2"</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"steelblue"</span>,<span class="st">"coral"</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
 
 
-<img data-src="T01_I_Descriptiva_files/figure-revealjs/unnamed-chunk-15-1.png" width="864" class="r-stretch"></section></section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <p><img src="logo.png" class="slide-logo"></p>

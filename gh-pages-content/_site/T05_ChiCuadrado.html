@@ -328,6 +328,14 @@
 <li><a href="#/referencias" id="/toc-referencias">Referencias</a></li>
 
 <li><a href="#/ejercicio-clínico-tema-v" id="/toc-ejercicio-clínico-tema-v">Ejercicio Clínico — Tema V</a></li>
+
+</ul></li>
+<li><a href="#/código-del-tema-v-resumen-organizado" id="/toc-código-del-tema-v-resumen-organizado">Código del Tema V — Resumen Organizado</a>
+<ul>
+<li><a href="#/test-χ²-de-independencia" id="/toc-test-χ²-de-independencia">Test χ² de independencia</a></li>
+<li><a href="#/medidas-de-asociación" id="/toc-medidas-de-asociación">Medidas de asociación</a></li>
+<li><a href="#/test-exacto-de-fisher" id="/toc-test-exacto-de-fisher">Test exacto de Fisher</a></li>
+<li><a href="#/test-de-mcnemar" id="/toc-test-de-mcnemar">Test de McNemar</a></li>
 </ul></li>
 </ul>
 </nav>
@@ -2047,7 +2055,7 @@ Odds Ratio      O = 3.769</code></pre>
 <p><strong>Advertencia</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Cuándo usar Fisher en vez de χ²:</strong> Si alguna frecuencia esperada es &lt; 5 (o &lt; 1), el test χ² no es válido. Usar el test exacto de Fisher <span class="citation" data-cites="fisher1922">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span>.</p>
+<p><strong>Cuándo usar Fisher en vez de χ²:</strong> Si alguna frecuencia esperada es &lt; 5 (o &lt; 1), el test χ² no es válido. Usar el test exacto de Fisher <span class="citation" data-cites="fisher1922">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -2250,7 +2258,7 @@ NNT = 4.2
 <p><strong>Advertencia</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Paradoja de Simpson:</strong> la asociación en datos <strong>agregados</strong> puede <strong>invertirse</strong> al estratificar por una variable confundente <span class="citation" data-cites="simpson1951">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span>.</p>
+<p><strong>Paradoja de Simpson:</strong> la asociación en datos <strong>agregados</strong> puede <strong>invertirse</strong> al estratificar por una variable confundente <span class="citation" data-cites="simpson1951">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -2335,7 +2343,7 @@ NNT = 4.2
 </section>
 <section id="interpretación-de-la-salida-de-bioestatr-para-chi2" class="slide level2 center">
 <h2>Interpretación de la salida de BioEstatR para <span class="math inline">\(\chi^2\)</span></h2>
-<p><strong>Ejemplo: <code>t2x2(tabla)</code> para el estudio de fumar y bajo peso:</strong></p>
+<p><strong>Ejemplo: <code>tabla2x2(o=tabla)</code> para el estudio de fumar y bajo peso:</strong></p>
 <pre><code>Test Chi-cuadrado para tabla 2x2
 χ² = 17.90, gl = 1, P &lt; 0.001
 
@@ -2492,25 +2500,25 @@ La odds de bajo peso es 3.77 veces mayor en madres fumadoras.</code></pre>
 <h2>Referencias</h2>
 <div class="reference-box">
 <ul>
-<li><span class="citation" data-cites="bioestatr2026">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
-<li><span class="citation" data-cites="luque2026">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
-<li><span class="citation" data-cites="pearson1900">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Pearson, 1900</a>)</span> — Pearson, K. (1900). On the criterion that a given system of deviations… <em>Phil. Mag.</em>, 50(302), 157–175.</li>
-<li><span class="citation" data-cites="fisher1922">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span> — Fisher, R. A. (1922). On the interpretation of χ² from contingency tables. <em>J. R. Stat. Soc.</em>, 85(1), 87–94.</li>
-<li><span class="citation" data-cites="yates1934">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Yates, 1934</a>)</span> — Yates, F. (1934). Contingency tables involving small numbers. <em>J. R. Stat. Soc.</em>, 1(2), 217–235.</li>
-<li><span class="citation" data-cites="mcnemar1947">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">McNemar, 1947</a>)</span> — McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions. <em>Psychometrika</em>, 12(2), 153–157.</li>
-<li><span class="citation" data-cites="mantel1959">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Mantel &amp; Haenszel, 1959</a>)</span> — Mantel, N. &amp; Haenszel, W. (1959). Statistical aspects of the analysis of data from retrospective studies. <em>JNCI</em>, 22(4), 719–748.</li>
-<li><span class="citation" data-cites="cornfield1951">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Cornfield, 1951</a>)</span> — Cornfield, J. (1951). A method of estimating comparative rates. <em>JNCI</em>, 11, 1269–1275.</li>
-<li><span class="citation" data-cites="simpson1951">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span> — Simpson, E. H. (1951). The interpretation of interaction in contingency tables. <em>J. R. Stat. Soc. B</em>, 13(2), 238–241.</li>
-<li><span class="citation" data-cites="woolf1955">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Woolf, 1955</a>)</span> — Woolf, B. (1955). On estimating the relation between blood group and disease. <em>Ann. Hum. Genet.</em>, 19(4), 251–253.</li>
-<li><span class="citation" data-cites="agresti2013">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Agresti, 2013</a>)</span> — Agresti, A. (2013). <em>Categorical Data Analysis</em> (3rd ed.). Wiley.</li>
-<li><span class="citation" data-cites="rothman2008">(<a href="#/ejercicio-clínico-tema-v" role="doc-biblioref" onclick="">Rothman et&nbsp;al., 2008</a>)</span> — Rothman, K. J., Greenland, S. &amp; Lash, T. L. (2008). <em>Modern Epidemiology</em> (3rd ed.). LWW.</li>
+<li><span class="citation" data-cites="bioestatr2026">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Femia &amp; Luque-Fernández, 2026</a>)</span> — Femia, P. &amp; Luque-Fernández, M. A. (2026). <em>BioEstatR: Biostatistics Routines in R</em>. R package. Universidad de Granada.</li>
+<li><span class="citation" data-cites="luque2026">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Luque-Fernández, 2026</a>)</span> — Luque-Fernández, M. A. (2026). <em>Matemáticas para la Estadística Médica con R</em>. Universidad de Granada.</li>
+<li><span class="citation" data-cites="pearson1900">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Pearson, 1900</a>)</span> — Pearson, K. (1900). On the criterion that a given system of deviations… <em>Phil. Mag.</em>, 50(302), 157–175.</li>
+<li><span class="citation" data-cites="fisher1922">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Fisher, 1922</a>)</span> — Fisher, R. A. (1922). On the interpretation of χ² from contingency tables. <em>J. R. Stat. Soc.</em>, 85(1), 87–94.</li>
+<li><span class="citation" data-cites="yates1934">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Yates, 1934</a>)</span> — Yates, F. (1934). Contingency tables involving small numbers. <em>J. R. Stat. Soc.</em>, 1(2), 217–235.</li>
+<li><span class="citation" data-cites="mcnemar1947">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">McNemar, 1947</a>)</span> — McNemar, Q. (1947). Note on the sampling error of the difference between correlated proportions. <em>Psychometrika</em>, 12(2), 153–157.</li>
+<li><span class="citation" data-cites="mantel1959">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Mantel &amp; Haenszel, 1959</a>)</span> — Mantel, N. &amp; Haenszel, W. (1959). Statistical aspects of the analysis of data from retrospective studies. <em>JNCI</em>, 22(4), 719–748.</li>
+<li><span class="citation" data-cites="cornfield1951">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Cornfield, 1951</a>)</span> — Cornfield, J. (1951). A method of estimating comparative rates. <em>JNCI</em>, 11, 1269–1275.</li>
+<li><span class="citation" data-cites="simpson1951">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Simpson, 1951</a>)</span> — Simpson, E. H. (1951). The interpretation of interaction in contingency tables. <em>J. R. Stat. Soc. B</em>, 13(2), 238–241.</li>
+<li><span class="citation" data-cites="woolf1955">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Woolf, 1955</a>)</span> — Woolf, B. (1955). On estimating the relation between blood group and disease. <em>Ann. Hum. Genet.</em>, 19(4), 251–253.</li>
+<li><span class="citation" data-cites="agresti2013">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Agresti, 2013</a>)</span> — Agresti, A. (2013). <em>Categorical Data Analysis</em> (3rd ed.). Wiley.</li>
+<li><span class="citation" data-cites="rothman2008">(<a href="#/test-de-mcnemar" role="doc-biblioref" onclick="">Rothman et&nbsp;al., 2008</a>)</span> — Rothman, K. J., Greenland, S. &amp; Lash, T. L. (2008). <em>Modern Epidemiology</em> (3rd ed.). LWW.</li>
 </ul>
 </div>
 </section>
 <section class="slide level2 center">
 
 </section>
-<section id="ejercicio-clínico-tema-v" class="slide level2 smaller scrollable">
+<section id="ejercicio-clínico-tema-v" class="slide level2 center">
 <h2>Ejercicio Clínico — Tema V</h2>
 <p><strong>Contexto:</strong> Asociación tipo fisioterapia × mejoría (n=100). Manual: 35/50 mejoran. Ejercicio: 25/50.</p>
 <ol type="1">
@@ -2569,6 +2577,86 @@ La odds de bajo peso es 3.77 veces mayor en madres fumadoras.</code></pre>
 </div>
 </div>
 </div>
+</div>
+</section>
+<section class="slide level2 center">
+
+</section></section>
+<section>
+<section id="código-del-tema-v-resumen-organizado" class="title-slide slide level1 center">
+<h1>Código del Tema V — Resumen Organizado</h1>
+
+</section>
+<section id="test-χ²-de-independencia" class="slide level2 center">
+<h2>Test χ² de independencia</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla de contingencia</span></span>
+<span id="cb38-2"><a aria-hidden="true" tabindex="-1"></a>trat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">49</span>, <span class="dv">28</span>, <span class="dv">14</span>, <span class="dv">6</span>, <span class="dv">3</span>, <span class="dv">1</span>,</span>
+<span id="cb38-3"><a aria-hidden="true" tabindex="-1"></a>                 <span class="dv">42</span>, <span class="dv">33</span>, <span class="dv">21</span>, <span class="dv">9</span>, <span class="dv">6</span>, <span class="dv">2</span>,</span>
+<span id="cb38-4"><a aria-hidden="true" tabindex="-1"></a>                 <span class="dv">40</span>, <span class="dv">35</span>, <span class="dv">28</span>, <span class="dv">12</span>, <span class="dv">8</span>, <span class="dv">4</span>),</span>
+<span id="cb38-5"><a aria-hidden="true" tabindex="-1"></a>               <span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb38-6"><a aria-hidden="true" tabindex="-1"></a>               <span class="at">dimnames =</span> <span class="fu">list</span>(</span>
+<span id="cb38-7"><a aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">"Fisioterapia Manual"</span>, <span class="st">"Ejercicio"</span>, <span class="st">"Combinado"</span>),</span>
+<span id="cb38-8"><a aria-hidden="true" tabindex="-1"></a>                 <span class="fu">c</span>(<span class="st">"Muy mejor"</span>, <span class="st">"Mejor"</span>, <span class="st">"Igual"</span>, <span class="st">"Peor"</span>, <span class="st">"Muy peor"</span>, <span class="st">"Sin cambio"</span>)))</span>
+<span id="cb38-9"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Test χ²</span></span>
+<span id="cb38-11"><a aria-hidden="true" tabindex="-1"></a>chi <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(trat)</span>
+<span id="cb38-12"><a aria-hidden="true" tabindex="-1"></a>chi<span class="sc">$</span>expected                              <span class="co"># Frecuencias esperadas</span></span>
+<span id="cb38-13"><a aria-hidden="true" tabindex="-1"></a>chi<span class="sc">$</span>stdres                                <span class="co"># Residuos estandarizados</span></span>
+<span id="cb38-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Con corrección de continuidad (2×2)</span></span>
+<span id="cb38-16"><a aria-hidden="true" tabindex="-1"></a>tabla_2x2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">49</span>, <span class="dv">42</span>, <span class="dv">28</span>, <span class="dv">33</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb38-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla_2x2, <span class="at">correct =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="medidas-de-asociación" class="slide level2 center">
+<h2>Medidas de asociación</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># OR, RR, DR desde tabla 2×2</span></span>
+<span id="cb39-2"><a aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">35</span>; b <span class="ot">&lt;-</span> <span class="dv">15</span>; c <span class="ot">&lt;-</span> <span class="dv">25</span>; d <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb39-3"><a aria-hidden="true" tabindex="-1"></a>OR <span class="ot">&lt;-</span> (a <span class="sc">*</span> d) <span class="sc">/</span> (b <span class="sc">*</span> c)</span>
+<span id="cb39-4"><a aria-hidden="true" tabindex="-1"></a>RR <span class="ot">&lt;-</span> (a <span class="sc">/</span> (a <span class="sc">+</span> b)) <span class="sc">/</span> (c <span class="sc">/</span> (c <span class="sc">+</span> d))</span>
+<span id="cb39-5"><a aria-hidden="true" tabindex="-1"></a>DR <span class="ot">&lt;-</span> a<span class="sc">/</span>(a<span class="sc">+</span>b) <span class="sc">-</span> c<span class="sc">/</span>(c<span class="sc">+</span>d)</span>
+<span id="cb39-6"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Con BioEstatR</span></span>
+<span id="cb39-8"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb39-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu">tabla2x2</span>(<span class="at">o =</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">35</span>, <span class="dv">15</span>, <span class="dv">25</span>, <span class="dv">25</span>), <span class="at">nrow =</span> <span class="dv">2</span>))  <span class="co"># OR + IC</span></span>
+<span id="cb39-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># NNT</span></span>
+<span id="cb39-12"><a aria-hidden="true" tabindex="-1"></a>NNT <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> DR</span>
+<span id="cb39-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OR ="</span>, <span class="fu">round</span>(OR, <span class="dv">2</span>), <span class="st">"DR ="</span>, <span class="fu">round</span>(DR, <span class="dv">3</span>), <span class="st">"NNT ="</span>, <span class="fu">round</span>(NNT, <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="test-exacto-de-fisher" class="slide level2 center">
+<h2>Test exacto de Fisher</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Para tablas con frecuencias esperadas &lt; 5</span></span>
+<span id="cb40-2"><a aria-hidden="true" tabindex="-1"></a>matriz <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">6</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb40-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(matriz)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+</section>
+<section id="test-de-mcnemar" class="slide level2 smaller scrollable">
+<h2>Test de McNemar</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Mostrar código R</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Datos apareados (antes/después)</span></span>
+<span id="cb41-2"><a aria-hidden="true" tabindex="-1"></a><span class="co"># n11=ambos+, n12=solo antes+, n21=solo después+, n22=ambos-</span></span>
+<span id="cb41-3"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mcnemar.test</span>(<span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">15</span>, <span class="dv">31</span>, <span class="dv">82</span>), <span class="at">nrow =</span> <span class="dv">2</span>))</span>
+<span id="cb41-4"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Con BioEstatR</span></span>
+<span id="cb41-6"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BioEstatR)</span>
+<span id="cb41-7"><a aria-hidden="true" tabindex="-1"></a><span class="fu">testmcnemar</span>(<span class="at">n11 =</span> <span class="dv">38</span>, <span class="at">n12 =</span> <span class="dv">15</span>, <span class="at">n21 =</span> <span class="dv">31</span>, <span class="at">n22 =</span> <span class="dv">82</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
 </div>
 
 
