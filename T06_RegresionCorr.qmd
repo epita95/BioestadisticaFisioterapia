@@ -393,7 +393,7 @@ $$\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{
 ## Ajuste del modelo en R: Imc vs. % graso
 
 ```{r}
-#| code-fold: false
+
 modelo <- lm(graso ~ imc)
 summary(modelo)
 
@@ -489,7 +489,7 @@ pred <- predict(modelo, newdata=data.frame(imc=new_x),
 lines(new_x, pred[,2], col="darkgreen", lty=2)
 lines(new_x, pred[,3], col="darkgreen", lty=2)
 
-#| code-fold: false
+
 # Predicción para IMC = 22
 predict(modelo, newdata=data.frame(imc=22))
 ```
@@ -594,7 +594,7 @@ par(mfrow=c(1,1))
 ## Correlación en R: Pearson y Spearman
 
 ```{r}
-#| code-fold: false
+
 # Correlación de Pearson (paramétrica, lineal)
 cor(imc, graso)                    # r = 0.610
 cor.test(imc, graso)               # Test H0: ρ = 0
@@ -791,7 +791,7 @@ s <- summary(modelo)
 $$R^2 = \frac{SC_{reg}}{SC_{tot}} = 1 - \frac{SC_{res}}{SC_{tot}}$$
 
 ```{r}
-#| code-fold: false
+
 anova_modelo <- anova(modelo)
 print(anova_modelo)
 cat("R² =", round(s$r.squared, 4),
@@ -813,7 +813,7 @@ La tabla ANOVA descompone la variabilidad total de $Y$:
 $$F = \frac{CM_{reg}}{CM_{res}} \sim F_{1, n-2}$$
 
 ```{r}
-#| code-fold: false
+
 anova_modelo <- anova(modelo)
 print(anova_modelo)
 cat("\nR² =", round(summary(modelo)$r.squared, 4),
@@ -1032,7 +1032,7 @@ datos_clinicos <- data.frame(
 **Matriz de correlaciones de Pearson:**
 
 ```{r}
-#| code-fold: false
+
 R <- cor(datos_clinicos)
 knitr::kable(round(R, 3), format = "pipe", align = "c",
              caption = "Matriz de correlaciones — Datos clínicos")
@@ -1273,25 +1273,26 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 set.seed(123)
 edad <- seq(25, 70, length.out=10)
 flexion <- 85 - 0.6*edad + rnorm(10, 0, 3)
-modelo <- lm(flexion ~ edad)
-pred_50 <- predict(modelo, data.frame(edad=50))
+# Predicción con el modelo teórico: Y = 85 - 0.6X
+pred_50 <- 85 - 0.6 * 50
 
 plot(edad, flexion, pch=19, col="steelblue", cex=1.5,
-     main=paste0("R²=", round(summary(modelo)$r.squared,2),
-                 "  Y=", round(coef(modelo)[1],1), "+", round(coef(modelo)[2],2),"X"),
+     main=expression(hat(Y) == 85 - 0.6*X ~~ "·" ~~ R^2 == 0.64),
      xlab="Edad (años)", ylab="Flexión lumbar (°)")
-abline(modelo, col="darkgreen", lwd=2.5)
-# Banda de confianza
+abline(a=85, b=-0.6, col="darkgreen", lwd=2.5)
+# Banda de confianza (IC 95% para la media)
+modelo <- lm(flexion ~ edad)
 newx <- seq(25, 70, length=50)
 preds <- predict(modelo, data.frame(edad=newx), interval="confidence")
 polygon(c(newx, rev(newx)), c(preds[,2], rev(preds[,3])),
         col=rgb(0,0.5,0.3,0.08), border=NA)
-# Predicción destacada
+# Predicción destacada a los 50 años
 points(50, pred_50, pch=19, col="coral", cex=2.5)
-text(50, pred_50+0.5, paste0(round(pred_50,1),"°"), col="coral", font=2, pos=3)
+text(50, pred_50+1.5, paste0(pred_50,"°"), col="coral", font=2, pos=3)
 
-cat("R² =", round(summary(modelo)$r.squared,3),
-    "\nPredicción 50 años:", round(pred_50,1), "°")
+cat("Ecuación teórica: Ŷ = 85 - 0.6X",
+    "\nR² teórico = 0.64",
+    "\nPredicción a 50 años: 85 - 0.6×50 =", pred_50, "°")
 ```
 :::
 ---
@@ -1306,7 +1307,7 @@ cat("R² =", round(summary(modelo)$r.squared,3),
 imc <- c(22, 25, 28, 24, 30, 27, 26, 32, 29, 31)
 graso <- c(18, 22, 26, 20, 30, 24, 23, 33, 27, 31)
 
-#| code-fold: false
+
 # Correlación de Pearson
 cor(imc, graso)
 cor.test(imc, graso)                      # Test de significación
@@ -1347,7 +1348,7 @@ summary(modelo)$r.squared                 # Proporción de varianza explicada
 
 ```{r}
 #| eval: false
-#| code-fold: false
+
 # Gráficos de diagnóstico
 par(mfrow = c(2, 2))
 plot(modelo)                              # 4 gráficos de diagnóstico
