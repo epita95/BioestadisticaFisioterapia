@@ -820,7 +820,6 @@ Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta
 - [@LuqueFernandez2026a] Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 3: Fundamentos de Probabilidad. Universidad de Granada. <https://migariane.github.io/MatematicaEstadisticaMedicinaR>
 - [@LuqueFernandez2026b] Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 4: Variables Aleatorias y Distribuciones. Universidad de Granada.
 :::
----
 
 ---
 
