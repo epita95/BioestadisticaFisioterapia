@@ -7,3 +7,6 @@ _site/
 videos/
 gh-pages-content/site_libs/
 notebooklm_txt/
+
+/.quarto/
+**/*.quarto_ipynb
