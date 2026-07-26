@@ -550,6 +550,9 @@ $$P = 2 \times P(T_{10} > 2.437) = 2 \times 0.0175 = 0.035$$
 :::
 
 ```{r}
+# Datos disponibles en data/imc_graso_higado.csv
+# read.csv("data/imc_graso_higado.csv")
+
 # Test de correlación de Pearson
 cor.test(imc, graso)
 ```
