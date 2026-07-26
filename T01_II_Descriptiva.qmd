@@ -28,8 +28,8 @@ execute:
 #| label: setup
 #| include: false
 # Cargar BioEstatR si está disponible
-has_BioEstatR <- requireNamespace("BioEstatR", quietly = TRUE)
-if (has_BioEstatR) library(BioEstatR)
+has_bioestatr <- requireNamespace("BioEstatR", quietly = TRUE)
+if (has_bioestatr) library(BioEstatR)
 
 # Cargar e1071 para asimetría/curtosis (con fallback)
 has_e1071 <- requireNamespace("e1071", quietly = TRUE)
@@ -691,7 +691,7 @@ grupo <- factor(c(rep("Control", 4), rep("Tratamiento", 4)))
 y <- c(140, 145, 138, 142, 120, 125, 118, 122)         # ROM 2° grupo
 
 # ── BioEstatR (atajos) ──
-if (has_BioEstatR) {
+if (has_bioestatr) {
   library(BioEstatR)
   freq(x)                     # todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk
   freq(x, cuts = 5)           # igual pero agrupando en 5 intervalos
@@ -712,7 +712,7 @@ hist(x, freq = FALSE); lines(density(x), col = "steelblue", lwd = 2)
 set.seed(456)
 rom_ejemplo <- round(rnorm(40, mean = 108, sd = 14), 1)
 
-if (has_BioEstatR) {
+if (has_bioestatr) {
   # Si BioEstatR está disponible, usar sus funciones
   cat("=== Usando BioEstatR ===\n")
   freq(rom_ejemplo)

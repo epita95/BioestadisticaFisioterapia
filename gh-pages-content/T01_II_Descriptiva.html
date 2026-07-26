@@ -1498,7 +1498,7 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <span id="cb57-4"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">145</span>, <span class="dv">138</span>, <span class="dv">142</span>, <span class="dv">120</span>, <span class="dv">125</span>, <span class="dv">118</span>, <span class="dv">122</span>)         <span class="co"># ROM 2° grupo</span></span>
 <span id="cb57-5"><a aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── BioEstatR (atajos) ──</span></span>
-<span id="cb57-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_BioEstatR) {</span>
+<span id="cb57-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
 <span id="cb57-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(BioEstatR)</span>
 <span id="cb57-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x)                     <span class="co"># todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk</span></span>
 <span id="cb57-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x, <span class="at">cuts =</span> <span class="dv">5</span>)           <span class="co"># igual pero agrupando en 5 intervalos</span></span>
@@ -1522,7 +1522,7 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">456</span>)</span>
 <span id="cb58-2"><a aria-hidden="true" tabindex="-1"></a>rom_ejemplo <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">mean =</span> <span class="dv">108</span>, <span class="at">sd =</span> <span class="dv">14</span>), <span class="dv">1</span>)</span>
 <span id="cb58-3"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-4"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_BioEstatR) {</span>
+<span id="cb58-4"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
 <span id="cb58-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># Si BioEstatR está disponible, usar sus funciones</span></span>
 <span id="cb58-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"=== Usando BioEstatR ===</span><span class="sc">\n</span><span class="st">"</span>)</span>
 <span id="cb58-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(rom_ejemplo)</span>
