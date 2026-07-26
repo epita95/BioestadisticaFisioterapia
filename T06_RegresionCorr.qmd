@@ -391,6 +391,7 @@ $$\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{
 **Derivación (Opcional — para quien quiera profundizar):** Se deriva $S(\beta_0,\beta_1) = \sum (y_i - \beta_0 - \beta_1 x_i)^2$ respecto a $\beta_0$ y $\beta_1$, se iguala a cero, y se obtienen las fórmulas de arriba. En este curso **siempre usaremos R** (`lm(y ~ x)`) en lugar de derivar a mano.
 :::
 ## Ajuste del modelo en R: Imc vs. % graso
+#| code-fold: false
 
 ```{r}
 modelo <- lm(graso ~ imc)
@@ -488,6 +489,7 @@ pred <- predict(modelo, newdata=data.frame(imc=new_x),
 lines(new_x, pred[,2], col="darkgreen", lty=2)
 lines(new_x, pred[,3], col="darkgreen", lty=2)
 
+#| code-fold: false
 # Predicción para IMC = 22
 predict(modelo, newdata=data.frame(imc=22))
 ```
@@ -592,6 +594,7 @@ par(mfrow=c(1,1))
 ## Correlación en R: Pearson y Spearman
 
 ```{r}
+#| code-fold: false
 # Correlación de Pearson (paramétrica, lineal)
 cor(imc, graso)                    # r = 0.610
 cor.test(imc, graso)               # Test H0: ρ = 0
@@ -788,6 +791,7 @@ s <- summary(modelo)
 $$R^2 = \frac{SC_{reg}}{SC_{tot}} = 1 - \frac{SC_{res}}{SC_{tot}}$$
 
 ```{r}
+#| code-fold: false
 anova_modelo <- anova(modelo)
 print(anova_modelo)
 cat("R² =", round(s$r.squared, 4),
@@ -809,6 +813,7 @@ La tabla ANOVA descompone la variabilidad total de $Y$:
 $$F = \frac{CM_{reg}}{CM_{res}} \sim F_{1, n-2}$$
 
 ```{r}
+#| code-fold: false
 anova_modelo <- anova(modelo)
 print(anova_modelo)
 cat("\nR² =", round(summary(modelo)$r.squared, 4),
@@ -816,7 +821,7 @@ cat("\nR² =", round(summary(modelo)$r.squared, 4),
     "\nError estándar residual =", round(summary(modelo)$sigma, 2))
 ```
 
-**Interpretación:** $F = 20.39$, $P = 0.001$ → La pendiente es significativamente distinta de cero. El IMC **sí** predice el % de masa grasa.
+**Interpretación:** $F(1,10) = 5.94$, $P = 0.035$ → La pendiente es significativamente distinta de cero ($P < 0.05$). El IMC **sí** predice el % de masa grasa.
 
 ## Inferencia sobre los coeficientes de regresión
 
@@ -1306,6 +1311,7 @@ cat("R² =", round(summary(modelo)$r.squared,3),
 imc <- c(22, 25, 28, 24, 30, 27, 26, 32, 29, 31)
 graso <- c(18, 22, 26, 20, 30, 24, 23, 33, 27, 31)
 
+#| code-fold: false
 # Correlación de Pearson
 cor(imc, graso)
 cor.test(imc, graso)                      # Test de significación
@@ -1346,6 +1352,7 @@ summary(modelo)$r.squared                 # Proporción de varianza explicada
 
 ```{r}
 #| eval: false
+#| code-fold: false
 # Gráficos de diagnóstico
 par(mfrow = c(2, 2))
 plot(modelo)                              # 4 gráficos de diagnóstico
