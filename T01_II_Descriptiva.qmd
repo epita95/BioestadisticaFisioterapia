@@ -680,26 +680,30 @@ par(mfrow=c(1,1))
 | Tabla de frecuencias | `table(x)`; `prop.table(table(x))` | `freq(x)` |
 | Tabla agrupada en $k$ intervalos | `cut(x, breaks=k)` + `table()` | `freq(x, cuts=k)` |
 | Gráficos por grupo | `boxplot(y ~ g)` | `grps(y ~ g)` |
-| Test de normalidad + Q-Q plot | `shapiro.test(x)`; `qqnorm(x)` | `normal(x)` |
+| Test de normalidad + Q-Q plot | `shapiro.test(x)`; `qqnorm(x)` | `testnormal(x)` |
 | Resumen de 5 números | `summary(x)` | `freq(x)` |
 
 ```{r}
 #| eval: false
+# ── Datos de ejemplo ──
+x <- c(125, 132, 128, 135, 130, 126, 131, 129)       # ROM rodilla (°)
+grupo <- factor(c(rep("Control", 4), rep("Tratamiento", 4)))
+y <- c(140, 145, 138, 142, 120, 125, 118, 122)         # ROM 2° grupo
+
 # ── BioEstatR (atajos) ──
 if (has_bioestatr) {
   library(BioEstatR)
-  freq(x)               # todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk
-  freq(x, cuts=5)       # igual pero agrupando en 5 intervalos
-  # table(x)            # tabla de frecuencias con porcentajes (función BioEstatR)
-  grps(y ~ grupo)       # boxplots + resumen por grupo
-  normal(x)             # Shapiro-Wilk + histograma + Q-Q plot
+  freq(x)                     # todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk
+  freq(x, cuts = 5)           # igual pero agrupando en 5 intervalos
+  grps(y ~ grupo)             # boxplots + resumen por grupo
+  testnormal(x)               # Shapiro-Wilk + histograma + Q-Q plot
 }
 
 # ── R base (equivalente completo) ──
 mean(x); sd(x); median(x); IQR(x); quantile(x, c(0.25, 0.75))
 shapiro.test(x)
 boxplot(y ~ grupo)
-hist(x, freq=FALSE); lines(density(x), col="steelblue", lwd=2)
+hist(x, freq = FALSE); lines(density(x), col = "steelblue", lwd = 2)
 ```
 
 ## BioEstatR en acción — Ejemplo completo

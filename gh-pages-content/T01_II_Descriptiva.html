@@ -1480,7 +1480,7 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <tr class="odd">
 <td>Test de normalidad + Q-Q plot</td>
 <td><code>shapiro.test(x)</code>; <code>qqnorm(x)</code></td>
-<td><code>normal(x)</code></td>
+<td><code>testnormal(x)</code></td>
 </tr>
 <tr class="even">
 <td>Resumen de 5 números</td>
@@ -1492,21 +1492,25 @@ Shapiro-Wilk: W = 0.983 , P = 0.9774</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Mostrar código R</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── BioEstatR (atajos) ──</span></span>
-<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
-<span id="cb57-3"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(BioEstatR)</span>
-<span id="cb57-4"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x)               <span class="co"># todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk</span></span>
-<span id="cb57-5"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x, <span class="at">cuts=</span><span class="dv">5</span>)       <span class="co"># igual pero agrupando en 5 intervalos</span></span>
-<span id="cb57-6"><a aria-hidden="true" tabindex="-1"></a>  <span class="co"># table(x)            # tabla de frecuencias con porcentajes (función BioEstatR)</span></span>
-<span id="cb57-7"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">grps</span>(y <span class="sc">~</span> grupo)       <span class="co"># boxplots + resumen por grupo</span></span>
-<span id="cb57-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">normal</span>(x)             <span class="co"># Shapiro-Wilk + histograma + Q-Q plot</span></span>
-<span id="cb57-9"><a aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb57-10"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── R base (equivalente completo) ──</span></span>
-<span id="cb57-12"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x); <span class="fu">sd</span>(x); <span class="fu">median</span>(x); <span class="fu">IQR</span>(x); <span class="fu">quantile</span>(x, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span>
-<span id="cb57-13"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span>
-<span id="cb57-14"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grupo)</span>
-<span id="cb57-15"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">freq=</span><span class="cn">FALSE</span>); <span class="fu">lines</span>(<span class="fu">density</span>(x), <span class="at">col=</span><span class="st">"steelblue"</span>, <span class="at">lwd=</span><span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── Datos de ejemplo ──</span></span>
+<span id="cb57-2"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">125</span>, <span class="dv">132</span>, <span class="dv">128</span>, <span class="dv">135</span>, <span class="dv">130</span>, <span class="dv">126</span>, <span class="dv">131</span>, <span class="dv">129</span>)       <span class="co"># ROM rodilla (°)</span></span>
+<span id="cb57-3"><a aria-hidden="true" tabindex="-1"></a>grupo <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"Control"</span>, <span class="dv">4</span>), <span class="fu">rep</span>(<span class="st">"Tratamiento"</span>, <span class="dv">4</span>)))</span>
+<span id="cb57-4"><a aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">140</span>, <span class="dv">145</span>, <span class="dv">138</span>, <span class="dv">142</span>, <span class="dv">120</span>, <span class="dv">125</span>, <span class="dv">118</span>, <span class="dv">122</span>)         <span class="co"># ROM 2° grupo</span></span>
+<span id="cb57-5"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── BioEstatR (atajos) ──</span></span>
+<span id="cb57-7"><a aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (has_bioestatr) {</span>
+<span id="cb57-8"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(BioEstatR)</span>
+<span id="cb57-9"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x)                     <span class="co"># todo en uno: n, media, DE, CV, Me, Q1, Q3, min, max, asimetría, curtosis, Shapiro-Wilk</span></span>
+<span id="cb57-10"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">freq</span>(x, <span class="at">cuts =</span> <span class="dv">5</span>)           <span class="co"># igual pero agrupando en 5 intervalos</span></span>
+<span id="cb57-11"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">grps</span>(y <span class="sc">~</span> grupo)             <span class="co"># boxplots + resumen por grupo</span></span>
+<span id="cb57-12"><a aria-hidden="true" tabindex="-1"></a>  <span class="fu">testnormal</span>(x)               <span class="co"># Shapiro-Wilk + histograma + Q-Q plot</span></span>
+<span id="cb57-13"><a aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb57-14"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-15"><a aria-hidden="true" tabindex="-1"></a><span class="co"># ── R base (equivalente completo) ──</span></span>
+<span id="cb57-16"><a aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x); <span class="fu">sd</span>(x); <span class="fu">median</span>(x); <span class="fu">IQR</span>(x); <span class="fu">quantile</span>(x, <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.75</span>))</span>
+<span id="cb57-17"><a aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(x)</span>
+<span id="cb57-18"><a aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(y <span class="sc">~</span> grupo)</span>
+<span id="cb57-19"><a aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x, <span class="at">freq =</span> <span class="cn">FALSE</span>); <span class="fu">lines</span>(<span class="fu">density</span>(x), <span class="at">col =</span> <span class="st">"steelblue"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 </section>
