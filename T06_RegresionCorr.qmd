@@ -68,6 +68,10 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 | 22.17 | 24.19 | | 22.69 | 18.62 |
 | 21.72 | 25.62 | | 21.15 | 23.15 |
 
+::: {.small}
+📥 **Datos:** [Descargar imc_graso.csv](data/imc_graso.csv) para replicar los análisis de este tema.
+:::
+
 ::: {.incremental}
 
 - ¿Existe **relación** entre IMC y % de masa grasa?
@@ -110,6 +114,7 @@ Antes de cualquier análisis numérico: **visualizar** la relación.
 :::
 
 ```{r}
+# ⬇️ Carga desde archivo: df <- read.csv("data/imc_graso.csv"); imc <- df$imc; graso <- df$graso
 imc <- c(20.36,20.34,20.05,23.94,22.17,21.72,
          19.29,23.07,27.45,24.91,22.69,21.15)
 graso <- c(17.36,12.72,11.65,19.34,24.19,25.62,
@@ -538,8 +543,8 @@ $$P = 2 \times P(T_{10} > 4.514) = 0.0011$$
 :::
 
 ```{r}
-# ⬇️ Los datos están disponibles en data/imc_graso_higado.csv para descargar y practicar
-# df <- read.csv("data/imc_graso_higado.csv")  # cargar si se prefiere desde archivo
+# ⬇️ Los datos están disponibles en data/imc_graso.csv para descargar y practicar
+# df <- read.csv("data/imc_graso.csv"); cor.test(df$imc, df$graso)
 
 # Test de correlación de Pearson
 cor.test(imc, graso)
