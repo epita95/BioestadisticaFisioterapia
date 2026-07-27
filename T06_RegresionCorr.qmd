@@ -245,6 +245,10 @@ par(mfrow=c(1,1))
 **Pregunta rápida:** Si dos variables clínicas tienen covarianza negativa, ¿qué significa? Da un ejemplo en fisioterapia donde esperarías encontrar covarianza negativa.
 :::
 
+::: {.callout-tip collapse="true"}
+**Respuesta:** Significa que cuando una variable aumenta, la otra disminuye. Ejemplo en fisioterapia: a más edad, menor flexión lumbar (covarianza negativa entre edad y ROM).
+:::
+
 ## Covarianza — La base de la regresión
 
 **Definición:** La covarianza mide cómo dos variables **varían conjuntamente**:
@@ -361,6 +365,10 @@ El método de **mínimos cuadrados ordinarios (MCO)** produce la mejor estimaci�
 
 ::: {.callout-tip}
 **Pregunta rápida:** Un modelo ajusta mejoría EVA = 2.0 + 0.8 × sesiones. ¿Cuánto mejora un paciente por cada 5 sesiones adicionales? ¿Tiene sentido clínico el intercepto ($\beta_0 = 2.0$) en este contexto si ningún paciente tiene 0 sesiones?
+:::
+
+::: {.callout-tip collapse="true"}
+**Respuesta:** 5 × 0.8 = 4 puntos de mejoría. El intercepto (β₀=2.0) tiene sentido limitado: representa la mejoría teórica con 0 sesiones, pero ningún paciente tiene 0 sesiones, y los datos no incluyen ese rango.
 :::
 
 ## Estimación por mínimos cuadrados ordinarios (MCO)
@@ -841,51 +849,6 @@ par(mfrow=c(1,1))
 ::: {.callout-tip}
 **Checklist del estudiante:** (1) Residuos vs Ajustados sin patrón → linealidad OK. (2) Puntos en diagonal → normalidad OK. (3) Dispersión constante → homocedasticidad OK. (4) Barras bajas → sin outliers influyentes.
 :::
-
-## Diagnóstico visual completo de residuos
-
-```{r}
-#| fig-height: 5.2
-#| fig-width: 8
-par(mfrow=c(2,3), mar=c(4,4,3,1))
-residuos <- residuals(modelo)
-ajustados <- fitted(modelo)
-
-# 1. Residuos vs Ajustados (homocedasticidad)
-plot(ajustados, residuos, pch=19, col="steelblue",
-     main="Residuos vs Ajustados", xlab="Ajustados", ylab="Residuos")
-abline(h=0, col="darkgreen", lty=2, lwd=2)
-
-# 2. Q-Q Normal (normalidad)
-qqnorm(residuos, pch=19, col="steelblue", main="Q-Q Normal")
-qqline(residuos, col="darkgreen", lwd=2)
-
-# 3. Scale-Location (homocedasticidad)
-plot(ajustados, sqrt(abs(rstandard(modelo))), pch=19, col="steelblue",
-     main="Scale-Location", xlab="Ajustados", ylab=expression(sqrt("|Residuos estand.|")))
-
-# 4. Residuos vs Leverage (influencia)
-plot(hatvalues(modelo), rstandard(modelo), pch=19, col="steelblue",
-     main="Residuos vs Leverage", xlab="Leverage", ylab="Residuos estand.")
-
-# 5. Cook's distance
-plot(cooks.distance(modelo), type="h", lwd=3, col="seagreen",
-     main="Distancia de Cook", xlab="Observación", ylab="Cook's D")
-abline(h=4/length(imc), col="darkgreen", lty=2)
-
-# 6. Histograma de residuos
-hist(residuos, col="steelblue", border="white", breaks=8,
-     main="Histograma de Residuos", xlab="Residuos", freq=FALSE)
-curve(dnorm(x,0,sd(residuos)), add=TRUE, col="darkgreen", lwd=2)
-par(mfrow=c(1,1))
-```
-
-**Qué buscar en cada gráfico:**
-1. **Residuos vs Ajustados:** Nube sin patrón → linealidad + homocedasticidad ✓
-2. **Q-Q Normal:** Puntos cerca de la diagonal → normalidad ✓
-3. **Scale-Location:** Línea horizontal → homocedasticidad ✓
-4. **Leverage:** Puntos alejados en $x$ y $y$ → outliers + influyentes
-5. **Cook's D:** Barras altas → observaciones que cambian sustancialmente el modelo
 
 ## Cuarteto de anscombe — Por qué los gráficos importan [@anscombe1973]
 

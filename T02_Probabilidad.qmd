@@ -16,7 +16,7 @@ format:
     code-copy: true
     code-overflow: wrap
     fig-align: center
-    fig-width: 8
+    fig-width: 9
     fig-height: 5.2
     lang: es
   pdf:
@@ -593,10 +593,14 @@ A pesar de la alta sensibilidad (99%), el VPP es solo **16.7%** porque la **baja
 :::
 
 
-*Si P(Recuperado | Mujer) = 60% y P(Recuperado | Hombre) = 40%, ¿significa esto que el sexo causa la diferencia en recuperación? ¿Qué otra explicación podría haber?*
+::: {.callout-tip}
+**Pregunta para reflexionar:** Si P(Recuperado | Mujer) = 60% y P(Recuperado | Hombre) = 40%, ¿significa esto que el sexo causa la diferencia en recuperación? ¿Qué otra explicación podría haber?
+:::
 
 
-*En el ejemplo, P(M | E) = 0.60 y P(M) = 0.50. ¿Qué necesitarías cambiar en la tabla para que Ejercicio y Mejoría fueran independientes?*
+::: {.callout-tip}
+**Pregunta para reflexionar:** En el ejemplo, P(M | E) = 0.60 y P(M) = 0.50. ¿Qué necesitarías cambiar en la tabla para que Ejercicio y Mejoría fueran independientes?
+:::
 
 ## Teorema de Bayes — Perspectiva histórica
 
@@ -665,10 +669,6 @@ $$\underbrace{P(\theta)}_{\text{Distribución a priori}} \;\; \times \;\; \unde
 *Cada paciente es único. La probabilidad nos da el lenguaje para cuantificar la incertidumbre clínica y tomar decisiones informadas.*
 
 ---
-
-# De la Probabilidad a las Variables Aleatorias {.center}
-
-![](logo.png){width="70px"}
 
 ::: {.connection}
 Hasta aquí hemos modelado **eventos** (A, B, intersecciones, condicionales). Ahora damos el salto a modelar **variables**: magnitudes clínicas que varían de paciente a paciente. Una variable aleatoria asigna un número a cada resultado incierto.
@@ -1237,7 +1237,9 @@ cat("Z para IC 95%:", round(qnorm(0.975), 3),
 ```
 
 
-*Un paciente tiene Z = −1.5 en fuerza de prensión y Z = +2.1 en IMC. ¿Cuál de las dos mediciones es más preocupante? ¿Por qué?*
+::: {.callout-tip}
+**Pregunta para reflexionar:** Un paciente tiene Z = −1.5 en fuerza de prensión y Z = +2.1 en IMC. ¿Cuál de las dos mediciones es más preocupante? ¿Por qué?
+:::
 
 ---
 

@@ -86,12 +86,6 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 
 # Marco Conceptual {.center}
 
-![](logo.png){width="90px"}
-
-**Grado en Fisioterapia**
-
-CC BY 4.0 — Miguel Angel Luque-Fernández
-
 ## Mapa conceptual — El universo de los tests de hipótesis
 
 Antes de sumergirnos en fórmulas, visualicemos el **esquema completo** que guía la elección del test adecuado:
@@ -1556,4 +1550,10 @@ legend("bottomleft", c("Decisión", "Condición", "Test final"),
 - [@cohen1988] — Cohen, J. (1988). *Statistical Power Analysis for the Behavioral Sciences*. Lawrence Erlbaum.
 - [@wasserstein2016] --- Wasserstein, R. L. & Lazar, N. A. (2016). The ASA's statement on p-values. *The American Statistician*, 70(2), 129–133.
 - [@greenland2016] — Greenland, S. et al. (2016). Statistical tests, P values, confidence intervals, and power. *Eur. J. Epidemiol.*, 31(4), 337–350.
+:::
+
+---
+
+::: {.connection}
+**Conexión T04→T05:** Has aprendido a contrastar hipótesis sobre medias y proporciones. En el Tema 5 ampliarás este marco a tablas de contingencia: ¿hay asociación entre dos variables cualitativas?
 :::
