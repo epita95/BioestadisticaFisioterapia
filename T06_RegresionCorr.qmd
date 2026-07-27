@@ -609,7 +609,7 @@ cor.test(imc, graso, method="spearman")
 | **Robustez** | Sensible a atípicos | Robusta a atípicos |
 | **Supuestos** | Normalidad bivariante | Ninguno |
 
-## Correlación vs causalidad — Visualización
+## Correlación vs causalidad — Simulación
 
 ```{r}
 set.seed(123)
@@ -628,6 +628,8 @@ points(Z, Y, pch=19, col="steelblue")
 legend("topleft", c("X~Z","Y~Z"), col=c("coral","steelblue"), pch=19, bty="n")
 par(mfrow=c(1,1))
 ```
+
+## Correlación vs causalidad — Lección
 
 **Lección:** X e Y están correladas ($r \approx 0.47$, $P < 0.001$), pero **no hay relación causal** entre ellas. Ambas dependen de Z. En investigación clínica, **siempre considerar confusores**.
 
