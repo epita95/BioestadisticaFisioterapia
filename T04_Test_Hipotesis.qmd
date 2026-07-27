@@ -298,7 +298,7 @@ par(mfrow=c(1,1))
 ## Hipótesis nula y alternativa — Definiciones formales
 
 ::: {.callout-note}
-Procedimiento de **Inferencia Estadistica** para tomar una **decisión** sobre un parámetro poblacional usando información **muestral**.
+Procedimiento de **Inferencia Estadística** para tomar una **decisión** sobre un parámetro poblacional usando información **muestral**.
 :::
 
 - **$H_0$ (Nula):** lo asumido cierto. Igualdad, homogeneidad. Especifica distribución conocida.
@@ -490,7 +490,9 @@ text(2.8, 0.03, paste0("P = ", round(2*pt(-2.25,11),4)), col="darkgreen", font=2
 :::
 :::
 
-*Un P=0.051 y un P=0.049, ¿son realmente diferentes en su interpretación clínica?*
+*Un P=0.051 y un P=0.049, ¿son realmente diferentes en su interpretación clínica?*
+
+**Cálculo del P-valor para el ejemplo de flexión de rodilla** ($H_0: \mu=130°$, $n=6$):
 
 ```{r}
 x<-c(125,132,128,135,130,126); t<-(mean(x)-130)/(sd(x)/sqrt(6))
@@ -564,7 +566,7 @@ t.test(x, mu = 130)
 
 ```{r}
 x<-48; n<-287; p0<-0.22
-z<-(x - n*p0 - 0.5)/sqrt(n*p0*(1-p0))
+z<-(abs(x - n*p0) - 0.5)/sqrt(n*p0*(1-p0))
 P<-2*pnorm(-abs(z))
 cat("z =", round(z,3), "P =", round(P,4))
 ```
@@ -697,7 +699,7 @@ cat("z =", round(z,3), "P =", round(2*pnorm(-abs(z)),4),
 ## El concepto de apareamiento (Pairing)
 
 ::: {.callout-note}
-**Apareamiento:** cada sujeto se mide **dos veces** (o dos sujetos se emparejan por caracteristicas). Las observaciones **no son independientes**: pertenecen al mismo individuo o par.
+**Apareamiento:** cada sujeto se mide **dos veces** (o dos sujetos se emparejan por características). Las observaciones **no son independientes**: pertenecen al mismo individuo o par.
 :::
 
 **¿Por qué aparear?** Elimina la variabilidad **entre sujetos** → **más potencia** para detectar diferencias. Cada sujeto es su propio control.
@@ -757,7 +759,7 @@ $$\chi^2 = \frac{(|n_{12}-n_{21}|-0.5)^2}{n_{12}+n_{21}} \sim \chi^2_1$$
 
 ```{r}
 n12<-15; n21<-31
-chi2<-(abs(n12-n21)-0.5)^2/(n12+n21)
+chi2<-(abs(n12-n21)-1)^2/(n12+n21)
 P<-pchisq(chi2,1,lower.tail=FALSE)
 cat("chi2 =", round(chi2,3), "P =", round(P,4),
     "\nTerapia B significativamente superior (P = 0.027)")
@@ -1097,7 +1099,7 @@ library(BioEstatR)
 # Datos del ejemplo de terapias (n=166)
 testmcnemar(n = c(38, 15, 31, 82))
 
-# Salida tipica:
+# Salida típica:
 # Test de McNemar para proporciones apareadas
 # χ² = 4.89, gl = 1, P = 0.027
 # Diferencia: -9.5% (IC 95%: -17.4% a -1.7%)
@@ -1422,8 +1424,6 @@ text(col_x[3], 3.75, "mcnemar.test()", font = 2, cex = 0.8, col = "white")
 4. **La inferencia correcta** requiere considerar el diseño del estudio, la calidad de las mediciones, y la plausibilidad de los supuestos
 5. **El P-valor NO mide** el tamaño del efecto ni la importancia clínica del resultado
 6. **Por sí solo, el P-valor no es una buena medida** de la evidencia sobre un modelo
-
-**Buena práctica en fisioterapia:** Reportar **siempre**: (1) P-valor exacto, (2) IC 95% para el efecto, (3) tamaño del efecto (d de Cohen), y (4) juicio sobre la **relevancia clínica** de la diferencia observada [@greenland2016].
 
 ---
 

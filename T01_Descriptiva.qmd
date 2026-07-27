@@ -502,7 +502,7 @@ boxplot(rnorm(50,150,10)~rep(c("A","B"),each=25), col=c("steelblue","coral"),
 par(mfrow=c(1,1))
 ```
 
-**Regla nemotécnica:** 1 variable → su gráfico natural. 2 variables → una en cada eje. ¿Ambas categóricas? → tabla de contingencia. ¿Ambas continuas? → diagrama de dispersión.
+**Regla mnemotécnica:** 1 variable → su gráfico natural. 2 variables → una en cada eje. ¿Ambas categóricas? → tabla de contingencia. ¿Ambas continuas? → diagrama de dispersión.
 
 ## Tipos de gráficos y elección del intervalo
 
@@ -761,7 +761,7 @@ cat("Ratios de mejoría:", ratios,
 ## Mediana vs media y simetría — Regla para identificar asimetría
 
 ::: {.callout-important}
-**Regla nemotécnica (rule of thumb):** La posición relativa de media, mediana y moda revela la asimetría.
+**Regla mnemotécnica (rule of thumb):** La posición relativa de media, mediana y moda revela la asimetría.
 :::
 
 ::: {.columns}
@@ -1136,7 +1136,7 @@ plot(ecdf(pas), main="ECDF: Presión Arterial Sistólica (n=10)",
 grid(col="grey80")
 # Añadir percentiles clave
 abline(h=c(0.25,0.5,0.75), col=c("darkgreen","coral","darkgreen"), lty=3, lwd=1.5)
-text(138, 0.52, "Me = 124", col="coral", cex=0.8, font=2)
+text(138, 0.52, "Me = 124.5", col="coral", cex=0.8, font=2)
 ```
 
 ## Estadística descriptiva con R — Cálculo manual
@@ -1179,7 +1179,7 @@ cat("\n\nShapiro-Wilk: W =", round(shapiro.test(x)$statistic, 3),
     ", P =", round(shapiro.test(x)$p.value, 4))
 ```
 
-**Interpretación de la salida:** $n=8$, $\bar{x}=129.5°$, $s=3.2°$, $Me=129.5°$, $CV=2.5\%$ (muy homogéneo), $RIQ=4.5°$, asimetría $\approx 0$ (simétrica), Shapiro-Wilk $P > 0.05$ (compatible con normalidad).
+**Interpretación de la salida:** $n=8$, $\bar{x}=129.5°$, $s=3.2°$, $Me=129.5°$, $CV=2.5\%$ (muy homogéneo), $RIQ$ (ver salida R), asimetría $\approx 0$ (simétrica), Shapiro-Wilk $P > 0.05$ (compatible con normalidad).
 
 ## R base vs BioEstatR — Resumen de funciones
 

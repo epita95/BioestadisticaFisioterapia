@@ -951,12 +951,8 @@ Este patrón se repite para todas las distribuciones: `dbinom`, `pbinom`, `qbin
 :::
 
 ---
----
-
----
 
 ## Ejercicio Clínico — Tema II (Parte I)
-
 **Contexto:** El 15% de pacientes en consulta tienen lumbalgia crónica. Un test tiene sensibilidad 90% y especificidad 85%.
 
 1. Si un paciente da positivo, ¿probabilidad de tener lumbalgia?

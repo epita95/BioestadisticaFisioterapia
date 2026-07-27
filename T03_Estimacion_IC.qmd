@@ -693,7 +693,7 @@ cat("IC 95%: (", round(IC_lo,1), ",", round(IC_hi,1), ")°",
     "\nPrecision d =", round(t_crit*s/sqrt(n),2), "°")
 ```
 
-**Interpretación clinica:** Con 95% de confianza, la flexión media de hombro post-rehabilitación está entre 164.9° y 171.6°. La precisión de ±3.4° es clínicamente aceptable para goniometría.
+**Interpretación clínica:** Con 95% de confianza, la flexión media de hombro post-rehabilitación está entre 164.9° y 171.6°. La precisión de ±3.4° es clínicamente aceptable para goniometría.
 
 ## IC para una proporción poblacional
 
