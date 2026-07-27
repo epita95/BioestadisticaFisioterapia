@@ -61,12 +61,12 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 
 | IMC | % Graso | | IMC | % Graso |
 |-----|---------|---|-----|---------|
-| 20.36 | 17.36 | | 21.72 | 25.62 |
-| 20.34 | 12.72 | | 19.29 | 20.91 |
-| 20.05 | 11.65 | | 23.07 | 17.81 |
-| 23.94 | 19.34 | | 27.45 | 29.70 |
-| 22.17 | 24.19 | | 24.37 | 15.26 |
-| 22.18 | 28.41 | | 17.30 | 8.87 |
+| 20.36 | 17.36 | | 19.29 | 20.91 |
+| 20.34 | 12.72 | | 23.07 | 17.81 |
+| 20.05 | 11.65 | | 27.45 | 29.70 |
+| 23.94 | 19.34 | | 24.91 | 25.43 |
+| 22.17 | 24.19 | | 22.69 | 18.62 |
+| 21.72 | 25.62 | | 21.15 | 23.15 |
 
 ::: {.incremental}
 
@@ -110,10 +110,10 @@ Antes de cualquier análisis numérico: **visualizar** la relación.
 :::
 
 ```{r}
-imc <- c(20.36,20.34,20.05,23.07,23.94,27.45,
-         22.17,24.37,22.18,17.30,21.72,19.29)
-graso <- c(17.36,12.72,11.65,17.81,19.34,29.70,
-           24.19,15.26,28.41,8.87,25.62,20.91)
+imc <- c(20.36,20.34,20.05,23.94,22.17,21.72,
+         19.29,23.07,27.45,24.91,22.69,21.15)
+graso <- c(17.36,12.72,11.65,19.34,24.19,25.62,
+           20.91,17.81,29.70,25.43,18.62,23.15)
 
 plot(imc, graso, pch=19, col="steelblue", cex=1.5,
      xlab="IMC (kg/m²)", ylab="% Masa Grasa",
@@ -400,11 +400,11 @@ par(mfrow=c(1,1))
 ```
 
 **Resultados:**
-- $\hat{\beta}_0 = -13.96$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
-- $R^2 = 0.373$ (37.3% de variabilidad explicada), Error estándar residual $s = 5.55$
-- $P = 0.035$ (pendiente significativa)
+- $\hat{\beta}_0 = -13.50$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
+- $R^2 = 0.671$ (67.1% de variabilidad explicada), Error estándar residual $s = 3.89$
+- $P = 0.001$ (pendiente significativa)
 
-**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.13 a 2.92).
+**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.77 a 2.28).
 
 ## Varianza residual — Lo que el modelo no explica
 
@@ -416,7 +416,7 @@ $$s^2 = \frac{SC_{res}}{n-2} = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n-2}, \qq
 
 **¿Por qué $n-2$?** Hemos estimado **2 parámetros** ($\beta_0$ y $\beta_1$) → "gastamos" 2 grados de libertad. Es el mismo principio que $n-1$ en la varianza muestral (Tema 3), pero con 2 restricciones en lugar de 1.
 
-**En el ejemplo IMC-Graso:** $s = 5.55$ significa que el modelo se equivoca típicamente en $\pm 5.55$ puntos porcentuales de grasa corporal al predecir desde el IMC.
+**En el ejemplo IMC-Graso:** $s = 3.89$ significa que el modelo se equivoca típicamente en $\pm 3.89$ puntos porcentuales de grasa corporal al predecir desde el IMC.
 
 ```{r}
 modelo <- lm(graso ~ imc)
@@ -509,13 +509,13 @@ $$r = \frac{S_{xy}}{\sqrt{S_{xx} \cdot S_{yy}}} = \frac{\sum(x_i-\bar{x})(y_i-\b
 | 0.90 – 1.00 | Muy fuerte |
 
 **En nuestro ejemplo (IMC vs. % graso):**
-- $r = 0.610$ → correlación **moderada**
-- $R^2 = 0.373$ → el IMC explica el **37.3%** de la variabilidad del % graso
+- $r = 0.819$ → correlación **fuerte**
+- $R^2 = 0.671$ → el IMC explica el **67.1%** de la variabilidad del % graso
 
 ## Contraste de hipótesis para el coeficiente de correlación
 
 ::: {.callout-note}
-**¿Es significativa la correlación observada?** $r = 0.610$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
+**¿Es significativa la correlación observada?** $r = 0.819$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
 :::
 
 **Hipótesis:**
@@ -526,12 +526,12 @@ $$H_1: \rho \neq 0 \quad \text{(existe correlación lineal)}$$
 $$t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2} \quad \text{bajo } H_0$$
 
 ::: {.framed}
-Para nuestro ejemplo ($r = 0.610$, $n = 12$):
-$$t = \frac{0.610 \sqrt{10}}{\sqrt{1 - 0.610^2}} = \frac{1.930}{0.792} = 2.437$$
-$$P = 2 \times P(T_{10} > 2.437) = 2 \times 0.0175 = 0.035$$
+Para nuestro ejemplo ($r = 0.819$, $n = 12$):
+$$t = \frac{0.819 \sqrt{10}}{\sqrt{1 - 0.819^2}} = \frac{2.590}{0.574} = 4.514$$
+$$P = 2 \times P(T_{10} > 4.514) = 0.0011$$
 :::
 
-**Conclusión:** $P = 0.035 < 0.05$ → **rechazamos** $H_0$. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa.
+**Conclusión:** $P = 0.0011 < 0.05$ → **rechazamos** $H_0$. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa en la población de adolescentes.
 
 ::: {.callout-tip}
 **En R:** `cor.test(x, y)` realiza el test completo: $t$, gl, P-valor e IC 95% para $\rho$ (vía transformación $z$ de Fisher). La función `cortest()` de BioEstatR ofrece la misma funcionalidad.
@@ -553,7 +553,7 @@ $$z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right), \quad IC_{1-\alpha}(z_\rho) = 
 :::
 
 ::: {.callout-tip}
-**Pregunta para reflexionar:** $r = 0.610$ se considera "fuerte" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
+**Pregunta para reflexionar:** $r = 0.819$ se considera "fuerte" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
 :::
 
 ## Visualización de diferentes fuerzas de correlación
@@ -582,7 +582,7 @@ par(mfrow=c(1,1))
 ```{r}
 
 # Correlación de Pearson (paramétrica, lineal)
-cor(imc, graso)                    # r = 0.610
+cor(imc, graso)                    # r = 0.819
 cor.test(imc, graso)               # Test H0: ρ = 0
 
 # Correlación de Spearman (no paramétrica, monótona)
@@ -681,7 +681,7 @@ predict(modelo, newdata = nuevo, interval = "prediction")
 - Para que una predicción sea aceptable debemos considerar la **variabilidad individual** (IP), no solo la media (IC), el valor que usamos para predecir tiene que estar en el rango de valores observados para esa variable en el modelo y el coeficiente de determinación tiene que ser aceptable ($\geq$ 0.7). 
 :::
 
-**Ejemplo clínico:** Para IMC=22, el % graso medio es 19.5% (IC 95%: 16.0% a 23.1%). Pero un paciente concreto con IMC=22 podría tener entre 6.7% y 32.4% de grasa (IP 95%).
+**Ejemplo clínico:** Para IMC=22, el % graso medio es 20.0% (IC 95%: 17.1% a 22.9%). Pero un paciente concreto con IMC=22 podría tener entre 10.0% y 30.0% de grasa (IP 95%).
 
 ::: {.callout-tip}
 **Pregunta para reflexionar:** Eres el fisioterapeuta de un paciente con IMC=28. ¿Usarías el IC de la media o el IP individual para comunicarle su % graso estimado? ¿Qué riesgos tiene usar el intervalo equivocado en la práctica clínica?
@@ -782,7 +782,7 @@ cat("\nR² =", round(summary(modelo)$r.squared, 4),
     "\nError estándar residual =", round(summary(modelo)$sigma, 2))
 ```
 
-**Interpretación:** $F(1,10) = 5.94$, $P = 0.035$ → La pendiente es significativamente distinta de cero ($P < 0.05$). El IMC **sí** predice el % de masa grasa.
+**Interpretación:** $F(1,10) = 20.39$, $P = 0.001$ → La pendiente es significativamente distinta de cero. El IMC **sí** predice el % de masa grasa.
 
 ## Inferencia sobre los coeficientes de regresión
 
@@ -966,7 +966,7 @@ legend("topleft",
 
 ::: {.callout-important}
 - **IC (banda azul):** Incertidumbre sobre la **media** de $Y$ dado $X=x$. Más estrecha, converge a la recta con $n$ grande.
-- **IP (banda naranja):** Incertidumbre sobre una **nueva observación individual**. Más ancha, incluye la variabilidad residual $\sigma^2$ y **no converge** a cero al aumentar $n$.
+- **IP (banda verde):** Incertidumbre sobre una **nueva observación individual**. Más ancha, incluye la variabilidad residual $\sigma^2$ y **no converge** a cero al aumentar $n$.
 :::
 
 
