@@ -413,11 +413,11 @@ par(mfrow=c(1,1))
 ```
 
 **Resultados:**
-- $\hat{\beta}_0 = -13.50$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
-- $R^2 = 0.671$ (67.1% de variabilidad explicada), Error estándar residual $s = 3.89$
-- $P = 0.001$ (pendiente significativa)
+- $\hat{\beta}_0 = -12.42$ (intercepto), $\hat{\beta}_1 = 1.48$ (pendiente)
+- $R^2 = 0.416$ (41.6% de variabilidad explicada), Error estándar residual $s = 4.30$
+- $P = 0.023$ (pendiente significativa)
 
-**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.77 a 2.28).
+**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.48 puntos porcentuales** (IC 95%: 0.25 a 2.72).
 
 ## Varianza residual — Lo que el modelo no explica
 
@@ -429,7 +429,7 @@ $$s^2 = \frac{SC_{res}}{n-2} = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n-2}, \qq
 
 **¿Por qué $n-2$?** Hemos estimado **2 parámetros** ($\beta_0$ y $\beta_1$) → "gastamos" 2 grados de libertad. Es el mismo principio que $n-1$ en la varianza muestral (Tema 3), pero con 2 restricciones en lugar de 1.
 
-**En el ejemplo IMC-Graso:** $s = 3.89$ significa que el modelo se equivoca típicamente en $\pm 3.89$ puntos porcentuales de grasa corporal al predecir desde el IMC.
+**En el ejemplo IMC-Graso:** $s = 4.30$ significa que el modelo se equivoca típicamente en $\pm 4.30$ puntos porcentuales de grasa corporal al predecir desde el IMC.
 
 ```{r}
 modelo <- lm(graso ~ imc)
@@ -522,13 +522,13 @@ $$r = \frac{S_{xy}}{\sqrt{S_{xx} \cdot S_{yy}}} = \frac{\sum(x_i-\bar{x})(y_i-\b
 | 0.90 – 1.00 | Muy fuerte |
 
 **En nuestro ejemplo (IMC vs. % graso):**
-- $r = 0.819$ → correlación **fuerte**
-- $R^2 = 0.671$ → el IMC explica el **67.1%** de la variabilidad del % graso
+- $r = 0.645$ → correlación **moderada**
+- $R^2 = 0.416$ → el IMC explica el **41.6%** de la variabilidad del % graso
 
 ## Contraste de hipótesis para el coeficiente de correlación
 
 ::: {.callout-note}
-**¿Es significativa la correlación observada?** $r = 0.819$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
+**¿Es significativa la correlación observada?** $r = 0.645$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
 :::
 
 **Hipótesis:**
@@ -539,12 +539,11 @@ $$H_1: \rho \neq 0 \quad \text{(existe correlación lineal)}$$
 $$t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2} \quad \text{bajo } H_0$$
 
 ::: {.framed}
-Para nuestro ejemplo ($r = 0.819$, $n = 12$):
-$$t = \frac{0.819 \sqrt{10}}{\sqrt{1 - 0.819^2}} = \frac{2.590}{0.574} = 4.514$$
-$$P = 2 \times P(T_{10} > 4.514) = 0.0011$$
-:::
+Para nuestro ejemplo ($r = 0.645$, $n = 12$):
+$$t = \frac{0.645 \sqrt{10}}{\sqrt{1 - 0.645^2}} = \frac{2.040}{0.764} = 2.67$$
+$$P = 2 \times P(T_{10} > 2.67) = 0.023$$
 
-**Conclusión:** $P = 0.0011 < 0.05$ → **rechazamos** $H_0$. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa en la población de adolescentes.
+**Conclusión:** $P = 0.023 < 0.05$ → **rechazamos** $H_0$. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa en la población de adolescentes.
 
 ::: {.callout-tip}
 **En R:** `cor.test(x, y)` realiza el test completo: $t$, gl, P-valor e IC 95% para $\rho$ (vía transformación $z$ de Fisher). La función `cortest()` de BioEstatR ofrece la misma funcionalidad.
@@ -566,7 +565,7 @@ $$z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right), \quad IC_{1-\alpha}(z_\rho) = 
 :::
 
 ::: {.callout-tip}
-**Pregunta para reflexionar:** $r = 0.819$ se considera "fuerte" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
+**Pregunta para reflexionar:** $r = 0.645$ se considera "moderado" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.6 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
 :::
 
 ## Visualización de diferentes fuerzas de correlación
@@ -595,7 +594,7 @@ par(mfrow=c(1,1))
 ```{r}
 
 # Correlación de Pearson (paramétrica, lineal)
-cor(imc, graso)                    # r = 0.819
+cor(imc, graso)
 cor.test(imc, graso)               # Test H0: ρ = 0
 
 # Correlación de Spearman (no paramétrica, monótona)
@@ -630,7 +629,7 @@ legend("topleft", c("X~Z","Y~Z"), col=c("coral","steelblue"), pch=19, bty="n")
 par(mfrow=c(1,1))
 ```
 
-**Lección:** X e Y están correladas ($r \approx 0.54$, $P < 0.001$), pero **no hay relación causal** entre ellas. Ambas dependen de Z. En investigación clínica, **siempre considerar confusores**.
+**Lección:** X e Y están correladas ($r \approx 0.47$, $P < 0.001$), pero **no hay relación causal** entre ellas. Ambas dependen de Z. En investigación clínica, **siempre considerar confusores**.
 
 ::: {.callout-tip}
 **Actividad en pareja (3 min):** Buscad juntos un artículo científico en fisioterapia que use correlación o regresión. Identificad: (a) ¿qué variables se correlacionan? (b) ¿afirman causalidad los autores o solo asociación? (c) ¿se menciona algún posible confusor? Compartid un ejemplo con la clase.
@@ -694,7 +693,7 @@ predict(modelo, newdata = nuevo, interval = "prediction")
 - Para que una predicción sea aceptable debemos considerar la **variabilidad individual** (IP), no solo la media (IC), el valor que usamos para predecir tiene que estar en el rango de valores observados para esa variable en el modelo y el coeficiente de determinación tiene que ser aceptable ($\geq$ 0.7). 
 :::
 
-**Ejemplo clínico:** Para IMC=22, el % graso medio es 20.0% (IC 95%: 17.1% a 22.9%). Pero un paciente concreto con IMC=22 podría tener entre 10.0% y 30.0% de grasa (IP 95%).
+**Ejemplo clínico:** Para IMC=22, el % graso medio es 20.2% (IC 95%: 17.4% a 22.9%). Pero un paciente concreto con IMC=22 podría tener entre 10.2% y 30.1% de grasa (IP 95%).
 
 ::: {.callout-tip}
 **Pregunta para reflexionar:** Eres el fisioterapeuta de un paciente con IMC=28. ¿Usarías el IC de la media o el IP individual para comunicarle su % graso estimado? ¿Qué riesgos tiene usar el intervalo equivocado en la práctica clínica?
@@ -757,7 +756,7 @@ $S_{xy} = 207 - \frac{39 \times 23}{5} = 207 - 179.4 = 27.6$
 $S_{xx} = 349 - \frac{39^2}{5} = 349 - 304.2 = 44.8$
 $\hat{\beta}_1 = \frac{27.6}{44.8} = 0.616$
 
-**Paso 3: $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x} = 4.6 - 0.616 \times 7.8 = 4.6 - 4.80 = -0.20$**
+**Paso 3: $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x} = 4.6 - 0.616 \times 7.8 = 4.6 - 4.80 \approx -0.21$**
 
 **Ecuación:** $\widehat{\text{EVA}} = -0.20 + 0.616 \times \text{Sesiones}$
 
@@ -765,10 +764,10 @@ $\hat{\beta}_1 = \frac{27.6}{44.8} = 0.616$
 
 ```{r}
 x <- c(4,5,8,10,12); y <- c(2,3,5,6,7)
-modelo <- lm(y ~ x)
+modelo_eva <- lm(y ~ x)
 cat("Manual: b0=", round(mean(y)-cov(x,y)/var(x)*mean(x),2),
     " b1=", round(cov(x,y)/var(x),3),
-    "\nR: b0=", round(coef(modelo)[1],2), " b1=", round(coef(modelo)[2],3))
+    "\nR: b0=", round(coef(modelo_eva)[1],2), " b1=", round(coef(modelo_eva)[2],3))
 # BioEstatR: rls(y ~ x, data=data.frame(x,y))
 ```
 
@@ -795,7 +794,7 @@ cat("\nR² =", round(summary(modelo)$r.squared, 4),
     "\nError estándar residual =", round(summary(modelo)$sigma, 2))
 ```
 
-**Interpretación:** $F(1,10) = 20.39$, $P = 0.001$ → La pendiente es significativamente distinta de cero. El IMC **sí** predice el % de masa grasa.
+**Interpretación:** $F(1,10) = 7.14$, $P = 0.023$ → La pendiente es significativamente distinta de cero. El IMC **sí** predice el % de masa grasa.
 
 ## Inferencia sobre los coeficientes de regresión
 
