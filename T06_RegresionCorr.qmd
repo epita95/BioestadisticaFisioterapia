@@ -760,7 +760,7 @@ $\hat{\beta}_1 = \frac{27.6}{44.8} = 0.616$
 
 **Paso 3: $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x} = 4.6 - 0.616 \times 7.8 = 4.6 - 4.80 \approx -0.21$**
 
-**Ecuación:** $\widehat{\text{EVA}} = -0.20 + 0.616 \times \text{Sesiones}$
+**Ecuación:** $\widehat{\text{EVA}} = -0.21 + 0.616 \times \text{Sesiones}$
 
 **Interpretación:** Por cada sesión adicional, la mejoría en EVA aumenta 0.62 puntos.
 
@@ -1012,9 +1012,10 @@ $$y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_k x_{ik} + \v
 modelo_mult <- lm(graso ~ imc + edad + sexo, data = df)
 summary(modelo_mult)
 
-# BioEstatR
-if (!requireNamespace("BioEstatR", quietly = TRUE)) install.packages("BioEstatR")
+# Con BioEstatR — todo en un solo comando
 library(BioEstatR)
+rlm(graso ~ imc + edad + sexo, data = df)
+# rlm() produce: coeficientes + IC + R² ajustado + test F + gráficos de diagnóstico
 ```
 
 - **$R^2$ ajustado:** penaliza por el número de predictores (mejor que $R^2$)
@@ -1157,14 +1158,14 @@ rls(graso ~ imc, data = df)
 ::: {.exercise}
 ## Ejercicio clínico — Regresión lineal en fisioterapia
 
-Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje de masa grasa en 30 pacientes sedentarios. Los datos están en `grasa_imc.csv`. El análisis con `rls(grasa ~ imc)` produce:
+Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje de masa grasa en 12 pacientes. Los datos están en `data/imc_graso.csv`. El modelo ajustado es:
 
-- $\hat{\beta}_0 = -12.4$, $\hat{\beta}_1 = 1.65$, $R^2 = 0.72$
-- $P < 0.001$ para $\beta_1$, IC 95% para $\beta_1$: (1.23, 2.07)
+- $\hat{\beta}_0 = -12.42$, $\hat{\beta}_1 = 1.48$, $R^2 = 0.416$
+- $P = 0.023$ para $\beta_1$, IC 95% para $\beta_1$: (0.25, 2.72)
 
 1. Interpreta $\hat{\beta}_1$ en lenguaje clínico: ¿cuánto aumenta el % de grasa por cada unidad de IMC?
-2. ¿Qué significa $R^2 = 0.72$ en este contexto?
-3. Predice el % de grasa para un paciente con IMC = 28 usando la ecuación: $\hat{y} = -12.4 + 1.65 \times 28$.
+2. ¿Qué significa $R^2 = 0.416$ en este contexto?
+3. Predice el % de grasa para un paciente con IMC = 28 usando la ecuación: $\hat{y} = -12.42 + 1.48 \times 28$.
 4. ¿Puedes afirmar que el IMC **causa** un aumento del % de grasa? ¿Por qué?
 :::
 
