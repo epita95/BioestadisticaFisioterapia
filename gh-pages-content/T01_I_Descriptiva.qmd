@@ -12,6 +12,7 @@ format:
   revealjs:
     slide-number: c/t
     code-fold: true
+    code-copy: true
     code-summary: "Mostrar código R"
     fig-width: 9
     fig-height: 5.5

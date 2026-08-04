@@ -305,9 +305,9 @@ $$E_{ij} = \frac{F_i \times C_j}{T}$$
 | Tratamiento | Peor ($E_{i1}$) | Igual ($E_{i2}$) | Mejor ($E_{i3}$) |
 |:----------:|:---------------:|:----------------:|:----------------:|
 | 1 | 9.91 | 31.61 | 108.48 |
-| 2 | 7.93 | 25.28 | 86.79 |
+| 2 | 7.93 | 25.29 | 86.79 |
 | 3 | 8.59 | 27.39 | 94.02 |
-| 4 | 10.57 | 33.72 | 115.71 |
+| 4 | 10.57 | 33.71 | 115.71 |
 
 :::
 
@@ -321,9 +321,9 @@ round(chisq.test(trat)$expected, 2)
 **4 tratamientos de fisioterapia × Estado del paciente:**
 
 ```{r}
-#| fig-height: 5
+#| fig-height: 5.5
 O <- matrix(c(7,28,115, 15,20,85, 10,30,90, 5,40,115), nrow=4, byrow=TRUE)
-E <- matrix(c(9.91,31.61,108.48, 7.93,25.28,86.79, 8.59,27.39,94.02, 10.57,33.72,115.71), nrow=4, byrow=TRUE)
+E <- matrix(c(9.91,31.61,108.48, 7.93,25.29,86.79, 8.59,27.39,94.02, 10.57,33.71,115.71), nrow=4, byrow=TRUE)
 
 par(mfrow=c(2,2), mar=c(4,4,3,1))
 for(i in 1:4){
@@ -383,11 +383,11 @@ chi_crit <- qchisq(0.95, gl)
 p_val <- round(1 - pchisq(chi_exp, gl), 4)
 
 curve(dchisq(x, gl), 0, 22, lwd = 3, col = "steelblue",
-      main = "Distribucion Chi-cuadrado con gl = 6",
+      main = "Distribución Chi-cuadrado con gl = 6",
       xlab = "Chi-cuadrado", ylab = "Densidad")
 abline(v = chi_crit, col = "darkgreen", lwd = 2.5, lty = 2)
 abline(v = chi_exp, col = "coral", lwd = 3)
-# Region de rechazo
+# Región de rechazo
 xr <- seq(chi_crit, 22, 0.01)
 yr <- dchisq(xr, gl)
 polygon(c(xr, rev(xr)), c(yr, rep(0, length(yr))),
@@ -397,7 +397,7 @@ text(chi_crit + 1.5, dchisq(chi_crit, gl) + 0.01,
      "Chi-crit = 12.59", col = "darkgreen", font = 2)
 text(chi_exp, dchisq(chi_exp, gl) + 0.015,
      paste0("Chi2 = ", chi_exp, "\nP = ", p_val), col = "coral", font = 2)
-legend("topright", c("Region de rechazo (alfa = 0.05)", "Valor critico", "Chi2 observado"),
+legend("topright", c("Región de rechazo (alfa = 0.05)", "Valor crítico", "Chi2 observado"),
        fill = c(rgb(0.9, 0.3, 0.2, 0.3), NA, NA),
        border = c(NA, "darkgreen", "coral"),
        lty = c(NA, 2, 1), lwd = c(NA, 2.5, 3),
@@ -441,7 +441,7 @@ El análisis de porcentajes es una **primera aproximación subjetiva**. El estud
 :::
 
 ::: {.callout-tip}
-**Pregunta para reflexionar:** ¿Qué tratamiento recomendarías descartar basándote solo en estos porcentajes? ¿Es suficiente esta evidencia para tomar una decisión clinica?
+**Pregunta para reflexionar:** ¿Qué tratamiento recomendarías descartar basándote solo en estos porcentajes? ¿Es suficiente esta evidencia para tomar una decisión clínica?
 :::
 
 ## Residuos estandarizados
@@ -544,40 +544,47 @@ $$\chi^2_{\text{exp}} = \frac{\left(|O_{11}O_{22} - O_{12}O_{21}| - c\right)^2 \
 
 donde:
 - $|O_{11}O_{22} - O_{12}O_{21}|$: **producto cruzado** (en valor absoluto)
-- $c$: **corrección de continuidad** — depende del tipo de estudio
+- $c$: **corrección de continuidad de Yates** — en tablas $2 \times 2$: $c = T/2$ (R: `chisq.test(..., correct = TRUE)`)
 - $F_1, F_2, C_1, C_2$: totales marginales de filas y columnas
 :::
 
-(La corrección $c$ y las condiciones de validez se detallan a continuación.)
+(Las condiciones de validez se detallan a continuación.)
 
 ## Condiciones de validez para el caso $2 \times 2$
 
-**Frecuencia mínima esperada:** $E = \min(F_1,F_2) \cdot \min(C_1,C_2) / T$
+**Frecuencia mínima esperada:** $E = \frac{F_i \cdot C_j}{T}$ para cada celda.
 
-| Tipo de estudio | $E$ mínimo | $E$ si $T<500$ | Corrección $c$ |
-|:---------------|:----------:|:-------------:|:--------------:|
-| **Transversal** | $E \geq 4.9$ | $E \geq 7.7$ | $c = 0.5$ |
-| **Prospectivo** | $E \geq 6.2$ | $E \geq 3.9$ | $c = 1$ si $C_1\neq C_2$, $c=2$ si $C_1=C_2$ |
-| **Retrospectivo** | Misma que prospectivo | | $c = 1$ si $F_1\neq F_2$, $c=2$ si $F_1=F_2$ |
+**Regla de Cochran:** al menos el 80% de las frecuencias esperadas deben ser $\geq 5$ y **todas** $\geq 1$. Si no se cumple → **test exacto de Fisher**.
+
+| Diseño | Corrección de continuidad |
+|:-------|:-------------------------:|
+| Tabla $2 \times 2$ (dos muestras) | **Yates:** $c = T/2$ |
+| McNemar (datos pareados) | $c = 1$ en el numerador |
 
 ::: {.callout-tip}
-**¿Por qué varía $c$? — Intuición:** Imagina que el test $\chi^2$ funciona como una lupa. En estudios **transversales** (una muestra, sin márgenes fijos), la lupa tiene más aumento → basta una corrección pequeña ($c=0.5$). En estudios **prospectivos/retrospectivos** (dos muestras, márgenes fijos por diseño), la lupa tiene menos aumento → necesitas una corrección mayor ($c=1$ o $c=2$) para no "ver" asociaciones que son solo ruido.
+**¿Por qué corregir? — Intuición:** La distribución $\chi^2$ es una aproximación **continua** a un estadístico **discreto**. Sin corrección, el test rechaza $H_0$ con más frecuencia de la debida (sobre todo con muestras pequeñas). La corrección de continuidad "baja" el estadístico para compensar. En la práctica, con $n$ grandes la corrección apenas cambia el resultado.
 :::
 
 **gl = 1** siempre en tablas $2 \times 2$.
 
 ## Ejemplo $2 \times 2$ — Cálculo completo
 
-**Estudio transversal:** $E = \frac{46 \times 80}{400} = 9.2 \geq 4.9$ ✓. $T=400 < 500$: $E=9.2 \geq 7.7$ ✓
+**Estudio transversal:** $E_{11} = \frac{46 \times 80}{400} = 9.2 \geq 5$ ✓ (regla de Cochran)
 
-$$\chi^2_{\text{exp}} = \frac{(|20 \times 294 - 26 \times 60| - 0.5)^2 \times 400}{46 \times 354 \times 80 \times 320}$$
+Con corrección de Yates ($c = T/2 = 200$):
 
-$$= \frac{(5880 - 1560 - 0.5)^2 \times 400}{46 \times 354 \times 80 \times 320} = \frac{(4319.5)^2 \times 400}{417,177,600} = 17.90$$
+$$\chi^2_{\text{exp}} = \frac{(|20 \times 294 - 26 \times 60| - 200)^2 \times 400}{46 \times 354 \times 80 \times 320}$$
+
+$$= \frac{(4320 - 200)^2 \times 400}{46 \times 354 \times 80 \times 320} = \frac{(4120)^2 \times 400}{416,870,400} = 16.29$$
+
+**Sin corrección (Pearson):** $\chi^2 = 17.91$. La corrección reduce el estadístico y aumenta ligeramente el P-valor.
 
 ```{r}
 tabla <- matrix(c(20,26,60,294), nrow=2)
-chi <- chisq.test(tabla, correct=TRUE)
-cat("χ²exp =", round(chi$statistic,2), "| P =", format(chi$p.value, digits=4))
+chi_yates  <- chisq.test(tabla, correct=TRUE)
+chi_pearson <- chisq.test(tabla, correct=FALSE)
+cat("Yates: χ² =", round(chi_yates$statistic,2), "| P =", format(chi_yates$p.value, digits=4))
+cat("\nPearson: χ² =", round(chi_pearson$statistic,2), "| P =", format(chi_pearson$p.value, digits=4))
 ```
 
 **gl = 1, $P < 0.001$** → **Rechazamos $H_0$.** Existe asociación significativa entre fumar y bajo peso.
@@ -593,7 +600,7 @@ cat("χ²exp =", round(chi$statistic,2), "| P =", format(chi$p.value, digits=4))
 | **Total** | 80 | 320 | 400 |
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 5.2
 par(mfrow=c(1,3), mar=c(4,4,3,1))
 # DR
 p1<-20/80; p2<-26/320
@@ -663,8 +670,8 @@ cat("Riesgo Absoluto d =", round(d,3),
 # Forest plot de las medidas de asociación con IC 95%
 medidas <- c("DR (Riesgo Absoluto)", "RR (Riesgo Relativo)", "OR (Odds Ratio)")
 estimador <- c(0.169, 3.08, 3.77)
-ic_inf <- c(0.067, 1.85, 1.95)
-ic_sup <- c(0.271, 5.13, 7.30)
+ic_inf <- c(0.069, 1.813, 1.976)
+ic_sup <- c(0.268, 5.222, 7.189)
 valor_nulo <- c(0, 1, 1)
 colores <- c("#2980b9", "#27ae60", "coral")
 
@@ -749,9 +756,9 @@ Las celdas concordantes (38 y 82) **no aportan información diferencial**. El te
 
 **Estadístico de contraste** (aproximación normal):
 
-$$z_{\text{exp}} = \frac{|n_{12} - n_{21}| - 0.5}{\sqrt{n_{12} + n_{21}}}$$
+$$z_{\text{exp}} = \frac{|n_{12} - n_{21}| - 1}{\sqrt{n_{12} + n_{21}}}$$
 
-$$z_{\text{exp}} = \frac{|15 - 31| - 0.5}{\sqrt{15 + 31}} = \frac{15.5}{6.78} = 2.21$$
+$$z_{\text{exp}} = \frac{|15 - 31| - 1}{\sqrt{15 + 31}} = \frac{15}{6.78} = 2.21$$
 
 **$P = 2 \times P(Z > 2.21) \approx 0.027$** → **Rechazamos $H_0$** (las terapias no son iguales)
 
@@ -761,7 +768,7 @@ $$z_{\text{exp}} = \frac{|15 - 31| - 0.5}{\sqrt{15 + 31}} = \frac{15.5}{6.78} = 
 
 ```{r}
 n12<-15; n21<-31
-z_exp <- (abs(n12-n21)-0.5)/sqrt(n12+n21)
+z_exp <- (abs(n12-n21)-1)/sqrt(n12+n21)
 P <- 2*(1-pnorm(z_exp))
 cat("zexp =", round(z_exp,3), "| P =", round(P,4))
 ```
@@ -871,7 +878,7 @@ cat("Diferencia =", round(d,4), "| IC95% = (", round(IC[1],4), ",", round(IC[2],
 |:-------|:----------:|:-------|:---------------:|---------------|
 | DR (ejercicio vs control) | +0.15 | (+0.03, +0.27) | **Sí** (0 no está en IC) | Ejercicio aumenta mejoría 15pp |
 | RR (ejercicio vs control) | 1.50 | (0.85, 2.65) | **No** (1 está en IC) | Sin evidencia suficiente |
-| OR (fumar vs no fumar) | 3.77 | (1.95, 7.30) | **Sí** (1 no está en IC) | Asociación significativa |
+| OR (fumar vs no fumar) | 3.77 | (1.976, 7.189) | **Sí** (1 no está en IC) | Asociación significativa |
 | DR (terapia A vs B) | 0.05 | (−0.18, +0.08) | **No** (0 está en IC) | Sin diferencia significativa |
 
 ::: {.callout-tip}
@@ -987,7 +994,7 @@ cat("DR =", round(DR, 3), "\nNNT =", round(NNT, 1),
     "\n  para que 1 adicional mejore respecto a ejercicio solo")
 ```
 
-## Confusión (Confounding) y paradoja de simpson
+## Confusión (Confounding) y paradoja de Simpson
 
 ::: {.columns}
 ::: {.column width="50%"}
@@ -1017,7 +1024,7 @@ cat("DR =", round(DR, 3), "\nNNT =", round(NNT, 1),
 - **En el diseño:** aleatorización (elimina confusión conocida y desconocida), restricción, emparejamiento
 - **En el análisis:** estratificación (Mantel-Haenszel), ajuste por regresión
 
-## Paradoja de simpson — Ejemplo visual en fisioterapia
+## Paradoja de Simpson — Ejemplo visual en fisioterapia
 
 **Contexto:** Dos fisioterapeutas (A y B) tratan pacientes con lumbalgia. Comparan sus tasas de éxito.
 
@@ -1098,9 +1105,9 @@ Test Chi-cuadrado para tabla 2x2
 χ² = 17.90, gl = 1, P < 0.001
 
 Medidas de asociación:
-OR = 3.77 (IC 95%: 1.95 a 7.30)
-RR = 3.08 (IC 95%: 1.73 a 5.47)
-DR = 0.169 (IC 95%: 0.07 a 0.27)
+OR = 3.77 (IC 95%: 1.976 a 7.189)
+RR = 3.08 (IC 95%: 1.813 a 5.222)
+DR = 0.169 (IC 95%: 0.069 a 0.268)
 
 Interpretación: Asociación significativa (P < 0.001).
 La odds de bajo peso es 3.77 veces mayor en madres fumadoras.
@@ -1109,7 +1116,7 @@ La odds de bajo peso es 3.77 veces mayor en madres fumadoras.
 **Cómo leer la salida:**
 - **$\chi^2$ y P:** P < 0.001 → asociación significativa
 - **OR = 3.77:** la odds es casi 4 veces mayor en expuestos
-- **IC del OR:** (1.95, 7.30) no contiene 1 → significativo
+- **IC del OR:** (1.976, 7.189) no contiene 1 → significativo
 - **DR = 0.169:** 16.9 puntos porcentuales más de bajo peso en fumadoras
 
 ::: {.callout-tip}
@@ -1158,9 +1165,9 @@ $Z_{11}^2 = (7-9.91)^2/9.91 = 0.855$. Sumando las 12 celdas: $\chi^2_{12} = 13.8
 2. Regresión dice **CUÁNTO** cambia $Y$ por cada unidad de $X$ → cuantificación
 3. Ambas comparten la misma lógica inferencial: $H_0$, estadístico, P-valor, IC
 
-::: {.exercise}
 ## Ejercicio clínico — Análisis de tablas 2×2
 
+::: {.exercise}
 Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado (vs. ejercicio en casa) se asocia con la recuperación funcional a los 3 meses en pacientes con artrosis de cadera:
 
 | Ejercicio | Recupera | No recupera | Total |
@@ -1172,6 +1179,7 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 1. ¿Qué tipo de estudio es? Identifica las medidas de asociación apropiadas.
 2. Calcula OR, RR y sus IC 95% usando `tabla2x2()` de BioEstatR. Interpreta.
 3. Realiza el test $\chi^2$. ¿Es significativa la asociación? ¿Hay confusión por gravedad inicial?
+
 :::
 
 ## Referencias
@@ -1190,7 +1198,6 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 - [@agresti2013] — Agresti, A. (2013). *Categorical Data Analysis* (3rd ed.). Wiley.
 - [@rothman2008] — Rothman, K. J., Greenland, S. & Lash, T. L. (2008). *Modern Epidemiology* (3rd ed.). LWW.
 :::
----
 
 ---
 
@@ -1212,7 +1219,7 @@ Un fisioterapeuta estudia si la práctica de ejercicio terapéutico supervisado 
 ```{r}
 #| fig-height: 5.5
 tabla <- matrix(c(35, 25, 15, 25), nrow=2,
-                dimnames=list(c("Manual","Ejercicio"), c("Mejoria","No mejoria")))
+                dimnames=list(c("Manual","Ejercicio"), c("Mejoría","No mejoria")))
 chi <- chisq.test(tabla, correct=FALSE)
 OR <- 35*25/(15*25)
 
