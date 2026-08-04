@@ -39,11 +39,11 @@ execute:
 # Herramientas Computacionales para Distribuciones {.center}
 
 ::: {.connection}
-**Conexión:** R dispone de funciones específicas para cada distribución de probabilidad. Aprender a usarlas correctamente es tan importante como entender la teoría.
+**Conexión:** R dispone de funciones específicas para cada distribución de probabilidad. Aprender a usarlas correctamente es tan importante como entender la teoría.
 :::
 
 
-## `lower.tail` — La Opción Más Útil de las Funciones `p`
+## `lower.tail` — La Opción Más Útil de las Funciones `p`
 
 Todas las funciones `p` (acumuladas) tienen el argumento `lower.tail`:
 
@@ -55,7 +55,7 @@ Todas las funciones `p` (acumuladas) tienen el argumento `lower.tail`:
 - `pbinom(k, n, p)` = $P(X \leq k)$  
 - `ppois(k, lambda)` = $P(X \leq k)$  
 
-Calcula el área **desde $-\infty$ hasta $k$**  
+Calcula el área **desde $-\infty$ hasta $k$**  
 
 :::
 
@@ -66,7 +66,7 @@ Calcula el área **desde $-\infty$ hasta $k$**
 - `pbinom(k, n, p, lower.tail=FALSE)` = $P(X > k)$  
 - `ppois(k, lambda, lower.tail=FALSE)` = $P(X > k)$  
 
-Calcula el área **desde $k$ hasta $+\infty$**  
+Calcula el área **desde $k$ hasta $+\infty$**  
 
 :::
 :::
@@ -87,7 +87,7 @@ pbinom(k, n, p, lower.tail=FALSE)  # P(X > 3)
 ::: {.column width="50%"}
 **Variables continuas (Normal, t, χ², F):**
 ```{r}
-# P(X > 1.96) es IDÉNTICO a:
+# P(X > 1.96) es IDÉNTICO a:
 pnorm(1.96, lower.tail=FALSE)
 1 - pnorm(1.96)
 ```
@@ -111,25 +111,25 @@ pbinom(3, 10, 0.5, lower.tail=FALSE)  # P(X > 3) = P(X ≥ 4)
 | $P(X \geq k)$ | `pnorm(k, lower.tail=FALSE)` (= $P(X > k)$) | `1 - pbinom(k-1, n, p)` ⚠️ |
 
 ::: {.callout-warning}
-**Truco para estudiantes:** En variables **discretas** (Binomial, Poisson), $P(X < k) \neq P(X \leq k)$. La diferencia es $P(X=k)$. Usad `lower.tail=FALSE` para colas derechas y recordad restar 1 al límite para desigualdades estrictas.
+**Truco para estudiantes:** En variables **discretas** (Binomial, Poisson), $P(X < k) \neq P(X \leq k)$. La diferencia es $P(X=k)$. Usad `lower.tail=FALSE` para colas derechas y recordad restar 1 al límite para desigualdades estrictas.
 :::
 
 ---
 
-# La Distribución Normal y sus Aproximaciones {.center}
+# La Distribución Normal y sus Aproximaciones {.center}
 
 ::: {.connection}
-**Puente con T03 — Estimación:** La distribución Normal es la base del Teorema Central del Límite, que veremos en el Tema 3. Todo lo que aprendas aquí sobre `pnorm()`, `qnorm()` y Z-scores se usará para construir intervalos de confianza y contrastes de hipótesis.
+**Puente con T03 — Estimación:** La distribución Normal es la base del Teorema Central del Límite, que veremos en el Tema 3. Todo lo que aprendas aquí sobre `pnorm()`, `qnorm()` y Z-scores se usará para construir intervalos de confianza y contrastes de hipótesis.
 :::
 
-## Distribución Normal — Historia y contexto
+## Distribución Normal — Historia y contexto
 
 ::: {.columns}
 ::: {.column width="45%"}
 
-**Carl Friedrich Gauss (1777–1855)** introdujo esta distribución estudiando errores de medición astronómica. Originalmente llamada **"campana de Gauss"**, hoy es la distribución más importante en estadística.
+**Carl Friedrich Gauss (1777–1855)** introdujo esta distribución estudiando errores de medición astronómica. Originalmente llamada **"campana de Gauss"**, hoy es la distribución más importante en estadística.
 
-**¿Por qué es tan ubicua?** Por el **Teorema Central del Límite**: la suma de muchas variables independientes tiende a una Normal, sin importar su distribución original. Por eso aparece en biología, medicina, economía, física...
+**¿Por qué es tan ubicua?** Por el **Teorema Central del Límite**: la suma de muchas variables independientes tiende a una Normal, sin importar su distribución original. Por eso aparece en biología, medicina, economía, física...
 
 :::
 
@@ -138,7 +138,7 @@ pbinom(3, 10, 0.5, lower.tail=FALSE)  # P(X > 3) = P(X ≥ 4)
 ```{r}
 #| fig-height: 5
 curve(dnorm(x, 0, 1), -4, 4, lwd=3, col="steelblue",
-      main=expression(paste("Distribución Normal ", N(mu, sigma^2))),
+      main=expression(paste("Distribución Normal ", N(mu, sigma^2))),
       xlab="x", ylab=expression(f(x)))
 # μ ± σ (68%)
 x1<-seq(-1,1,0.01); polygon(c(x1,rev(x1)),c(dnorm(x1),rep(0,length(x1))),col=rgb(0,0,1,0.2),border=NA)
@@ -151,22 +151,22 @@ text(0, 0.25, "68%", cex=1.2); text(0, 0.05, "95%", cex=1.2)
 :::
 :::
 
-**La curva normal describe la distribución de errores y de fenómenos naturales donde muchas causas pequeñas se suman.** Hoy, en fisioterapia, modela: fuerza muscular, ROM articular, presión arterial, y prácticamente cualquier variable biológica continua.
+**La curva normal describe la distribución de errores y de fenómenos naturales donde muchas causas pequeñas se suman.** Hoy, en fisioterapia, modela: fuerza muscular, ROM articular, presión arterial, y prácticamente cualquier variable biológica continua.
 
-## Distribución Normal — Fórmula y propiedades
+## Distribución Normal — Fórmula y propiedades
 
 ::: {.callout-note}
 $$f(x) = \frac{1}{\sigma\sqrt{2\pi}} \exp\left\{-\frac{(x-\mu)^2}{2\sigma^2}\right\}, \quad -\infty < x < \infty$$
 
-- $\mu$ = media (centro de la campana), $\sigma$ = desviación típica (dispersión)
+- $\mu$ = media (centro de la campana), $\sigma$ = desviación típica (dispersión)
 - $E(X) = \mu$, $\text{Var}(X) = \sigma^2$
 - **Simetrica:** media = mediana = moda
 - $\mu \pm \sigma$ contiene ≈ 68%, $\mu \pm 2\sigma$ contiene ≈ 95%, $\mu \pm 3\sigma$ contiene ≈ 99.7%
 :::
 
-**Ejemplo clínico:** Fuerza de prensión manual: $X \sim N(30, 8^2)$ kg
+**Ejemplo clínico:** Fuerza de prensión manual: $X \sim N(30, 8^2)$ kg
 
-## Visualización de la distribución Normal
+## Visualización de la distribución Normal
 
 **Efecto de cambiar $\mu$ y $\sigma$ en la forma de la campana:**
 
@@ -191,45 +191,45 @@ legend("topright", c(expression(sigma==0.5),expression(sigma==1),expression(sigm
 par(mfrow=c(1,1))
 ```
 
-**$\mu$ desplaza, $\sigma$ ensancha. La Normal es simétrica: media = mediana = moda.**
+**$\mu$ desplaza, $\sigma$ ensancha. La Normal es simétrica: media = mediana = moda.**
 
-## Estandarización — El concepto más importante
+## Estandarización — El concepto más importante
 
-*La visualización comparativa de escalas originales vs. estandarizadas se muestra en la siguiente diapositiva.*
+*La visualización comparativa de escalas originales vs. estandarizadas se muestra en la siguiente diapositiva.*
 
 
 ::: {.callout-important}
-**Definición general:** La estandarización transforma cualquier variable para que tenga media 0 y varianza 1:
+**Definición general:** La estandarización transforma cualquier variable para que tenga media 0 y varianza 1:
 
 $$Z = \frac{X - E(X)}{\sqrt{\text{Var}(X)}} = \frac{X - \mu_X}{\sigma_X}$$
 
-Si $X \sim N(\mu, \sigma^2)$, entonces $Z \sim N(0,1)$. La distribución $N(0,1)$ se llama **Normal estándar**.
+Si $X \sim N(\mu, \sigma^2)$, entonces $Z \sim N(0,1)$. La distribución $N(0,1)$ se llama **Normal estándar**.
 :::
 
 **Propiedades fundamentales de Z:**
-- $E(Z) = 0$ y $\text{Var}(Z) = 1$ (siempre, para cualquier distribución)
+- $E(Z) = 0$ y $\text{Var}(Z) = 1$ (siempre, para cualquier distribución)
 - **Adimensional:** Z no tiene unidades → permite **comparar** variables completamente diferentes
-- $Z = 2$ siempre significa "2 desviaciones estándar por encima de la media", sea cual sea la variable original
+- $Z = 2$ siempre significa "2 desviaciones estándar por encima de la media", sea cual sea la variable original
 
-## ¿Por Qué es Fundamental la Estandarización?
+## ¿Por Qué es Fundamental la Estandarización?
 
-1. **Permite usar una única tabla de probabilidades:** Sin estandarización, necesitaríamos infinitas tablas (una para cada combinación de $\mu$ y $\sigma$). Con Z, solo necesitamos la tabla de la $N(0,1)$.
+1. **Permite usar una única tabla de probabilidades:** Sin estandarización, necesitaríamos infinitas tablas (una para cada combinación de $\mu$ y $\sigma$). Con Z, solo necesitamos la tabla de la $N(0,1)$.
 
-2. **Hace comparables mediciones distintas:** ¿Qué es más extremo: una presión arterial de 150 mmHg o un IMC de 32 kg/m²? Los Z-scores responden: $z_{PA} = (150-120)/15 = 2.0$ vs $z_{IMC} = (32-25)/4 = 1.75$ → la PA es más extrema.
+2. **Hace comparables mediciones distintas:** ¿Qué es más extremo: una presión arterial de 150 mmHg o un IMC de 32 kg/m²? Los Z-scores responden: $z_{PA} = (150-120)/15 = 2.0$ vs $z_{IMC} = (32-25)/4 = 1.75$ → la PA es más extrema.
 
-3. **Base de toda la inferencia:** Los intervalos de confianza y tests de hipótesis usan valores estandarizados ($z_{\alpha/2} = 1.96$, $t_{\alpha/2}$).
+3. **Base de toda la inferencia:** Los intervalos de confianza y tests de hipótesis usan valores estandarizados ($z_{\alpha/2} = 1.96$, $t_{\alpha/2}$).
 
-## Z-scores en la práctica clínica
+## Z-scores en la práctica clínica
 
-**Tensión Arterial Sistólica:** $X \sim N(120, 15^2)$ mmHg
+**Tensión Arterial Sistólica:** $X \sim N(120, 15^2)$ mmHg
 
-| Paciente | TA (mmHg) | $Z = \frac{X-120}{15}$ | Interpretación clínica |
+| Paciente | TA (mmHg) | $Z = \frac{X-120}{15}$ | Interpretación clínica |
 |----------|:---------:|:---------------------:|------------------------|
 | A | 120 | 0.0 | En la media poblacional |
 | B | 135 | 1.0 | 1 DE por encima |
 | C | 105 | −1.0 | 1 DE por debajo |
 | D | 150 | **2.0** | 2 DE por encima → **HTA** |
-| E | 90 | −2.0 | 2 DE por debajo → Hipotensión |
+| E | 90 | −2.0 | 2 DE por debajo → Hipotensión |
 
 ```{r}
 cat("Paciente D: z =", round((150-120)/15,1),
@@ -238,11 +238,11 @@ cat("Paciente D: z =", round((150-120)/15,1),
     "→ P(Z < -2) =", round(pnorm(-2),4))
 ```
 
-## Estandarización — Más ejemplos clínicos
+## Estandarización — Más ejemplos clínicos
 
 **LDL-Colesterol:** $X \sim N(130, \sigma^2=40)$ mg/dL → $\sigma = \sqrt{40} \approx 6.32$
 
-| Cálculo | Fórmula | Resultado |
+| Cálculo | Fórmula | Resultado |
 |---------|---------|-----------|
 | Paciente con LDL = 140 | $z = \frac{140-130}{6.32}$ | $z \approx 1.58$ |
 | Percentil 90 | $x = 130 + z_{0.90} \times 6.32$ | $x \approx 130 + 1.28 \times 6.32 = 138.1$ |
@@ -250,10 +250,10 @@ cat("Paciente D: z =", round((150-120)/15,1),
 
 **Glucemia en ayunas:** $X \sim N(100, 10^2)$ mg/dL
 
-| Paciente | Glucemia | Z-score | Interpretación |
+| Paciente | Glucemia | Z-score | Interpretación |
 |----------|:-------:|:-------:|---------------|
 | Normal | 90 | $z = -1.0$ | 1 DE bajo la media |
-| Límite | 100 | $z = 0.0$ | En la media |
+| Límite | 100 | $z = 0.0$ | En la media |
 | Prediabetes | 120 | $z = 2.0$ | 2 DE arriba |
 | Diabetes | 140 | $z = 4.0$ | Muy extremo ($P < 0.001$) |
 
@@ -264,9 +264,9 @@ cat("Z-scores glucemia:", round(z_gluc, 2),
     "\nP(Z > 4) =", round(pnorm(4, lower.tail=FALSE), 6))
 ```
 
-## Estandarización y cálculo de probabilidades
+## Estandarización y cálculo de probabilidades
 
-**La clave práctica:** Para calcular cualquier probabilidad Normal, convertimos a Z y usamos $N(0,1)$:
+**La clave práctica:** Para calcular cualquier probabilidad Normal, convertimos a Z y usamos $N(0,1)$:
 
 $$P(X \leq x) = P\left(Z \leq \frac{x - \mu}{\sigma}\right) = \Phi\left(\frac{x - \mu}{\sigma}\right)$$
 
@@ -294,15 +294,15 @@ cat("X =", x_obs, "kg → Z =", round(z_obs,2),
     round(pnorm(x_obs, mu, sigma), 4))
 ```
 
-**El área a la izquierda de $x=22$ en la escala original es EXACTAMENTE igual al área a la izquierda de $z=-1$ en la escala estandarizada.**
+**El área a la izquierda de $x=22$ en la escala original es EXACTAMENTE igual al área a la izquierda de $z=-1$ en la escala estandarizada.**
 
-## Normal — Fuerza de prensión manual
+## Normal — Fuerza de prensión manual
 
 ```{r}
 #| fig-height: 5
 mu <- 30; sigma <- 8
 curve(dnorm(x, mu, sigma), mu-24, mu+24, col="steelblue", lwd=3,
-      main="Fuerza de Prensión Manual — N(30, 8²) kg",
+      main="Fuerza de Prensión Manual — N(30, 8²) kg",
       xlab="Kilogramos", ylab="Densidad", cex.lab=1.2)
 abline(v=c(mu-2*sigma, mu-sigma, mu, mu+sigma, mu+2*sigma),
        lty=c(3,3,2,3,3), lwd=c(1,1,2,1,1), col=c("grey","grey","coral","grey","grey"))
@@ -319,7 +319,7 @@ cat("P(X<22) =", round(pnorm(22, mu, sigma),3),
 
 ## Normal — Percentiles clave
 
-**Los más usados en inferencia estadística:**
+**Los más usados en inferencia estadística:**
 
 | Percentil | Z | Uso |
 |-----------|-----|-----|
@@ -348,30 +348,30 @@ cat("Z para IC 95%:", round(qnorm(0.975), 3),
 ```
 
 
-*Un paciente tiene Z = −1.5 en fuerza de prensión y Z = +2.1 en IMC. ¿Cuál de las dos mediciones es más preocupante? ¿Por qué?*
+*Un paciente tiene Z = −1.5 en fuerza de prensión y Z = +2.1 en IMC. ¿Cuál de las dos mediciones es más preocupante? ¿Por qué?*
 
 ---
 
 # Modelos para Datos Discretos en Fisioterapia {.center}
 
 ::: {.connection}
-**Conexión:** Muchos fenómenos en fisioterapia son conteos: número de pacientes que responden a un tratamiento, número de sesiones necesarias para alcanzar un objetivo funcional. Las distribuciones Binomial y Poisson modelan estos eventos discretos.
+**Conexión:** Muchos fenómenos en fisioterapia son conteos: número de pacientes que responden a un tratamiento, número de sesiones necesarias para alcanzar un objetivo funcional. Las distribuciones Binomial y Poisson modelan estos eventos discretos.
 :::
 
 
-## Distribución Binomial — Contexto histórico
+## Distribución Binomial — Contexto histórico
 
-**Jacob Bernoulli** (1654–1705) en su obra póstuma *Ars Conjectandi* (1713) estudió experimentos con dos resultados posibles (éxito/fracaso). Su sobrino **Daniel Bernoulli** aplicó estos modelos a la medicina.
+**Jacob Bernoulli** (1654–1705) en su obra póstuma *Ars Conjectandi* (1713) estudió experimentos con dos resultados posibles (éxito/fracaso). Su sobrino **Daniel Bernoulli** aplicó estos modelos a la medicina.
 
-**¿Por qué "Binomial"?** La fórmula usa el **coeficiente binomial** $\binom{n}{k} = \frac{n!}{k!(n-k)!}$, que cuenta el número de formas de elegir $k$ éxitos entre $n$ ensayos.
+**¿Por qué "Binomial"?** La fórmula usa el **coeficiente binomial** $\binom{n}{k} = \frac{n!}{k!(n-k)!}$, que cuenta el número de formas de elegir $k$ éxitos entre $n$ ensayos.
 
-**En Fisioterapia:** La Binomial modela todo lo que consiste en contar **éxitos** en un número fijo de pacientes: ¿cuántos de 10 pacientes mejoran con una terapia? ¿cuántos de 20 tratamientos tienen éxito?
+**En Fisioterapia:** La Binomial modela todo lo que consiste en contar **éxitos** en un número fijo de pacientes: ¿cuántos de 10 pacientes mejoran con una terapia? ¿cuántos de 20 tratamientos tienen éxito?
 
 ::: {.callout-tip}
 **Para recordar:** Binomial = **nº fijo de ensayos** ($n$) + **probabilidad constante** ($p$) + **independencia** entre ensayos. Si tratamos 10 pacientes con la misma terapia y cada uno mejora o no independientemente → Binomial.
 :::
 
-## Distribución Binomial
+## Distribución Binomial
 
 ::: {.callout-note}
 $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0,1,\ldots,n$$
@@ -379,13 +379,13 @@ $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}, \quad k = 0,1,\ldots,n$$
 donde $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ es el coeficiente binomial.
 :::
 
-- **Significado:** Número de éxitos en $n$ ensayos independientes con probabilidad $p$
+- **Significado:** Número de éxitos en $n$ ensayos independientes con probabilidad $p$
 - $E(X) = n \cdot p$, $\text{Var}(X) = n \cdot p \cdot (1-p)$
-- Forma simétrica si $p = 0.5$, asimétrica si $p \neq 0.5$
+- Forma simétrica si $p = 0.5$, asimétrica si $p \neq 0.5$
 
-**Ejemplo clínico:** Fármaco cura al 70% de pacientes ($p=0.7$), $n=10$ tratados.
+**Ejemplo clínico:** Fármaco cura al 70% de pacientes ($p=0.7$), $n=10$ tratados.
 
-## Binomial — Ejemplo clínico con R
+## Binomial — Ejemplo clínico con R
 
 ```{r}
 #| fig-height: 5
@@ -396,7 +396,7 @@ bp <- barplot(dbinom(k, n, p), names.arg=k, col="steelblue",
 text(bp, dbinom(k,n,p)+0.012, round(dbinom(k,n,p),3), cex=0.7, font=2)
 ```
 
-**Cálculo a mano — $P(X=7)$:**
+**Cálculo a mano — $P(X=7)$:**
 
 $\binom{10}{7} = \frac{10 \cdot 9 \cdot 8}{3 \cdot 2 \cdot 1} = 120$
 
@@ -407,7 +407,7 @@ cat("Manual:", round(120*0.7^7*0.3^3,3),
     "\ndbinom:", round(dbinom(7,10,0.7),3))
 ```
 
-## f.d.a. de la Binomial — Cálculo de Probabilidades Acumuladas
+## f.d.a. de la Binomial — Cálculo de Probabilidades Acumuladas
 
 ```{r}
 #| fig-height: 5
@@ -427,7 +427,7 @@ $$F(7) = P(X \leq 7) = \sum_{k=0}^{7} \binom{10}{k} 0.7^k \cdot 0.3^{10-k}$$
 ## Binomial — Regla de oro (Variables discretas)
 
 ::: {.callout-warning}
-En VA discretas, los límites de los intervalos **importan**:
+En VA discretas, los límites de los intervalos **importan**:
 
 - $P(X \leq k)$ = `pbinom(k, n, p)`
 - $P(X < k)$ = `pbinom(k-1, n, p)` ← ¡no es lo mismo!
@@ -443,41 +443,41 @@ cat("P(X ≤ 7) =", round(pbinom(7,n,p), 4),
     "\nP(X > 7)  =", round(1-pbinom(7,n,p), 4))
 ```
 
-## Distribución de Poisson — Contexto histórico
+## Distribución de Poisson — Contexto histórico
 
-**Siméon Denis Poisson** (1781–1840) publicó esta distribución en 1837 en su obra *Recherches sur la probabilité des jugements*. Originalmente modelaba el número de condenas erróneas en juicios.
+**Siméon Denis Poisson** (1781–1840) publicó esta distribución en 1837 en su obra *Recherches sur la probabilité des jugements*. Originalmente modelaba el número de condenas erróneas en juicios.
 
-**¿Cuándo surge?** La Poisson es el límite de la Binomial cuando $n \to \infty$ y $p \to 0$ manteniendo $\lambda = n \cdot p$ constante. Esto la hace ideal para **eventos raros** en grandes poblaciones.
+**¿Cuándo surge?** La Poisson es el límite de la Binomial cuando $n \to \infty$ y $p \to 0$ manteniendo $\lambda = n \cdot p$ constante. Esto la hace ideal para **eventos raros** en grandes poblaciones.
 
-**En Fisioterapia:** La Poisson modela eventos que ocurren con tasa constante: nº de pacientes que llegan a urgencias por esguince en un turno, nº de caídas por mes en una residencia, nº de reacciones adversas por año en una clínica.
+**En Fisioterapia:** La Poisson modela eventos que ocurren con tasa constante: nº de pacientes que llegan a urgencias por esguince en un turno, nº de caídas por mes en una residencia, nº de reacciones adversas por año en una clínica.
 
 ::: {.callout-tip}
-**Para recordar:** Poisson = **tasa constante** ($\lambda$) + eventos **independientes** en el tiempo. Si registramos cuántos pacientes llegan con lumbalgia aguda cada semana → Poisson.
+**Para recordar:** Poisson = **tasa constante** ($\lambda$) + eventos **independientes** en el tiempo. Si registramos cuántos pacientes llegan con lumbalgia aguda cada semana → Poisson.
 :::
 
-## Distribución de Poisson
+## Distribución de Poisson
 
 ::: {.callout-note}
 $$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}, \quad k = 0, 1, 2, \ldots$$
 :::
 
-- **Significado:** Número de eventos raros en un intervalo fijo (tiempo/espacio)
+- **Significado:** Número de eventos raros en un intervalo fijo (tiempo/espacio)
 - $E(X) = \lambda$, $\text{Var}(X) = \lambda$ (¡media = varianza!)
 - Propiedad aditiva: $X \sim Po(\lambda_1), Y \sim Po(\lambda_2)$ indep. → $X+Y \sim Po(\lambda_1+\lambda_2)$
 
-**Ejemplo clínico:** Reacciones adversas en clínica de fisioterapia: $\lambda = 3$/día
+**Ejemplo clínico:** Reacciones adversas en clínica de fisioterapia: $\lambda = 3$/día
 
-## Poisson — Ejemplo clínico con R
+## Poisson — Ejemplo clínico con R
 
 ```{r}
 #| fig-height: 5
 lambda <- 3; k <- 0:12
 bp <- barplot(dpois(k, lambda), names.arg=k, col="coral",
-        main="Poisson(3): Reacciones adversas por día",
+        main="Poisson(3): Reacciones adversas por día",
         xlab="Nº de reacciones", ylab="P(X=k)")
 ```
 
-**Cálculo a mano — $P(X=5)$:**
+**Cálculo a mano — $P(X=5)$:**
 
 $P(X=5) = \frac{3^5 e^{-3}}{5!} = \frac{243 \cdot 0.0498}{120} \approx 0.101$
 
@@ -487,7 +487,7 @@ cat("Manual:", round(3^5*exp(-3)/factorial(5),3),
     "\nP(X≤2) =", round(ppois(2, lambda),3))
 ```
 
-## f.d.a. de la Poisson — Cálculo de Probabilidades Acumuladas
+## f.d.a. de la Poisson — Cálculo de Probabilidades Acumuladas
 
 ```{r}
 #| fig-height: 5
@@ -510,25 +510,25 @@ cat("F(2) =", round(ppois(2,3),3), "| F(5) =", round(ppois(5,3),3),
     "| P(2<X≤5) =", round(ppois(5,3)-ppois(2,3),3))
 ```
 
-## Distribución t-student — Origen y propiedades
+## Distribución t-student — Origen y propiedades
 
 
-*La distribución t-Student la usaremos en el Tema 4 para comparar medias de dos grupos de tratamiento en fisioterapia.*
+*La distribución t-Student la usaremos en el Tema 4 para comparar medias de dos grupos de tratamiento en fisioterapia.*
 
-**William S. Gosset** (1908), químico de Guinness, publicó bajo el seudónimo **"Student"**. Descubrió que al estimar $\sigma$ con $s$, el cociente $\frac{\bar{x}-\mu}{s/\sqrt{n}}$ NO sigue una Normal, sino una distribución con **colas más pesadas**.
+**William S. Gosset** (1908), químico de Guinness, publicó bajo el seudónimo **"Student"**. Descubrió que al estimar $\sigma$ con $s$, el cociente $\frac{\bar{x}-\mu}{s/\sqrt{n}}$ NO sigue una Normal, sino una distribución con **colas más pesadas**.
 
 $$T = \frac{\bar{X} - \mu}{S/\sqrt{n}} \sim t_{n-1}$$
 
 **Propiedades:**
-- **Simétrica** alrededor de 0 (como la Normal)
-- Colas **más pesadas** que la Normal → valores extremos más probables
+- **Simétrica** alrededor de 0 (como la Normal)
+- Colas **más pesadas** que la Normal → valores extremos más probables
 - Cuando $n \to \infty$, $t_{n-1} \to N(0,1)$
-- Un solo parámetro: grados de libertad ($gl = n-1$)
+- Un solo parámetro: grados de libertad ($gl = n-1$)
 
 ```{r}
 #| fig-height: 5
 curve(dnorm(x), -4, 4, lwd=3, col="steelblue", ylab="Densidad",
-      main="Normal vs t-Student (simétrica, colas pesadas)")
+      main="Normal vs t-Student (simétrica, colas pesadas)")
 curve(dt(x, 3), -4, 4, lwd=3, col="seagreen", add=TRUE)
 curve(dt(x, 10), -4, 4, lwd=3, col="darkgreen", add=TRUE)
 legend("topright", c("N(0,1)","t(3)","t(10)"), col=c("steelblue","coral","darkgreen"), lwd=3, bty="n")
@@ -536,17 +536,17 @@ legend("topright", c("N(0,1)","t(3)","t(10)"), col=c("steelblue","coral","darkgr
 
 **Uso principal:** IC para la media con $\sigma$ desconocida, tests t para una y dos muestras.
 
-## Distribución $\chi^2$ (Chi-Cuadrado) — Pearson
+## Distribución $\chi^2$ (Chi-Cuadrado) — Pearson
 
 
-*La distribución χ² la usaremos en el Tema 5 para analizar tablas de contingencia y estudiar la asociación entre tratamientos de fisioterapia y resultados clínicos.*
+*La distribución χ² la usaremos en el Tema 5 para analizar tablas de contingencia y estudiar la asociación entre tratamientos de fisioterapia y resultados clínicos.*
 
-**Karl Pearson** (1900). Surge como suma de $k$ normales estándar independientes al cuadrado:
+**Karl Pearson** (1900). Surge como suma de $k$ normales estándar independientes al cuadrado:
 
 $$\chi^2_k = Z_1^2 + Z_2^2 + \cdots + Z_k^2 \sim \chi^2_k$$
 
 **Propiedades:**
-- **NO es simétrica** (asimétrica positiva, cola a la derecha)
+- **NO es simétrica** (asimétrica positiva, cola a la derecha)
 - Solo toma valores $\geq 0$
 - $E(\chi^2_k) = k$, $\text{Var}(\chi^2_k) = 2k$
 - Cuando $k \to \infty$, tiende a Normal
@@ -554,7 +554,7 @@ $$\chi^2_k = Z_1^2 + Z_2^2 + \cdots + Z_k^2 \sim \chi^2_k$$
 ```{r}
 #| fig-height: 5
 curve(dchisq(x, 1), 0, 15, lwd=3, col="seagreen", ylab="Densidad",
-      main=expression(paste(chi^2, " — Asimétrica, solo valores ≥ 0")))
+      main=expression(paste(chi^2, " — Asimétrica, solo valores ≥ 0")))
 curve(dchisq(x, 3), 0, 15, lwd=3, col="darkgreen", add=TRUE)
 curve(dchisq(x, 6), 0, 15, lwd=3, col="steelblue", add=TRUE)
 legend("topright", c(expression(chi[1]^2),expression(chi[3]^2),expression(chi[6]^2)),
@@ -563,41 +563,41 @@ legend("topright", c(expression(chi[1]^2),expression(chi[3]^2),expression(chi[6]
 
 **Uso principal:** Test $\chi^2$ para tablas de contingencia, test de bondad de ajuste.
 
-## Distribución F de Snedecor
+## Distribución F de Snedecor
 
 
-*La distribución F la usaremos en el Tema 6 al evaluar modelos de regresión y comparar la variabilidad explicada por distintas variables clínicas.*
+*La distribución F la usaremos en el Tema 6 al evaluar modelos de regresión y comparar la variabilidad explicada por distintas variables clínicas.*
 
 **George W. Snedecor** (1934), nombrada en honor a **R.A. Fisher**. Surge como cociente de dos $\chi^2$ independientes divididas por sus grados de libertad:
 
 $$F_{k_1, k_2} = \frac{\chi^2_{k_1} / k_1}{\chi^2_{k_2} / k_2}$$
 
 **Propiedades:**
-- **NO es simétrica** (asimétrica positiva, como $\chi^2$)
+- **NO es simétrica** (asimétrica positiva, como $\chi^2$)
 - Solo toma valores $\geq 0$
-- Dos parámetros: $gl_1$ (numerador) y $gl_2$ (denominador)
+- Dos parámetros: $gl_1$ (numerador) y $gl_2$ (denominador)
 
 ```{r}
 #| fig-height: 5
 curve(df(x, 5, 5), 0, 5, lwd=3, col="steelblue", ylab="Densidad",
-      main="Distribución F — Asimétrica, dos parámetros")
+      main="Distribución F — Asimétrica, dos parámetros")
 curve(df(x, 10, 5), 0, 5, lwd=3, col="seagreen", add=TRUE)
 curve(df(x, 5, 20), 0, 5, lwd=3, col="darkgreen", add=TRUE)
 legend("topright", c("F(5,5)","F(10,5)","F(5,20)"), col=c("steelblue","coral","darkgreen"), lwd=3, bty="n")
 ```
 
-**Uso principal:** Test F para igualdad de varianzas, ANOVA, regresión (test F global).
+**Uso principal:** Test F para igualdad de varianzas, ANOVA, regresión (test F global).
 
-## Cálculo de p-valores — ¡cuidado con la asimetría!
+## Cálculo de p-valores — ¡cuidado con la asimetría!
 
-| Distribución | ¿Simétrica? | P-valor bilateral | Función R |
+| Distribución | ¿Simétrica? | P-valor bilateral | Función R |
 |:------------|:----------:|:-----------------|:---------|
-| **Normal** | ✓ Sí | `2 * pnorm(-abs(z))` | `pnorm()` |
-| **t-Student** | ✓ Sí | `2 * pt(-abs(t), df)` | `pt()` |
+| **Normal** | ✓ Sí | `2 * pnorm(-abs(z))` | `pnorm()` |
+| **t-Student** | ✓ Sí | `2 * pt(-abs(t), df)` | `pt()` |
 | **$\chi^2$** | ✗ **No** | **No tiene sentido bilateral** (test de una cola) | `pchisq()` |
-| **F** | ✗ **No** | Usar cola adecuada según $F_{obs}$ | `pf()` |
+| **F** | ✗ **No** | Usar cola adecuada según $F_{obs}$ | `pf()` |
 
-**Para $\chi^2$ y F (asimétricas), el test es inherentemente unilateral** porque solo nos preocupan valores grandes del estadístico (discrepancias grandes de $H_0$).
+**Para $\chi^2$ y F (asimétricas), el test es inherentemente unilateral** porque solo nos preocupan valores grandes del estadístico (discrepancias grandes de $H_0$).
 
 ```{r}
 # P-valor para χ² (siempre cola derecha)
@@ -612,22 +612,22 @@ cat("\nF =", F_obs, "gl =", gl1, ",", gl2, "→ P =", round(p_F, 4))
 ```
 
 ::: {.callout-warning}
-**Para estudiantes:** t es simétrica → P-valor bilateral se calcula como $2 \times P(T > |t|)$. $\chi^2$ y F **no** son simétricas → el P-valor se calcula solo en la cola correspondiente. **Nunca** multipliques por 2 para $\chi^2$ o F.
+**Para estudiantes:** t es simétrica → P-valor bilateral se calcula como $2 \times P(T > |t|)$. $\chi^2$ y F **no** son simétricas → el P-valor se calcula solo en la cola correspondiente. **Nunca** multipliques por 2 para $\chi^2$ o F.
 :::
 
-## Guía rápida: ¿qué distribución uso en fisioterapia?
+## Guía rápida: ¿qué distribución uso en fisioterapia?
 
-| Situación clínica | Distribución | Parámetros | Función R |
+| Situación clínica | Distribución | Parámetros | Función R |
 |:------------------|:------------|:-----------|:---------|
 | ROM, fuerza, PA (variables continuas) | **Normal** | $\mu, \sigma$ | `dnorm()`, `pnorm()` |
-| Éxitos en n pacientes (curación, mejoría) | **Binomial** | $n, p$ | `dbinom()`, `pbinom()` |
+| Éxitos en n pacientes (curación, mejoría) | **Binomial** | $n, p$ | `dbinom()`, `pbinom()` |
 | Eventos raros por unidad de tiempo | **Poisson** | $\lambda$ | `dpois()`, `ppois()` |
 | Inferencia sobre medias | **t-Student** | $gl$ | `dt()`, `pt()` |
-| Comparación de varianzas | **F de Snedecor** | $gl_1, gl_2$ | `df()`, `pf()` |
+| Comparación de varianzas | **F de Snedecor** | $gl_1, gl_2$ | `df()`, `pf()` |
 | Tablas de contingencia | **$\chi^2$** | $gl$ | `dchisq()`, `pchisq()` |
 
 ::: {.callout-tip}
-**Regla nemotécnica:** `d` = densidad/probabilidad puntual, `p` = probabilidad acumulada (CDF), `q` = cuantil (percentil), `r` = aleatorio.
+**Regla nemotécnica:** `d` = densidad/probabilidad puntual, `p` = probabilidad acumulada (CDF), `q` = cuantil (percentil), `r` = aleatorio.
 :::
 
 ## Comparativa de las tres distribuciones
@@ -635,11 +635,11 @@ cat("\nF =", F_obs, "gl =", gl1, ",", gl2, "→ P =", round(p_F, 4))
 | | Normal | Binomial | Poisson |
 |---|---|---|---|
 | **Tipo** | Continua | Discreta | Discreta |
-| **Parámetros** | $\mu, \sigma$ | $n, p$ | $\lambda$ |
+| **Parámetros** | $\mu, \sigma$ | $n, p$ | $\lambda$ |
 | **Soporte** | $\mathbb{R}$ | $\{0,\ldots,n\}$ | $\{0,1,2,\ldots\}$ |
 | **$E(X)$** | $\mu$ | $np$ | $\lambda$ |
 | **$\text{Var}(X)$** | $\sigma^2$ | $np(1-p)$ | $\lambda$ |
-| **Ejemplo clínico** | ROM, fuerza | Éxitos terapéuticos | Eventos adversos |
+| **Ejemplo clínico** | ROM, fuerza | Éxitos terapéuticos | Eventos adversos |
 
 ```{r}
 #| fig-height: 5
@@ -654,27 +654,27 @@ par(mfrow=c(1,1))
 
 ---
 
-# Aproximaciones y Teorema Central del Límite {.center}
+# Aproximaciones y Teorema Central del Límite {.center}
 
 ::: {.connection}
-**Conexión T02→T03:** Las aproximaciones entre distribuciones son la base del Teorema Central del Límite, que en el Tema 3 nos permitirá construir intervalos de confianza para cualquier parámetro.
+**Conexión T02→T03:** Las aproximaciones entre distribuciones son la base del Teorema Central del Límite, que en el Tema 3 nos permitirá construir intervalos de confianza para cualquier parámetro.
 :::
 
 
-## ¿Por Qué Aproximamos? — Motivación
+## ¿Por Qué Aproximamos? — Motivación
 
-Calcular probabilidades exactas con la Binomial requiere evaluar factores combinatorios $\binom{n}{k}$ que se vuelven **imposibles de calcular a mano** cuando $n$ es grande. Las aproximaciones nos permiten usar la **Normal** (mucho más manejable) en su lugar.
+Calcular probabilidades exactas con la Binomial requiere evaluar factores combinatorios $\binom{n}{k}$ que se vuelven **imposibles de calcular a mano** cuando $n$ es grande. Las aproximaciones nos permiten usar la **Normal** (mucho más manejable) en su lugar.
 
-**Idea clave:** Bajo ciertas condiciones, las distribuciones discretas "se parecen" a la Normal cuando el tamaño muestral es grande. Esto es consecuencia del **Teorema Central del Límite**.
+**Idea clave:** Bajo ciertas condiciones, las distribuciones discretas "se parecen" a la Normal cuando el tamaño muestral es grande. Esto es consecuencia del **Teorema Central del Límite**.
 
-| Aproximación | Condición | Fórmula |
+| Aproximación | Condición | Fórmula |
 |:------------|:---------|:--------|
 | Binomial → Normal | $np \geq 5$ y $n(1-p) \geq 5$ | $B(n,p) \approx N(np,\; np(1-p))$ |
 | Poisson → Normal | $\lambda \geq 10$ | $Po(\lambda) \approx N(\lambda,\; \lambda)$ |
 
-## Binomial → Normal — Condiciones y visualización
+## Binomial → Normal — Condiciones y visualización
 
-**¿Cuándo funciona?** Cuando $np \geq 5$ y $n(1-p) \geq 5$, el histograma binomial adopta forma de campana.
+**¿Cuándo funciona?** Cuando $np \geq 5$ y $n(1-p) \geq 5$, el histograma binomial adopta forma de campana.
 
 ```{r}
 #| fig-height: 5.5
@@ -688,31 +688,31 @@ barplot(dbinom(x,n,p), names=x, col="seagreen", main=paste0("NO aprox: n=",n,", 
 p<-0.9
 barplot(dbinom(x,n,p), names=x, col="seagreen", main=paste0("NO aprox: n=",n,", p=",p," (n(1-p)=",n*(1-p),"<5)"))
 
-# Caso 3: SÍ se cumple (n=50, p=0.3 → np=15, n(1-p)=35≥5)
+# Caso 3: SÍ se cumple (n=50, p=0.3 → np=15, n(1-p)=35≥5)
 n<-50; p<-0.3; x<-0:n
 bp <- barplot(dbinom(x,n,p), names=ifelse(x%%5==0,x,""), col="steelblue",
-        main=paste0("SÍ aprox: n=",n,", p=",p," (np=",n*p,"≥5, n(1-p)=",n*(1-p),"≥5)"))
+        main=paste0("SÍ aprox: n=",n,", p=",p," (np=",n*p,"≥5, n(1-p)=",n*(1-p),"≥5)"))
 curve(dnorm(x,n*p,sqrt(n*p*(1-p)))*1, add=T, col="darkgreen", lwd=2, n=200)
 
-# Caso 4: SÍ se cumple (n=100, p=0.5 → ambos ≥5)
+# Caso 4: SÍ se cumple (n=100, p=0.5 → ambos ≥5)
 n<-100; p<-0.5; x<-0:n
 bp <- barplot(dbinom(x,n,p), names=ifelse(x%%25==0,x,""), col="steelblue",
-        main=paste0("SÍ aprox: n=",n,", p=",p," → forma campana perfecta"))
+        main=paste0("SÍ aprox: n=",n,", p=",p," → forma campana perfecta"))
 curve(dnorm(x,n*p,sqrt(n*p*(1-p)))*1, add=T, col="darkgreen", lwd=2, n=200)
 
 par(mfrow=c(1,1))
 ```
 
-## Binomial → Normal — Corrección de continuidad
+## Binomial → Normal — Corrección de continuidad
 
 La Binomial es **discreta** (barras) y la Normal es **continua** (curva). Para aproximar $P(X \leq k)$, sumamos/restamos 0.5:
 
-| Probabilidad | Sin corrección | Con corrección (±0.5) |
+| Probabilidad | Sin corrección | Con corrección (±0.5) |
 |:------------|:-------------:|:---------------------:|
 | $P(X \leq k)$ | $\Phi\left(\frac{k-np}{\sqrt{np(1-p)}}\right)$ | $\Phi\left(\frac{k+0.5-np}{\sqrt{np(1-p)}}\right)$ |
 | $P(X \geq k)$ | $1-\Phi\left(\frac{k-np}{\sqrt{np(1-p)}}\right)$ | $1-\Phi\left(\frac{k-0.5-np}{\sqrt{np(1-p)}}\right)$ |
 
-**Ejemplo clínico:** Fármaco 40% efectivo, $n=20$ pacientes. $P(X \leq 10)$:
+**Ejemplo clínico:** Fármaco 40% efectivo, $n=20$ pacientes. $P(X \leq 10)$:
 
 ```{r}
 n<-20; p<-0.4; k<-10
@@ -720,42 +720,42 @@ exacto <- pbinom(k, n, p)
 sin_corr <- pnorm(k, n*p, sqrt(n*p*(1-p)))
 con_corr <- pnorm(k+0.5, n*p, sqrt(n*p*(1-p)))
 cat("Exacto (Binomial):     ", round(exacto, 4),
-    "\nNormal sin corrección: ", round(sin_corr, 4),
-    "\nNormal con corrección:  ", round(con_corr, 4))
+    "\nNormal sin corrección: ", round(sin_corr, 4),
+    "\nNormal con corrección:  ", round(con_corr, 4))
 ```
 
 ::: {.callout-tip}
-**La corrección de continuidad (+0.5) reduce el error de aproximación drásticamente.** En el ejemplo, el error pasa de ~5pp a <0.1pp.
+**La corrección de continuidad (+0.5) reduce el error de aproximación drásticamente.** En el ejemplo, el error pasa de ~5pp a <0.1pp.
 :::
 
 ## Poisson → Normal — Condiciones
 
-**¿Cuándo funciona?** Cuando $\lambda \geq 10$, el histograma de Poisson adopta forma simétrica.
+**¿Cuándo funciona?** Cuando $\lambda \geq 10$, el histograma de Poisson adopta forma simétrica.
 
 ```{r}
 #| fig-height: 5
 par(mfrow=c(2,2), mar=c(4,4,3,1))
 
-# Caso 1: λ=2 → NO se cumple (muy asimétrica)
+# Caso 1: λ=2 → NO se cumple (muy asimétrica)
 lambda<-2; x<-0:(lambda*3)
 barplot(dpois(x,lambda), names=x, col="seagreen",
-        main=paste0("NO aprox: λ=",lambda," < 10 (asimétrica)"))
+        main=paste0("NO aprox: λ=",lambda," < 10 (asimétrica)"))
 
-# Caso 2: λ=5 → NO se cumple (todavía asimétrica)
+# Caso 2: λ=5 → NO se cumple (todavía asimétrica)
 lambda<-5; x<-0:(lambda*3)
 barplot(dpois(x,lambda), names=x, col="seagreen",
         main=paste0("NO aprox: λ=",lambda," < 10"))
 
-# Caso 3: λ=10 → SÍ se cumple (empieza a ser simétrica)
+# Caso 3: λ=10 → SÍ se cumple (empieza a ser simétrica)
 lambda<-10; x<-0:(lambda*2)
 bp <- barplot(dpois(x,lambda), names=ifelse(x%%5==0,x,""), col="steelblue",
-        main=paste0("SÍ aprox: λ=",lambda," ≥ 10"))
+        main=paste0("SÍ aprox: λ=",lambda," ≥ 10"))
 curve(dnorm(x,lambda,sqrt(lambda))*1, add=T, col="darkgreen", lwd=2, n=200)
 
-# Caso 4: λ=25 → SÍ se cumple (claramente acampanada)
+# Caso 4: λ=25 → SÍ se cumple (claramente acampanada)
 lambda<-25; x<-0:(lambda*2)
 bp <- barplot(dpois(x,lambda), names=ifelse(x%%10==0,x,""), col="steelblue",
-        main=paste0("SÍ aprox: λ=",lambda," → forma campana clara"))
+        main=paste0("SÍ aprox: λ=",lambda," → forma campana clara"))
 curve(dnorm(x,lambda,sqrt(lambda))*1, add=T, col="darkgreen", lwd=2, n=200)
 
 par(mfrow=c(1,1))
@@ -766,35 +766,35 @@ lambda<-10; k<-7
 exacto <- ppois(k, lambda)
 con_corr <- pnorm(k+0.5, lambda, sqrt(lambda))
 cat("Exacto (Poisson):       ", round(exacto, 4),
-    "\nNormal con corrección:  ", round(con_corr, 4))
+    "\nNormal con corrección:  ", round(con_corr, 4))
 ```
 
-## ¿Por Qué Usamos Aproximaciones?
+## ¿Por Qué Usamos Aproximaciones?
 
-1. **Cálculo manual:** Con $n=100$, calcular $\binom{100}{50}$ a mano es imposible. La Normal lo resuelve con una fórmula simple.
+1. **Cálculo manual:** Con $n=100$, calcular $\binom{100}{50}$ a mano es imposible. La Normal lo resuelve con una fórmula simple.
 
-2. **Inferencia:** Los IC y tests de hipótesis para proporciones usan la aproximación Normal (por eso usamos $z_\alpha$, no $t$).
+2. **Inferencia:** Los IC y tests de hipótesis para proporciones usan la aproximación Normal (por eso usamos $z_\alpha$, no $t$).
 
-3. **Teoría:** El TCL garantiza que **cualquier** suma de variables independientes tiende a la Normal cuando $n$ es grande — es la base de toda la inferencia estadística.
+3. **Teoría:** El TCL garantiza que **cualquier** suma de variables independientes tiende a la Normal cuando $n$ es grande — es la base de toda la inferencia estadística.
 
-4. **Software moderno:** Aunque R calcula valores exactos, entender las aproximaciones ayuda a comprender **por qué** funcionan los métodos estadísticos.
+4. **Software moderno:** Aunque R calcula valores exactos, entender las aproximaciones ayuda a comprender **por qué** funcionan los métodos estadísticos.
 
 ::: {.callout-important}
-**Condiciones para aplicar la aproximación Normal a la Binomial:** $np \geq 5$ **Y** $n(1-p) \geq 5$. Si no se cumplen, usar el método exacto (Binomial).
-**Para Poisson:** $\lambda \geq 10$. Si no, usar el método exacto (Poisson).
+**Condiciones para aplicar la aproximación Normal a la Binomial:** $np \geq 5$ **Y** $n(1-p) \geq 5$. Si no se cumplen, usar el método exacto (Binomial).
+**Para Poisson:** $\lambda \geq 10$. Si no, usar el método exacto (Poisson).
 :::
 
 ---
 
 ::: {.exercise}
-**Ejercicio Clínico — Aplicación de Probabilidad y Distribuciones**
+**Ejercicio Clínico — Aplicación de Probabilidad y Distribuciones**
 
-Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta que el 30% de los pacientes recupera la marcha independiente en 6 meses.
+Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta que el 30% de los pacientes recupera la marcha independiente en 6 meses.
 
-1. Si tratas a 10 pacientes, ¿cuál es la probabilidad de que exactamente 4 recuperen la marcha? Usa `dbinom(4, 10, 0.3)`.
+1. Si tratas a 10 pacientes, ¿cuál es la probabilidad de que exactamente 4 recuperen la marcha? Usa `dbinom(4, 10, 0.3)`.
 2. ¿Y la probabilidad de que al menos 6 recuperen la marcha? Usa `pbinom(5, 10, 0.3, lower.tail=FALSE)`.
-3. Las puntuaciones de Barthel a los 6 meses siguen una Normal(75, 15). Un paciente obtiene 95. Calcula su Z-score: `(95-75)/15`. ¿Es un valor atípico?
-4. ¿Qué percentil ocupa? `pnorm(95, 75, 15)`. Interpreta el resultado.
+3. Las puntuaciones de Barthel a los 6 meses siguen una Normal(75, 15). Un paciente obtiene 95. Calcula su Z-score: `(95-75)/15`. ¿Es un valor atípico?
+4. ¿Qué percentil ocupa? `pnorm(95, 75, 15)`. Interpreta el resultado.
 :::
 
 ## Resumen — Tema 2
@@ -810,15 +810,16 @@ Un estudio sobre recuperación funcional tras accidente cerebrovascular reporta
 :::
 
 ---
+
 **Referencias complementarias del libro:**
 
 ::: {.reference-box}
 **Referencias**
 
-- [@Femia2026] Femia, P. & Luque-Fernández, M. A. (2026). *BioEstatR: Biostatistics Routines in R*. R package v1.0.0. Universidad de Granada. <https://migariane.github.io/BioEstatR>
-- [@Kolmogorov1933] Kolmogorov, A. N. (1933). *Grundbegriffe der Wahrscheinlichkeitsrechnung*. Springer.
-- [@LuqueFernandez2026a] Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 3: Fundamentos de Probabilidad. Universidad de Granada. <https://migariane.github.io/MatematicaEstadisticaMedicinaR>
-- [@LuqueFernandez2026b] Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 4: Variables Aleatorias y Distribuciones. Universidad de Granada.
+- [@bioestatr2026] Femia, P. & Luque-Fernández, M. A. (2026). *BioEstatR: Biostatistics Routines in R*. R package v1.0.0. Universidad de Granada. <https://migariane.github.io/BioEstatR>
+- [@kolmogorov1933] Kolmogorov, A. N. (1933). *Grundbegriffe der Wahrscheinlichkeitsrechnung*. Springer.
+- [@luque2026] Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 3: Fundamentos de Probabilidad. Universidad de Granada. <https://migariane.github.io/MatematicaEstadisticaMedicinaR>
+- [@luque2026] Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 4: Variables Aleatorias y Distribuciones. Universidad de Granada.
 :::
 
 ---

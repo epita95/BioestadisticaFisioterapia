@@ -12,6 +12,7 @@ format:
   revealjs:
     slide-number: c/t
     code-fold: true
+    code-copy: true
     code-summary: "Mostrar código R"
     fig-width: 9
     fig-height: 5.5
@@ -351,8 +352,10 @@ $$Me = L_{i-1} + \frac{n/2 - N_{i-1}}{n_i} \cdot a = 130 + \frac{30-20}{25} \tim
 
 ```{r}
 x <- c(3, 5, 7, 8, 12, 15, 18, 21)
-cat("Q1 =", quantile(x, 0.25), "\nQ2 =", quantile(x, 0.50),
-    "\nQ3 =", quantile(x, 0.75), "\nRIQ =", IQR(x))
+# type=2: método manual del curso (promedio de los dos valores centrales)
+cat("Q1 =", quantile(x, 0.25, type=2), "\nQ2 =", quantile(x, 0.50, type=2),
+    "\nQ3 =", quantile(x, 0.75, type=2),
+    "\nRIQ =", diff(quantile(x, c(0.25, 0.75), type=2)))
 ```
 :::
 
@@ -569,13 +572,17 @@ legend("topright",
        col=c("steelblue","seagreen","coral"), lwd=3, bty="n", cex=0.7)
 
 # ── Panel 2: Curtosis con valores numéricos ──
-dx <- density(rt(100000, 4), adjust=1.2, from=-5, to=5)
-dy <- density(rnorm(100000), adjust=1.2, from=-5, to=5)
-dz <- density(runif(100000, -2, 2), adjust=1.2, from=-5, to=5)
-# Calcular exceso de curtosis
-g2_lepto <- round(mean((rt(100000,4)-0)^4)/1^4 - 3, 1)
-g2_meso  <- round(mean((rnorm(100000,0,1)-0)^4)/1^4 - 3, 1)
-g2_plati <- round(mean((runif(100000,-2,2)-0)^4)/((2-(-2))^2/12) - 3, 1)
+set.seed(123)
+xl <- rt(100000, 8)          # t(8): leptocúrtica (exceso teórico = 1.5)
+xm <- rnorm(100000)          # Normal: mesocúrtica (exceso = 0)
+xp <- runif(100000, -2, 2)   # Uniforme: platicúrtica (exceso = -1.2)
+dx <- density(xl, adjust=1.2, from=-5, to=5)
+dy <- density(xm, adjust=1.2, from=-5, to=5)
+dz <- density(xp, adjust=1.2, from=-5, to=5)
+# Exceso de curtosis = E[((X-μ)/σ)^4] - 3
+g2_lepto <- round(mean(((xl-mean(xl))/sd(xl))^4) - 3, 1)
+g2_meso  <- round(mean(((xm-mean(xm))/sd(xm))^4) - 3, 1)
+g2_plati <- round(mean(((xp-mean(xp))/sd(xp))^4) - 3, 1)
 
 plot(dx, col="coral", lwd=3, ylim=c(0, max(dx$y,dy$y,dz$y)*1.15),
      main="Curtosis (Exceso de curtosis)", xlab="Valor estandarizado", ylab="Densidad")
@@ -616,7 +623,7 @@ plot(ecdf(pas), main="ECDF: Presión Arterial Sistólica (n=10)",
 grid(col="grey80")
 # Añadir percentiles clave
 abline(h=c(0.25,0.5,0.75), col=c("darkgreen","coral","darkgreen"), lty=3, lwd=1.5)
-text(138, 0.52, "Me = 124", col="coral", cex=0.8, font=2)
+text(138, 0.52, "Me = 124.5", col="coral", cex=0.8, font=2)
 ```
 
 ## Estadística descriptiva con R — Cálculo manual
@@ -670,7 +677,7 @@ par(mfrow=c(1,1))
 
 ```
 
-**Interpretación de la salida:** $n=8$, $\bar{x}=129.5°$, $s=3.2°$, $Me=129.5°$, $CV=2.5\%$ (muy homogéneo), $RIQ=4.5°$, asimetría $\approx 0$ (simétrica), Shapiro-Wilk $P > 0.05$ (compatible con normalidad).
+**Interpretación de la salida:** $n=8$, $\bar{x}=129.5°$, $s=3.2°$, $Me=129.5°$, $CV=2.5\%$ (muy homogéneo), $RIQ=3.75°$, asimetría $\approx 0$ (simétrica), Shapiro-Wilk $P > 0.05$ (compatible con normalidad).
 
 ## R base vs BioEstatR — Resumen de funciones
 
@@ -810,7 +817,7 @@ par(mfrow=c(1,1))
 ::: {.callout-note}
 **ROM de rodilla post-artroplastia (n=40):**
 
-La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana de **106.3 grados** (RIQ: 95.7 – 120.0). La distribución fue aproximadamente simétrica (asimetría = 0.12). El test de Shapiro-Wilk (W = 0.982, P = 0.771) indica que los datos son compatibles con una distribución Normal.
+La flexión media fue de **109.7 ± 15.6 grados** (CV = 14.2%), con una mediana de **109.0 grados** (RIQ: 99.5 – 121.9). La distribución fue aproximadamente simétrica (asimetría = 0.07). El test de Shapiro-Wilk (W = 0.977, P = 0.589) indica que los datos son compatibles con una distribución Normal.
 :::
 
 ::: {.callout-tip}
@@ -864,12 +871,12 @@ La flexión media fue de **108.1 ± 14.5 grados** (CV = 13.4%), con una mediana 
 ::: {.reference-box}
 **Referencias**
 
-- [@Altman1990] Altman, D. G. (1990). *Practical Statistics for Medical Research*. Chapman & Hall/CRC.
-- [@Femia2026] Femia, P. & Luque-Fernandez, M. A. (2026). *BioEstatR: Biostatistics Routines in R*. R package v1.0.0. Universidad de Granada. <https://migariane.github.io/BioEstatR>
-- [@LuqueFernandez2026] Luque-Fernandez, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Universidad de Granada. <https://migariane.github.io/MatematicaEstadisticaMedicinaR>
-- [@Rosner2015] Rosner, B. (2015). *Fundamentals of Biostatistics* (8th ed.). Cengage Learning.
-- [@Stevens1946] Stevens, S. S. (1946). On the theory of scales of measurement. *Science*, 103(2684), 677–680.
-- [@Tukey1977] Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
+- [@altman1990] Altman, D. G. (1990). *Practical Statistics for Medical Research*. Chapman & Hall/CRC.
+- [@bioestatr2026] Femia, P. & Luque-Fernandez, M. A. (2026). *BioEstatR: Biostatistics Routines in R*. R package v1.0.0. Universidad de Granada. <https://migariane.github.io/BioEstatR>
+- [@luque2026] Luque-Fernandez, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Universidad de Granada. <https://migariane.github.io/MatematicaEstadisticaMedicinaR>
+- [@rosner2015] Rosner, B. (2015). *Fundamentals of Biostatistics* (8th ed.). Cengage Learning.
+- [@stevens1946] Stevens, S. S. (1946). On the theory of scales of measurement. *Science*, 103(2684), 677–680.
+- [@tukey1977] Tukey, J. W. (1977). *Exploratory Data Analysis*. Addison-Wesley.
 :::
 ---
 

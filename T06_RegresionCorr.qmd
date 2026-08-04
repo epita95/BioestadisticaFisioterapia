@@ -51,7 +51,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 3. Evaluar el ajuste del modelo con $R^2$ y gráficos de residuos
 4. Distinguir entre IC (media) e IP (individuo) para predicciones
 5. Recordar que correlación no implica causalidad
-6. Usar `rls()` y `rlsm()` de BioEstatR para regresión en una línea
+6. Usar `rls()` y `rlm()` de BioEstatR para regresión en una línea
 :::
 
 
@@ -888,7 +888,7 @@ par(mfrow=c(1,1))
 - **Cook's $D_i$:** Mide cuánto cambian TODOS los coeficientes si eliminamos la observación $i$. Valores > 1 son influyentes.
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 5.2
 set.seed(42)
 x_cook <- c(1:10, 20); y_cook <- c(2+0.5*(1:10)+rnorm(10,0,0.5), 5)
 modelo_cook <- lm(y_cook ~ x_cook)
@@ -980,7 +980,7 @@ knitr::kable(round(R, 3), format = "pipe", align = "c",
 **Representación visual — mapa de calor (heatmap):**
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 5.2
 if (!requireNamespace("corrplot", quietly = TRUE)) install.packages("corrplot")
 colores <- colorRampPalette(c("#2166ac", "white", "#b2182b"))(200)
 corrplot::corrplot(R, method = "color", type = "upper",
@@ -1008,13 +1008,13 @@ $$y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_k x_{ik} + \v
 
 ```{r}
 #| eval: false
-# Ejemplo: % graso ~ IMC + edad + sexo
-modelo_mult <- lm(graso ~ imc + edad + sexo, data = df)
+# Ejemplo: % graso ~ IMC + Edad
+modelo_mult <- lm(Graso ~ IMC + Edad, data = datos_clinicos)
 summary(modelo_mult)
 
 # Con BioEstatR — todo en un solo comando
 library(BioEstatR)
-rlm(graso ~ imc + edad + sexo, data = df)
+rlm(Graso ~ IMC + Edad, data = datos_clinicos)
 # rlm() produce: coeficientes + IC + R² ajustado + test F + gráficos de diagnóstico
 ```
 
@@ -1325,3 +1325,5 @@ bptest(modelo)
 library(BioEstatR)
 rls(y = graso, x = imc)                   # Regresión lineal completa
 ```
+
+:::

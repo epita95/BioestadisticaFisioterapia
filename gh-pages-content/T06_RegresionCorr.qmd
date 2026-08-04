@@ -51,7 +51,7 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 3. Evaluar el ajuste del modelo con $R^2$ y gráficos de residuos
 4. Distinguir entre IC (media) e IP (individuo) para predicciones
 5. Recordar que correlación no implica causalidad
-6. Usar `rls()` y `rlsm()` de BioEstatR para regresión en una línea
+6. Usar `rls()` y `rlm()` de BioEstatR para regresión en una línea
 :::
 
 
@@ -61,12 +61,16 @@ Dpto. Estadística e Investigación Operativa · Universidad de Granada
 
 | IMC | % Graso | | IMC | % Graso |
 |-----|---------|---|-----|---------|
-| 20.36 | 17.36 | | 21.72 | 25.62 |
-| 20.34 | 12.72 | | 19.29 | 20.91 |
-| 19.55 | 11.65 | | 23.07 | 17.81 |
-| 23.94 | 19.34 | | 27.45 | 29.70 |
-| 22.17 | 24.19 | | 24.37 | 15.26 |
-| 22.18 | 28.41 | | 17.30 | 8.87 |
+| 20.36 | 17.36 | | 19.29 | 20.91 |
+| 20.34 | 12.72 | | 23.07 | 17.81 |
+| 20.05 | 11.65 | | 27.45 | 29.70 |
+| 23.94 | 19.34 | | 24.91 | 25.43 |
+| 22.17 | 24.19 | | 22.69 | 18.62 |
+| 21.72 | 25.62 | | 21.15 | 23.15 |
+
+::: {.small}
+📥 **Datos:** [Descargar imc_graso.csv](data/imc_graso.csv) para replicar los análisis de este tema.
+:::
 
 ::: {.incremental}
 
@@ -110,10 +114,11 @@ Antes de cualquier análisis numérico: **visualizar** la relación.
 :::
 
 ```{r}
-imc <- c(20.36,20.34,19.55,23.07,23.94,27.45,
-         22.17,24.37,22.18,17.30,21.72,19.29)
-graso <- c(17.36,12.72,11.65,17.81,19.34,29.70,
-           24.19,15.26,28.41,8.87,25.62,20.91)
+# ⬇️ Carga desde archivo: df <- read.csv("data/imc_graso.csv"); imc <- df$imc; graso <- df$graso
+imc <- c(20.36,20.34,20.05,23.94,22.17,21.72,
+         19.29,23.07,27.45,24.91,22.69,21.15)
+graso <- c(17.36,12.72,11.65,19.34,24.19,25.62,
+           20.91,17.81,29.70,25.43,18.62,23.15)
 
 plot(imc, graso, pch=19, col="steelblue", cex=1.5,
      xlab="IMC (kg/m²)", ylab="% Masa Grasa",
@@ -138,10 +143,11 @@ plot(imc, graso, pch=19, col="steelblue", cex=1.5,
 
 :::
 
-## Diagnóstico visual: Patrones típicos
+## Diagnóstico visual: Patrones típicos (I)
 
 ```{r}
-par(mfrow=c(2,3), mar=c(4,4,3,1))
+#| fig-height: 5.5
+par(mfrow=c(2,2), mar=c(4,4,3,1))
 set.seed(123); n <- 50
 
 # 1. Relación lineal directa
@@ -161,8 +167,18 @@ plot(x,y3,pch=19,col="seagreen",main="No lineal (curva)",xlab="x",ylab="y")
 # 4. Sin relación
 y4 <- rnorm(n,0,1)
 plot(x,y4,pch=19,col="grey50",main="Sin relación",xlab="x",ylab="y")
+par(mfrow=c(1,1))
+```
+
+## Diagnóstico visual: Patrones típicos (II)
+
+```{r}
+#| fig-height: 5.2
+par(mfrow=c(1,2), mar=c(4,4,3,1))
+set.seed(123); n <- 50
 
 # 5. Heterocedasticidad
+x <- rnorm(n)
 y5 <- x + rnorm(n,0,abs(x)*0.8)
 plot(x,y5,pch=19,col="seagreen",main="Heterocedasticidad",xlab="x",ylab="y")
 
@@ -206,7 +222,7 @@ par(mfrow=c(1,1))
 ## ¿Cómo Funciona la Regresión? — Intuición Visual
 
 ```{r}
-#| fig-height: 5
+#| fig-height: 5.5
 set.seed(123); n <- 30
 x <- runif(n, 4, 14)
 y <- 2 + 0.6*x + rnorm(n, 0, 2)
@@ -240,6 +256,10 @@ par(mfrow=c(1,1))
 **Pregunta rápida:** Si dos variables clínicas tienen covarianza negativa, ¿qué significa? Da un ejemplo en fisioterapia donde esperarías encontrar covarianza negativa.
 :::
 
+::: {.callout-tip collapse="true"}
+**Respuesta:** Significa que cuando una variable aumenta, la otra disminuye. Ejemplo en fisioterapia: a más edad, menor flexión lumbar (covarianza negativa entre edad y ROM).
+:::
+
 ## Covarianza — La base de la regresión
 
 **Definición:** La covarianza mide cómo dos variables **varían conjuntamente**:
@@ -263,23 +283,9 @@ cat("Covarianza =", round(cov(x,y),3),
 
 **La covarianza indica la DIRECCIÓN de la relación.**
 
-## De la covarianza a la pendiente de regresión
-
-**Relación con la pendiente:** $\hat{\beta}_1 = \frac{\Cov(X,Y)}{\Var(X)} = \frac{S_{xy}}{S_{xx}}$
-
 ::: {.callout-note}
-**Intuición:** La covarianza te dice si $X$ e $Y$ van en la misma dirección (positiva) o en direcciones opuestas (negativa). La pendiente $\hat{\beta}_1$ va un paso más allá: te dice **cuánto** cambia $Y$ por cada unidad de cambio en $X$.
+**Intuición:** La covarianza te dice si $X$ e $Y$ van en la misma dirección (positiva) o en direcciones opuestas (negativa). La pendiente $\hat{\beta}_1$ va un paso más allá: te dice **cuánto** cambia $Y$ por cada unidad de cambio en $X$. La covarianza indica la DIRECCIÓN de la relación; la pendiente cuantifica su MAGNITUD.
 :::
-
-```{r}
-x<-c(4,5,8,10,12); y<-c(2,3,5,6,7)
-cat("Covarianza =", round(cov(x,y),3),
-    "\nVar(X) =", round(var(x),3),
-    "\nb1 = Cov/Var =", round(cov(x,y)/var(x),3),
-    "\nlm() b1 =", round(coef(lm(y~x))[2],3))
-```
-
-**La covarianza indica la DIRECCIÓN de la relación; la pendiente cuantifica su MAGNITUD.**
 
 ## $S_{xx}$, $S_{xy}$, $S_{yy}$ — Los Tres Pilares de la Regresión
 
@@ -302,7 +308,7 @@ Toda la regresión lineal se construye sobre **tres cantidades fundamentales** q
 **Intuición geométrica:** $S_{xx}$ es la suma de distancias horizontales al cuadrado. $S_{yy}$ es la suma de distancias verticales al cuadrado. $S_{xy}$ es el producto de ambas: positivo si $x$ e $y$ se mueven en la misma dirección, negativo si van en direcciones opuestas.
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 5.2
 x <- c(4,5,8,10,12); y <- c(2,3,5,6,7)
 par(mfrow=c(1,3), mar=c(4,4,3,1))
 # Sxx
@@ -372,6 +378,10 @@ El método de **mínimos cuadrados ordinarios (MCO)** produce la mejor estimaci�
 **Pregunta rápida:** Un modelo ajusta mejoría EVA = 2.0 + 0.8 × sesiones. ¿Cuánto mejora un paciente por cada 5 sesiones adicionales? ¿Tiene sentido clínico el intercepto ($\beta_0 = 2.0$) en este contexto si ningún paciente tiene 0 sesiones?
 :::
 
+::: {.callout-tip collapse="true"}
+**Respuesta:** 5 × 0.8 = 4 puntos de mejoría. El intercepto (β₀=2.0) tiene sentido limitado: representa la mejoría teórica con 0 sesiones, pero ningún paciente tiene 0 sesiones, y los datos no incluyen ese rango.
+:::
+
 ## Estimación por mínimos cuadrados ordinarios (MCO)
 
 ::: {.callout-note}
@@ -391,9 +401,9 @@ $$\hat{\beta}_1 = \frac{S_{xy}}{S_{xx}} = \frac{\sum(x_i-\bar{x})(y_i-\bar{y})}{
 **Derivación (Opcional — para quien quiera profundizar):** Se deriva $S(\beta_0,\beta_1) = \sum (y_i - \beta_0 - \beta_1 x_i)^2$ respecto a $\beta_0$ y $\beta_1$, se iguala a cero, y se obtienen las fórmulas de arriba. En este curso **siempre usaremos R** (`lm(y ~ x)`) en lugar de derivar a mano.
 :::
 ## Ajuste del modelo en R: Imc vs. % graso
-#| code-fold: false
 
 ```{r}
+
 modelo <- lm(graso ~ imc)
 summary(modelo)
 
@@ -414,11 +424,11 @@ par(mfrow=c(1,1))
 ```
 
 **Resultados:**
-- $\hat{\beta}_0 = -13.96$ (intercepto), $\hat{\beta}_1 = 1.52$ (pendiente)
-- $R^2 = 0.373$ (37.3% de variabilidad explicada), Error estándar residual $s = 5.55$
-- $P = 0.035$ (pendiente significativa)
+- $\hat{\beta}_0 = -12.42$ (intercepto), $\hat{\beta}_1 = 1.48$ (pendiente)
+- $R^2 = 0.416$ (41.6% de variabilidad explicada), Error estándar residual $s = 4.30$
+- $P = 0.023$ (pendiente significativa)
 
-**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.52 puntos porcentuales** (IC 95%: 0.13 a 2.92).
+**Interpretación:** Por cada unidad de aumento en el IMC (kg/m²), el % de masa grasa aumenta en **1.48 puntos porcentuales** (IC 95%: 0.25 a 2.72).
 
 ## Varianza residual — Lo que el modelo no explica
 
@@ -430,7 +440,7 @@ $$s^2 = \frac{SC_{res}}{n-2} = \frac{\sum_{i=1}^n (y_i - \hat{y}_i)^2}{n-2}, \qq
 
 **¿Por qué $n-2$?** Hemos estimado **2 parámetros** ($\beta_0$ y $\beta_1$) → "gastamos" 2 grados de libertad. Es el mismo principio que $n-1$ en la varianza muestral (Tema 3), pero con 2 restricciones en lugar de 1.
 
-**En el ejemplo IMC-Graso:** $s = 5.55$ significa que el modelo se equivoca típicamente en $\pm 5.55$ puntos porcentuales de grasa corporal al predecir desde el IMC.
+**En el ejemplo IMC-Graso:** $s = 4.30$ significa que el modelo se equivoca típicamente en $\pm 4.30$ puntos porcentuales de grasa corporal al predecir desde el IMC.
 
 ```{r}
 modelo <- lm(graso ~ imc)
@@ -445,7 +455,7 @@ cat("SC_res =", round(SC_res, 2), "| n-2 =", n-2,
 ## Interpretación de la pendiente — ¿qué significa $\beta_1$?
 
 ```{r}
-#| fig-height: 5
+#| fig-height: 5.2
 par(mfrow=c(1,3), mar=c(4,4,3,1))
 set.seed(123)
 
@@ -489,7 +499,7 @@ pred <- predict(modelo, newdata=data.frame(imc=new_x),
 lines(new_x, pred[,2], col="darkgreen", lty=2)
 lines(new_x, pred[,3], col="darkgreen", lty=2)
 
-#| code-fold: false
+
 # Predicción para IMC = 22
 predict(modelo, newdata=data.frame(imc=22))
 ```
@@ -523,13 +533,13 @@ $$r = \frac{S_{xy}}{\sqrt{S_{xx} \cdot S_{yy}}} = \frac{\sum(x_i-\bar{x})(y_i-\b
 | 0.90 – 1.00 | Muy fuerte |
 
 **En nuestro ejemplo (IMC vs. % graso):**
-- $r = 0.610$ → correlación **moderada**
-- $R^2 = 0.373$ → el IMC explica el **37.3%** de la variabilidad del % graso
+- $r = 0.645$ → correlación **moderada**
+- $R^2 = 0.416$ → el IMC explica el **41.6%** de la variabilidad del % graso
 
 ## Contraste de hipótesis para el coeficiente de correlación
 
 ::: {.callout-note}
-**¿Es significativa la correlación observada?** $r = 0.610$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
+**¿Es significativa la correlación observada?** $r = 0.645$ en 12 pacientes — ¿refleja una asociación real en la población ($\rho \neq 0$) o podría ser fruto del azar?
 :::
 
 **Hipótesis:**
@@ -540,20 +550,20 @@ $$H_1: \rho \neq 0 \quad \text{(existe correlación lineal)}$$
 $$t = \frac{r \sqrt{n-2}}{\sqrt{1-r^2}} \sim t_{n-2} \quad \text{bajo } H_0$$
 
 ::: {.framed}
-Para nuestro ejemplo ($r = 0.610$, $n = 12$):
-$$t = \frac{0.610 \sqrt{10}}{\sqrt{1 - 0.610^2}} = \frac{1.930}{0.792} = 2.437$$
-$$P = 2 \times P(T_{10} > 2.437) = 2 \times 0.0175 = 0.035$$
-:::
+Para nuestro ejemplo ($r = 0.645$, $n = 12$):
+$$t = \frac{0.645 \sqrt{10}}{\sqrt{1 - 0.645^2}} = \frac{2.040}{0.764} = 2.67$$
+$$P = 2 \times P(T_{10} > 2.67) = 0.023$$
 
-**Conclusión:** $P = 0.035 < 0.05$ → **rechazamos** $H_0$. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa.
+**Conclusión:** $P = 0.023 < 0.05$ → **rechazamos** $H_0$. Existe evidencia suficiente para afirmar que la correlación entre IMC y porcentaje de grasa corporal es estadísticamente significativa en la población de adolescentes.
+:::
 
 ::: {.callout-tip}
 **En R:** `cor.test(x, y)` realiza el test completo: $t$, gl, P-valor e IC 95% para $\rho$ (vía transformación $z$ de Fisher). La función `cortest()` de BioEstatR ofrece la misma funcionalidad.
 :::
 
 ```{r}
-# Datos disponibles en data/imc_graso_higado.csv
-# read.csv("data/imc_graso_higado.csv")
+# ⬇️ Los datos están disponibles en data/imc_graso.csv para descargar y practicar
+# df <- read.csv("data/imc_graso.csv"); cor.test(df$imc, df$graso)
 
 # Test de correlación de Pearson
 cor.test(imc, graso)
@@ -567,12 +577,13 @@ $$z = \frac{1}{2}\ln\left(\frac{1+r}{1-r}\right), \quad IC_{1-\alpha}(z_\rho) = 
 :::
 
 ::: {.callout-tip}
-**Pregunta para reflexionar:** $r = 0.610$ se considera "fuerte" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.8 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
+**Pregunta para reflexionar:** $r = 0.645$ se considera "moderado" en ciencias de la salud. ¿Por qué crees que en física o ingeniería una correlación de 0.6 podría considerarse débil? ¿Qué implicaciones tiene esto para la lectura de artículos en fisioterapia?
 :::
 
 ## Visualización de diferentes fuerzas de correlación
 
 ```{r}
+#| fig-height: 5.5
 par(mfrow=c(2,2), mar=c(4,4,3,1)); set.seed(123)
 rho_vals <- c(0, 0.5, 0.85, -0.85)
 labels <- c("r ≈ 0 (nula)", "r ≈ 0.5 (moderada)",
@@ -594,9 +605,9 @@ par(mfrow=c(1,1))
 ## Correlación en R: Pearson y Spearman
 
 ```{r}
-#| code-fold: false
+
 # Correlación de Pearson (paramétrica, lineal)
-cor(imc, graso)                    # r = 0.610
+cor(imc, graso)
 cor.test(imc, graso)               # Test H0: ρ = 0
 
 # Correlación de Spearman (no paramétrica, monótona)
@@ -611,7 +622,7 @@ cor.test(imc, graso, method="spearman")
 | **Robustez** | Sensible a atípicos | Robusta a atípicos |
 | **Supuestos** | Normalidad bivariante | Ninguno |
 
-## Correlación vs causalidad — Visualización
+## Correlación vs causalidad — Simulación
 
 ```{r}
 set.seed(123)
@@ -631,7 +642,9 @@ legend("topleft", c("X~Z","Y~Z"), col=c("coral","steelblue"), pch=19, bty="n")
 par(mfrow=c(1,1))
 ```
 
-**Lección:** X e Y están correladas ($r \approx 0.54$, $P < 0.001$), pero **no hay relación causal** entre ellas. Ambas dependen de Z. En investigación clínica, **siempre considerar confusores**.
+## Correlación vs causalidad — Lección
+
+**Lección:** X e Y están correladas ($r \approx 0.47$, $P < 0.001$), pero **no hay relación causal** entre ellas. Ambas dependen de Z. En investigación clínica, **siempre considerar confusores**.
 
 ::: {.callout-tip}
 **Actividad en pareja (3 min):** Buscad juntos un artículo científico en fisioterapia que use correlación o regresión. Identificad: (a) ¿qué variables se correlacionan? (b) ¿afirman causalidad los autores o solo asociación? (c) ¿se menciona algún posible confusor? Compartid un ejemplo con la clase.
@@ -695,7 +708,7 @@ predict(modelo, newdata = nuevo, interval = "prediction")
 - Para que una predicción sea aceptable debemos considerar la **variabilidad individual** (IP), no solo la media (IC), el valor que usamos para predecir tiene que estar en el rango de valores observados para esa variable en el modelo y el coeficiente de determinación tiene que ser aceptable ($\geq$ 0.7). 
 :::
 
-**Ejemplo clínico:** Para IMC=22, el % graso medio es 19.5% (IC 95%: 16.0% a 23.1%). Pero un paciente concreto con IMC=22 podría tener entre 6.7% y 32.4% de grasa (IP 95%).
+**Ejemplo clínico:** Para IMC=22, el % graso medio es 20.2% (IC 95%: 17.4% a 22.9%). Pero un paciente concreto con IMC=22 podría tener entre 10.2% y 30.1% de grasa (IP 95%).
 
 ::: {.callout-tip}
 **Pregunta para reflexionar:** Eres el fisioterapeuta de un paciente con IMC=28. ¿Usarías el IC de la media o el IP individual para comunicarle su % graso estimado? ¿Qué riesgos tiene usar el intervalo equivocado en la práctica clínica?
@@ -758,7 +771,7 @@ $S_{xy} = 207 - \frac{39 \times 23}{5} = 207 - 179.4 = 27.6$
 $S_{xx} = 349 - \frac{39^2}{5} = 349 - 304.2 = 44.8$
 $\hat{\beta}_1 = \frac{27.6}{44.8} = 0.616$
 
-**Paso 3: $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x} = 4.6 - 0.616 \times 7.8 = 4.6 - 4.80 = -0.20$**
+**Paso 3: $\hat{\beta}_0 = \bar{y} - \hat{\beta}_1\bar{x} = 4.6 - 0.616 \times 7.8 = 4.6 - 4.80 \approx -0.20$**
 
 **Ecuación:** $\widehat{\text{EVA}} = -0.20 + 0.616 \times \text{Sesiones}$
 
@@ -766,39 +779,14 @@ $\hat{\beta}_1 = \frac{27.6}{44.8} = 0.616$
 
 ```{r}
 x <- c(4,5,8,10,12); y <- c(2,3,5,6,7)
-modelo <- lm(y ~ x)
+modelo_eva <- lm(y ~ x)
 cat("Manual: b0=", round(mean(y)-cov(x,y)/var(x)*mean(x),2),
     " b1=", round(cov(x,y)/var(x),3),
-    "\nR: b0=", round(coef(modelo)[1],2), " b1=", round(coef(modelo)[2],3))
+    "\nR: b0=", round(coef(modelo_eva)[1],2), " b1=", round(coef(modelo_eva)[2],3))
 # BioEstatR: rls(y ~ x, data=data.frame(x,y))
 ```
 
-## Interpretacion detallada del modelo de regresión
-
-```{r}
-modelo <- lm(graso ~ imc)
-s <- summary(modelo)
-```
-
-**Tabla ANOVA:** Descompone la variabilidad total de $Y$:
-
-| Fuente | Suma Cuadrados | gl | Cuadrado Medio | F | P |
-|--------|---------------|----|----------------|-----|-----|
-| Regresión ($x$) | $SC_{reg}$ | 1 | $CM_{reg}$ | $CM_{reg}/CM_{res}$ | |
-| Residual | $SC_{res}$ | $n-2$ | $CM_{res} = s^2$ | | |
-| Total | $SC_{tot}$ | $n-1$ | | | |
-
-$$R^2 = \frac{SC_{reg}}{SC_{tot}} = 1 - \frac{SC_{res}}{SC_{tot}}$$
-
-```{r}
-#| code-fold: false
-anova_modelo <- anova(modelo)
-print(anova_modelo)
-cat("R² =", round(s$r.squared, 4),
-    "\nR² ajustado =", round(s$adj.r.squared, 4))
-```
-
-## Tabla ANOVA del modelo de regresión
+## Interpretación detallada del modelo y tabla ANOVA
 
 La tabla ANOVA descompone la variabilidad total de $Y$:
 
@@ -813,7 +801,7 @@ La tabla ANOVA descompone la variabilidad total de $Y$:
 $$F = \frac{CM_{reg}}{CM_{res}} \sim F_{1, n-2}$$
 
 ```{r}
-#| code-fold: false
+
 anova_modelo <- anova(modelo)
 print(anova_modelo)
 cat("\nR² =", round(summary(modelo)$r.squared, 4),
@@ -821,7 +809,7 @@ cat("\nR² =", round(summary(modelo)$r.squared, 4),
     "\nError estándar residual =", round(summary(modelo)$sigma, 2))
 ```
 
-**Interpretación:** $F(1,10) = 5.94$, $P = 0.035$ → La pendiente es significativamente distinta de cero ($P < 0.05$). El IMC **sí** predice el % de masa grasa.
+**Interpretación:** $F(1,10) = 7.14$, $P = 0.023$ → La pendiente es significativamente distinta de cero. El IMC **sí** predice el % de masa grasa.
 
 ## Inferencia sobre los coeficientes de regresión
 
@@ -876,51 +864,6 @@ par(mfrow=c(1,1))
 **Checklist del estudiante:** (1) Residuos vs Ajustados sin patrón → linealidad OK. (2) Puntos en diagonal → normalidad OK. (3) Dispersión constante → homocedasticidad OK. (4) Barras bajas → sin outliers influyentes.
 :::
 
-## Diagnóstico visual completo de residuos
-
-```{r}
-#| fig-height: 5.2
-#| fig-width: 8
-par(mfrow=c(2,3), mar=c(4,4,3,1))
-residuos <- residuals(modelo)
-ajustados <- fitted(modelo)
-
-# 1. Residuos vs Ajustados (homocedasticidad)
-plot(ajustados, residuos, pch=19, col="steelblue",
-     main="Residuos vs Ajustados", xlab="Ajustados", ylab="Residuos")
-abline(h=0, col="darkgreen", lty=2, lwd=2)
-
-# 2. Q-Q Normal (normalidad)
-qqnorm(residuos, pch=19, col="steelblue", main="Q-Q Normal")
-qqline(residuos, col="darkgreen", lwd=2)
-
-# 3. Scale-Location (homocedasticidad)
-plot(ajustados, sqrt(abs(rstandard(modelo))), pch=19, col="steelblue",
-     main="Scale-Location", xlab="Ajustados", ylab=expression(sqrt("|Residuos estand.|")))
-
-# 4. Residuos vs Leverage (influencia)
-plot(hatvalues(modelo), rstandard(modelo), pch=19, col="steelblue",
-     main="Residuos vs Leverage", xlab="Leverage", ylab="Residuos estand.")
-
-# 5. Cook's distance
-plot(cooks.distance(modelo), type="h", lwd=3, col="seagreen",
-     main="Distancia de Cook", xlab="Observación", ylab="Cook's D")
-abline(h=4/length(imc), col="darkgreen", lty=2)
-
-# 6. Histograma de residuos
-hist(residuos, col="steelblue", border="white", breaks=8,
-     main="Histograma de Residuos", xlab="Residuos", freq=FALSE)
-curve(dnorm(x,0,sd(residuos)), add=TRUE, col="darkgreen", lwd=2)
-par(mfrow=c(1,1))
-```
-
-**Qué buscar en cada gráfico:**
-1. **Residuos vs Ajustados:** Nube sin patrón → linealidad + homocedasticidad ✓
-2. **Q-Q Normal:** Puntos cerca de la diagonal → normalidad ✓
-3. **Scale-Location:** Línea horizontal → homocedasticidad ✓
-4. **Leverage:** Puntos alejados en $x$ y $y$ → outliers + influyentes
-5. **Cook's D:** Barras altas → observaciones que cambian sustancialmente el modelo
-
 ## Cuarteto de anscombe — Por qué los gráficos importan [@anscombe1973]
 
 Los cuatro conjuntos de datos de Anscombe tienen **estadísticas idénticas** ($\bar{x}$, $\bar{y}$, $s_x$, $s_y$, $r$, recta de regresión) pero patrones **completamente diferentes**.
@@ -958,7 +901,7 @@ par(mfrow=c(1,1))
 - **Cook's $D_i$:** Mide cuánto cambian TODOS los coeficientes si eliminamos la observación $i$. Valores > 1 son influyentes.
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 5.2
 set.seed(42)
 x_cook <- c(1:10, 20); y_cook <- c(2+0.5*(1:10)+rnorm(10,0,0.5), 5)
 modelo_cook <- lm(y_cook ~ x_cook)
@@ -1005,7 +948,7 @@ legend("topleft",
 
 ::: {.callout-important}
 - **IC (banda azul):** Incertidumbre sobre la **media** de $Y$ dado $X=x$. Más estrecha, converge a la recta con $n$ grande.
-- **IP (banda naranja):** Incertidumbre sobre una **nueva observación individual**. Más ancha, incluye la variabilidad residual $\sigma^2$ y **no converge** a cero al aumentar $n$.
+- **IP (banda verde):** Incertidumbre sobre una **nueva observación individual**. Más ancha, incluye la variabilidad residual $\sigma^2$ y **no converge** a cero al aumentar $n$.
 :::
 
 
@@ -1015,13 +958,13 @@ legend("topleft",
 Cuando tenemos **más de dos variables**, la matriz de correlaciones resume todas las asociaciones lineales por pares en una sola tabla. Es una herramienta exploratoria fundamental antes de construir modelos de regresión.
 :::
 
-**Ejemplo clínico — Datos de 12 adolescentes (15–19 años):**
+**Ejemplo clínico — Datos simulados de 12 adolescentes (15–19 años):**
 
 ```{r}
-#| fig-height: 5
-# Datos ampliados: a las variables originales (IMC, % graso) se añaden Edad, Fuerza prensil (kg) y EVA dolor (0-10)
+#| fig-height: 5.2
+# Datos ampliados: mismos 12 pacientes del ejemplo IMC-Graso con Edad, Fuerza prensil (kg) y EVA dolor (0-10)
 datos_clinicos <- data.frame(
-  IMC   = c(20.36, 20.34, 19.55, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
+  IMC   = c(20.36, 20.34, 20.05, 23.94, 22.17, 21.72, 19.29, 23.07, 27.45, 24.91, 22.69, 21.15),
   Graso = c(17.36, 12.72, 11.65, 19.34, 24.19, 25.62, 20.91, 17.81, 29.70, 25.43, 18.62, 23.15),
   Edad  = c(15, 16, 15, 18, 17, 16, 15, 17, 19, 18, 16, 17),
   Fuerza = c(28, 30, 25, 38, 35, 32, 22, 40, 45, 42, 31, 34),
@@ -1032,29 +975,25 @@ datos_clinicos <- data.frame(
 **Matriz de correlaciones de Pearson:**
 
 ```{r}
+
 R <- cor(datos_clinicos)
-round(R, 3)
+knitr::kable(round(R, 3), format = "pipe", align = "c",
+             caption = "Matriz de correlaciones — Datos clínicos")
 ```
 
-| | IMC | % Graso | Edad | Fuerza | EVA |
-|:--|:---:|:-------:|:----:|:------:|:---:|
-| **IMC** | 1.000 | **0.610** | 0.796 | 0.884 | 0.753 |
-| **% Graso** | | 1.000 | 0.683 | 0.721 | 0.847 |
-| **Edad** | | | 1.000 | 0.857 | 0.618 |
-| **Fuerza** | | | | 1.000 | 0.690 |
-| **EVA** | | | | | 1.000 |
-
 ::: {.incremental}
-- **Correlación más fuerte:** IMC ↔ Fuerza prensil ($r = 0.884$)
-- **Correlación más débil:** Edad ↔ EVA ($r = 0.618$)
-- **Patrón esperado:** variables antropométricas correlacionadas entre sí (IMC, % graso, fuerza, edad)
-- **Hallazgo clínico:** EVA correlaciona con % graso ($r = 0.847$) — posible mediación del dolor por composición corporal
+- **Correlación más fuerte:** Edad ↔ Fuerza prensil ($r = 0.948$) — lógico: a mayor edad, más desarrollo muscular en adolescentes
+- **Correlación más débil:** IMC ↔ EVA ($r = 0.578$) — el dolor no depende directamente del IMC
+- **Patrón esperado:** variables antropométricas correlacionadas entre sí (IMC, Edad, Fuerza — bloque somatométrico)
+- **Hallazgo clínico:** EVA correlaciona con % graso ($r = 0.939$) — posible mediación del dolor por composición corporal
+- **Alerta de colinealidad:** IMC–Edad ($r = 0.916$) y Edad–Fuerza ($r = 0.948$) superan 0.90 → no incluir las tres juntas en regresión múltiple
 :::
 
 **Representación visual — mapa de calor (heatmap):**
 
 ```{r}
-#| fig-height: 4.5
+#| fig-height: 5.2
+if (!requireNamespace("corrplot", quietly = TRUE)) install.packages("corrplot")
 colores <- colorRampPalette(c("#2166ac", "white", "#b2182b"))(200)
 corrplot::corrplot(R, method = "color", type = "upper",
                    col = colores, addCoef.col = "black",
@@ -1081,14 +1020,14 @@ $$y_i = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \cdots + \beta_k x_{ik} + \v
 
 ```{r}
 #| eval: false
-# Ejemplo: % graso ~ IMC + edad + sexo
-modelo_mult <- lm(graso ~ imc + edad + sexo, data = df)
+# Ejemplo: % graso ~ IMC + Edad (+ Fuerza)
+modelo_mult <- lm(Graso ~ IMC + Edad, data = datos_clinicos)
 summary(modelo_mult)
 
-# BioEstatR
-if (!requireNamespace("BioEstatR", quietly = TRUE)) install.packages("BioEstatR")
+# Con BioEstatR — todo en un solo comando
 library(BioEstatR)
-```
+rlm(Graso ~ IMC + Edad, data = datos_clinicos)
+# rlm() produce: coeficientes + IC + R² ajustado + test F + gráficos de diagnóstico
 
 - **$R^2$ ajustado:** penaliza por el número de predictores (mejor que $R^2$)
 - **Colinealidad:** predictores muy correlacionados → estimaciones inestables
@@ -1132,7 +1071,7 @@ donde $k$ = número de parámetros. Penaliza la complejidad. Menor AIC = mejor m
 **En Fisioterapia:** al predecir recuperación funcional, incluir demasiadas variables (edad, sexo, IMC, comorbilidades, motivación...) puede llevar a sobreajuste si $n$ es pequeño. Usar $R^2_{adj}$ y AIC para guiar la selección.
 :::
 
-Referencia: Akaike, H. (1974). A new look at the statistical model identification. IEEE Trans. Autom. Control, 19(6), 716-723.*
+*Referencia:* Akaike, H. (1974). A new look at the statistical model identification. *IEEE Trans. Autom. Control*, 19(6), 716–723.
 
 
 ## R base vs BioEstatR — Comparativa para regresión
@@ -1202,11 +1141,12 @@ rls(graso ~ imc, data = df)
 
 ---
 
+
+## La regresión como marco unificador de todo el curso
+
 **Referencias complementarias del libro:**
 
 - Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Cap. 9-10: Regresión y Correlación (Semanas 9-10).
-
-## La regresión como marco unificador de todo el curso
 
 ::: {.callout-important}
 **Todo lo aprendido en los 6 temas converge en la regresión.** Cada test puede verse como un caso particular de un modelo de regresión.
@@ -1227,17 +1167,17 @@ rls(graso ~ imc, data = df)
 - En investigación clínica en fisioterapia, el análisis casi siempre culmina en un modelo de **regresión** (lineal, logística o de supervivencia)
 :::
 
-::: {.exercise}
 ## Ejercicio clínico — Regresión lineal en fisioterapia
 
-Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje de masa grasa en 30 pacientes sedentarios. Los datos están en `grasa_imc.csv`. El análisis con `rls(grasa ~ imc)` produce:
+::: {.exercise}
+Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje de masa grasa en 12 pacientes. Los datos están en `data/imc_graso.csv`. El modelo ajustado es:
 
-- $\hat{\beta}_0 = -12.4$, $\hat{\beta}_1 = 1.65$, $R^2 = 0.72$
-- $P < 0.001$ para $\beta_1$, IC 95% para $\beta_1$: (1.23, 2.07)
+- $\hat{\beta}_0 = -12.42$, $\hat{\beta}_1 = 1.48$, $R^2 = 0.416$
+- $P = 0.023$ para $\beta_1$, IC 95% para $\beta_1$: (0.25, 2.72)
 
 1. Interpreta $\hat{\beta}_1$ en lenguaje clínico: ¿cuánto aumenta el % de grasa por cada unidad de IMC?
-2. ¿Qué significa $R^2 = 0.72$ en este contexto?
-3. Predice el % de grasa para un paciente con IMC = 28 usando la ecuación: $\hat{y} = -12.4 + 1.65 \times 28$.
+2. ¿Qué significa $R^2 = 0.416$ en este contexto?
+3. Predice el % de grasa para un paciente con IMC = 28 usando la ecuación: $\hat{y} = -12.42 + 1.48 \times 28$.
 4. ¿Puedes afirmar que el IMC **causa** un aumento del % de grasa? ¿Por qué?
 :::
 
@@ -1247,56 +1187,80 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 - [@bioestatr2026] — Femia, P. & Luque-Fernández, M. A. (2026). *BioEstatR: Biostatistics Routines in R*. R package. Universidad de Granada.
 - [@luque2026] — Luque-Fernández, M. A. (2026). *Matemáticas para la Estadística Médica con R*. Universidad de Granada.
 - [@pearson1895] — Pearson, K. (1895). Note on regression and inheritance in the case of two parents. *Proc. R. Soc. Lond.*, 58, 240–242.
-- [@spearman1904] — Spearman, C. (1904). The proof and measurement of association between two things. *Am. J. Psychol.*, 15(1), 72101.
+- [@spearman1904] — Spearman, C. (1904). The proof and measurement of association between two things. *Am. J. Psychol.*, 15(1), 72–101.
 - [@anscombe1973] — Anscombe, F. J. (1973). Graphs in statistical analysis. *Am. Stat.*, 27(1), 17–21.
 - [@gauss1809] — Gauss, C. F. (1809). *Theoria motus corporum coelestium*. (Mínimos cuadrados).
 - [@legendre1805] — Legendre, A. M. (1805). *Nouvelles méthodes pour la détermination des orbites des comètes*.
 - [@draper1998] — Draper, N. R. & Smith, H. (1998). *Applied Regression Analysis* (3rd ed.). Wiley.
 - [@harrell2015] — Harrell, F. E. (2015). *Regression Modeling Strategies* (2nd ed.). Springer.
 :::
----
 
 ---
 
-## Ejercicio Clínico — Tema VI
+## Ejercicio Clínico — Tema VI {.small}
 
-**Contexto:** Relación edad-flexión lumbar en 10 pacientes. $\hat{Y} = 85 - 0.6X$, $R^2 = 0.64$.
+**Contexto:** Un fisioterapeuta mide la flexión lumbar (°) en 10 pacientes de distintas edades.
 
-1. Interpreta la pendiente ($-0.6$) en términos clínicos
-2. Predicción para 50 años
-3. Significado de $R^2$
+::: {.small}
+📥 **Descarga los datos:** [flexion_edad.csv](data/flexion_edad.csv)
+
+| Paciente | Edad (años) | Flexión lumbar (°) |
+|:--------:|:-----------:|:-------------------:|
+| 1 | 25 | 68.3 |
+| 2 | 30 | 66.3 |
+| 3 | 35 | 68.7 |
+| 4 | 40 | 61.2 |
+| 5 | 45 | 58.4 |
+| 6 | 50 | 60.1 |
+| 7 | 55 | 53.4 |
+| 8 | 60 | 45.2 |
+| 9 | 65 | 43.9 |
+| 10 | 70 | 41.7 |
+:::
+
+::: {.incremental}
+1. **Diagrama de dispersión:** ¿qué relación observas entre edad y flexión?
+2. **Ajusta el modelo:** `lm(flexion_lumbar ~ edad, data = df)` e interpreta $\hat{\beta}_1$
+3. **Predicción:** ¿qué flexión lumbar esperas en un paciente de 50 años?
+4. **Bondad de ajuste:** ¿qué significa $R^2 = 0.927$ en este contexto?
+:::
 
 ::: {.callout-tip}
-**Solución**
+**Solución** [Clica en «Mostrar código R» para ver el análisis completo]
 
-1. Por cada año más de edad, la flexión disminuye 0.6° en promedio
-2. $\hat{Y}(50) = 85 - 0.6 \times 50 = 85 - 30 = 55°$
-3. El 64% de la variabilidad en flexión se explica por la edad; el 36% por otros factores
+1. Relación **lineal inversa**: a más edad, menor flexión lumbar
+2. $\hat{\beta}_1 = -0.65$ (IC 95%: $[-0.80, -0.50]$) → por cada año más de edad, la flexión lumbar disminuye **0.65°** en promedio ($P < 0.001$)
+3. $\hat{Y}(50) = 87.5 - 0.65 \times 50 = 55.1°$
+4. $R^2 = 0.927$ → el **92.7%** de la variabilidad en flexión lumbar se explica por la edad
 
 ```{r}
-#| fig-height: 5.5
-set.seed(123)
-edad <- seq(25, 70, length.out=10)
-flexion <- 85 - 0.6*edad + rnorm(10, 0, 3)
-modelo <- lm(flexion ~ edad)
-pred_50 <- predict(modelo, data.frame(edad=50))
-
-plot(edad, flexion, pch=19, col="steelblue", cex=1.5,
-     main=paste0("R²=", round(summary(modelo)$r.squared,2),
-                 "  Y=", round(coef(modelo)[1],1), "+", round(coef(modelo)[2],2),"X"),
-     xlab="Edad (años)", ylab="Flexión lumbar (°)")
-abline(modelo, col="darkgreen", lwd=2.5)
-# Banda de confianza
+#| fig-height: 5
+# 1. Leer datos
+df <- read.csv("data/flexion_edad.csv")
+# 2. Diagrama de dispersión + recta de regresión
+plot(df$edad, df$flexion_lumbar, pch=19, col="steelblue", cex=1.3,
+     xlab="Edad (años)", ylab="Flexión lumbar (°)",
+     main="Flexión lumbar vs. Edad (n = 10)")
+modelo_flexion <- lm(flexion_lumbar ~ edad, data = df)
+abline(modelo_flexion, col="darkgreen", lwd=2.5)
+# 3. Resumen del modelo
+s_flex <- summary(modelo_flexion)
+# 4. Predicción a 50 años
+pred_50 <- predict(modelo_flexion, data.frame(edad=50))
+points(50, pred_50, pch=19, col="coral", cex=2.5)
+text(50, pred_50+2, paste0(round(pred_50,1),"°"), col="coral", font=2, pos=3)
+# 5. Banda de confianza
 newx <- seq(25, 70, length=50)
-preds <- predict(modelo, data.frame(edad=newx), interval="confidence")
+preds <- predict(modelo_flexion, data.frame(edad=newx), interval="confidence")
 polygon(c(newx, rev(newx)), c(preds[,2], rev(preds[,3])),
         col=rgb(0,0.5,0.3,0.08), border=NA)
-# Predicción destacada
-points(50, pred_50, pch=19, col="coral", cex=2.5)
-text(50, pred_50+0.5, paste0(round(pred_50,1),"°"), col="coral", font=2, pos=3)
 
-cat("R² =", round(summary(modelo)$r.squared,3),
-    "\nPredicción 50 años:", round(pred_50,1), "°")
+cat("R² =", round(s_flex$r.squared, 3),
+    "\nβ₀ =", round(coef(modelo_flexion)[1], 1),
+    "\nβ₁ =", round(coef(modelo_flexion)[2], 2),
+    "\nIC 95% β₁ = [", round(confint(modelo_flexion)[2,1],2), ",", round(confint(modelo_flexion)[2,2],2), "]",
+    "\nPredicción 50 años:", round(pred_50,1), "°",
+    "\nP =", format(s_flex$coefficients[2,4], digits=3))
 ```
 :::
 ---
@@ -1308,10 +1272,12 @@ cat("R² =", round(summary(modelo)$r.squared,3),
 ```{r}
 #| eval: false
 # Datos
-imc <- c(22, 25, 28, 24, 30, 27, 26, 32, 29, 31)
-graso <- c(18, 22, 26, 20, 30, 24, 23, 33, 27, 31)
+imc <- c(20.36,20.34,20.05,23.94,22.17,21.72,
+         19.29,23.07,27.45,24.91,22.69,21.15)
+graso <- c(17.36,12.72,11.65,19.34,24.19,25.62,
+           20.91,17.81,29.70,25.43,18.62,23.15)
 
-#| code-fold: false
+
 # Correlación de Pearson
 cor(imc, graso)
 cor.test(imc, graso)                      # Test de significación
@@ -1352,7 +1318,7 @@ summary(modelo)$r.squared                 # Proporción de varianza explicada
 
 ```{r}
 #| eval: false
-#| code-fold: false
+
 # Gráficos de diagnóstico
 par(mfrow = c(2, 2))
 plot(modelo)                              # 4 gráficos de diagnóstico

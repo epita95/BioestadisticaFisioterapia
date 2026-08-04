@@ -1,5 +1,19 @@
 project:
   type: website
+  render:
+    - index.qmd
+    - T01_I_Descriptiva.qmd
+    - T01_II_Descriptiva.qmd
+    - T02_I_Probabilidad.qmd
+    - T02_II_Probabilidad.qmd
+    - T03_Estimacion_IC.qmd
+    - T04_I_Test_Hipotesis.qmd
+    - T04_II_Test_Hipotesis.qmd
+    - T05_ChiCuadrado.qmd
+    - T06_RegresionCorr.qmd
+
+exclude:
+  - gh-pages-content
 
 website:
   title: "Bioestadística para Fisioterapia"
@@ -16,14 +30,20 @@ website:
     left:
       - text: "Inicio"
         href: index.qmd
-      - text: "T01: Descriptiva"
-        href: T01_Descriptiva.qmd
-      - text: "T02: Probabilidad"
-        href: T02_Probabilidad.qmd
+      - text: "T01: Descriptiva (I)"
+        href: T01_I_Descriptiva.qmd
+      - text: "T01: Descriptiva (II)"
+        href: T01_II_Descriptiva.qmd
+      - text: "T02: Probabilidad (I)"
+        href: T02_I_Probabilidad.qmd
+      - text: "T02: Probabilidad (II)"
+        href: T02_II_Probabilidad.qmd
       - text: "T03: Estimación"
         href: T03_Estimacion_IC.qmd
-      - text: "T04: Test Hipótesis"
-        href: T04_Test_Hipotesis.qmd
+      - text: "T04: Test Hipótesis (I)"
+        href: T04_I_Test_Hipotesis.qmd
+      - text: "T04: Test Hipótesis (II)"
+        href: T04_II_Test_Hipotesis.qmd
       - text: "T05: Chi-Cuadrado"
         href: T05_ChiCuadrado.qmd
       - text: "T06: Regresión"
@@ -110,9 +130,6 @@ format:
           }
         };
         </script>
-
-  pdf:
-    include-in-header: pdf-macros.tex
 
 execute:
   warning: false

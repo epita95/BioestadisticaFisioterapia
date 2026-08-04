@@ -958,6 +958,7 @@ np(x = 18, n = 40, d = 0.05, conf = 0.95) # para proporción
 :::
 
 ---
+
 **Referencias complementarias del libro:**
 
 ::: {.reference-box}
