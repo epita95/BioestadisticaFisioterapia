@@ -92,8 +92,8 @@ var.test(g1, g2)
 
 ```{r}
 #| fig-height: 4.5
-curve(df(x,5,5), 0, 4, lwd=3, col="steelblue", main="Distribución F(5,5)")
-abline(v=c(qf(0.025,5,5), qf(0.975,5,5)), col="darkgreen", lty=2)
+curve(df(x,5,6), 0, 4, lwd=3, col="steelblue", main="Distribución F(5,6)")
+abline(v=c(qf(0.025,5,6), qf(0.975,5,6)), col="darkgreen", lty=2)
 ```
 
 ## Test para dos proporciones independientes
@@ -142,7 +142,7 @@ for(i in 1:5) lines(c(1,2), c(a[i],d[i]), col=i, lty=2)
 
 ## Test pareado para medias
 
-$d_i = x_{i1} - x_{i2}$; $t = \bar{d}/(s_d/\sqrt{n}) \sim t_{n-1}$
+$d_i = x_{i,\text{después}} - x_{i,\text{antes}}$; $t = \bar{d}/(s_d/\sqrt{n}) \sim t_{n-1}$
 
 **Ejemplo — EVA-dolor pre/post fisioterapia (n=5):**
 
@@ -154,8 +154,8 @@ $d_i = x_{i1} - x_{i2}$; $t = \bar{d}/(s_d/\sqrt{n}) \sim t_{n-1}$
 
 ```{r}
 a<-c(7,8,6,9,7); d<-c(4,5,3,6,5)
-t.test(a, d, paired=TRUE)
-# BioEstatR: testt(m = a, m1 = d, par = TRUE)
+t.test(d, a, paired=TRUE)
+# BioEstatR: testt(m = d, m1 = a, par = TRUE)
 ```
 
 $\bar{d}=-2.8$, $t=-14.0$, $P<0.001$ → Reducción significativa del dolor.
@@ -641,7 +641,7 @@ t.test(jovenes, ancianos, var.equal = TRUE)
 t.test(jovenes, ancianos)
 ```
 
-**Paso 4 — Interpretación:** La diferencia observada en la simulación (~95.5 pg/mL) es significativa (P = 0.015, t de Student; F no significativo → varianzas asumibles). El IC 95% para $\mu_1 - \mu_2$ es (20.6, 170.4) y no contiene 0.
+**Paso 4 — Interpretación:** La diferencia observada en la simulación (~95.5 pg/mL) es significativa (P = 0.015, t de Student; F no significativo → varianzas asumibles). El IC 95% para $\mu_1 - \mu_2$ es (19.6, 171.4) y no contiene 0.
 
 ## Tamaño del efecto — D de cohen y omega Cuadrado
 

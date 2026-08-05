@@ -490,7 +490,7 @@ tumor <- matrix(c(23,9,6,21,4,3,34,24,17), nrow=3, byrow=TRUE)
 chi2 <- chisq.test(tumor)
 cat("χ²exp =", round(chi2$statistic,2), "| gl =", chi2$parameter,
     "| P =", round(chi2$p.value,4))
-# χ²exp = 7.64, gl = 4, P = 0.106 → No significativo (pero hay indicios)
+# χ²exp = 7.84, gl = 4, P = 0.0975 → No significativo (pero hay indicios)
 ```
 
 ## Importancia del caso $2 \times 2$

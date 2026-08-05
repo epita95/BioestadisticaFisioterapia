@@ -1230,7 +1230,7 @@ Un fisioterapeuta investiga la relación entre el IMC (kg/m²) y el porcentaje d
 
 1. Relación **lineal inversa**: a más edad, menor flexión lumbar
 2. $\hat{\beta}_1 = -0.65$ (IC 95%: $[-0.80, -0.50]$) → por cada año más de edad, la flexión lumbar disminuye **0.65°** en promedio ($P < 0.001$)
-3. $\hat{Y}(50) = 87.5 - 0.65 \times 50 = 55.1°$
+3. Usando los coeficientes sin redondear, $\hat{Y}(50) = 87.5461 - 0.64897 \times 50 \approx 55.1°$
 4. $R^2 = 0.927$ → el **92.7%** de la variabilidad en flexión lumbar se explica por la edad
 
 ```{r}

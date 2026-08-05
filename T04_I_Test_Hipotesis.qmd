@@ -578,20 +578,20 @@ par(mfrow=c(1,1))
 
 **Paso 2 — Condiciones:** $np_0 = 287 \times 0.22 = 63.14 > 5$ ✓; $nq_0 = 287 \times 0.78 = 223.86 > 5$ ✓
 
-**Paso 3 — Estadístico:** $z = \frac{x - np_0 - 0.5}{\sqrt{np_0q_0}} = \frac{48 - 63.14 - 0.5}{\sqrt{287 \times 0.22 \times 0.78}} = -2.09$
+**Paso 3 — Estadístico:** $z = \frac{x - np_0 + 0.5}{\sqrt{np_0q_0}} = \frac{48 - 63.14 + 0.5}{\sqrt{287 \times 0.22 \times 0.78}} = -2.09$
 
 **Paso 4 — P-valor:** $0.03 < P < 0.04$ → **Rechazamos H0** ($P < 0.05$)
 
 ```{r}
 x<-48; n<-287; p0<-0.22
-z<-(x - n*p0 - 0.5)/sqrt(n*p0*(1-p0))
+z<-(x - n*p0 + 0.5)/sqrt(n*p0*(1-p0))
 P<-2*pnorm(-abs(z))
 cat("z =", round(z,3), "P =", round(P,4))
 ```
 
 **Conclusión:** La prevalencia ha cambiado significativamente. IC 95% Wilson: (12.7%, 21.7%). El 22% de 2012 no esta en el IC → confirmación visual.
 
-**Si los datos hubieran sido x=34, n=200:** $z=-1.79$, $0.07 < P < 0.08$ → NO significativo (indicios).
+**Si los datos hubieran sido x=34, n=200:** $z=-1.62$, $0.10 < P < 0.11$ → NO significativo (indicios).
 
 ## Test para una proporción
 

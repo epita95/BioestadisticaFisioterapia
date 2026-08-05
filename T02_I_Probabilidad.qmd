@@ -962,7 +962,7 @@ Este patrón se repite para todas las distribuciones: `dbinom`, `pbinom`, `qbino
 **Solución**
 
 1. $VPP = \frac{0.90 \times 0.15}{0.90 \times 0.15 + 0.15 \times 0.85} = \frac{0.135}{0.2625} = \mathbf{51.4\%}$
-2. La baja prevalencia (15%) hace que los falsos positivos dominen
+2. La baja prevalencia (15%) hace que los falsos positivos sean casi tan numerosos como los verdaderos positivos, reduciendo el VPP al 51.4%
 
 ```{r}
 #| fig-height: 5
